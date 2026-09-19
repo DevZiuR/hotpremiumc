@@ -606,7 +606,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => toggleDropdown("lead-programs")}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13.5px] font-medium transition-colors duration-150 ${scrolled
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[15px] font-medium transition-colors duration-150 ${scrolled
                   ? openMenu === "lead-programs"
                     ? "text-white bg-white/10"
                     : "text-white/70 hover:text-white hover:bg-white/10"
@@ -712,7 +712,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => toggleDropdown("verticals")}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13.5px] font-medium transition-colors duration-150 ${scrolled
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[15px] font-medium transition-colors duration-150 ${scrolled
                   ? openMenu === "verticals"
                     ? "text-white bg-white/10"
                     : "text-white/70 hover:text-white hover:bg-white/10"
@@ -946,7 +946,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => toggleDropdown("states")}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13.5px] font-medium transition-colors duration-150 ${scrolled
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[15px] font-medium transition-colors duration-150 ${scrolled
                   ? openMenu === "states"
                     ? "text-white bg-white/10"
                     : "text-white/70 hover:text-white hover:bg-white/10"
@@ -1138,7 +1138,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => toggleDropdown("resources")}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13.5px] font-medium transition-colors duration-150 ${scrolled
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[15px] font-medium transition-colors duration-150 ${scrolled
                   ? openMenu === "resources"
                     ? "text-white bg-white/10"
                     : "text-white/70 hover:text-white hover:bg-white/10"
