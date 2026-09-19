@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/Button";
+import { CropMarkFrame } from "@/components/ui/CropMarkFrame";
 
 const faqs = [
   {
@@ -52,9 +53,14 @@ export function FAQSection() {
   };
 
   return (
-    <section className="bg-[#f4f5f7] py-16 sm:py-24 md:py-36 lg:py-48 border-b border-gray-200/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 border-x border-dashed border-gray-200/80">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20 items-start">
+    <section className="bg-[#f4f5f7] py-16 sm:py-24 md:py-28 lg:py-36 border-b border-gray-200/80">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+        {/* Crop-mark corner registration brackets — matches GlobalCoverage & AboutMax */}
+        <div className="absolute -inset-y-5 sm:-inset-y-8 inset-x-0 sm:inset-x-4 lg:inset-x-8 pointer-events-none">
+          <CropMarkFrame />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20 items-start relative">
           {/* ── Left Column: Sticky Title & Support Callout ── */}
           <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">
             <Reveal>
@@ -72,7 +78,7 @@ export function FAQSection() {
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal text-black tracking-tight sm:tracking-normal leading-[1.12] sm:leading-[1.08] mb-4 sm:mb-6">
                 Questions worth answering before you apply
               </h2>
-
+              {/* this is the div that should be added after the FAQTitle*/}
               {/* Support Contact Box */}
               <div className="pt-2">
                 <h3 className="font-sans text-[15px] sm:text-[16px] font-semibold text-black mb-1">
@@ -94,7 +100,9 @@ export function FAQSection() {
           </div>
 
           {/* ── Right Column: Accordion List ── */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 relative">
+            {/* Vertical divider — desktop only, matches the structured column feel */}
+            <div className="hidden lg:block absolute -left-8 xl:-left-10 top-0 bottom-0 w-px bg-[#12151B]/10" aria-hidden="true" />
             <div className="space-y-2 sm:space-y-2.5">
               {faqs.map((faq, index) => {
                 const isOpen = openIndex === index;
