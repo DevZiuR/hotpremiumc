@@ -93,7 +93,7 @@ export function AboutSection({
 
         {/* Main Statement Headline with Clean Single-Layer Scroll Reveal */}
         <div className="w-full">
-          <h2 className="font-serif text-xl sm:text-2xl md:text-[28px] lg:text-[32px] text-white tracking-tight leading-[1.34] md:leading-[1.3] max-w-4xl mx-auto mb-0">
+          <h2 className="font-serif text-xl sm:text-2xl md:text-[38px] lg:text-[38px] text-white tracking-tight leading-[1.34] md:leading-[1.3] max-w-4xl mx-auto mb-0">
             {allWords.map((item, i) => {
               const start = startBound + i * step;
               const end = Math.min(0.98, start + 0.14);
