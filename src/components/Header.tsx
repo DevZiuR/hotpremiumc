@@ -1277,42 +1277,42 @@ export function Header() {
               </Button>
             </div>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Mobile Hamburger Toggle — animated morph */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 rounded-lg bg-black text-white hover:bg-neutral-800 transition-colors"
+              className="xl:hidden p-2.5 rounded-lg bg-black text-white hover:bg-neutral-800 transition-colors focus:outline-none"
               aria-label="Toggle Menu"
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
+              <span className="flex flex-col justify-center items-center w-5 h-5 gap-[5px] relative">
+                {/* Top bar */}
+                <span
+                  className="block h-[1.75px] w-5 bg-white rounded-full origin-center transition-all duration-300 ease-in-out"
+                  style={{
+                    transform: mobileMenuOpen
+                      ? "translateY(6.75px) rotate(45deg)"
+                      : "none",
+                  }}
+                />
+                {/* Middle bar */}
+                <span
+                  className="block h-[1.75px] w-5 bg-white rounded-full transition-all duration-200 ease-in-out"
+                  style={{
+                    opacity: mobileMenuOpen ? 0 : 1,
+                    transform: mobileMenuOpen ? "scaleX(0)" : "none",
+                  }}
+                />
+                {/* Bottom bar */}
+                <span
+                  className="block h-[1.75px] w-5 bg-white rounded-full origin-center transition-all duration-300 ease-in-out"
+                  style={{
+                    transform: mobileMenuOpen
+                      ? "translateY(-6.75px) rotate(-45deg)"
+                      : "none",
+                  }}
+                />
+              </span>
             </button>
           </div>
         </div>
@@ -1606,27 +1606,13 @@ export function Header() {
             </div>
 
             {/* Mobile Actions */}
-            <div
-              className={`pt-4 border-t flex flex-col gap-2.5 ${scrolled ? "border-white/10" : "border-gray-100"
-                }`}
-            >
+            <div className={`pt-4 border-t ${scrolled ? "border-white/10" : "border-gray-100"}`}>
               <a
-                href="#buyer-login"
+                href="#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`w-full text-center py-2.5 px-4 font-semibold rounded-lg transition-colors ${scrolled
-                  ? "bg-white/10 text-white border border-white/20 hover:bg-white/20"
-                  : "text-neutral-900 border border-blue-200 bg-blue-50/50"
-                  }`}
+                className="w-full flex items-center justify-center py-3.5 px-6 bg-black text-white font-semibold text-sm uppercase tracking-wider rounded-none hover:bg-neutral-800 transition-colors"
               >
-                Buyer Login
-              </a>
-              <a
-                href="#suppliers"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`w-full text-center py-2.5 px-4 font-semibold transition-colors ${scrolled ? "text-neutral-300 hover:text-white" : "text-gray-700 hover:text-black"
-                  }`}
-              >
-                Suppliers: sell leads to us &rarr;
+                Apply for Partnership
               </a>
             </div>
           </div>

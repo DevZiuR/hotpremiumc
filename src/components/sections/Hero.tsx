@@ -5,11 +5,11 @@ import { OrganicParticles } from "@/components/OrganicParticles";
 
 export function Hero() {
   return (
-    <section className="relative flex flex-col items-center justify-center pt-12 sm:pt-20 md:pt-28 pb-16 sm:pb-24 md:pb-32 overflow-hidden bg-white text-black">
-      {/* Background diagonal line accents */}
+    <section className="relative flex flex-col items-center justify-center pt-14 sm:pt-20 md:pt-28 pb-16 sm:pb-24 md:pb-32 overflow-hidden bg-white text-black">
+      {/* Background diagonal line accents — hidden on mobile to keep hero clean */}
       <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-40"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-40 hidden sm:block"
         viewBox="0 0 1440 900"
         preserveAspectRatio="none"
         fill="none"
@@ -18,8 +18,8 @@ export function Hero() {
         <path d="M1440 0 L900 560" stroke="#DAD5C8" strokeWidth="1" strokeDasharray="4 4" />
       </svg>
 
-      {/* Symmetrical organic particle figures on left and right edges */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      {/* Symmetrical organic particle figures — hidden on mobile, visible sm+ */}
+      <div className="hidden sm:block pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <OrganicParticles />
       </div>
 
@@ -35,13 +35,13 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={100} immediate>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black max-w-4xl mb-4 sm:mb-6 tracking-tight leading-[1.14] sm:leading-[1.12] lg:leading-[64px]">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black max-w-4xl mb-6 sm:mb-6 tracking-tight leading-[1.14] sm:leading-[1.12] lg:leading-[64px]">
             <span>We Fund Your Growth. You Keep the Business.</span>
           </h1>
         </Reveal>
 
         <Reveal delay={200} immediate>
-          <p className="font-sans text-sm sm:text-base md:text-body text-black max-w-xl mb-8 sm:mb-10 leading-relaxed font-normal px-1 sm:px-0">
+          <p className="font-sans text-sm sm:text-base md:text-body text-black max-w-xl mb-10 sm:mb-10 leading-relaxed font-normal px-1 sm:px-0">
             We put our ad budget, sales team, and technology behind operators who already have a
             proven, sellable offer — no retainer, no management fee. We only make money when your
             revenue grows.
