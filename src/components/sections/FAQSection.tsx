@@ -110,8 +110,8 @@ export function FAQSection() {
                   <Reveal key={faq.question} delay={index * 80}>
                     <div
                       className={`rounded-xl border px-4 py-4 sm:px-8 sm:py-6 transition-all duration-200 ${isOpen
-                        ? "bg-[#0B0F19] border-neutral-700 shadow-md"
-                        : "bg-[#0B0F19] border-white/10 hover:bg-[#101726] hover:border-white/20"
+                        ? "bg-[#060810] border-neutral-700 shadow-md"
+                        : "bg-[#060810] border-white/10 hover:bg-[#0a0c14] hover:border-white/20"
                         }`}
                     >
                       <button
