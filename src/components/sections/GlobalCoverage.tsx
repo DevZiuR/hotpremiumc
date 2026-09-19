@@ -50,8 +50,8 @@ export function GlobalCoverage() {
           {/* ── Right Column: Coverage image (Full Size with #f4f5f7 bg) ── */}
           <div className="relative w-full lg:col-span-7 flex items-center justify-center lg:justify-end">
             <Reveal delay={150} className="w-full">
-              <div className="relative w-full max-w-3xl lg:max-w-none rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden bg-[#f4f5f7] border border-neutral-200/70 py-5 sm:py-10 lg:py-12 px-2 sm:px-4 flex items-center justify-center">
-                <div className="relative w-full flex items-center justify-center scale-100 sm:scale-105 lg:scale-115 origin-center transition-transform duration-500">
+              <div className="relative w-full max-w-3xl lg:max-w-none rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden bg-[#f4f5f7] border border-neutral-200/70 py-1 sm:py-10 lg:py-12 px-0 sm:px-4 flex items-center justify-center">
+                <div className="relative w-full flex items-center justify-center scale-110 sm:scale-105 lg:scale-115 origin-center transition-transform duration-500">
                   <Image
                     src="/media/global-coverage-v3.png"
                     alt="Global coverage map"

@@ -102,14 +102,26 @@ export function ComplianceStandards() {
                         {/* Subtle background technical grid / circles */}
                         <svg
                           aria-hidden
-                          className="absolute inset-0 w-full h-full opacity-35 pointer-events-none"
+                          className="absolute inset-0 w-full h-full opacity-55 pointer-events-none"
                           viewBox="0 0 200 120"
                           preserveAspectRatio="none"
                         >
-                          <circle cx="100" cy="60" r="45" stroke="#9ca3af" strokeWidth="0.75" strokeDasharray="3 3" fill="none" />
-                          <circle cx="100" cy="60" r="25" stroke="#9ca3af" strokeWidth="0.75" fill="none" />
-                          <line x1="20" y1="60" x2="180" y2="60" stroke="#d1d5db" strokeWidth="0.5" strokeDasharray="2 2" />
-                          <line x1="100" y1="10" x2="100" y2="110" stroke="#d1d5db" strokeWidth="0.5" strokeDasharray="2 2" />
+                          <defs>
+                            <filter id="circle-glow" x="-30%" y="-30%" width="160%" height="160%">
+                              <feGaussianBlur stdDeviation="2.5" result="blur" />
+                              <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                              </feMerge>
+                            </filter>
+                          </defs>
+                          {/* Outer dashed ring — glowing amber */}
+                          <circle cx="100" cy="60" r="45" stroke="#F5A623" strokeWidth="0.9" strokeDasharray="3 3" fill="none" filter="url(#circle-glow)" opacity="0.7" />
+                          {/* Inner solid ring — glowing blue */}
+                          <circle cx="100" cy="60" r="25" stroke="#2563eb" strokeWidth="0.9" fill="none" filter="url(#circle-glow)" opacity="0.6" />
+                          {/* Cross-hair lines */}
+                          <line x1="20" y1="60" x2="180" y2="60" stroke="#F5A623" strokeWidth="0.5" strokeDasharray="2 2" opacity="0.4" />
+                          <line x1="100" y1="10" x2="100" y2="110" stroke="#F5A623" strokeWidth="0.5" strokeDasharray="2 2" opacity="0.4" />
                         </svg>
 
                         {/* Soft subtle radial ambient glow - shifts to brass on hover */}
