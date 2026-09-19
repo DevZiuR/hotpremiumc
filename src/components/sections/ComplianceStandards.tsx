@@ -99,29 +99,39 @@ export function ComplianceStandards() {
 
                       {/* Middle Visual Illustration Stage */}
                       <div className="w-full h-[150px] sm:h-[160px] rounded-xl bg-white/70 border border-black/[0.04] group-hover:border-[#F5A623]/25 relative overflow-hidden flex items-center justify-center mb-5 group-hover:bg-white/95 transition-colors duration-200">
-                        {/* Subtle background technical grid / circles */}
+                        {/* Style definitions for glowing pulse and rotating orbital animation */}
+                        <style>{`
+                          @keyframes compliance-orbit-pulse {
+                            0%, 100% {
+                              opacity: 0.35;
+                              filter: drop-shadow(0 0 3px rgba(37, 99, 235, 0.4));
+                            }
+                            50% {
+                              opacity: 0.9;
+                              filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.8)) drop-shadow(0 0 14px rgba(96, 165, 250, 0.5));
+                            }
+                          }
+                          @keyframes compliance-orbit-spin {
+                            from { transform: rotate(0deg); }
+                            to { transform: rotate(360deg); }
+                          }
+                          .animate-compliance-pulse {
+                            animation: compliance-orbit-pulse 3.5s ease-in-out infinite;
+                          }
+                          .animate-compliance-spin {
+                            animation: compliance-orbit-spin 30s linear infinite;
+                          }
+                        `}</style>
+
+                        {/* Subtle background technical grid */}
                         <svg
                           aria-hidden
-                          className="absolute inset-0 w-full h-full opacity-55 pointer-events-none"
+                          className="absolute inset-0 w-full h-full opacity-35 pointer-events-none"
                           viewBox="0 0 200 120"
                           preserveAspectRatio="none"
                         >
-                          <defs>
-                            <filter id="circle-glow" x="-30%" y="-30%" width="160%" height="160%">
-                              <feGaussianBlur stdDeviation="2.5" result="blur" />
-                              <feMerge>
-                                <feMergeNode in="blur" />
-                                <feMergeNode in="SourceGraphic" />
-                              </feMerge>
-                            </filter>
-                          </defs>
-                          {/* Outer dashed ring — glowing amber */}
-                          <circle cx="100" cy="60" r="45" stroke="#F5A623" strokeWidth="0.9" strokeDasharray="3 3" fill="none" filter="url(#circle-glow)" opacity="0.7" />
-                          {/* Inner solid ring — glowing blue */}
-                          <circle cx="100" cy="60" r="25" stroke="#2563eb" strokeWidth="0.9" fill="none" filter="url(#circle-glow)" opacity="0.6" />
-                          {/* Cross-hair lines */}
-                          <line x1="20" y1="60" x2="180" y2="60" stroke="#F5A623" strokeWidth="0.5" strokeDasharray="2 2" opacity="0.4" />
-                          <line x1="100" y1="10" x2="100" y2="110" stroke="#F5A623" strokeWidth="0.5" strokeDasharray="2 2" opacity="0.4" />
+                          <line x1="20" y1="60" x2="180" y2="60" stroke="#d1d5db" strokeWidth="0.5" strokeDasharray="2 2" />
+                          <line x1="100" y1="10" x2="100" y2="110" stroke="#d1d5db" strokeWidth="0.5" strokeDasharray="2 2" />
                         </svg>
 
                         {/* Soft subtle radial ambient glow - shifts to brass on hover */}
@@ -136,6 +146,80 @@ export function ComplianceStandards() {
                         {/* Foreground Icon & Framed Badge */}
                         <div className="relative z-10 flex flex-col items-center">
                           <div className="relative w-14 h-14 flex items-center justify-center p-1.5">
+                            {/* Glowing Animated Dashed Circular Rings & Rotating Glowing Dot around Icon */}
+                            <svg
+                              aria-hidden="true"
+                              viewBox="0 0 112 112"
+                              className="absolute -inset-7 w-28 h-28 pointer-events-none overflow-visible"
+                              fill="none"
+                            >
+                              <defs>
+                                <filter id={`comp-glow-${index}`} x="-40%" y="-40%" width="180%" height="180%">
+                                  <feGaussianBlur stdDeviation="2" result="blur" />
+                                  <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                  </feMerge>
+                                </filter>
+                              </defs>
+
+                              {/* Inner subtle reference circle */}
+                              <circle
+                                cx="56"
+                                cy="56"
+                                r="35"
+                                stroke="#050811"
+                                strokeWidth="0.75"
+                                strokeDasharray="3 4"
+                                strokeOpacity="0.25"
+                              />
+
+                              {/* Glowing Accent Underlay Pulse Ring */}
+                              <circle
+                                cx="56"
+                                cy="56"
+                                r="44"
+                                stroke="#2563EB"
+                                strokeWidth="1.75"
+                                strokeDasharray="6 10"
+                                className="animate-compliance-pulse"
+                                style={{ animationDelay: `${index * -0.875}s` }}
+                              />
+
+                              {/* Dark High-Contrast Main Dashed Ring */}
+                              <circle
+                                cx="56"
+                                cy="56"
+                                r="44"
+                                stroke="#050811"
+                                strokeWidth="1.25"
+                                strokeDasharray="3 4"
+                                strokeOpacity="0.60"
+                              />
+
+                              {/* Slowly Rotating Orbital Chevrons & Glowing Beacons */}
+                              <g
+                                className="animate-compliance-spin"
+                                style={{
+                                  transformOrigin: "56px 56px",
+                                  animationDuration: `${26 + index * 4}s`,
+                                  animationDelay: `${index * -6.5}s`,
+                                }}
+                              >
+                                {/* Orbital chevrons */}
+                                <g stroke="#000000" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.75">
+                                  <path d="M-3 -2.5 L0 0 L-3 2.5" transform="translate(94.1, 78) rotate(120)" />
+                                  <path d="M-3 -2.5 L0 0 L-3 2.5" transform="translate(17.9, 34) rotate(300)" />
+                                </g>
+
+                                {/* Primary glowing orbital satellite beacon */}
+                                <circle cx="94.1" cy="78" r="3" fill="#2563EB" filter={`url(#comp-glow-${index})`} />
+
+                                {/* Secondary glowing satellite beacon */}
+                                <circle cx="17.9" cy="34" r="2.2" fill="#60A5FA" filter={`url(#comp-glow-${index})`} />
+                              </g>
+                            </svg>
+
                             <img
                               src={item.icon}
                               alt={item.title}
