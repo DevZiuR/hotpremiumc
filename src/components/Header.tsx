@@ -1237,31 +1237,6 @@ export function Header() {
 
           {/* Right Action Elements (Right Column) */}
           <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4 min-w-0">
-            {/* Search Icon Button */}
-            <button
-              type="button"
-              onClick={() => setSearchOpen(!searchOpen)}
-              className={`p-2 rounded-full transition-colors cursor-pointer shrink-0 ${scrolled
-                ? "text-white/70 hover:text-white hover:bg-white/10"
-                : "text-gray-600 hover:text-gray-950 hover:bg-gray-100"
-                }`}
-              aria-label="Search"
-              title="Search programs"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
 
             {/* Hero-matching CTA via shared Button component */}
             <div className="hidden md:inline-flex">

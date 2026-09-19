@@ -35,7 +35,7 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={100} immediate>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black max-w-4xl mb-6 sm:mb-6 tracking-tight leading-[1.14] sm:leading-[1.12] lg:leading-[64px]">
+          <h1 className="font-serif text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black max-w-4xl mb-6 sm:mb-6 tracking-tight leading-[1.14] sm:leading-[1.12] lg:leading-[64px]">
             <span>We Fund Your Growth. You Keep the Business.</span>
           </h1>
         </Reveal>

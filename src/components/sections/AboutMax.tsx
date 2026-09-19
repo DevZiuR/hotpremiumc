@@ -92,16 +92,16 @@ export function AboutMax() {
               </div>
 
               {/* Track Record Stat Highlights */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-gray-100">
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent">
+              <div className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4 pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-gray-100">
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
                   <div className="font-serif text-2xl sm:text-3xl text-black font-normal tracking-tight">$52M/yr</div>
                   <div className="font-sans text-xs text-gray-500 mt-0.5">Coaching Company</div>
                 </div>
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent">
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
                   <div className="font-serif text-2xl sm:text-3xl text-black font-normal tracking-tight">$50M</div>
                   <div className="font-sans text-xs text-gray-500 mt-0.5">In 10 Months (Medical)</div>
                 </div>
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent">
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
                   <div className="font-serif text-2xl sm:text-3xl text-black font-normal tracking-tight">7-Figure</div>
                   <div className="font-sans text-xs text-gray-500 mt-0.5">Apparel First Year</div>
                 </div>

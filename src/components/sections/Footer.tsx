@@ -71,8 +71,8 @@ export function Footer() {
 
         {/* ── Bottom Section: Logo, Copyright & Arrowed Social Links ── */}
         <div className="mt-10 sm:mt-16 pt-6 sm:pt-8 border-t border-neutral-800/40 flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
-          {/* Left: Brand Mark, Name & Legal */}
-          <div>
+          {/* Left: Brand Mark, Name & Legal — centered on mobile */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <Link href="/" className="inline-flex items-center gap-2 sm:gap-2.5 mb-2.5 group">
               <img
                 src="/logo-mark.png"
@@ -83,7 +83,7 @@ export function Footer() {
                 Hot Premium Customers
               </span>
             </Link>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-neutral-500">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-1.5 text-xs text-neutral-500">
               <span>&copy; {new Date().getFullYear()} Hot Premium Customers LLC. All Rights Reserved</span>
               <a href="#privacy" className="hover:text-neutral-400 transition-colors">
                 Privacy Policy
@@ -94,8 +94,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Right: Clean Social Links with Accent Diagonal Arrow */}
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 md:gap-8">
+          {/* Right: Social Links — centered on mobile */}
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-4 sm:gap-6 md:gap-8">
             <a
               href="https://linkedin.com"
               target="_blank"
