@@ -1341,257 +1341,272 @@ export function Header() {
         )}
 
         {/* ── Mobile Navigation Drawer ───────────────────────────────── */}
-        {mobileMenuOpen && (
-          <div
-            className={`xl:hidden border-t px-4 pt-3 pb-6 space-y-4 shadow-xl max-h-[80vh] overflow-y-auto transition-colors duration-300 ${scrolled
-              ? "border-white/10 bg-[#0c0c0c] text-white"
-              : "border-gray-200 bg-white text-gray-900"
-              }`}
-          >
-            {/* Mobile Search */}
-            <div
-              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${scrolled ? "bg-white/10 text-white" : "bg-gray-100 text-gray-900"
-                }`}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              key="mobile-nav-drawer"
+              initial={{ opacity: 0, height: 0, y: -8 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -8 }}
+              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              className={`xl:hidden border-t overflow-hidden transition-colors duration-200 ${scrolled
+                ? "border-white/10 bg-[#0c0c0c] text-white"
+                : "border-gray-200 bg-white text-gray-900"
+                } shadow-2xl`}
             >
-              <svg
-                className={`w-4 h-4 ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search programs & verticals..."
-                className={`bg-transparent text-sm w-full outline-none ${scrolled ? "placeholder-white/40 text-white" : "text-gray-900"
-                  }`}
-              />
-            </div>
-
-            {/* Mobile Nav Links */}
-            <div className="space-y-1">
-              <div>
-                <button
-                  type="button"
-                  onClick={() => toggleDropdown("mobile-lead-programs")}
-                  className={`w-full flex items-center justify-between py-2.5 text-base font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-800"
-                    }`}
-                >
-                  <span>Lead Programs</span>
-                  <svg
-                    className={`w-4 h-4 transition-transform ${openMenu === "mobile-lead-programs" ? "rotate-180" : ""
-                      } ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                {openMenu === "mobile-lead-programs" && (
-                  <div className={`pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}>
-                    {leadProgramsFeatured.map((item) => (
-                      <a
-                        key={item.title}
-                        href={item.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
-                          ? "hover:bg-white/10 text-white/90"
-                          : "hover:bg-neutral-100 text-neutral-800"
-                          }`}
-                      >
-                        <div className="w-7 h-7 rounded-md bg-[#101A2B] text-white flex items-center justify-center shrink-0">
-                          <div className="scale-75 origin-center">{item.icon}</div>
-                        </div>
-                        <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
-                          <span className="font-semibold text-xs truncate">{item.title}</span>
-                          <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
-                            {item.badge}
-                          </span>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <button
-                  type="button"
-                  onClick={() => toggleDropdown("mobile-verticals")}
-                  className={`w-full flex items-center justify-between py-2.5 text-base font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-800"
-                    }`}
-                >
-                  <span>All Verticals</span>
-                  <svg
-                    className={`w-4 h-4 transition-transform ${openMenu === "mobile-verticals" ? "rotate-180" : ""
-                      } ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                {openMenu === "mobile-verticals" && (
-                  <div className={`pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}>
-                    {verticalsFeatured.map((item) => (
-                      <a
-                        key={item.title}
-                        href={item.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
-                          ? "hover:bg-white/10 text-white/90"
-                          : "hover:bg-neutral-100 text-neutral-800"
-                          }`}
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-[#101A2B] text-white border border-[#101A2B]/40 flex items-center justify-center shrink-0">
-                          {item.icon}
-                        </div>
-                        <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
-                          <span className="font-semibold text-xs leading-tight truncate">
-                            {item.title}
-                          </span>
-                          <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
-                            {item.badge}
-                          </span>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <button
-                  type="button"
-                  onClick={() => toggleDropdown("mobile-states")}
-                  className={`w-full flex items-center justify-between py-2.5 text-base font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-800"
-                    }`}
-                >
-                  <span>States</span>
-                  <svg
-                    className={`w-4 h-4 transition-transform ${openMenu === "mobile-states" ? "rotate-180" : ""
-                      } ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                {openMenu === "mobile-states" && (
-                  <div className="pl-4 pb-2 space-y-2 text-sm">
-                    <p className={`text-xs font-bold uppercase ${scrolled ? "text-neutral-400" : "text-gray-400"}`}>
-                      Top Markets
-                    </p>
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {topMarkets.map((m) => (
-                        <span
-                          key={m.name}
-                          className={`px-2 py-0.5 rounded text-xs ${scrolled ? "bg-white/10 text-white" : "bg-gray-100 text-gray-700"
-                            }`}
-                        >
-                          {m.name}
-                        </span>
-                      ))}
-                    </div>
-                    <a
-                      href="#nationwide-coverage"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`block py-1 font-semibold ${scrolled ? "text-white hover:text-[#2563EB]" : "text-neutral-900"
+              <div className="px-5 pt-3.5 pb-6 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto">
+                {/* Mobile Nav Links */}
+                <div className="space-y-0.5">
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => toggleDropdown("mobile-lead-programs")}
+                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-900"
                         }`}
                     >
-                      Coverage in all 50 states + DC &rarr;
-                    </a>
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <button
-                  type="button"
-                  onClick={() => toggleDropdown("mobile-resources")}
-                  className={`w-full flex items-center justify-between py-2.5 text-base font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-800"
-                    }`}
-                >
-                  <span>Resources</span>
-                  <svg
-                    className={`w-4 h-4 transition-transform ${openMenu === "mobile-resources" ? "rotate-180" : ""
-                      } ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                {openMenu === "mobile-resources" && (
-                  <div className={`pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}>
-                    {resourcesFeatured.map((item) => (
-                      <a
-                        key={item.title}
-                        href={item.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
-                          ? "hover:bg-white/10 text-white/90"
-                          : "hover:bg-neutral-100 text-neutral-800"
-                          }`}
+                      <span>Lead Programs</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-lead-programs" ? "rotate-180" : ""
+                          } ${scrolled ? "text-white/60" : "text-gray-500"}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
                       >
-                        <div className="w-7 h-7 rounded-md bg-[#101A2B] text-white border border-[#101A2B]/40 flex items-center justify-center shrink-0">
-                          <div className="scale-75 origin-center">{item.icon}</div>
-                        </div>
-                        <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
-                          <span className="font-semibold text-xs truncate">{item.title}</span>
-                          <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
-                            {item.badge}
-                          </span>
-                        </div>
-                      </a>
-                    ))}
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                    <AnimatePresence>
+                      {openMenu === "mobile-lead-programs" && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                          className={`overflow-hidden pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}
+                        >
+                          {leadProgramsFeatured.map((item) => (
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
+                                ? "hover:bg-white/10 text-white/90"
+                                : "hover:bg-neutral-100 text-neutral-800"
+                                }`}
+                            >
+                              <div className="w-7 h-7 rounded-md bg-[#101A2B] text-white flex items-center justify-center shrink-0">
+                                <div className="scale-75 origin-center">{item.icon}</div>
+                              </div>
+                              <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
+                                <span className="font-semibold text-xs truncate">{item.title}</span>
+                                <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
+                                  {item.badge}
+                                </span>
+                              </div>
+                            </a>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                )}
-              </div>
-            </div>
 
-            {/* Mobile Actions */}
-            <div className={`pt-4 border-t ${scrolled ? "border-white/10" : "border-gray-100"}`}>
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center py-3.5 px-6 bg-black text-white font-semibold text-sm uppercase tracking-wider rounded-none hover:bg-neutral-800 transition-colors"
-              >
-                Apply for Partnership
-              </a>
-            </div>
-          </div>
-        )}
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => toggleDropdown("mobile-verticals")}
+                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-900"
+                        }`}
+                    >
+                      <span>All Verticals</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-verticals" ? "rotate-180" : ""
+                          } ${scrolled ? "text-white/60" : "text-gray-500"}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                    <AnimatePresence>
+                      {openMenu === "mobile-verticals" && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                          className={`overflow-hidden pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}
+                        >
+                          {verticalsFeatured.map((item) => (
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
+                                ? "hover:bg-white/10 text-white/90"
+                                : "hover:bg-neutral-100 text-neutral-800"
+                                }`}
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-[#101A2B] text-white border border-[#101A2B]/40 flex items-center justify-center shrink-0">
+                                {item.icon}
+                              </div>
+                              <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
+                                <span className="font-semibold text-xs leading-tight truncate">
+                                  {item.title}
+                                </span>
+                                <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
+                                  {item.badge}
+                                </span>
+                              </div>
+                            </a>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => toggleDropdown("mobile-states")}
+                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-900"
+                        }`}
+                    >
+                      <span>States</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-states" ? "rotate-180" : ""
+                          } ${scrolled ? "text-white/60" : "text-gray-500"}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                    <AnimatePresence>
+                      {openMenu === "mobile-states" && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                          className="overflow-hidden pl-4 pb-2 space-y-2 text-sm"
+                        >
+                          <p className={`text-xs font-bold uppercase ${scrolled ? "text-neutral-400" : "text-gray-400"}`}>
+                            Top Markets
+                          </p>
+                          <div className="flex flex-wrap gap-1 mb-2">
+                            {topMarkets.map((m) => (
+                              <span
+                                key={m.name}
+                                className={`px-2 py-0.5 rounded text-xs ${scrolled ? "bg-white/10 text-white" : "bg-gray-100 text-gray-700"
+                                  }`}
+                              >
+                                {m.name}
+                              </span>
+                            ))}
+                          </div>
+                          <a
+                            href="#nationwide-coverage"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`block py-1 font-semibold ${scrolled ? "text-white hover:text-[#2563EB]" : "text-neutral-900"
+                              }`}
+                          >
+                            Coverage in all 50 states + DC &rarr;
+                          </a>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => toggleDropdown("mobile-resources")}
+                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-900"
+                        }`}
+                    >
+                      <span>Resources</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-resources" ? "rotate-180" : ""
+                          } ${scrolled ? "text-white/60" : "text-gray-500"}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                    <AnimatePresence>
+                      {openMenu === "mobile-resources" && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                          className={`overflow-hidden pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}
+                        >
+                          {resourcesFeatured.map((item) => (
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
+                                ? "hover:bg-white/10 text-white/90"
+                                : "hover:bg-neutral-100 text-neutral-800"
+                                }`}
+                            >
+                              <div className="w-7 h-7 rounded-md bg-[#101A2B] text-white border border-[#101A2B]/40 flex items-center justify-center shrink-0">
+                                <div className="scale-75 origin-center">{item.icon}</div>
+                              </div>
+                              <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
+                                <span className="font-semibold text-xs truncate">{item.title}</span>
+                                <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
+                                  {item.badge}
+                                </span>
+                              </div>
+                            </a>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+
+                {/* Mobile Actions */}
+                <div className={`pt-3 border-t ${scrolled ? "border-white/10" : "border-gray-100"}`}>
+                  <a
+                    href="#contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full flex items-center justify-center py-3.5 px-6 bg-black text-white font-semibold text-sm uppercase tracking-wider rounded-none hover:bg-neutral-800 transition-colors shadow-sm"
+                  >
+                    Apply for Partnership
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
