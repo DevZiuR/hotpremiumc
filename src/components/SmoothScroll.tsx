@@ -9,19 +9,27 @@ interface SmoothScrollProps {
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
-    // NOTE: In Lenis, `lerp` and `duration` are mutually exclusive.
-    // When `lerp` is set, it takes over and `duration` is ignored.
-    // Use ONLY lerp for the heavy inertia feel — lower = heavier/slower.
+    // Luxury editorial smooth scrolling configuration:
+    // • lerp: 0.03 — deep, syrupy deceleration curve with extended weighted inertia
+    // • wheelMultiplier: 1.05 — natural, generous distance per scroll notch so the slow glide has travel to coast
+    // • touchMultiplier: 1.5 — fluid gesture responsiveness
+    // • smoothWheel: true — silky interpolation for mousewheel & trackpads
+    // • anchors: smooth 1.8s navigation for all on-page jump links with -90px header offset
+    // • respectReducedMotion: false — prevents Windows system-wide reduced motion from silently disabling smooth scroll
     const lenis = new Lenis({
-      lerp: 0.035,          // Very slow inertia — syrupy, weighted glide
+      lerp: 0.03,
+      wheelMultiplier: 1.05,
+      touchMultiplier: 1.5,
       smoothWheel: true,
-      wheelMultiplier: 0.75, // Each scroll tick travels less — deliberate
-      // NOTE: Windows often enables prefers-reduced-motion system-wide,
-      // which silently disables Lenis when set to true. Force it active.
+      syncTouch: false,
+      anchors: {
+        offset: -90,
+        duration: 1.8,
+      },
       respectReducedMotion: false,
     });
 
-    console.log("[Lenis] initialized", lenis);
+    console.log("[Lenis] initialized with premium slow scroll", lenis);
 
     // Manual rAF loop — full control over the animation tick
     let rafId: number;

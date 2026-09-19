@@ -1,0 +1,126 @@
+"use client";
+
+import React from "react";
+import Image from "next/image";
+import { Reveal } from "@/components/Reveal";
+import { Button } from "@/components/ui/Button";
+import { CropMarkFrame } from "@/components/ui/CropMarkFrame";
+
+export function AboutMax() {
+  return (
+    <section id="about-founder" className="relative bg-white py-16 sm:py-24 md:py-36 border-b border-gray-200/80 overflow-hidden font-sans">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
+        {/* Crop-mark corner registration brackets */}
+        <div className="absolute -inset-y-5 sm:-inset-y-8 inset-x-0 sm:inset-x-2 md:inset-x-6 pointer-events-none">
+          <CropMarkFrame />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 xl:gap-20 items-center">
+
+          {/* ── Eyebrow + Heading (always first on mobile, hidden on desktop — content col handles it) ── */}
+          <div className="lg:hidden">
+            <Reveal>
+              <div className="inline-flex items-center gap-2.5 mb-4">
+                <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
+                <span className="font-sans text-xs font-semibold uppercase tracking-widest text-black">
+                  FOUNDER
+                </span>
+              </div>
+              <h2 className="font-serif text-2xl sm:text-3xl font-normal text-black tracking-tight leading-[1.12] mb-0">
+                From scaling other people&apos;s businesses to funding your growth
+              </h2>
+            </Reveal>
+          </div>
+
+          {/* ── Founder Photo Card (below heading on mobile, left col on desktop) ── */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-start lg:order-1">
+            <Reveal delay={100} className="w-full max-w-[320px] sm:max-w-[420px]">
+              <div className="relative w-full aspect-square rounded-2xl lg:rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200/80 shadow-xl group">
+                <Image
+                  src="/media/max-pfp.jpg"
+                  alt="Max — Founder of Hot Premium Customers"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  priority
+                  className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+
+                {/* Subtle Glassmorphism Founder Badge */}
+                <div className="absolute bottom-4 left-4 right-4 z-10 pointer-events-none">
+                  <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-black/75 backdrop-blur-md border border-white/15 text-white shadow-md">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
+                      <span className="text-xs sm:text-[13px] font-semibold tracking-tight uppercase">Max Av</span>
+                    </div>
+                    <span className="text-[10.5px] sm:text-[11px] font-mono uppercase tracking-wider text-neutral-300">
+                      Founder
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* ── Right Column: Full content (desktop shows heading here too; mobile heading already above) ── */}
+          <div className="lg:col-span-7 flex flex-col justify-center lg:order-2">
+            <Reveal>
+              {/* Eyebrow + Heading — desktop only */}
+              <div className="hidden lg:block">
+                <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
+                  <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
+                  <span className="font-sans text-xs font-semibold uppercase tracking-widest text-black">
+                    FOUNDER
+                  </span>
+                </div>
+
+                <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-normal text-black tracking-tight leading-[1.12] mb-4 sm:mb-6">
+                  From scaling other people&apos;s businesses to funding your growth
+                </h2>
+              </div>
+
+              {/* Body Copy */}
+              <div className="space-y-3.5 sm:space-y-4 font-sans text-[15px] sm:text-[15.5px] md:text-base text-gray-600 leading-relaxed font-normal mt-4 lg:mt-0">
+                <p>
+                  Hot Premium Customers is built on what I learned scaling other people&apos;s companies with paid media, then deciding to keep equity in the growth instead of just charging for the campaign.
+                </p>
+                <p>
+                  Before this, I built one ecommerce business and two agencies, and used paid media to scale a coaching company to $52M a year, a medical ecommerce brand to $50M in ten months, and a sports apparel brand from zero to seven figures in its first year.
+                </p>
+                <p>
+                  That&apos;s the model behind Hot Premium Customers: we put the same ad spend and sales infrastructure behind your business that got those results, and we only make money when yours grows too.
+                </p>
+              </div>
+
+              {/* Track Record Stat Highlights */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-gray-100">
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent">
+                  <div className="font-serif text-2xl sm:text-3xl text-black font-normal tracking-tight">$52M/yr</div>
+                  <div className="font-sans text-xs text-gray-500 mt-0.5">Coaching Company</div>
+                </div>
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent">
+                  <div className="font-serif text-2xl sm:text-3xl text-black font-normal tracking-tight">$50M</div>
+                  <div className="font-sans text-xs text-gray-500 mt-0.5">In 10 Months (Medical)</div>
+                </div>
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent">
+                  <div className="font-serif text-2xl sm:text-3xl text-black font-normal tracking-tight">7-Figure</div>
+                  <div className="font-sans text-xs text-gray-500 mt-0.5">Apparel First Year</div>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="pt-6 sm:pt-8">
+                <Button variant="sharp-primary" href="#contact" className="w-full sm:w-auto text-center justify-center">
+                  Apply for Partnership
+                </Button>
+              </div>
+            </Reveal>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Re-export for backward compatibility
+export { AboutMax as LocalMarkets };

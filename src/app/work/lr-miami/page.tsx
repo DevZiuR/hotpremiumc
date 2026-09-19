@@ -1,18 +1,12 @@
 ﻿import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
 import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-outfit",
-});
+import { Geist } from "next/font/google";
 
 export const metadata: Metadata = {
-  title: "LR Miami — Case Study | ZIUR Studio",
+  title: "1 — Case Study | ZIUR Studio",
   description:
-    "How ZIUR Studio built a full-stack custom platform for LR Miami, an exotic car rental and VIP experience brand in Miami, FL.",
+    "How ZIUR Studio built a full-stack custom platform for h1, an exotic car rental and VIP experience brand in Miami, FL.",
   openGraph: {
     title: "LR Miami Case Study — ZIUR Studio",
     description:
@@ -95,7 +89,7 @@ const GrainOverlay = () => (
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 export default function LRMiamiCaseStudy() {
   return (
-    <div className={`${outfit.variable} bg-[#0a0a0a] text-white min-h-screen`} style={{ fontFamily: "var(--font-outfit, var(--font-host-grotesk), sans-serif)" }}>
+    <div className={`bg-[#0a0a0a] text-white min-h-screen`} style={{ fontFamily: "var(--font-geist, var(--font-host-grotesk), sans-serif)" }}>
 
       {/* ── Back nav ──────────────────────────────────────────────────────── */}
       <div className="fixed top-0 inset-x-0 z-50 px-6 py-5 flex items-center justify-between">
@@ -126,13 +120,12 @@ export default function LRMiamiCaseStudy() {
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
-            background:
-              "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(107,15,110,0.18) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(107,15,110,0.08) 0%, transparent 60%)",
+            background: '#000000',
           }}
         />
 
         {/* Geometric accent lines */}
-        <svg
+        < svg
           aria-hidden
           className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.06]"
           viewBox="0 0 1440 900"
@@ -150,7 +143,7 @@ export default function LRMiamiCaseStudy() {
             <p className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.28em] text-white/40 mb-10 border border-white/10 px-4 py-2 rounded-full">
               <span
                 className="w-1.5 h-1.5 rounded-full"
-                style={{ background: "#6B0F6E" }}
+                style={{ background: "#242124ff" }}
               />
               Case Study · 2026
             </p>
@@ -177,44 +170,48 @@ export default function LRMiamiCaseStudy() {
           </Reveal>
 
           <Reveal delay={160} immediate>
-            <p className="text-white/50 text-sm sm:text-base tracking-[0.12em] uppercase mb-14">
-              Exotic Car Rentals &amp; VIP Experiences — Miami, FL
+            <p className="text-white/50 text-sm sm:text-base tracking-[0.12em] mb-14">
+              Custom Full-Stack Development for a Premium Exotic Car Rentals &amp; VIP Experiences, based in Miami, FL.
             </p>
           </Reveal>
 
           {/* Stat chips */}
+          {/*
           <Reveal delay={240} immediate>
             <div className="flex flex-wrap items-center justify-center gap-3">
               {[
                 "Full-Stack Custom Build",
-                "6 Location Pages",
-                "6 Vehicle Brand Pages",
+                "Dynamic Fleet",
+                "",
               ].map((chip) => (
                 <span
                   key={chip}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs uppercase tracking-[0.16em] font-medium"
                   style={{
-                    borderColor: "rgba(107,15,110,0.5)",
+                    borderColor: "rgba(38, 33, 38, 0.5)",
                     background: "rgba(107,15,110,0.08)",
                     color: "rgba(255,255,255,0.75)",
                   }}
                 >
                   <span
                     className="w-1 h-1 rounded-full"
-                    style={{ background: "#9d3fa0" }}
+                    style={{ background: "#fbfbfbff" }}
                   />
                   {chip}
                 </span>
               ))}
             </div>
           </Reveal>
+          */}
         </div>
 
         {/* Scroll cue */}
+        {/*
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
           <span className="text-[10px] uppercase tracking-[0.22em] text-white">Scroll</span>
           <div className="w-px h-10 bg-gradient-to-b from-white to-transparent" />
         </div>
+        */}
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
@@ -280,7 +277,7 @@ export default function LRMiamiCaseStudy() {
                   ].map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 rounded-full text-[10px] uppercase tracking-widest"
+                      className="px-3 py-1 rounded-full text-[10px] tracking-widest text-center"
                       style={{
                         background: "rgba(255,255,255,0.04)",
                         border: "1px solid rgba(255,255,255,0.08)",
@@ -399,9 +396,9 @@ export default function LRMiamiCaseStudy() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 px-6 py-3 rounded-full text-sm font-semibold uppercase tracking-widest transition-all duration-300 self-start sm:self-auto"
                 style={{
-                  background: "rgba(107,15,110,0.15)",
-                  border: "1px solid rgba(107,15,110,0.4)",
-                  color: "#c270c5",
+                  background: "rgba(27, 26, 27, 0.15)",
+                  border: "1px solid rgba(255, 255, 255, 0.4)",
+                  color: "#ffffffff",
                 }}
               >
                 Visit lrmiami.com
@@ -682,9 +679,9 @@ export default function LRMiamiCaseStudy() {
             </p>
             <h2
               className="font-semibold text-white mb-6"
-              style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", letterSpacing: "-0.025em" }}
+              style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", letterSpacing: "-0.015em" }}
             >
-              Want results like this for your business?
+              Want Something Similar for your Business?
             </h2>
             <p className="text-white/40 mb-12 leading-relaxed" style={{ fontSize: "1.0625rem" }}>
               We&apos;ll audit your current digital position, identify exactly where you&apos;re bleeding bookings, and show you what a proper build looks like. No pitch. No fluff.

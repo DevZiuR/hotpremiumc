@@ -7,80 +7,134 @@
    ───────────────────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: auto !important;
+  overflow-x: clip;
+  max-width: 100vw;
 }
 
-@theme inline {
-  /* Type families */
-  --font-heading: var(--font-geist), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: var(--font-geist), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-serif: var(--font-geist), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-sans: var(--font-body);
-
-  /* Colors */
-  --color-ink: #111111;
-  --color-paper: #fafaf8;
-  --color-accent: #8a6d3b;
-  --color-slate-indigo: #5a6baa;
-  --color-lavender-grey: #9b9bd5;
-
-  /* Type scale — optimized for conversion: strong hierarchy, mobile-first fluid */
-  --text-display: clamp(2.5rem, calc(1.5rem + 5vw), 6.5rem);
-  --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.03em;
-  --text-display--font-weight: 500;
-
-  --text-h1: clamp(1.75rem, calc(1.5rem + 1.6vw), 3.5rem);
-  --text-h1--line-height: 1.08;
-  --text-h1--letter-spacing: -0.02em;
-
-  --text-h2: clamp(1.75rem, calc(1.55rem + 1vw), 2.5rem);
-  --text-h2--line-height: 1.15;
-  --text-h2--letter-spacing: -0.015em;
-
-  --text-h3: clamp(1.25rem, calc(1.2rem + 0.4vw), 1.5rem);
-  --text-h3--line-height: 1.3;
-
-  --text-h4: 1.0625rem;
-  --text-h4--line-height: 1.35;
-
-  --text-lead: clamp(1.0625rem, calc(1.02rem + 0.3vw), 1.25rem);
-  --text-lead--line-height: 1.6;
-
-  --text-body: 1rem;
-  --text-body--line-height: 1.6;
-
-  --text-small: 0.875rem;
-  --text-small--line-height: 1.55;
-
-  --text-label: 0.75rem;
-  --text-label--line-height: 1.4;
-  --text-label--letter-spacing: 0.16em;
-  --text-label--font-weight: 600;
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
 body {
-  background: #fafaf8;
-  color: #111111;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
+  overflow-x: clip;
+  max-width: 100vw;
+}
+
+@theme inline {
+  /* Fonts: Merriweather for headings & Cabin for body */
+  --font-serif: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-sans: var(--font-cabin), "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-merriweather: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-cabin: var(--font-cabin), "Cabin", sans-serif;
+
+  /* Aliases for backwards compatibility */
+  --font-newsreader: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-inter: var(--font-cabin), "Cabin", sans-serif;
+  --font-heading: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-body: var(--font-cabin), "Cabin", sans-serif;
+  --font-geist: var(--font-merriweather), "Merriweather", serif;
+  --font-host-grotesk: var(--font-cabin), "Cabin", sans-serif;
+
+  /* Colors: Central design tokens */
+  --color-navy: #101A2B;
+  --color-paper: #F6F4EF;
+  --color-brass: #A9814B;
+  --color-slate: #5B6472;
+  --color-ink: #12151B;
+  --color-line: #DAD5C8;
+
+  /* Spacing scale (4px base) */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-24: 96px;
+
+  /* Type scale: H1 52px, H2 36px, H3 23px, body 16px/26px/400, small 13.5px */
+  --text-h1: 52px;
+  --text-h1--line-height: 1.1;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 36px;
+  --text-h2--line-height: 1.15;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 23px;
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 700;
+
+  --text-body: 16px;
+  --text-body--line-height: 26px;
+  --text-body--font-weight: 400;
+
+  --text-small: 13.5px;
+  --text-small--line-height: 1.5;
+  --text-small--font-weight: 400;
+}
+
+:root {
+  --color-navy: #101A2B;
+  --color-paper: #F6F4EF;
+  --color-brass: #A9814B;
+  --color-slate: #5B6472;
+  --color-ink: #12151B;
+  --color-line: #DAD5C8;
+
+  --font-serif: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-sans: var(--font-cabin), "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-body: var(--font-cabin), "Cabin", sans-serif;
+  --font-newsreader: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-inter: var(--font-cabin), "Cabin", sans-serif;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
   letter-spacing: -0.005em;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
+/* Headings use Merriweather */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading);
-  font-weight: 500;
+  font-family: var(--font-serif);
   text-wrap: balance;
 }
 
+/* h1 weight is set at the component level */
+
+/* h2–h6 use weight 300 (light) */
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
+}
+
 p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
   text-wrap: pretty;
 }
 
@@ -91,5 +145,28 @@ p {
 @keyframes marquee {
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* Vertical Industry Card Slider: Exactly 3 items visible on desktop, wide horizontal stance */
+.industry-card-item {
+  flex: 0 0 85vw;
+  height: 480px;
+  min-height: 480px;
+}
+
+@media (min-width: 640px) {
+  .industry-card-item {
+    flex: 0 0 calc((100% - 24px) / 2);
+    height: 490px;
+    min-height: 490px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .industry-card-item {
+    flex: 0 0 calc((100% - 48px) / 3);
+    height: 500px;
+    min-height: 500px;
   }
 }
