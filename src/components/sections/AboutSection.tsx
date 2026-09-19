@@ -66,7 +66,7 @@ export function AboutSection({
   const step = (endBound - startBound) / total;
 
   return (
-    <section ref={sectionRef} id="about" className="relative bg-black text-white py-28 sm:py-40 md:py-56 overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative bg-black text-white py-28 sm:py-40 md:py-48 overflow-hidden">
       {/* Background subtle radial glow */}
       <div
         className="pointer-events-none absolute inset-0 opacity-20"
