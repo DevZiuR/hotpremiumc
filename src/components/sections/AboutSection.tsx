@@ -43,11 +43,12 @@ export function AboutSection({
   brandName = "Hot Premium Customers",
   statement = " is an equity growth partner, not a lead vendor. We fund the ad spend, sales team, and technology behind operators who are past proof of concept and ready to scale, and we only earn when your revenue grows.",
 }: AboutSectionProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
+  // Extended scroll runway tracking the full section for a slower, deliberate reveal
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.85", "end 0.35"],
+    target: sectionRef,
+    offset: ["start 0.72", "end 0.28"],
   });
 
   const brandWords = brandName.trim().split(/\s+/).filter(Boolean);
@@ -59,10 +60,13 @@ export function AboutSection({
   ];
 
   const total = allWords.length;
-  const step = 0.75 / total;
+  // Progressively illuminate words across the middle 82% of the scroll runway
+  const startBound = 0.08;
+  const endBound = 0.90;
+  const step = (endBound - startBound) / total;
 
   return (
-    <section className="relative bg-black text-white py-16 sm:py-24 md:py-32 overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative bg-black text-white py-28 sm:py-40 md:py-56 overflow-hidden">
       {/* Background subtle radial glow */}
       <div
         className="pointer-events-none absolute inset-0 opacity-20"
@@ -88,11 +92,11 @@ export function AboutSection({
         </Reveal>
 
         {/* Main Statement Headline with Clean Single-Layer Scroll Reveal */}
-        <div ref={containerRef} className="w-full">
+        <div className="w-full">
           <h2 className="font-serif text-xl sm:text-2xl md:text-[36px] lg:text-[42px] text-white tracking-tight leading-[1.34] md:leading-[1.3] max-w-4xl mx-auto mb-0">
             {allWords.map((item, i) => {
-              const start = i * step;
-              const end = Math.min(1, start + 0.25);
+              const start = startBound + i * step;
+              const end = Math.min(0.98, start + 0.14);
 
               return (
                 <Word

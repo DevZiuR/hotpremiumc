@@ -9,19 +9,26 @@ interface SmoothScrollProps {
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
-    // Luxury editorial smooth scrolling configuration:
-    // • lerp: 0.03 — deep, syrupy deceleration curve with extended weighted inertia
-    // • wheelMultiplier: 1.05 — natural, generous distance per scroll notch so the slow glide has travel to coast
-    // • touchMultiplier: 1.5 — fluid gesture responsiveness
-    // • smoothWheel: true — silky interpolation for mousewheel & trackpads
+    // Luxury editorial smooth scrolling configuration for both Desktop & Mobile:
+    // • lerp: 0.045 — deep, weighted deceleration curve for silky inertia on desktop
+    // • wheelMultiplier: 0.9 — deliberate, measured distance per notch for a slower, premium coast
+    // • syncTouch: true — enables Lenis smooth virtual scroll on touch/mobile devices
+    // • syncTouchLerp: 0.06 — smooth, cushioned touch deceleration on mobile after finger release
+    // • touchInertiaExponent: 1.75 — velvety friction-based coasting for touch flings
+    // • touchMultiplier: 1.15 — responsive, natural 1:1 finger tracking without jerky jumps
+    // • gestureOrientation: "vertical" — prevents vertical scroll hijacking horizontal gestures
     // • anchors: smooth 1.8s navigation for all on-page jump links with -90px header offset
-    // • respectReducedMotion: false — prevents Windows system-wide reduced motion from silently disabling smooth scroll
+    // • autoRaf: true — Lenis manages its internal animation loop with precision
     const lenis = new Lenis({
-      lerp: 0.03,
-      wheelMultiplier: 1.05,
-      touchMultiplier: 1.5,
+      lerp: 0.045,
+      wheelMultiplier: 0.9,
+      syncTouch: true,
+      syncTouchLerp: 0.06,
+      touchInertiaExponent: 1.75,
+      touchMultiplier: 1.15,
+      gestureOrientation: "vertical",
       smoothWheel: true,
-      syncTouch: false,
+      autoRaf: true,
       anchors: {
         offset: -90,
         duration: 1.8,
@@ -29,19 +36,14 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       respectReducedMotion: false,
     });
 
-    console.log("[Lenis] initialized with premium slow scroll", lenis);
+    // Expose lenis instance globally for external triggers or debugging
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
 
-    // Manual rAF loop — full control over the animation tick
-    let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+    console.log("[Lenis] initialized with premium slow scroll (desktop & mobile)", lenis);
 
     return () => {
-      cancelAnimationFrame(rafId);
       lenis.destroy();
+      delete (window as unknown as { lenis?: Lenis }).lenis;
     };
   }, []);
 
