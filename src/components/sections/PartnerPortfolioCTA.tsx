@@ -80,7 +80,7 @@ export function PartnerPortfolioCTA() {
                   Partnership Application
                 </span>
               </div>
-              <h2 className="font-serif text-[26px] sm:text-[38px] md:text-[50px] lg:text-[60px] font-normal text-white tracking-tight leading-[1.12]">
+              <h2 className="font-serif text-[34px] sm:text-[38px] md:text-[50px] lg:text-[60px] font-normal text-white tracking-tight leading-[1.12]">
                 Ready to take your business to the next level?
               </h2>
             </div>
