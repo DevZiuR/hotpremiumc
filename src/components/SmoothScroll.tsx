@@ -10,28 +10,28 @@ interface SmoothScrollProps {
 export function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     // Luxury editorial smooth scrolling configuration for both Desktop & Mobile:
-    // • lerp: 0.045 — deep, weighted deceleration curve for silky inertia on desktop
-    // • wheelMultiplier: 0.9 — deliberate, measured distance per notch for a slower, premium coast
+    // • lerp: 0.022 — very heavy, weighted deceleration for ultra-premium inertia on desktop
+    // • wheelMultiplier: 0.65 — dramatically fewer pixels per notch; slow, deliberate coast
     // • syncTouch: true — enables Lenis smooth virtual scroll on touch/mobile devices
-    // • syncTouchLerp: 0.06 — smooth, cushioned touch deceleration on mobile after finger release
+    // • syncTouchLerp: 0.035 — deeply cushioned touch deceleration after finger release
     // • touchInertiaExponent: 1.75 — velvety friction-based coasting for touch flings
-    // • touchMultiplier: 1.15 — responsive, natural 1:1 finger tracking without jerky jumps
+    // • touchMultiplier: 1.1 — natural finger tracking without jerky jumps
     // • gestureOrientation: "vertical" — prevents vertical scroll hijacking horizontal gestures
-    // • anchors: smooth 1.8s navigation for all on-page jump links with -90px header offset
+    // • anchors: smooth 2.2s navigation for all on-page jump links with -90px header offset
     // • autoRaf: true — Lenis manages its internal animation loop with precision
     const lenis = new Lenis({
-      lerp: 0.045,
-      wheelMultiplier: 0.9,
+      lerp: 0.022,
+      wheelMultiplier: 0.65,
       syncTouch: true,
-      syncTouchLerp: 0.06,
+      syncTouchLerp: 0.035,
       touchInertiaExponent: 1.75,
-      touchMultiplier: 1.15,
+      touchMultiplier: 1.1,
       gestureOrientation: "vertical",
       smoothWheel: true,
       autoRaf: true,
       anchors: {
         offset: -90,
-        duration: 1.8,
+        duration: 2.2,
       },
       respectReducedMotion: false,
     });

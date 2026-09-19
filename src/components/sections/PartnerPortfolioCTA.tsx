@@ -36,11 +36,11 @@ export function PartnerPortfolioCTA() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[#050912] text-white"
+      className="relative overflow-hidden bg-[#020509] text-white"
     >
       {/* ── 1. Prefooter background image with requested hue-rotate & saturate filter (darkened) ── */}
       <div
-        className="absolute inset-0 pointer-events-none bg-cover bg-bottom opacity-10 z-0"
+        className="absolute inset-0 pointer-events-none bg-cover bg-bottom opacity-5 z-0"
         style={{
           backgroundImage: "url('/media/prefooter-cta.png')",
           filter: "hue-rotate(-15deg) saturate(1.1)",
@@ -52,7 +52,7 @@ export function PartnerPortfolioCTA() {
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(4, 7, 14, 0.92) 0%, rgba(6, 11, 20, 0.97) 50%, rgba(3, 5, 10, 0.99) 100%)",
+            "linear-gradient(to bottom, rgba(2, 5, 9, 0.97) 0%, rgba(2, 4, 8, 0.99) 50%, rgba(1, 3, 6, 1) 100%)",
         }}
       />
 
@@ -102,7 +102,7 @@ export function PartnerPortfolioCTA() {
                     placeholder="Jane Smith"
                     maxLength={120}
                     required
-                    className="w-full bg-transparent border-0 border-b border-white/20 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-500/70 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none"
+                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none"
                   />
                 </div>
 
@@ -120,7 +120,7 @@ export function PartnerPortfolioCTA() {
                     placeholder="jane@company.com"
                     maxLength={255}
                     required
-                    className="w-full bg-transparent border-0 border-b border-white/20 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-500/70 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none"
+                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none"
                   />
                 </div>
 
@@ -138,7 +138,7 @@ export function PartnerPortfolioCTA() {
                     placeholder="Company, LLC"
                     maxLength={150}
                     required
-                    className="w-full bg-transparent border-0 border-b border-white/20 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-500/70 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none"
+                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none"
                   />
                 </div>
 
@@ -156,7 +156,7 @@ export function PartnerPortfolioCTA() {
                     placeholder="(555) 123-4567"
                     maxLength={30}
                     required
-                    className="w-full bg-transparent border-0 border-b border-white/20 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-500/70 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none"
+                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none"
                   />
                 </div>
 
@@ -174,7 +174,7 @@ export function PartnerPortfolioCTA() {
                     placeholder="e.g. Exclusive MVA leads in Texas, ~50/month"
                     maxLength={1000}
                     required
-                    className="w-full bg-transparent border-0 border-b border-white/20 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-500/70 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none resize-none"
+                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none resize-none"
                   />
                 </div>
 
@@ -192,16 +192,16 @@ export function PartnerPortfolioCTA() {
                     placeholder="Your answer"
                     maxLength={1000}
                     required
-                    className="w-full bg-transparent border-0 border-b border-white/20 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-500/70 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none resize-none"
+                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none resize-none"
                   />
                 </div>
 
                 {/* 7. What is the offer that you have for us? */}
                 <div>
-                  <label htmlFor="offer" className="block text-[13.5px] sm:text-[14.5px] font-normal text-white/90 mb-0.5 tracking-normal">
+                  <label htmlFor="offer" className="block text-[13.5px] sm:text-[14.5px] font-medium text-white mb-0.5 tracking-normal">
                     What is the offer that you have for us?*
                   </label>
-                  <p className="text-xs text-neutral-400 mb-1 leading-relaxed font-normal">
+                  <p className="text-xs text-neutral-300 mb-1 leading-relaxed font-normal">
                     Please understand it is very competitive, and we only pay attention to extremely generous offers.
                   </p>
                   <textarea
@@ -213,7 +213,7 @@ export function PartnerPortfolioCTA() {
                     placeholder="Your offer"
                     maxLength={1000}
                     required
-                    className="w-full bg-transparent border-0 border-b border-white/20 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-500/70 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none resize-none"
+                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none resize-none"
                   />
                 </div>
 
