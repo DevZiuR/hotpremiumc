@@ -12,8 +12,8 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [hoveredVerticalIdx, setHoveredVerticalIdx] = useState<number>(0);
   const [hoveredTopState, setHoveredTopState] = useState<string | null>(null);
-  // Header is statically positioned and maintains clean light styling without black scroll state
-  const scrolled = false;
+  // Header is statically positioned with a black background and white text
+  const scrolled = true;
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown on outside click
@@ -571,7 +571,7 @@ export function Header() {
       </div>
 
       {/* ── Main Navigation Bar ────────────────────────────────────────── */}
-      <div className="relative bg-white border-b border-gray-200/90">
+      <div className="relative bg-black border-b border-white/10">
         <div
           ref={dropdownRef}
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-6 h-18 sm:h-20"
@@ -588,7 +588,7 @@ export function Header() {
                 className="w-auto object-contain h-8 sm:h-9 md:h-10 shrink-0"
               />
               <div className="flex flex-col justify-center min-w-0">
-                <span className="text-[14px] sm:text-[17px] md:text-[19px] font-bold tracking-normal leading-tight uppercase text-[#101828] truncate">
+                <span className="text-[14px] sm:text-[17px] md:text-[19px] font-bold tracking-normal leading-tight uppercase text-white truncate">
                   Hot Premium Customers
                 </span>
               </div>
@@ -679,25 +679,6 @@ export function Header() {
                     </div>
 
                     {/* Delivery Specs Bar (No CTA card, zero marketing noise, purely essential specs) */}
-                    <div className="mt-4 pt-3.5 border-t border-neutral-200/90 flex items-center justify-between px-1 text-[11.5px]">
-                      <div className="flex items-center gap-3 text-neutral-600">
-                        <span className="flex items-center gap-1.5 font-semibold text-black">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                          100% Exclusive
-                        </span>
-                        <span className="text-neutral-300">•</span>
-
-                      </div>
-
-                      <a
-                        href="#contact"
-                        onClick={() => setOpenMenu(null)}
-                        className="font-bold text-black hover:opacity-70 transition-opacity flex items-center gap-1"
-                      >
-                        <span>Delivery specs</span>
-                        <span>&rarr;</span>
-                      </a>
-                    </div>
                   </div>
                 </div>
               )}
@@ -805,30 +786,12 @@ export function Header() {
                             <div className="relative z-10">
                               <div className="text-[#2563EB] mb-1.5 flex items-center gap-1.5">
                                 <span className="inline-flex items-center gap-1 bg-black/70 px-2 py-0.5 rounded border border-white/15">
-                                  <svg
-                                    className="w-3.5 h-3.5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2}
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                                    />
-                                  </svg>
-                                  <span className="text-[10px] font-extrabold tracking-wider uppercase text-[#2563EB]">
-                                    {currentVert.badge}
-                                  </span>
                                 </span>
                               </div>
                               <h4 className="text-[17.5px] font-extrabold text-white leading-tight">
                                 {currentVert.highlightTitle}
                               </h4>
-                              <p className="text-[12px] text-white/85 leading-snug mt-1 font-normal">
-                                {currentVert.highlightSubtitle}
-                              </p>
+
                             </div>
                           </a>
                         );
@@ -873,13 +836,13 @@ export function Header() {
                         <a
                           href="#partner"
                           onClick={() => setOpenMenu(null)}
-                          className="bg-black hover:bg-neutral-900 transition-all duration-200 rounded-2xl p-5 text-white flex flex-col justify-between h-[235px] relative overflow-hidden group shadow-md border border-black/10"
+                          className="bg-[#2563EB] hover:bg-neutral-900 transition-all duration-200 rounded-2xl p-5 text-white flex flex-col justify-between h-[235px] relative overflow-hidden group shadow-md border border-black/10"
                         >
                           <div className="flex items-center justify-between">
                             <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#2563EB] text-white text-[11px] font-extrabold">
                               Featured
                             </span>
-                            <div className="text-[#2563EB] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                            <div className="text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                               <svg
                                 className="w-4 h-4"
                                 fill="none"
@@ -897,7 +860,7 @@ export function Header() {
                           </div>
 
                           <div className="mt-auto pt-4">
-                            <h3 className="text-[18.5px] font-extrabold text-white leading-snug group-hover:text-[#2563EB] transition-colors">
+                            <h3 className="text-[18.5px] font-extrabold !text-white leading-snug group-hover:text-[#2563EB] transition-colors">
                               Simplify your tech stack, grow your profit
                             </h3>
                           </div>
@@ -1106,24 +1069,7 @@ export function Header() {
                     </div>
 
                     {/* Delivery Specs Bar */}
-                    <div className="mt-3.5 pt-3 border-t border-neutral-200/90 flex items-center justify-between px-1 text-[11.5px]">
-                      <div className="flex items-center gap-3 text-neutral-600">
-                        <span className="flex items-center gap-1.5 font-semibold text-black">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                          50 States + DC
-                        </span>
-                        <span className="text-neutral-300">•</span>
-                      </div>
 
-                      <a
-                        href="#nationwide-coverage"
-                        onClick={() => setOpenMenu(null)}
-                        className="font-bold text-black hover:opacity-70 transition-opacity flex items-center gap-1"
-                      >
-                        <span>Interactive map</span>
-                        <span>&rarr;</span>
-                      </a>
-                    </div>
                   </div>
                 </div>
               )}
@@ -1211,24 +1157,6 @@ export function Header() {
                     </div>
 
                     {/* Resources Footer Bar */}
-                    <div className="mt-4 pt-3.5 border-t border-neutral-200/90 flex items-center justify-between px-1 text-[11.5px]">
-                      <div className="flex items-center gap-3 text-neutral-600">
-                        <span className="flex items-center gap-1.5 font-semibold text-black">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                          Updated Weekly
-                        </span>
-                        <span className="text-neutral-300">•</span>
-                      </div>
-
-                      <a
-                        href="#blog"
-                        onClick={() => setOpenMenu(null)}
-                        className="font-bold text-black hover:opacity-70 transition-opacity flex items-center gap-1"
-                      >
-                        <span>All resources</span>
-                        <span>&rarr;</span>
-                      </a>
-                    </div>
                   </div>
                 </div>
               )}

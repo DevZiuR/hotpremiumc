@@ -26,9 +26,9 @@ export function Hero() {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center text-center">
 
         <Reveal delay={0} immediate>
-          <div className="inline-flex items-center gap-2 sm:gap-2.5 border border-ink/20 px-2.5 py-1.5 sm:py-2 mb-6 sm:mb-8 max-w-full">
+          <div className="inline-flex items-center gap-2 sm:gap-2.5 border border-ink/20 px-2.5 py-1.5 sm:py-2 mb-6 sm:mb-8 max-w-full bg-black">
             <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-            <span className="font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.12em] sm:tracking-[0.18em] uppercase text-ink/80">
+            <span className="font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.12em] sm:tracking-[0.18em] uppercase text-white/70">
               Equity Partnerships · Highly Selective
             </span>
           </div>
@@ -36,7 +36,7 @@ export function Hero() {
 
         <Reveal delay={100} immediate>
           <h1 className="font-serif text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black max-w-4xl mb-6 sm:mb-6 tracking-tight leading-[1.14] sm:leading-[1.12] lg:leading-[64px]">
-            <span>We Fund Your Growth. You Keep the Business.</span>
+            <span>We Run Ads For Other Companies With Our Own Money</span>
           </h1>
         </Reveal>
 

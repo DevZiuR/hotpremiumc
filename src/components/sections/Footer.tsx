@@ -103,7 +103,7 @@ export function Footer() {
               className="inline-flex items-center gap-1.5 text-sm sm:text-base md:text-[18px] font-medium text-white hover:text-neutral-200 transition-colors group"
             >
               <span>LinkedIn</span>
-              <span className="text-[#F5A623] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span className="text-[#2563EB] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 ↗
               </span>
             </a>
@@ -114,7 +114,7 @@ export function Footer() {
               className="inline-flex items-center gap-1.5 text-sm sm:text-base md:text-[18px] font-medium text-white hover:text-neutral-200 transition-colors group"
             >
               <span>Instagram</span>
-              <span className="text-[#F5A623] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span className="text-[#2563EB] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 ↗
               </span>
             </a>
@@ -125,7 +125,7 @@ export function Footer() {
               className="inline-flex items-center gap-1.5 text-sm sm:text-base md:text-[18px] font-medium text-white hover:text-neutral-200 transition-colors group"
             >
               <span>X</span>
-              <span className="text-[#F5A623] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span className="text-[#2563EB] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 ↗
               </span>
             </a>

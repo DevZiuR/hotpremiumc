@@ -192,7 +192,7 @@ export function PartnerPortfolioCTA() {
                     placeholder="Your answer"
                     maxLength={1000}
                     required
-                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none resize-none"
+                    className="w-full bg-transparent border-0 border-b border-white/30 focus:border-white py-1.5 sm:py-2 text-white placeholder:text-neutral-400/60 focus:outline-none focus:ring-0 transition-colors text-base font-sans rounded-none resize-none mb-2"
                   />
                 </div>
 
@@ -218,7 +218,7 @@ export function PartnerPortfolioCTA() {
                 </div>
 
                 {/* 8. SMS Consent Checkbox (Matching original copy exactly) */}
-                <div className="space-y-1 pt-1">
+                <div className="space-y-3 pt-3">
                   <div className="flex items-start gap-3">
                     <input
                       type="checkbox"
@@ -252,10 +252,10 @@ export function PartnerPortfolioCTA() {
                 </div>
 
                 {/* Submit Pill Button & Disclaimer */}
-                <div className="pt-2 sm:pt-3">
+                <div className="pt-3 sm:pt-4 pb-5">
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-8 rounded-full bg-white text-black font-semibold text-sm sm:text-base hover:bg-neutral-200 transition-all duration-200 active:scale-[0.99] shadow-xl cursor-pointer flex items-center justify-center gap-2 group"
+                    className="w-full py-3.5 px-8 rounded-full bg-[#2563EB] text-white font-semibold text-sm sm:text-base hover:bg-neutral-200 transition-all duration-200 active:scale-[0.99] shadow-xl cursor-pointer flex items-center justify-center gap-4 group mb-12"
                   >
                     <span>{submitted ? "Message Sent!" : "Get My Leads"}</span>
                     {!submitted && (

@@ -66,7 +66,7 @@ export function AboutSection({
   const step = (endBound - startBound) / total;
 
   return (
-    <section ref={sectionRef} id="about" className="relative bg-black text-white py-28 sm:py-40 md:py-48 overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative bg-black text-white py-20 sm:py-20 md:py-24 overflow-hidden">
       {/* Background subtle radial glow */}
       <div
         className="pointer-events-none absolute inset-0 opacity-20"
@@ -93,7 +93,7 @@ export function AboutSection({
 
         {/* Main Statement Headline with Clean Single-Layer Scroll Reveal */}
         <div className="w-full">
-          <h2 className="font-serif text-xl sm:text-2xl md:text-[38px] lg:text-[38px] text-white tracking-tight leading-[1.34] md:leading-[1.3] max-w-4xl mx-auto mb-0">
+          <h2 className="font-serif text-xl sm:text-2xl md:text-[38px] lg:text-[38px] text-white tracking-tight leading-[1.34] md:leading-[1.3] max-w-5xl mx-auto mb-0">
             {allWords.map((item, i) => {
               const start = startBound + i * step;
               const end = Math.min(0.98, start + 0.14);

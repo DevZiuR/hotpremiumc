@@ -208,107 +208,107 @@ export function IndustriesWeServe() {
           <div className="lg:col-span-7">
             <Reveal delay={150}>
               <div className="bg-black rounded-2xl border border-neutral-800 p-1.5 sm:p-3 divide-y divide-neutral-800/80 shadow-xl">
-              {industriesData.map((item, index) => {
-                const isSelected = activeIndex === index;
+                {industriesData.map((item, index) => {
+                  const isSelected = activeIndex === index;
 
-                return (
-                  <div
-                    key={item.title}
-                    onClick={() => handleItemClick(index)}
-                    className={`py-3.5 sm:py-5 cursor-pointer group transition-colors duration-200 select-none px-3 sm:px-5 rounded-xl ${isSelected ? "bg-white/[0.05]" : "hover:bg-white/[0.03]"
-                      }`}
-                  >
-                    {/* Item Header Row */}
-                    <div className="flex items-center justify-between gap-1">
-                      <h3
-                        className={`text-base sm:text-lg lg:text-[20px] transition-colors duration-200 font-semibold leading-relaxed ${isSelected
+                  return (
+                    <div
+                      key={item.title}
+                      onClick={() => handleItemClick(index)}
+                      className={`py-3.5 sm:py-5 cursor-pointer group transition-colors duration-200 select-none px-3 sm:px-5 rounded-xl ${isSelected ? "bg-white/[0.05]" : "hover:bg-white/[0.03]"
+                        }`}
+                    >
+                      {/* Item Header Row */}
+                      <div className="flex items-center justify-between gap-1">
+                        <h3
+                          className={`text-base sm:text-lg lg:text-[20px] transition-colors duration-200 font-semibold leading-relaxed ${isSelected
                             ? "text-[#F5A623] font-bold"
                             : "text-neutral-300 font-normal group-hover:text-[#F5A623]"
-                          }`}
-                      >
-                        {item.title}
-                      </h3>
-
-                      {/* Small Indicator Arrow */}
-                      <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-neutral-400 group-hover:text-[#F5A623] ${isSelected ? "rotate-90 text-[#F5A623] font-bold" : ""
-                          }`}
-                      >
-                        <svg
-                          className="w-3.5 h-3.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
+                            }`}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
+                          {item.title}
+                        </h3>
+
+                        {/* Small Indicator Arrow */}
+                        <div
+                          className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-neutral-400 group-hover:text-[#F5A623] ${isSelected ? "rotate-90 text-[#F5A623] font-bold" : ""
+                            }`}
+                        >
+                          <svg
+                            className="w-3.5 h-3.5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Paragraph & Sub-Verticals Revealed On Click */}
-                    <AnimatePresence initial={false}>
-                      {isSelected && (
-                        <motion.div
-                          key="content"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeOut" }}
-                          className="overflow-hidden"
-                        >
-                          <div className="pt-3 pb-1 pr-1 sm:pr-6 font-sans">
-                            {/* Summary description */}
-                            <p className="text-sm sm:text-[14.5px] text-neutral-400 leading-relaxed mb-3">
-                              {item.description}
-                            </p>
+                      {/* Paragraph & Sub-Verticals Revealed On Click */}
+                      <AnimatePresence initial={false}>
+                        {isSelected && (
+                          <motion.div
+                            key="content"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pt-3 pb-1 pr-1 sm:pr-6 font-sans">
+                              {/* Summary description */}
+                              <p className="text-sm sm:text-[14.5px] text-neutral-400 leading-relaxed mb-3">
+                                {item.description}
+                              </p>
 
-                            {/* Sub-verticals tags */}
-                            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3.5">
-                              {item.subVerticals.map((sub, i) => (
-                                <span
-                                  key={i}
-                                  className={`text-xs px-2.5 py-1 rounded-md transition-colors ${sub.startsWith("+")
+                              {/* Sub-verticals tags */}
+                              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3.5">
+                                {item.subVerticals.map((sub, i) => (
+                                  <span
+                                    key={i}
+                                    className={`text-xs px-2.5 py-1 rounded-md transition-colors ${sub.startsWith("+")
                                       ? "bg-neutral-800 text-neutral-400 font-semibold font-mono"
                                       : "bg-neutral-900 text-neutral-200 border border-neutral-800 font-medium"
-                                    }`}
-                                >
-                                  {sub}
-                                </span>
-                              ))}
+                                      }`}
+                                  >
+                                    {sub}
+                                  </span>
+                                ))}
+                              </div>
+
+                              {/* View all link */}
+                              <a
+                                href={item.href}
+                                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F5A623] hover:underline transition-colors duration-200"
+                              >
+                                <span>View all {item.verticalCount}</span>
+                                <span>→</span>
+                              </a>
                             </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+              </div>
 
-                            {/* View all link */}
-                            <a
-                              href={item.href}
-                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F5A623] hover:underline transition-colors duration-200"
-                            >
-                              <span>View all {item.verticalCount}</span>
-                              <span>→</span>
-                            </a>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Bottom "See all industries" Pill Button */}
-            <div className="mt-8 pt-2">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black hover:bg-neutral-800 text-white text-xs sm:text-sm font-medium transition-all duration-200 shadow-sm active:scale-95"
-              >
-                <span>See all industries</span>
-                <span className="text-sm">→</span>
-              </a>
-            </div>
+              {/* Bottom "See all industries" Pill Button */}
+              <div className="mt-8 pt-2">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-[#2563EB] hover:bg-neutral-800 text-white text-xs sm:text-sm font-medium transition-all duration-200 shadow-sm active:scale-95 w-full sm:w-auto text-center justify-center"
+                >
+                  <span>See all industries</span>
+                  <span className="text-sm">→</span>
+                </a>
+              </div>
             </Reveal>
           </div>
         </div>

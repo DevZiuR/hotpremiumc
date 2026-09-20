@@ -8,7 +8,7 @@ import { CropMarkFrame } from "@/components/ui/CropMarkFrame";
 
 export function AboutMax() {
   return (
-    <section id="about-founder" className="relative bg-white py-16 sm:py-24 md:py-36 border-b border-gray-200/80 overflow-hidden font-sans">
+    <section id="about-founder" className="relative bg-white py-16 sm:py-24 md:py-28 border-b border-gray-200/80 overflow-hidden font-sans">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         {/* Crop-mark corner registration brackets */}
         <div className="absolute -inset-y-5 sm:-inset-y-8 inset-x-0 sm:inset-x-2 md:inset-x-6 pointer-events-none">
@@ -109,7 +109,7 @@ export function AboutMax() {
 
               {/* CTA Button */}
               <div className="pt-6 sm:pt-8">
-                <Button variant="sharp-primary" href="#contact" className="w-full sm:w-auto text-center justify-center">
+                <Button variant="sharp-primary" href="#contact" className="!bg-[#2563EB] w-full sm:w-auto text-center justify-center">
                   Apply for Partnership
                 </Button>
               </div>
