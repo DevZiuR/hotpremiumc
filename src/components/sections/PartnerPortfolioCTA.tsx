@@ -81,7 +81,7 @@ export function PartnerPortfolioCTA() {
                 </span>
               </div>
               <h2 className="font-serif text-[34px] sm:text-[38px] md:text-[50px] lg:text-[60px] font-normal text-white tracking-tight leading-[1.12]">
-                Ready to take your business to the next level?
+                Ready to Take Your Business to the Next Level?
               </h2>
             </div>
 
@@ -255,7 +255,7 @@ export function PartnerPortfolioCTA() {
                 <div className="pt-3 sm:pt-4 pb-5">
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-8 rounded-full bg-[#2563EB] text-white font-semibold text-sm sm:text-base hover:bg-neutral-200 transition-all duration-200 active:scale-[0.99] shadow-xl cursor-pointer flex items-center justify-center gap-4 group mb-12"
+                    className="w-full py-3.5 px-8 rounded-full bg-[#2563EB] text-white font-semibold text-sm sm:text-base hover:bg-neutral-200 transition-all duration-200 active:scale-[0.99] shadow-xl cursor-pointer flex items-center justify-center gap-4 group mb-12 uppercase"
                   >
                     <span>{submitted ? "Message Sent!" : "Get My Leads"}</span>
                     {!submitted && (

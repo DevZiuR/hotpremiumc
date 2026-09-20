@@ -13,7 +13,7 @@ const features = [
 
 export function GlobalCoverage() {
   return (
-    <section id="global-coverage" className="relative bg-[#2563eb] py-16 sm:py-24 md:py-28 border-b border-gray-200/80 overflow-hidden">
+    <section id="global-coverage" className="relative bg-white py-16 sm:py-24 md:py-28 border-b border-gray-200/80 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         {/* Crop-mark corner registration brackets */}
         <div className="absolute -inset-y-5 sm:-inset-y-8 inset-x-0 sm:inset-x-2 md:inset-x-6 pointer-events-none">
@@ -36,7 +36,7 @@ export function GlobalCoverage() {
               </div>
 
               {/* Main Headline */}
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[38px] font-normal text-black tracking-tight sm:tracking-normal leading-[1.12] sm:leading-[1.08] mb-4 sm:mb-5">
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[65px] font-normal text-black tracking-tight sm:tracking-normal leading-[1.12] sm:leading-[1.08] mb-4 sm:mb-5">
                 The regions we're scaling with licensed, high-ticket demand
               </h2>
 

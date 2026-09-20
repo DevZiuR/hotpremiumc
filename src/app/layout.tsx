@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
-import { Merriweather, Cabin } from "next/font/google";
+import { Instrument_Serif, Geist } from "next/font/google";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
-// Merriweather — used for headlines and headings
-const merriweather = Merriweather({
+// Instrument Serif — editorial serif for headlines
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "700", "900"],
-  variable: "--font-merriweather",
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
 });
 
-// Cabin — used for body text (400 weight base)
-const cabin = Cabin({
+// Geist — clean, modern sans-serif for body, nav, buttons, labels
+const geist = Geist({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
-  variable: "--font-cabin",
+  variable: "--font-geist",
 });
 
 export const metadata: Metadata = {
@@ -67,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${merriweather.variable} ${cabin.variable} h-full antialiased`}>
+    <html lang="en" className={`${instrumentSerif.variable} ${geist.variable} h-full antialiased`}>
       <body className="font-sans bg-white text-ink min-h-full flex flex-col">
         <SmoothScroll>{children}</SmoothScroll>
       </body>

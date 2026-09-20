@@ -177,7 +177,7 @@ export function IndustriesWeServe() {
           </div>
 
           {/* Heading */}
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium text-black tracking-tight leading-[1.18] max-w-2xl mb-8 sm:mb-12 md:mb-16">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[65px] font-medium text-black tracking-tight leading-[1.18] max-w-3xl mb-8 sm:mb-12 md:mb-16">
             The industries we are transforming with high-ticket pipeline
           </h2>
         </Reveal>
@@ -215,7 +215,7 @@ export function IndustriesWeServe() {
                     <div
                       key={item.title}
                       onClick={() => handleItemClick(index)}
-                      className={`py-3.5 sm:py-5 cursor-pointer group transition-colors duration-200 select-none px-3 sm:px-5 rounded-xl ${isSelected ? "bg-white/[0.05]" : "hover:bg-white/[0.03]"
+                      className={`py-3.5 sm:py-5 cursor-pointer group transition-colors duration-200 select-none px-3 sm:px-5 rounded-xl uppercase ${isSelected ? "bg-white/[0.05]" : "hover:bg-white/[0.03]"
                         }`}
                     >
                       {/* Item Header Row */}
@@ -303,7 +303,7 @@ export function IndustriesWeServe() {
               <div className="mt-8 pt-2">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-[#2563EB] hover:bg-neutral-800 text-white text-xs sm:text-sm font-medium transition-all duration-200 shadow-sm active:scale-95 w-full sm:w-auto text-center justify-center"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-[#2563EB] hover:bg-neutral-800 text-white text-xs sm:text-sm font-medium transition-all duration-200 shadow-sm active:scale-95 w-full sm:w-auto text-center justify-center uppercase"
                 >
                   <span>See all industries</span>
                   <span className="text-sm">→</span>

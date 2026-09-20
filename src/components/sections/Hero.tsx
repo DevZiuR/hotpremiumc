@@ -29,22 +29,21 @@ export function Hero() {
           <div className="inline-flex items-center gap-2 sm:gap-2.5 border border-ink/20 px-2.5 py-1.5 sm:py-2 mb-6 sm:mb-8 max-w-full bg-black">
             <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
             <span className="font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.12em] sm:tracking-[0.18em] uppercase text-white/70">
-              Equity Partnerships · Highly Selective
+              EQUITY PARTNERSHIPS · APPLICATIONS REVIEWED MONTHLY
             </span>
           </div>
         </Reveal>
 
         <Reveal delay={100} immediate>
-          <h1 className="font-serif text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black max-w-4xl mb-6 sm:mb-6 tracking-tight leading-[1.14] sm:leading-[1.12] lg:leading-[64px]">
-            <span>We Run Ads For Other Companies With Our Own Money</span>
+          <h1 className="font-serif text-4xl sm:text-4xl md:text-5xl lg:text-8xl font-normal text-black max-w-4xl mb-6 sm:mb-6 tracking-[-0.02em] leading-[1.14] sm:leading-[1.12] lg:leading-[75px]">
+            <span className="italic">We Fund Your Growth.</span> <br />
+            You Keep the Business.
           </h1>
         </Reveal>
 
         <Reveal delay={200} immediate>
-          <p className="font-sans text-sm sm:text-base md:text-body text-black max-w-xl mb-10 sm:mb-10 leading-relaxed font-normal px-1 sm:px-0">
-            We put our ad budget, sales team, and technology behind operators who already have a
-            proven, sellable offer — no retainer, no management fee. We only make money when your
-            revenue grows.
+          <p className="font-sans text-sm sm:text-base md:text-body text-black max-w-xl mb-10 sm:mb-10 leading-relaxed font-normal tracking-[-0.01em] px-1 sm:px-0">
+            We put our ad budget, sales team, and technology behind operators who already have a proven, sellable offer, no retainer, no management fee. We only make money when your revenue grows.
           </p>
         </Reveal>
 

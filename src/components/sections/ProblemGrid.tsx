@@ -15,7 +15,7 @@ export function ProblemGrid() {
                 Proven Model
               </span>
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.12] text-white my-2 mb-3">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-semibold tracking-tight leading-[1.12] text-white my-2 mb-3">
               Why the Best Operators Partner With Us
             </h2>
           </div>
@@ -154,7 +154,7 @@ export function ProblemGrid() {
 
                 {/* Box 6: First-World Coverage */}
                 <Reveal delay={90} className="h-full">
-                  <div className="relative group overflow-hidden min-h-[200px] sm:min-h-[260px] lg:min-h-[320px] p-5 sm:p-7 md:p-8 flex flex-col justify-between bg-[#111113] md:bg-[#2563EB] rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-black/50 md:hover:shadow-black/20 hover:z-10 h-full">
+                  <div className="relative group overflow-hidden min-h-[200px] sm:min-h-[260px] lg:min-h-[320px] p-5 sm:p-7 md:p-8 flex flex-col justify-between bg-[#111113] !md:bg-[#2563EB] rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-black/50 md:hover:shadow-black/20 hover:z-10 h-full">
                     {/* Top-left: Location Pin / Globe Icon */}
                     <div className="relative z-10">
                       <div className="w-10 h-10 border border-neutral-700/80 md:border-neutral-300/80 bg-neutral-900/80 md:bg-black md:backdrop-blur-sm group-hover:border-[#F5A623]/40 flex items-center justify-center text-white transition-colors duration-200 ease-out">

@@ -26,7 +26,7 @@ export function AboutMax() {
                   FOUNDER
                 </span>
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-normal text-black tracking-tight leading-[1.12] mb-0">
+              <h2 className="font-serif text-2xl sm:text-4xl font-normal text-black tracking-tight leading-[1.12] mb-0">
                 From scaling other people&apos;s businesses to funding your growth
               </h2>
             </Reveal>
