@@ -53,7 +53,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="bg-[#f4f5f7] py-16 sm:py-24 md:py-28 lg:py-36 border-b border-gray-200/80">
+    <section className="bg-[#f4f5f7] py-[80px] lg:py-[140px] border-b border-gray-200/80">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         {/* Crop-mark corner registration brackets — matches GlobalCoverage & AboutMax */}
         <div className="absolute -inset-y-5 sm:-inset-y-8 inset-x-0 sm:inset-x-4 lg:inset-x-8 pointer-events-none">
@@ -62,26 +62,37 @@ export function FAQSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20 items-start relative">
           {/* ── Left Column: Sticky Title & Support Callout ── */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">
+          <div className="lg:col-span-5 lg:sticky lg:top-[120px] lg:self-start">
             <Reveal>
               {/* Eyebrow with blue accent mark */}
               <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
                 <span className="flex items-center">
                   <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2563eb" }} aria-hidden="true" />
                 </span>
-                <span className="font-sans text-xs font-semibold uppercase tracking-widest text-black">
+                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-black">
                   FAQS
                 </span>
               </div>
 
               {/* Main Headline */}
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal text-black tracking-tight sm:tracking-normal leading-[1.12] sm:leading-[1.08] mb-4 sm:mb-6">
+              <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6 [text-wrap:balance]">
                 Questions worth answering before you apply
               </h2>
+
+              <div className="mt-8">
+                <h3 className="font-serif text-[28px] font-medium text-black leading-[1.3]">Not sure you qualify?</h3>
+                <p className="font-sans text-[17px] text-[#6B7280] leading-[1.6] mt-2">Apply and we&apos;ll tell you.</p>
+                <div className="mt-5">
+                  <Button href="#contact" variant="sharp-primary" className="!bg-[#2563EB] !border-[#2563EB] !text-white hover:!bg-[#1d4ed8] hover:!border-[#1d4ed8] h-[44px] !rounded-[12px] !py-0 px-6 inline-flex items-center gap-2">
+                    Apply for partnership <span aria-hidden="true">→</span>
+                  </Button>
+                </div>
+              </div>
               {/* this is the div that should be added after the FAQTitle*/}
-              {/* Support Contact Box */}
-              <div className="pt-2">
-                <h3 className="font-sans text-[15px] sm:text-[16px] font-semibold text-black mb-1">
+              {/* Support Contact Box 
+              {/*
+                <div className="pt-2">
+                <h3 className="font-sans text-[15px] sm:text-[22px] font-semibold text-black mb-1">
                   Still deciding if this is the right fit?
                 </h3>
                 <p className="font-sans text-sm text-neutral-500 mb-5 sm:mb-7 leading-normal max-w-sm ">
@@ -96,6 +107,7 @@ export function FAQSection() {
                   CONTACT US
                 </Button>
               </div>
+              */}
             </Reveal>
           </div>
 
@@ -120,39 +132,23 @@ export function FAQSection() {
                         className="w-full flex items-center justify-between text-left gap-4 sm:gap-6 cursor-pointer group focus:outline-none"
                         aria-expanded={isOpen}
                       >
-                        <span className="font-sans text-[15px] sm:text-[17.5px] font-medium text-white group-hover:text-neutral-200 transition-colors leading-snug">
+                        <span className="font-sans text-[17px] font-medium text-white group-hover:text-neutral-200 transition-colors leading-[1.6] max-w-[62ch]">
                           {faq.question}
                         </span>
-                        <span className="text-[#F5A623] shrink-0 p-0.5">
-                          {isOpen ? (
-                            <svg
-                              className="w-4 h-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6 18L18 6M6 6l12 12"
-                              />
-                            </svg>
-                          ) : (
-                            <svg
-                              className="w-4 h-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 4.5v15m7.5-7.5h-15"
-                              />
-                            </svg>
-                          )}
+                        <span className={`text-[#3B82F6] shrink-0 p-0.5 transition-transform duration-200 ${isOpen ? "rotate-45" : "rotate-0"}`}>
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M12 4.5v15m7.5-7.5h-15"
+                            />
+                          </svg>
                         </span>
                       </button>
 
@@ -162,10 +158,10 @@ export function FAQSection() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
                             className="overflow-hidden"
                           >
-                            <p className="font-sans text-sm sm:text-[15px] text-neutral-300 leading-relaxed font-normal mt-3 sm:mt-4 pr-2 sm:pr-10">
+                            <p className="font-sans text-[17px] text-neutral-300 leading-[1.6] max-w-[62ch] font-normal mt-3 sm:mt-4 pr-2 sm:pr-10">
                               {faq.answer}
                             </p>
                           </motion.div>

@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/Button";
 
 export function DifferentiatorTier() {
   return (
-    <section className="bg-navy text-paper py-16 md:py-24 border-b border-line/20">
+    <section className="bg-navy text-paper py-[80px] lg:py-[140px] border-b border-line/20">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
           eyebrow="The Differentiator"
-          title="We Put Capital at Risk Before Yours"
+          title="We put capital at risk before yours"
           description="Traditional agencies charge $10k/mo retainers and gamble with your ad budget. We invest our own money, build your infrastructure, and only participate in the upside."
           theme="dark"
           align="center"
@@ -25,10 +25,10 @@ export function DifferentiatorTier() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="font-serif text-white text-h3 font-semibold mb-3">
-                  100% Media Spend &amp; Acquisition Funded
+                <h3 className="font-serif text-white text-[30px] font-semibold leading-[1.1] mb-3">
+                  100% media spend &amp; acquisition funded
                 </h3>
-                <p className="font-sans text-body text-slate/90 leading-relaxed mb-6 font-normal">
+                <p className="font-sans text-[17px] text-slate/90 leading-[1.6] max-w-[62ch] mb-6 font-normal">
                   You never write a check for media buying, campaign creative, or audience testing. We fund the entire front-end acquisition engine directly out of our own pocket.
                 </p>
               </div>
@@ -50,10 +50,10 @@ export function DifferentiatorTier() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
-                <h3 className="font-serif text-white text-h3 font-semibold mb-3">
-                  Dedicated Sales Infrastructure &amp; Labor
+                <h3 className="font-serif text-white text-[30px] font-semibold leading-[1.1] mb-3">
+                  Dedicated sales infrastructure &amp; labor
                 </h3>
-                <p className="font-sans text-body text-slate/90 leading-relaxed mb-6 font-normal">
+                <p className="font-sans text-[17px] text-slate/90 leading-[1.6] max-w-[62ch] mb-6 font-normal">
                   Generating volume is only half the battle. We install trained setters, closers, and operational staffing under your brand, held to our performance numbers.
                 </p>
               </div>

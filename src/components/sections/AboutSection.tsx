@@ -40,8 +40,8 @@ function Word({
 
 export function AboutSection({
   eyebrow = "ABOUT US",
-  brandName = "Hot Premium Customers",
-  statement = " is an equity growth partner, not a lead vendor. We fund the ad spend, sales team, and technology behind operators who are past proof of concept and ready to scale, and we only earn when your revenue grows.",
+  brandName = "",
+  statement = "Lead vendors get paid whether you win or not. We don't. Hot Premium Customers is an equity growth partner. We fund the ad spend, sales team, and technology, and we only earn when your revenue grows.",
 }: AboutSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -66,7 +66,7 @@ export function AboutSection({
   const step = (endBound - startBound) / total;
 
   return (
-    <section ref={sectionRef} id="about" className="relative bg-black text-white py-20 sm:py-20 md:py-24 overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative bg-black text-white py-[80px] lg:py-[140px] overflow-hidden">
       {/* Background subtle radial glow */}
       <div
         className="pointer-events-none absolute inset-0 opacity-20"
@@ -84,7 +84,7 @@ export function AboutSection({
           <div className="font-sans text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-neutral-400 mb-3 sm:mb-3">
             <div className="inline-flex items-center gap-2.5 border border-ink/20 px-2 py-2 mb-3">
               <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-              <span className="font-sans text-[12px] font-semibold tracking-[0.18em] uppercase text-white">
+              <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-white">
                 About us
               </span>
             </div>
@@ -92,8 +92,8 @@ export function AboutSection({
         </Reveal>
 
         {/* Main Statement Headline with Clean Single-Layer Scroll Reveal */}
-        <div className="w-full">
-          <h2 className="font-serif text-xl sm:text-2xl md:text-[38px] lg:text-[50px] text-white tracking-tight leading-[1] md:leading-[1] max-w-5xl mx-auto mb-0">
+        <div className="w-full flex flex-col items-center">
+          <h2 className="font-serif text-[clamp(30px,3.6vw,50px)] text-white tracking-[-0.01em] leading-[1.15] max-w-[980px] mx-auto mb-0 text-center">
             {allWords.map((item, i) => {
               const start = startBound + i * step;
               const end = Math.min(0.98, start + 0.14);
@@ -110,6 +110,10 @@ export function AboutSection({
               );
             })}
           </h2>
+          <a href="#how-it-works" className="inline-flex items-center gap-1.5 text-[#2563EB] font-sans text-[16px] font-medium hover:underline mt-[40px]">
+            <span>See how it works</span>
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
       </div>
     </section>

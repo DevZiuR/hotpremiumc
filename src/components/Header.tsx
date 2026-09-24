@@ -3,15 +3,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/Button";
 
 export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [hoveredVerticalIdx, setHoveredVerticalIdx] = useState<number>(0);
-  const [hoveredTopState, setHoveredTopState] = useState<string | null>(null);
   // Header is statically positioned with a black background and white text
   const scrolled = true;
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -46,7 +42,6 @@ export function Header() {
     }
     timeoutRef.current = setTimeout(() => {
       setOpenMenu(null);
-      setHoveredTopState(null);
     }, 180);
   };
 
@@ -57,154 +52,6 @@ export function Header() {
       handleMouseEnter(name);
     }
   };
-
-  // State data for States dropdown
-  const topMarkets = [
-    {
-      name: "California",
-      code: "CA",
-      city: "Los Angeles",
-      metro: "Los Angeles & SF Bay Area",
-      image: "/media/cities/california.jpg",
-      highlight: "#1 Inbound Volume",
-      align: "left" as const,
-    },
-    {
-      name: "Texas",
-      code: "TX",
-      city: "Dallas & Austin",
-      metro: "DFW, Houston & Austin",
-      image: "/media/cities/texas.jpg",
-      highlight: "High Growth Market",
-      align: "center" as const,
-    },
-    {
-      name: "Florida",
-      code: "FL",
-      city: "Miami",
-      metro: "Miami-Dade & Orlando",
-      image: "/media/cities/florida.jpg",
-      highlight: "Top Retirement Hub",
-      align: "center" as const,
-    },
-    {
-      name: "New York",
-      code: "NY",
-      city: "New York City",
-      metro: "NYC Metro & Tri-State",
-      image: "/media/cities/new-york.jpg",
-      highlight: "High Asset Tier",
-      align: "center" as const,
-    },
-    {
-      name: "Georgia",
-      code: "GA",
-      city: "Atlanta",
-      metro: "Greater Atlanta Metro",
-      image: "/media/cities/georgia.jpg",
-      highlight: "Rapid Volume Surge",
-      align: "right" as const,
-    },
-    {
-      name: "Illinois",
-      code: "IL",
-      city: "Chicago",
-      metro: "Chicagoland & Cook County",
-      image: "/media/cities/illinois.jpg",
-      highlight: "Key Midwest Hub",
-      align: "left" as const,
-    },
-    {
-      name: "Pennsylvania",
-      code: "PA",
-      city: "Philadelphia",
-      metro: "Philly & Pittsburgh",
-      image: "/media/cities/pennsylvania.jpg",
-      highlight: "Dense Metro Reach",
-      align: "center" as const,
-    },
-    {
-      name: "North Carolina",
-      code: "NC",
-      city: "Charlotte",
-      metro: "Charlotte & Raleigh-Durham",
-      image: "/media/cities/north-carolina.jpg",
-      highlight: "Banking & Tech Hub",
-      align: "center" as const,
-    },
-    {
-      name: "Arizona",
-      code: "AZ",
-      city: "Phoenix",
-      metro: "Phoenix & Scottsdale Valley",
-      image: "/media/cities/arizona.jpg",
-      highlight: "Top Senior Demographics",
-      align: "right" as const,
-    },
-  ];
-
-  const statesCol1 = [
-    { code: "AL", name: "Alabama" },
-    { code: "CA", name: "California" },
-    { code: "FL", name: "Florida" },
-    { code: "IL", name: "Illinois" },
-    { code: "KY", name: "Kentucky" },
-    { code: "MA", name: "Massachusetts" },
-    { code: "MO", name: "Missouri" },
-    { code: "NH", name: "New Hampshire" },
-    { code: "NC", name: "North Carolina" },
-    { code: "OR", name: "Oregon" },
-    { code: "SD", name: "South Dakota" },
-    { code: "VT", name: "Vermont" },
-    { code: "WI", name: "Wisconsin" },
-  ];
-
-  const statesCol2 = [
-    { code: "AK", name: "Alaska" },
-    { code: "CO", name: "Colorado" },
-    { code: "GA", name: "Georgia" },
-    { code: "IN", name: "Indiana" },
-    { code: "LA", name: "Louisiana" },
-    { code: "MI", name: "Michigan" },
-    { code: "MT", name: "Montana" },
-    { code: "NJ", name: "New Jersey" },
-    { code: "ND", name: "North Dakota" },
-    { code: "PA", name: "Pennsylvania" },
-    { code: "TN", name: "Tennessee" },
-    { code: "VA", name: "Virginia" },
-    { code: "WY", name: "Wyoming" },
-  ];
-
-  const statesCol3 = [
-    { code: "AZ", name: "Arizona" },
-    { code: "CT", name: "Connecticut" },
-    { code: "HI", name: "Hawaii" },
-    { code: "IA", name: "Iowa" },
-    { code: "ME", name: "Maine" },
-    { code: "MN", name: "Minnesota" },
-    { code: "NE", name: "Nebraska" },
-    { code: "NM", name: "New Mexico" },
-    { code: "OH", name: "Ohio" },
-    { code: "RI", name: "Rhode Island" },
-    { code: "TX", name: "Texas" },
-    { code: "WA", name: "Washington" },
-    { code: "DC", name: "Washington D.C." },
-  ];
-
-  const statesCol4 = [
-    { code: "AR", name: "Arkansas" },
-    { code: "DE", name: "Delaware" },
-    { code: "ID", name: "Idaho" },
-    { code: "KS", name: "Kansas" },
-    { code: "MD", name: "Maryland" },
-    { code: "MS", name: "Mississippi" },
-    { code: "NV", name: "Nevada" },
-    { code: "NY", name: "New York" },
-    { code: "OK", name: "Oklahoma" },
-    { code: "SC", name: "South Carolina" },
-    { code: "UT", name: "Utah" },
-    { code: "WV", name: "West Virginia" },
-  ];
 
   const verticalsFeatured = [
     {
@@ -313,127 +160,9 @@ export function Header() {
     },
   ];
 
-  const leadProgramsFeatured = [
-    {
-      title: "Annuity Leads",
-      subtitle: "Fixed & indexed retirement annuities",
-      badge: "Top Seller",
-      href: "#annuity-leads",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <circle cx="8" cy="8" r="6" />
-          <path d="M18 12c0 3.314-2.686 6-6 6a5.97 5.97 0 0 1-4-.98" />
-        </svg>
-      ),
-    },
-    {
-      title: "Advisor Leads",
-      subtitle: "High-net-worth investors seeking RIAs",
-      badge: "$250K+",
-      href: "#financial-advisor-leads",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-        </svg>
-      ),
-    },
-    {
-      title: "Home Services",
-      subtitle: "Roofing, solar, HVAC & remodeling",
-      badge: "High Ticket",
-      href: "#home-services",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-        </svg>
-      ),
-    },
-    {
-      title: "Legal & MVA",
-      subtitle: "Police-reported motor vehicle accidents",
-      badge: "Retainers",
-      href: "#mva-leads",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-        </svg>
-      ),
-    },
-    {
-      title: "Tax Relief Leads",
-      subtitle: "Delinquent federal IRS debt resolution",
-      badge: "IRS $10K+",
-      href: "#tax-relief-leads",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      ),
-    },
-    {
-      title: "Mass Tort & Claims",
-      subtitle: "Validated multi-district litigation claims",
-      badge: "Class Action",
-      href: "#mass-tort",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
-      ),
-    },
-  ];
-
-  const resourcesFeatured = [
-    {
-      title: "Conversion Blog",
-      subtitle: "Acquisition playbooks & compliance insights",
-      badge: "Insights",
-      href: "#blog",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      ),
-    },
-    {
-      title: "Playbooks & Guides",
-      subtitle: "Market reports & lead conversion frameworks",
-      badge: "Guides",
-      href: "#guides",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      ),
-    },
-    {
-      title: "Coverage by State",
-      subtitle: "Geofenced volume across all 50 states + DC",
-      badge: "Map",
-      href: "#coverage-state",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
-    },
-    {
-      title: "Search 190+ Verticals",
-      subtitle: "Browse niches, volume thresholds & pricing",
-      badge: "Directory",
-      href: "#search-verticals",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      ),
-    },
-  ];
-
   return (
     <header
-      className="relative z-50 w-full select-none bg-[#f4f5f7] text-black shadow-xs"
+      className="relative z-50 w-full select-none bg-black text-white sticky top-0 shadow-md"
     >
       {/* ── New Centered Top Bar with Subtle Glow & Ambient Shimmer ─────────────── */}
       <div
@@ -457,7 +186,7 @@ export function Header() {
 
         <div className="relative z-10 max-w-7xl mx-auto text-center">
           <span className="font-medium tracking-wide inline-flex items-center flex-wrap justify-center gap-x-2 gap-y-1 text-xs sm:text-sm">
-            <span className="text-white/95">Want us to fund your growth?</span>
+            <span className="text-white/95">PROVEN OFFER? · WE FUND THE SCALE</span>
             <span className="text-white/60">&rarr;</span>
             <a
               href="#partner"
@@ -474,7 +203,7 @@ export function Header() {
                 aria-hidden="true"
               />
               <span className="relative z-10 underline underline-offset-4 decoration-white/50 group-hover:decoration-white transition-all group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-                Apply for Partnership
+                APPLY
               </span>
             </a>
           </span>
@@ -597,94 +326,15 @@ export function Header() {
 
           {/* Center Navigation Links (Desktop) - Centered with Generous Spacing */}
           <nav className="hidden xl:flex items-center justify-center gap-3.5 2xl:gap-6 shrink-0">
-            {/* ── 1. Lead Programs ───────────────────────────────────── */}
-            <div
-              className="relative group"
-              onMouseEnter={() => handleMouseEnter("lead-programs")}
-              onMouseLeave={handleMouseLeave}
+            {/* ── HOW IT WORKS ───────────────────────────────────── */}
+            <Link
+              href="#how-it-works"
+              className="relative px-3 py-1.5 text-[13px] font-semibold uppercase tracking-[0.03em] text-white/70 hover:text-white transition-colors duration-150"
             >
-              <button
-                type="button"
-                onClick={() => toggleDropdown("lead-programs")}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[15px] font-medium transition-colors duration-150 ${scrolled
-                  ? openMenu === "lead-programs"
-                    ? "text-white bg-white/10"
-                    : "text-white/70 hover:text-white hover:bg-white/10"
-                  : openMenu === "lead-programs"
-                    ? "text-gray-950 bg-black/[0.04]"
-                    : "text-gray-700 hover:text-gray-950 hover:bg-black/[0.03]"
-                  }`}
-              >
-                <span className="relative py-0.5">
-                  Lead Programs
-                  <span
-                    aria-hidden="true"
-                    className={`absolute bottom-0 left-0 right-0 h-[2px] ${scrolled ? "bg-white" : "bg-[#2563EB]"
-                      } rounded-full transition-all duration-200 ease-out origin-left ${openMenu === "lead-programs"
-                        ? "scale-x-100 opacity-100"
-                        : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"
-                      }`}
-                  />
-                </span>
-                <svg
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${openMenu === "lead-programs"
-                    ? "rotate-180 text-gray-950"
-                    : scrolled
-                      ? "text-white/50 group-hover:text-white"
-                      : "text-gray-400 group-hover:text-gray-950"
-                    }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
+              HOW IT WORKS
+            </Link>
 
-              {/* Dropdown #1: Lead Programs */}
-              {openMenu === "lead-programs" && (
-                <div
-                  className="absolute top-full -left-6 pt-3 w-[660px] z-50 animate-in fade-in slide-in-from-top-1 duration-150"
-                  onMouseEnter={() => handleMouseEnter("lead-programs")}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="bg-[#FAF9F5] rounded-2xl shadow-[0_24px_50px_rgba(0,0,0,0.16)] border border-neutral-300/80 p-5">
-                    {/* 2-Column Precision Grid of 6 Programs */}
-                    <div className="grid grid-cols-2 gap-2">
-                      {leadProgramsFeatured.map((item) => (
-                        <a
-                          key={item.title}
-                          href={item.href}
-                          onClick={() => setOpenMenu(null)}
-                          className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 transition-all duration-150 group cursor-pointer border border-transparent hover:border-black/10"
-                        >
-                          <div className="w-9 h-9 rounded-xl bg-[#101A2B] text-white border border-[#101A2B]/40 group-hover:border-[#2563EB]/60 group-hover:scale-105 transition-all duration-200 flex items-center justify-center shrink-0 shadow-xs">
-                            {item.icon}
-                          </div>
-                          <div className="min-w-0 flex-1 flex items-center justify-between gap-2">
-                            <span className="text-[13.5px] font-bold text-black group-hover:text-black truncate">
-                              {item.title}
-                            </span>
-                            <span className="text-[9px] font-extrabold uppercase tracking-wider bg-black/10 text-black px-1.5 py-0.5 rounded shrink-0">
-                              {item.badge}
-                            </span>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-
-                    {/* Delivery Specs Bar (No CTA card, zero marketing noise, purely essential specs) */}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* ── 2. All Verticals ───────────────────────────────────── */}
+            {/* ── INDUSTRIES (Dropdown) ───────────────────────────────────── */}
             <div
               className="relative group"
               onMouseEnter={() => handleMouseEnter("verticals")}
@@ -693,7 +343,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => toggleDropdown("verticals")}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[15px] font-medium transition-colors duration-150 ${scrolled
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold uppercase tracking-[0.03em] transition-colors duration-150 ${scrolled
                   ? openMenu === "verticals"
                     ? "text-white bg-white/10"
                     : "text-white/70 hover:text-white hover:bg-white/10"
@@ -703,7 +353,7 @@ export function Header() {
                   }`}
               >
                 <span className="relative py-0.5">
-                  All Verticals
+                  INDUSTRIES
                   <span
                     aria-hidden="true"
                     className={`absolute bottom-0 left-0 right-0 h-[2px] ${scrolled ? "bg-white" : "bg-[#2563EB]"
@@ -735,8 +385,15 @@ export function Header() {
 
               {/* Mega Menu All Verticals */}
               {openMenu === "verticals" && (
-                <div
-                  className="absolute top-full -left-64 pt-3 w-[1040px] z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    style={{ background: "rgba(0,0,0,0.25)", backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" } as React.CSSProperties}
+                    onClick={() => setOpenMenu(null)}
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[1040px] z-50 animate-in fade-in slide-in-from-top-1 duration-150"
                   onMouseEnter={() => handleMouseEnter("verticals")}
                   onMouseLeave={handleMouseLeave}
                 >
@@ -752,11 +409,18 @@ export function Header() {
                             onClick={() => setOpenMenu(null)}
                             className="w-[240px] shrink-0 rounded-2xl overflow-hidden relative flex flex-col justify-between p-5 min-h-[340px] group shadow-md transition-all duration-300 border border-black/15 bg-black"
                           >
-                            <img
-                              src={currentVert.image}
-                              alt={currentVert.title}
-                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80"
-                            />
+                            <AnimatePresence mode="wait">
+                              <motion.img
+                                key={currentVert.image}
+                                src={currentVert.image}
+                                alt={currentVert.title}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 0.8 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="absolute inset-0 w-full h-full object-cover"
+                              />
+                            </AnimatePresence>
                             {/* Deep rich black gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/35" />
 
@@ -788,8 +452,8 @@ export function Header() {
                                 <span className="inline-flex items-center gap-1 bg-black/70 px-2 py-0.5 rounded border border-white/15">
                                 </span>
                               </div>
-                              <h4 className="text-[17.5px] font-extrabold text-white leading-tight">
-                                {currentVert.highlightTitle}
+                              <h4 className="font-serif text-[17.5px] font-bold text-white leading-tight">
+                                {currentVert.title}
                               </h4>
 
                             </div>
@@ -818,11 +482,11 @@ export function Header() {
                               >
                                 {item.icon}
                               </div>
-                              <div className="min-w-0 flex-1 flex items-center justify-between gap-2">
-                                <h4 className="text-[13.5px] font-bold text-black leading-tight truncate">
+                              <div className="min-w-0 flex-1 flex items-center justify-between gap-2 flex-nowrap">
+                                <h4 className="text-[16px] font-bold text-black leading-tight truncate whitespace-nowrap">
                                   {item.title}
                                 </h4>
-                                <span className="text-[9px] font-extrabold uppercase tracking-wider bg-black/10 text-black px-1.5 py-0.5 rounded shrink-0">
+                                <span className="text-[11px] font-medium uppercase tracking-wider bg-black/10 text-[#374151] px-1.5 py-0.5 rounded shrink-0">
                                   {item.badge}
                                 </span>
                               </div>
@@ -831,7 +495,7 @@ export function Header() {
                         })}
                       </div>
 
-                      {/* 3. Right Column (Solid Black Featured Card + Updates Link) */}
+                      {/* 3. Right Column (Solid Black Featured Card + View All Link) */}
                       <div className="w-[220px] shrink-0 flex flex-col justify-between">
                         <a
                           href="#partner"
@@ -860,19 +524,26 @@ export function Header() {
                           </div>
 
                           <div className="mt-auto pt-4">
-                            <h3 className="text-[18.5px] font-extrabold !text-white leading-snug group-hover:text-[#2563EB] transition-colors">
-                              Simplify your tech stack, grow your profit
+                            <h3 className="font-serif text-[18.5px] font-bold !text-white leading-snug">
+                              Bring the offer. We fund the scale.
                             </h3>
+                            <a
+                              href="#contact"
+                              onClick={() => setOpenMenu(null)}
+                              className="mt-4 inline-flex items-center gap-1.5 bg-white text-black text-[13px] font-semibold px-4 py-2 rounded-lg hover:bg-neutral-100 transition-colors"
+                            >
+                              Apply for partnership <span>→</span>
+                            </a>
                           </div>
                         </a>
 
-                        {/* Product Updates link */}
+                        {/* View All Industries link */}
                         <a
-                          href="#blog"
+                          href="#all-industries"
                           onClick={() => setOpenMenu(null)}
-                          className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-black/5 transition-colors group cursor-pointer mt-2"
+                          className="flex items-center gap-2 p-2 rounded-xl hover:bg-black/5 transition-colors group cursor-pointer mt-2 justify-start"
                         >
-                          <div className="text-black group-hover:scale-110 transition-transform mt-0.5 shrink-0">
+                          <div className="text-[#2563EB] group-hover:translate-x-0.5 transition-transform mt-0.5 shrink-0">
                             <svg
                               className="w-4 h-4"
                               fill="none"
@@ -883,13 +554,13 @@ export function Header() {
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                d="M9 5l7 7-7 7"
                               />
                             </svg>
                           </div>
                           <div className="min-w-0">
-                            <h5 className="text-[12.5px] font-extrabold text-black leading-tight">
-                              Product updates
+                            <h5 className="text-[15px] font-semibold text-[#2563EB] leading-tight">
+                              View all industries
                             </h5>
                           </div>
                         </a>
@@ -897,287 +568,40 @@ export function Header() {
                     </div>
                   </div>
                 </div>
+                </>
               )}
             </div>
 
-            {/* ── 3. States ──────────────────────────────────────────── */}
-            <div
-              className="relative group"
-              onMouseEnter={() => handleMouseEnter("states")}
-              onMouseLeave={handleMouseLeave}
+            {/* ── FAQ ───────────────────────────────────── */}
+            <Link
+              href="#faq"
+              className="relative px-3 py-1.5 text-[13px] font-semibold uppercase tracking-[0.03em] text-white/70 hover:text-white transition-colors duration-150"
             >
-              <button
-                type="button"
-                onClick={() => toggleDropdown("states")}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[15px] font-medium transition-colors duration-150 ${scrolled
-                  ? openMenu === "states"
-                    ? "text-white bg-white/10"
-                    : "text-white/70 hover:text-white hover:bg-white/10"
-                  : openMenu === "states"
-                    ? "text-gray-950 bg-black/[0.04]"
-                    : "text-gray-700 hover:text-gray-950 hover:bg-black/[0.03]"
-                  }`}
-              >
-                <span className="relative py-0.5">
-                  States
-                  <span
-                    aria-hidden="true"
-                    className={`absolute bottom-0 left-0 right-0 h-[2px] ${scrolled ? "bg-white" : "bg-[#2563EB]"
-                      } rounded-full transition-all duration-200 ease-out origin-left ${openMenu === "states"
-                        ? "scale-x-100 opacity-100"
-                        : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"
-                      }`}
-                  />
-                </span>
-                <svg
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${openMenu === "states"
-                    ? "rotate-180 text-gray-950"
-                    : scrolled
-                      ? "text-white/50 group-hover:text-white"
-                      : "text-gray-400 group-hover:text-gray-950"
-                    }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-
-              {/* Dropdown #3: States */}
-              {openMenu === "states" && (
-                <div
-                  className="absolute top-full -left-28 pt-3 w-[720px] z-50 animate-in fade-in slide-in-from-top-1 duration-150"
-                  onMouseEnter={() => handleMouseEnter("states")}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="bg-[#FAF9F5] rounded-2xl shadow-[0_24px_50px_rgba(0,0,0,0.16)] border border-neutral-300/80 p-5">
-                    {/* Top High-Intent Markets */}
-                    <div className="mb-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                        <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
-                          Top High-Volume States
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 relative">
-                        {topMarkets.map((market) => {
-                          const isHovered = hoveredTopState === market.name;
-                          return (
-                            <div
-                              key={market.name}
-                              className="relative"
-                              onMouseEnter={() => setHoveredTopState(market.name)}
-                              onMouseLeave={() => setHoveredTopState(null)}
-                            >
-                              <a
-                                href={`#state-${market.name.toLowerCase().replace(/\s+/g, "-")}`}
-                                onClick={() => {
-                                  setOpenMenu(null);
-                                  setHoveredTopState(null);
-                                }}
-                                className={`px-3 py-1 border rounded-lg text-xs font-bold transition-all shadow-2xs flex items-center gap-1.5 cursor-pointer select-none ${isHovered
-                                  ? "bg-[#2563EB] text-white border-[#2563EB] scale-[1.03] shadow-md z-20"
-                                  : "bg-white text-black hover:bg-[#2563EB] hover:text-white border-black/10"
-                                  }`}
-                              >
-                                <span>{market.name}</span>
-                              </a>
-
-                              {/* City Image Hover Preview Card (Only for Top States) */}
-                              <AnimatePresence>
-                                {isHovered && (
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 7, scale: 0.95 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, y: 4, scale: 0.96 }}
-                                    transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
-                                    className={`absolute top-full mt-2.5 z-50 pointer-events-none w-[240px] rounded-xl overflow-hidden shadow-[0_20px_45px_rgba(0,0,0,0.35)] border border-neutral-700/80 bg-black ${market.align === "left"
-                                      ? "left-0"
-                                      : market.align === "right"
-                                        ? "right-0"
-                                        : "left-1/2 -translate-x-1/2"
-                                      }`}
-                                  >
-                                    {/* Caret pointing up to hovered pill */}
-                                    <div
-                                      className={`absolute -top-1.5 w-3 h-3 bg-black border-t border-l border-neutral-700/80 rotate-45 z-10 ${market.align === "left"
-                                        ? "left-6"
-                                        : market.align === "right"
-                                          ? "right-6"
-                                          : "left-1/2 -translate-x-1/2"
-                                        }`}
-                                    />
-
-                                    {/* Image & Top Bar Container */}
-                                    <div className="relative h-[115px] w-full overflow-hidden">
-                                      <img
-                                        src={market.image}
-                                        alt={`${market.city}, ${market.name}`}
-                                        className="absolute inset-0 w-full h-full object-cover"
-                                      />
-                                      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/10" />
-
-                                      {/* Top Bar Overlay */}
-                                      <div className="relative z-10 p-2.5 flex items-center justify-between">
-                                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-bold text-white shadow-xs">
-                                          <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
-                                          <span>{market.code} Metro</span>
-                                        </span>
-                                        <span className="text-[9.5px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded bg-[#2563EB] text-white font-mono shadow-xs">
-                                          {market.highlight}
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </motion.div>
-                                )}
-                              </AnimatePresence>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    {/* All 50 States Directory */}
-                    <div className="pt-3 border-t border-neutral-200/80">
-                      <div className="max-h-[220px] overflow-y-auto pr-2 grid grid-cols-4 gap-x-4 gap-y-1 scrollbar-thin">
-                        {[statesCol1, statesCol2, statesCol3, statesCol4].map((col, colIdx) => (
-                          <div key={colIdx} className="space-y-1">
-                            {col.map((item) => (
-                              <a
-                                key={item.code}
-                                href={`#state-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                                onClick={() => setOpenMenu(null)}
-                                className="group flex items-center gap-2 text-xs py-1 px-1.5 rounded-md hover:bg-black/5 text-neutral-800 transition-colors"
-                              >
-                                <span className="text-[10px] font-mono font-bold text-neutral-700 group-hover:text-white bg-black/[0.06] group-hover:bg-black px-1.5 py-0.5 rounded transition-colors w-6 text-center">
-                                  {item.code}
-                                </span>
-                                <span className="group-hover:text-black font-semibold text-[12px] truncate">
-                                  {item.name}
-                                </span>
-                              </a>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Delivery Specs Bar */}
-
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* ── 5. Resources ─────────────────────────────────────────── */}
-            <div
-              className="relative group"
-              onMouseEnter={() => handleMouseEnter("resources")}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button
-                type="button"
-                onClick={() => toggleDropdown("resources")}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[15px] font-medium transition-colors duration-150 ${scrolled
-                  ? openMenu === "resources"
-                    ? "text-white bg-white/10"
-                    : "text-white/70 hover:text-white hover:bg-white/10"
-                  : openMenu === "resources"
-                    ? "text-gray-950 bg-black/[0.04]"
-                    : "text-gray-700 hover:text-gray-950 hover:bg-black/[0.03]"
-                  }`}
-              >
-                <span className="relative py-0.5">
-                  Resources
-                  <span
-                    aria-hidden="true"
-                    className={`absolute bottom-0 left-0 right-0 h-[2px] ${scrolled ? "bg-white" : "bg-[#2563EB]"
-                      } rounded-full transition-all duration-200 ease-out origin-left ${openMenu === "resources"
-                        ? "scale-x-100 opacity-100"
-                        : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"
-                      }`}
-                  />
-                </span>
-                <svg
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${openMenu === "resources"
-                    ? "rotate-180 text-gray-950"
-                    : scrolled
-                      ? "text-white/50 group-hover:text-white"
-                      : "text-gray-400 group-hover:text-gray-950"
-                    }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-
-              {/* Dropdown #5: Resources */}
-              {openMenu === "resources" && (
-                <div
-                  className="absolute top-full -left-20 pt-3 w-[620px] z-50 animate-in fade-in slide-in-from-top-1 duration-150"
-                  onMouseEnter={() => handleMouseEnter("resources")}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="bg-[#FAF9F5] rounded-2xl shadow-[0_24px_50px_rgba(0,0,0,0.16)] border border-neutral-300/80 p-5">
-                    {/* 2-Column Grid of 4 Resources */}
-                    <div className="grid grid-cols-2 gap-2.5">
-                      {resourcesFeatured.map((item) => (
-                        <a
-                          key={item.title}
-                          href={item.href}
-                          onClick={() => setOpenMenu(null)}
-                          className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-black/5 transition-all duration-150 group cursor-pointer border border-transparent hover:border-black/10"
-                        >
-                          <div className="w-9 h-9 rounded-xl bg-[#101A2B] text-white border border-[#101A2B]/40 group-hover:border-[#2563EB]/60 group-hover:scale-105 transition-all duration-200 flex items-center justify-center shrink-0 shadow-xs">
-                            {item.icon}
-                          </div>
-                          <div className="min-w-0 flex-1 flex items-center justify-between gap-2">
-                            <span className="text-[13.5px] font-bold text-black group-hover:text-black truncate">
-                              {item.title}
-                            </span>
-                            <span className="text-[9px] font-extrabold uppercase tracking-wider bg-black/10 text-black px-1.5 py-0.5 rounded shrink-0">
-                              {item.badge}
-                            </span>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-
-                    {/* Resources Footer Bar */}
-                  </div>
-                </div>
-              )}
-            </div>
+              FAQ
+            </Link>
           </nav>
 
           {/* Right Action Elements (Right Column) */}
           <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4 min-w-0">
 
-            {/* Hero-matching CTA via shared Button component */}
+            {/* Hero-matching CTA via shared Button component - Solid Brand Blue */}
             <div className="hidden md:inline-flex">
-              <Button
-                variant={scrolled ? "sharp-outline" : "sharp-primary"}
+              <a
                 href="#contact"
-                className={`transition-all duration-300 ${scrolled
-                  ? "!bg-white !text-black !border-white hover:!bg-neutral-200 shadow-md"
-                  : ""
-                  }`}
+                className="bg-[#2563EB] text-white text-[13px] font-semibold uppercase tracking-[0.03em] px-6 py-2.5 rounded-lg hover:bg-[#1D4ED8] transition-colors duration-150 shadow-sm hover:shadow-md"
               >
-                Apply for Partnership
-              </Button>
+                APPLY →
+              </a>
+            </div>
+
+            {/* Mobile APPLY button - always visible outside hamburger */}
+            <div className="md:hidden">
+              <a
+                href="#contact"
+                className="bg-[#2563EB] text-white text-[13px] font-semibold uppercase tracking-[0.03em] px-4 py-2 rounded-lg hover:bg-[#1D4ED8] transition-colors duration-150 shadow-sm hover:shadow-md"
+              >
+                APPLY →
+              </a>
             </div>
 
             {/* Mobile Hamburger Toggle — animated morph */}
@@ -1220,54 +644,6 @@ export function Header() {
           </div>
         </div>
 
-        {/* ── Search Popup Bar ────────────────────────────────────────── */}
-        {searchOpen && (
-          <div
-            className={`border-t px-4 py-3 shadow-inner transition-colors duration-300 ${scrolled
-              ? "border-white/10 bg-[#121212] text-white backdrop-blur-md"
-              : "border-gray-100 bg-gray-50/95 text-gray-900 backdrop-blur-md"
-              }`}
-          >
-            <div className="max-w-3xl mx-auto flex items-center gap-3">
-              <svg
-                className={`w-5 h-5 shrink-0 ${scrolled ? "text-white/50" : "text-gray-400"
-                  }`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search leads, programs, verticals (e.g. Annuity, Florida, TCPA)..."
-                className={`w-full bg-transparent border-none text-sm focus:outline-none focus:ring-0 ${scrolled
-                  ? "text-white placeholder-white/40"
-                  : "text-gray-900 placeholder-gray-400"
-                  }`}
-                autoFocus
-              />
-              <button
-                type="button"
-                onClick={() => setSearchOpen(false)}
-                className={`text-xs font-medium px-2 py-1 rounded transition-colors ${scrolled
-                  ? "text-white/70 hover:text-white bg-white/10"
-                  : "text-gray-500 hover:text-gray-800 bg-gray-200/60"
-                  }`}
-              >
-                ESC
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* ── Mobile Navigation Drawer ───────────────────────────────── */}
         <AnimatePresence>
           {mobileMenuOpen && (
@@ -1285,72 +661,24 @@ export function Header() {
               <div className="px-5 pt-3.5 pb-6 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto">
                 {/* Mobile Nav Links */}
                 <div className="space-y-0.5">
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => toggleDropdown("mobile-lead-programs")}
-                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-900"
-                        }`}
-                    >
-                      <span>Lead Programs</span>
-                      <svg
-                        className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-lead-programs" ? "rotate-180" : ""
-                          } ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </button>
-                    <AnimatePresence>
-                      {openMenu === "mobile-lead-programs" && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                          className={`overflow-hidden pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}
-                        >
-                          {leadProgramsFeatured.map((item) => (
-                            <a
-                              key={item.title}
-                              href={item.href}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
-                                ? "hover:bg-white/10 text-white/90"
-                                : "hover:bg-neutral-100 text-neutral-800"
-                                }`}
-                            >
-                              <div className="w-7 h-7 rounded-md bg-[#101A2B] text-white flex items-center justify-center shrink-0">
-                                <div className="scale-75 origin-center">{item.icon}</div>
-                              </div>
-                              <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
-                                <span className="font-semibold text-xs truncate">{item.title}</span>
-                                <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
-                                  {item.badge}
-                                </span>
-                              </div>
-                            </a>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                  {/* ── HOW IT WORKS ───────────────────────────────────── */}
+                  <Link
+                    href="#how-it-works"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block py-2.5 text-[15px] font-semibold uppercase tracking-[0.03em] transition-colors ${scrolled ? "text-white" : "text-gray-900"}`}
+                  >
+                    HOW IT WORKS
+                  </Link>
 
+                  {/* ── INDUSTRIES (Dropdown) ───────────────────────────────────── */}
                   <div>
                     <button
                       type="button"
                       onClick={() => toggleDropdown("mobile-verticals")}
-                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-900"
+                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold uppercase tracking-[0.03em] transition-colors ${scrolled ? "text-white" : "text-gray-900"
                         }`}
                     >
-                      <span>All Verticals</span>
+                      <span>INDUSTRIES</span>
                       <svg
                         className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-verticals" ? "rotate-180" : ""
                           } ${scrolled ? "text-white/60" : "text-gray-500"}`}
@@ -1403,133 +731,14 @@ export function Header() {
                     </AnimatePresence>
                   </div>
 
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => toggleDropdown("mobile-states")}
-                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-900"
-                        }`}
-                    >
-                      <span>States</span>
-                      <svg
-                        className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-states" ? "rotate-180" : ""
-                          } ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </button>
-                    <AnimatePresence>
-                      {openMenu === "mobile-states" && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                          className="overflow-hidden pl-4 pb-2 space-y-2 text-sm"
-                        >
-                          <p className={`text-xs font-bold uppercase ${scrolled ? "text-neutral-400" : "text-gray-400"}`}>
-                            Top Markets
-                          </p>
-                          <div className="flex flex-wrap gap-1 mb-2">
-                            {topMarkets.map((m) => (
-                              <span
-                                key={m.name}
-                                className={`px-2 py-0.5 rounded text-xs ${scrolled ? "bg-white/10 text-white" : "bg-gray-100 text-gray-700"
-                                  }`}
-                              >
-                                {m.name}
-                              </span>
-                            ))}
-                          </div>
-                          <a
-                            href="#nationwide-coverage"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={`block py-1 font-semibold ${scrolled ? "text-white hover:text-[#2563EB]" : "text-neutral-900"
-                              }`}
-                          >
-                            Coverage in all 50 states + DC &rarr;
-                          </a>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => toggleDropdown("mobile-resources")}
-                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold transition-colors ${scrolled ? "text-white" : "text-gray-900"
-                        }`}
-                    >
-                      <span>Resources</span>
-                      <svg
-                        className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-resources" ? "rotate-180" : ""
-                          } ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </button>
-                    <AnimatePresence>
-                      {openMenu === "mobile-resources" && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                          className={`overflow-hidden pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}
-                        >
-                          {resourcesFeatured.map((item) => (
-                            <a
-                              key={item.title}
-                              href={item.href}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
-                                ? "hover:bg-white/10 text-white/90"
-                                : "hover:bg-neutral-100 text-neutral-800"
-                                }`}
-                            >
-                              <div className="w-7 h-7 rounded-md bg-[#101A2B] text-white border border-[#101A2B]/40 flex items-center justify-center shrink-0">
-                                <div className="scale-75 origin-center">{item.icon}</div>
-                              </div>
-                              <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
-                                <span className="font-semibold text-xs truncate">{item.title}</span>
-                                <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
-                                  {item.badge}
-                                </span>
-                              </div>
-                            </a>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </div>
-
-                {/* Mobile Actions */}
-                <div className={`pt-3 border-t ${scrolled ? "border-white/10" : "border-gray-100"}`}>
-                  <a
-                    href="#contact"
+                  {/* ── FAQ ───────────────────────────────────── */}
+                  <Link
+                    href="#faq"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full flex items-center justify-center py-3.5 px-6 bg-black text-white font-semibold text-sm uppercase tracking-wider rounded-none hover:bg-neutral-800 transition-colors shadow-sm"
+                    className={`block py-2.5 text-[15px] font-semibold uppercase tracking-[0.03em] transition-colors ${scrolled ? "text-white" : "text-gray-900"}`}
                   >
-                    Apply for Partnership
-                  </a>
+                    FAQ
+                  </Link>
                 </div>
               </div>
             </motion.div>

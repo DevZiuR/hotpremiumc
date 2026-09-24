@@ -5,30 +5,30 @@ import { Button } from "@/components/ui/Button";
 
 const criteria = [
   {
-    title: "Proven Product-Market Fit",
+    title: "Proven product-market fit",
     description: "You already have a working, converting offer with validated demand and strong unit economics.",
   },
   {
-    title: "Fulfillment & Capacity Headroom",
+    title: "Fulfillment & capacity headroom",
     description: "Your team and operations are capable of handling 2x to 5x delivery volume without degrading quality.",
   },
   {
-    title: "High-Ticket or Strong LTV",
+    title: "High-ticket or strong LTV",
     description: "Your business model supports high average contract values or consistent recurring client retention.",
   },
   {
-    title: "Long-Term Alignment",
+    title: "Long-term alignment",
     description: "You want a true strategic equity partner invested in building enterprise value, not a transactional vendor.",
   },
 ];
 
 export function SupportingChecklist() {
   return (
-    <section className="bg-white py-16 md:py-24 border-b border-line/70">
+    <section className="bg-white py-[80px] lg:py-[140px] border-b border-line/70">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
           eyebrow="Selection Criteria"
-          title="Who We Partner With"
+          title="Who we partner with"
           description="Because our capital is directly at risk on media and infrastructure, we are selective. We look for operators who meet four core fundamentals:"
           align="center"
         />
@@ -43,10 +43,10 @@ export function SupportingChecklist() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-serif text-h3 font-semibold text-ink mb-2">
+                  <h3 className="font-serif text-[30px] font-semibold leading-[1.1] text-ink mb-2">
                     {item.title}
                   </h3>
-                  <p className="font-sans text-body text-slate leading-relaxed font-normal">
+                  <p className="font-sans text-[17px] text-slate leading-[1.6] max-w-[62ch] font-normal">
                     {item.description}
                   </p>
                 </div>

@@ -25,20 +25,20 @@ export function SectionHeading({
     <Reveal>
       <div className={`flex flex-col max-w-3xl ${alignClasses} ${className}`}>
         {eyebrow && (
-          <p className={`font-sans !text-sm text-white uppercase tracking-widest ${isDark ? "text-neutral-400" : "text-slate"} mb-2 font-medium`}>
+          <p className={`font-sans text-[12px] uppercase tracking-[0.12em] ${isDark ? "text-neutral-400" : "text-slate"} mb-2 font-medium`}>
             {eyebrow}
           </p>
         )}
         <h2
-          className={`font-serif text-5xl font-semibold tracking-tight leading-tight ${isDark ? "text-white" : "text-ink"
-            } leading-[1.08] my-2 mb-3`}
+          className={`font-serif text-[clamp(38px,5vw,68px)] font-semibold tracking-[-0.025em] leading-[1.05] ${isDark ? "text-white" : "text-ink"
+            } my-2 mb-3`}
         >
           {title}
         </h2>
         {description && (
           <p
-            className={`font-sans text-body font-normal leading-relaxed ${isDark ? "text-neutral-300" : "text-slate"
-              } mb-10 max-w-2xl`}
+            className={`font-sans text-[20px] font-normal leading-[1.6] max-w-[62ch] ${isDark ? "text-neutral-300" : "text-slate"
+              } mb-10`}
           >
             {description}
           </p>

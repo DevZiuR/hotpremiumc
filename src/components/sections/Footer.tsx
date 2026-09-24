@@ -44,7 +44,7 @@ const footerSections = [
 
 export function Footer() {
   return (
-    <footer className="bg-black text-white pt-14 sm:pt-16 pb-12 sm:pb-8 font-sans border-t border-neutral-800/60">
+    <footer className="bg-black text-white pt-16 sm:pt-16 pb-12 sm:pb-8 font-sans border-t border-neutral-800/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         {/* ── Top Section: 4 Simple Link Columns ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-9 sm:gap-8 lg:gap-12">

@@ -8,7 +8,7 @@ import { CropMarkFrame } from "@/components/ui/CropMarkFrame";
 
 export function AboutMax() {
   return (
-    <section id="about-founder" className="relative bg-white py-16 sm:py-24 md:py-28 border-b border-gray-200/80 overflow-hidden font-sans">
+    <section id="about-founder" className="relative bg-white py-[80px] lg:py-[140px] border-b border-gray-200/80 overflow-hidden font-sans">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         {/* Crop-mark corner registration brackets */}
         <div className="absolute -inset-y-5 sm:-inset-y-8 inset-x-0 sm:inset-x-2 md:inset-x-6 pointer-events-none">
@@ -22,12 +22,12 @@ export function AboutMax() {
             <Reveal>
               <div className="inline-flex items-center gap-2.5 mb-4">
                 <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-                <span className="font-sans text-xs font-semibold uppercase tracking-widest text-black">
+                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-black">
                   FOUNDER
                 </span>
               </div>
-              <h2 className="font-serif text-2xl sm:text-4xl font-normal text-black tracking-tight leading-[1.12] mb-0">
-                From scaling other people&apos;s businesses to funding your growth
+              <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0">
+                Built from scaling real businesses
               </h2>
             </Reveal>
           </div>
@@ -73,21 +73,21 @@ export function AboutMax() {
                   </span>
                 </div>
 
-                <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-normal text-black tracking-tight leading-[1.12] mb-4 sm:mb-6">
-                  From scaling other people&apos;s businesses to funding your growth
+                <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6">
+                  Built from scaling real businesses
                 </h2>
               </div>
 
               {/* Body Copy */}
-              <div className="space-y-3.5 sm:space-y-4 font-sans text-[15px] sm:text-[15.5px] md:text-base text-gray-600 leading-relaxed font-normal mt-4 lg:mt-0">
+              <div className="space-y-3.5 sm:space-y-4 font-sans text-[17px] text-gray-600 leading-[1.6] max-w-[62ch] font-normal mt-4 lg:mt-0">
                 <p>
-                  Hot Premium Customers is built on what I learned scaling other people&apos;s companies with paid media, then deciding to keep equity in the growth instead of just charging for the campaign.
+                  I built Hot Premium Customers from years of scaling businesses through paid media, customer acquisition, and sales infrastructure.
                 </p>
                 <p>
-                  Before this, I built one ecommerce business and two agencies, and used paid media to scale a coaching company to $52M a year, a medical ecommerce brand to $50M in ten months, and a sports apparel brand from zero to seven figures in its first year.
+                  Before this, I built an ecommerce business and two agencies, helping companies scale to $52M/year, $50M in ten months, and seven figures in their first year.
                 </p>
                 <p>
-                  That&apos;s the model behind Hot Premium Customers: we put the same ad spend and sales infrastructure behind your business that got those results, and we only make money when yours grows too.
+                  Now, we put that same growth infrastructure behind businesses we partner with.
                 </p>
               </div>
 

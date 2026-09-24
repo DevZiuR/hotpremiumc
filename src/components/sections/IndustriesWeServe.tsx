@@ -24,7 +24,7 @@ const industriesData = [
   {
     num: "02",
     tag: "FINANCIAL SERVICES",
-    title: "Financial Services",
+    title: "Financial services",
     verticalCount: "108 verticals",
     subVerticals: [
       "Tax Relief Firms",
@@ -56,7 +56,7 @@ const industriesData = [
   {
     num: "04",
     tag: "HOME SERVICES",
-    title: "Home Services",
+    title: "Home services",
     verticalCount: "27 verticals",
     subVerticals: [
       "Roofing Replacement",
@@ -72,7 +72,7 @@ const industriesData = [
   {
     num: "05",
     tag: "MEDICAL & HEALTH",
-    title: "Medical & Health",
+    title: "Medical & health",
     verticalCount: "24 verticals",
     subVerticals: [
       "Rehab Centers",
@@ -88,7 +88,7 @@ const industriesData = [
   {
     num: "06",
     tag: "EMERGING CLAIMS",
-    title: "Emerging Claims",
+    title: "Emerging claims",
     verticalCount: "19 verticals",
     subVerticals: [
       "Roblox Child Abuse Legal Claims",
@@ -120,7 +120,7 @@ const industriesData = [
   {
     num: "08",
     tag: "PAY PER CALL",
-    title: "Pay Per Call",
+    title: "Pay per call",
     verticalCount: "34 verticals",
     subVerticals: [
       "Legal Pay Per Call",
@@ -164,21 +164,22 @@ export function IndustriesWeServe() {
   return (
     <section
       id="verticals"
-      className="bg-[#f4f5f7] pt-16 sm:pt-20 md:pt-28 pb-0 border-y border-neutral-300/70 overflow-hidden font-sans"
+      className="bg-[#f4f5f7] py-[80px] lg:py-[140px] border-y border-neutral-300/70 overflow-hidden font-sans"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
         <Reveal>
           {/* Eyebrow with blue square matching brand style */}
           <div className="inline-flex items-center gap-2.5 mb-4">
             <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
               Industries
             </span>
           </div>
 
           {/* Heading */}
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[65px] font-medium text-black tracking-tight leading-[1.18] max-w-3xl mb-8 sm:mb-12 md:mb-16">
-            The industries we are transforming with high-ticket pipeline
+          <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-medium text-black tracking-[-0.025em] leading-[1.05] max-w-3xl mb-8 sm:mb-12 md:mb-16">
+            Built for industries where
+            every customer matters
           </h2>
         </Reveal>
 
@@ -215,15 +216,15 @@ export function IndustriesWeServe() {
                     <div
                       key={item.title}
                       onClick={() => handleItemClick(index)}
-                      className={`py-3.5 sm:py-5 cursor-pointer group transition-colors duration-200 select-none px-3 sm:px-5 rounded-xl uppercase ${isSelected ? "bg-white/[0.05]" : "hover:bg-white/[0.03]"
+                      className={`py-3.5 sm:py-5 cursor-pointer group transition-colors duration-200 select-none px-3 sm:px-5 rounded-xl ${isSelected ? "bg-white/[0.05]" : "hover:bg-white/[0.03]"
                         }`}
                     >
                       {/* Item Header Row */}
                       <div className="flex items-center justify-between gap-1">
                         <h3
-                          className={`text-base sm:text-lg lg:text-[20px] transition-colors duration-200 font-semibold leading-relaxed ${isSelected
-                            ? "text-[#F5A623] font-bold"
-                            : "text-neutral-300 font-normal group-hover:text-[#F5A623]"
+                          className={`text-[30px] leading-[1.1] transition-colors duration-200 font-semibold ${isSelected
+                            ? "text-[#3B82F6] font-bold"
+                            : "text-neutral-300 font-normal group-hover:text-[#3B82F6]"
                             }`}
                         >
                           {item.title}
@@ -231,7 +232,7 @@ export function IndustriesWeServe() {
 
                         {/* Small Indicator Arrow */}
                         <div
-                          className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-neutral-400 group-hover:text-[#F5A623] ${isSelected ? "rotate-90 text-[#F5A623] font-bold" : ""
+                          className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-neutral-400 group-hover:text-[#3B82F6] group-hover:translate-x-1 ${isSelected ? "rotate-90 text-[#3B82F6] font-bold" : ""
                             }`}
                         >
                           <svg
@@ -263,7 +264,7 @@ export function IndustriesWeServe() {
                           >
                             <div className="pt-3 pb-1 pr-1 sm:pr-6 font-sans">
                               {/* Summary description */}
-                              <p className="text-sm sm:text-[14.5px] text-neutral-400 leading-relaxed mb-3">
+                              <p className="text-[17px] text-neutral-400 leading-[1.6] max-w-[62ch] mb-3">
                                 {item.description}
                               </p>
 
