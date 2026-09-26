@@ -34,10 +34,12 @@ export default function TimestampSeal({ className }: { className?: string }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           el.classList.add("seal-play");
-          io.disconnect();
+          el.classList.add("seal-active");
+        } else {
+          el.classList.remove("seal-active");
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.2 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -57,7 +59,7 @@ export default function TimestampSeal({ className }: { className?: string }) {
         .seal-tick { stroke: currentColor; stroke-width: 3; opacity: .55; stroke-dasharray: 1; }
         .seal-blue { stroke: #3B82F6; stroke-width: 5; fill: none; }
         .seal-dot { fill: #3B82F6; }
-        .seal-glow { filter: drop-shadow(0 0 5px rgba(59,130,246,.85)); }
+        .seal-glow { filter: drop-shadow(0 0 6px rgba(59,130,246,.9)); }
         .seal-sweep { transform-box: view-box; transform-origin: 200px 200px; }
         .seal-center { transform-box: fill-box; transform-origin: center; }
         .seal-ripple { fill: none; stroke: #3B82F6; stroke-width: 1.5; vector-effect: non-scaling-stroke; opacity: 0; transform-box: view-box; transform-origin: 200px 200px; }
@@ -69,24 +71,46 @@ export default function TimestampSeal({ className }: { className?: string }) {
 
         .seal-play .seal-ring { animation: seal-draw 1.3s cubic-bezier(.22,1,.36,1) both; animation-delay: var(--d); }
         .seal-play .seal-tick { animation: seal-draw .45s ease-out both; animation-delay: var(--d); }
-        .seal-play .seal-center { animation: seal-pop .5s cubic-bezier(.34,1.56,.64,1) 1.1s both; }
+        .seal-play .seal-center {
+          animation: seal-pop .5s cubic-bezier(.34,1.56,.64,1) 1.1s both;
+        }
         .seal-play .seal-sweep {
           animation: seal-fade .3s ease-out 1.25s both, seal-sweep 1.9s cubic-bezier(.22,1,.36,1) 1.3s both;
         }
-        .seal-play .seal-ripple { animation: seal-ripple 3.2s ease-out infinite; animation-delay: 3.2s; }
-        .seal-play .seal-ripple.r2 { animation-delay: 4.8s; }
+
+        /* Continuous idle loop once active and on screen */
+        .seal-play.seal-active .seal-sweep {
+          animation: seal-fade .3s ease-out 1.25s both, seal-sweep 1.9s cubic-bezier(.22,1,.36,1) 1.3s both, seal-sweep-continuous 4s linear infinite 3.2s;
+        }
+        .seal-play.seal-active .seal-center {
+          animation: seal-pop .5s cubic-bezier(.34,1.56,.64,1) 1.1s both, seal-center-pulse 3.2s ease-in-out infinite 3.2s;
+        }
+        .seal-play.seal-active .seal-ripple { animation: seal-ripple 3.2s ease-out infinite; animation-delay: 3.2s; }
+        .seal-play.seal-active .seal-ripple.r2 { animation-delay: 4.8s; }
+
+        /* Pause idle loop when scrolled out of viewport */
+        .seal-armed:not(.seal-active) * {
+          animation-play-state: paused !important;
+        }
 
         @keyframes seal-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
         @keyframes seal-fade { from { opacity: 0; } to { opacity: 1; } }
         @keyframes seal-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
         @keyframes seal-sweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes seal-sweep-continuous { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes seal-center-pulse {
+          0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(59,130,246,.85)); }
+          50% { transform: scale(1.22); filter: drop-shadow(0 0 16px rgba(59,130,246,1)) drop-shadow(0 0 24px rgba(96,165,250,.6)); }
+        }
         @keyframes seal-ripple { from { transform: scale(.1); opacity: .7; } to { transform: scale(1); opacity: 0; } }
+
         @media (prefers-reduced-motion: reduce) {
           .seal-armed:not(.seal-play) .seal-ring,
           .seal-armed:not(.seal-play) .seal-tick { stroke-dashoffset: 0; }
           .seal-armed:not(.seal-play) .seal-sweep,
           .seal-armed:not(.seal-play) .seal-center { opacity: 1; transform: none; }
-          .seal-play * { animation: none; }
+          .seal-play * { animation: none !important; }
+          .seal-ripple { display: none !important; }
         }
       `}</style>
 

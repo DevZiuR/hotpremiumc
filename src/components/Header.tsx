@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [hoveredVerticalIdx, setHoveredVerticalIdx] = useState<number>(0);
+  const [hoveredVerticalIdx, setHoveredVerticalIdx] = useState<number | null>(null);
   // Header is statically positioned with a black background and white text
   const scrolled = true;
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -25,6 +25,28 @@ export function Header() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+    const handleResize = () => {
+      if (window.innerWidth >= 1280) setMobileMenuOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [mobileMenuOpen]);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -161,149 +183,24 @@ export function Header() {
   ];
 
   return (
-    <header
-      className="relative z-50 w-full select-none bg-black text-white sticky top-0 shadow-md"
-    >
-      {/* ── New Centered Top Bar with Subtle Glow & Ambient Shimmer ─────────────── */}
-      <div
-        className="relative text-xs sm:text-sm px-3 sm:px-6 lg:px-8 border-b text-white border-blue-600/30 py-2 sm:py-2.5 overflow-hidden select-none"
-        style={{ backgroundColor: "#2563EB" }}
-      >
-        {/* Slow, subtle ambient background shimmer sweep */}
-        <div
-          className="absolute inset-0 pointer-events-none overflow-hidden"
-          aria-hidden="true"
-        >
-          <div
-            className="w-1/3 h-full absolute top-0 -skew-x-12 opacity-70"
-            style={{
-              background:
-                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%)",
-              animation: "topbar-shimmer-sweep 7.5s cubic-bezier(0.4, 0, 0.2, 1) infinite",
-            }}
-          />
-        </div>
+    <>
 
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <span className="font-medium tracking-wide inline-flex items-center flex-wrap justify-center gap-x-2 gap-y-1 text-xs sm:text-sm">
-            <span className="text-white/95">PROVEN OFFER? · WE FUND THE SCALE</span>
-            <span className="text-white/60">&rarr;</span>
-            <a
-              href="#partner"
-              className="relative inline-flex items-center font-semibold text-white group"
-            >
-              {/* Soft pulsing glow aura behind the link text */}
-              <span
-                className="absolute -inset-x-2.5 -inset-y-1 rounded-full pointer-events-none blur-[6px]"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at center, rgba(255,255,255,0.42) 0%, rgba(147,197,253,0.22) 60%, transparent 80%)",
-                  animation: "cta-soft-pulse 4.5s ease-in-out infinite",
-                }}
-                aria-hidden="true"
-              />
-              <span className="relative z-10 underline underline-offset-4 decoration-white/50 group-hover:decoration-white transition-all group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-                APPLY
-              </span>
-            </a>
-          </span>
-        </div>
-
-        <style>{`
-          @keyframes topbar-shimmer-sweep {
-            0% {
-              transform: translateX(-160%);
-            }
-            45%, 100% {
-              transform: translateX(360%);
-            }
-          }
-          @keyframes cta-soft-pulse {
-            0%, 100% {
-              opacity: 0.35;
-              transform: scale(0.96);
-            }
-            50% {
-              opacity: 0.85;
-              transform: scale(1.06);
-            }
-          }
-        `}</style>
-      </div>
-      {/* ── New Centered Top Bar End ──────────────────────────────────────── */}
-      {/* ── Top Blue Announcement Bar ───────────────────────────────────── */}
-      <div className="hidden bg-black text-neutral-300 text-xs py-2 px-4 sm:px-6 lg:px-8 border-b border-neutral-800">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
-          {/* Left: Trust & Coverage */}
-          <div className="flex items-center flex-wrap justify-center sm:justify-start gap-4 sm:gap-6 text-[12px] sm:text-[13px] font-normal tracking-wide">
-            <div className="flex items-center gap-1.5 text-neutral-300">
-              <svg
-                className="w-3.5 h-3.5 text-neutral-400 shrink-0"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                />
-              </svg>
-              <span>No cost per lead - Revenue share only</span>
-            </div>
-
-
-            {/* <div className="flex items-center gap-1.5 text-neutral-300">
-              <svg
-                className="w-3.5 h-3.5 text-neutral-400 shrink-0"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              <span>Coverage in all 50 states + DC</span>
-            </div> */}
-          </div>
-
-          {/* Right: Actions */}
-          <div className="flex items-center gap-5 text-[12px] sm:text-[13px] font-normal text-neutral-300">
-            <a
-              href="#suppliers"
-              className="hover:text-white transition-colors flex items-center gap-1 group"
-            >
-              <span>Suppliers: sell leads to us</span>
-              <span className="transition-transform group-hover:translate-x-0.5">
-                &rarr;
-              </span>
-            </a>
-            <span className="text-neutral-700 hidden sm:inline">|</span>
-            <a
-              href="#buyer-login"
-              className="hover:text-white transition-colors font-medium"
-            >
-              Buyer Login
-            </a>
-          </div>
-        </div>
-      </div>
+      {openMenu === "verticals" && (
+        <button
+          type="button"
+          aria-label="Close industries menu"
+          onClick={() => setOpenMenu(null)}
+          className="fixed inset-0 z-40 cursor-default"
+          style={{ background: "rgba(0,0,0,0.25)", backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" } as React.CSSProperties}
+        />
+      )}
 
       {/* ── Main Navigation Bar ────────────────────────────────────────── */}
+      <header className="sticky top-0 z-50 w-full select-none bg-black text-white shadow-md">
       <div className="relative bg-black border-b border-white/10">
         <div
           ref={dropdownRef}
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-6 h-18 sm:h-20"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-6 h-14 sm:h-20"
         >
           {/* Brand Logo (Left Column) */}
           <div className="flex-1 flex items-center justify-start min-w-0">
@@ -316,7 +213,7 @@ export function Header() {
                 alt="Hot Premium Customers Logo"
                 className="w-auto object-contain h-8 sm:h-9 md:h-10 shrink-0"
               />
-              <div className="flex flex-col justify-center min-w-0">
+              <div className="hidden sm:flex flex-col justify-center min-w-0">
                 <span className="text-[14px] sm:text-[17px] md:text-[19px] font-bold tracking-normal leading-tight uppercase text-white truncate">
                   Hot Premium Customers
                 </span>
@@ -385,84 +282,44 @@ export function Header() {
 
               {/* Mega Menu All Verticals */}
               {openMenu === "verticals" && (
-                <>
                   <div
-                    className="fixed inset-0 z-40"
-                    style={{ background: "rgba(0,0,0,0.25)", backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" } as React.CSSProperties}
-                    onClick={() => setOpenMenu(null)}
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[1040px] z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[1040px] z-[60] animate-in fade-in slide-in-from-top-1 duration-150"
                   onMouseEnter={() => handleMouseEnter("verticals")}
                   onMouseLeave={handleMouseLeave}
                 >
                   <div className="bg-[#FAF9F5] rounded-2xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] border border-neutral-300/80 p-6">
                     <div className="flex items-stretch gap-6">
-                      {/* 1. Left Card (Dynamic Image + Partner with us Pill + Title) */}
+                      {/* 1. Left Card — pure image, no overlays, gentle hover zoom */}
                       {(() => {
-                        const currentVert =
-                          verticalsFeatured[hoveredVerticalIdx] || verticalsFeatured[0];
+                        const currentVert = hoveredVerticalIdx !== null ? verticalsFeatured[hoveredVerticalIdx] : null;
+                        const imgSrc = currentVert ? currentVert.image : "/media/industries.png";
+                        const imgAlt = currentVert ? currentVert.title : "Industries we serve";
+                        const cardHref = currentVert ? currentVert.href : "#verticals";
                         return (
                           <a
-                            href={currentVert.href}
+                            href={cardHref}
                             onClick={() => setOpenMenu(null)}
-                            className="w-[240px] shrink-0 rounded-2xl overflow-hidden relative flex flex-col justify-between p-5 min-h-[340px] group shadow-md transition-all duration-300 border border-black/15 bg-black"
+                            className="w-[240px] shrink-0 rounded-2xl overflow-hidden relative min-h-[340px] group shadow-md border border-black/10 bg-black block"
                           >
                             <AnimatePresence mode="wait">
                               <motion.img
-                                key={currentVert.image}
-                                src={currentVert.image}
-                                alt={currentVert.title}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 0.8 }}
+                                key={imgSrc}
+                                src={imgSrc}
+                                alt={imgAlt}
+                                initial={{ opacity: 0, scale: 1.04 }}
+                                animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="absolute inset-0 w-full h-full object-cover"
+                                transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                className="absolute inset-0 w-full h-full object-cover transition-[transform,filter] duration-[450ms] ease-out group-hover:scale-[1.03] group-hover:brightness-110"
                               />
                             </AnimatePresence>
-                            {/* Deep rich black gradient overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/35" />
-
-                            {/* Top pill badge & up-right arrow */}
-                            <div className="relative z-10 flex items-center justify-between">
-                              <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-[#2563EB] text-white text-[11px] font-extrabold tracking-tight shadow-xs">
-                                Partner with us
-                              </span>
-                              <div className="w-7 h-7 rounded-full bg-black/80 backdrop-blur-xs flex items-center justify-center text-[#2563EB] border border-white/15 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-                                <svg
-                                  className="w-4 h-4"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  strokeWidth={2.5}
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M7 17L17 7M17 7H7M17 7V17"
-                                  />
-                                </svg>
-                              </div>
-                            </div>
-
-                            {/* Bottom Card Content */}
-                            <div className="relative z-10">
-                              <div className="text-[#2563EB] mb-1.5 flex items-center gap-1.5">
-                                <span className="inline-flex items-center gap-1 bg-black/70 px-2 py-0.5 rounded border border-white/15">
-                                </span>
-                              </div>
-                              <h4 className="font-serif text-[17.5px] font-bold text-white leading-tight">
-                                {currentVert.title}
-                              </h4>
-
-                            </div>
                           </a>
                         );
                       })()}
 
                       {/* 2. Center 2-Column Grid (8 Vertical Items) */}
-                      <div className="flex-1 grid grid-cols-2 gap-x-5 gap-y-2">
+                      <div className="flex-1 flex flex-col gap-1">
+                        <div className="grid grid-cols-2 gap-x-5 gap-y-2">
                         {verticalsFeatured.map((item, idx) => {
                           const isHovered = hoveredVerticalIdx === idx;
                           return (
@@ -470,105 +327,65 @@ export function Header() {
                               key={item.title}
                               href={item.href}
                               onMouseEnter={() => setHoveredVerticalIdx(idx)}
+                              onMouseLeave={() => setHoveredVerticalIdx(null)}
                               onClick={() => setOpenMenu(null)}
                               className={`flex items-center gap-3 p-2 rounded-xl transition-all duration-150 group cursor-pointer ${isHovered ? "bg-black/5" : "hover:bg-black/5"
                                 }`}
                             >
                               <div
-                                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200 shadow-xs ${isHovered
-                                  ? "bg-black text-white border border-[#2563EB]/70 scale-105 shadow-sm"
-                                  : "bg-[#101A2B] text-white border border-[#101A2B]/40 group-hover:border-[#2563EB]/60 group-hover:scale-105"
+                                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200 border border-neutral-700/50 ${isHovered
+                                  ? "bg-neutral-900 text-white border-[#2563EB]/60 scale-105 shadow-sm"
+                                  : "bg-neutral-900 text-neutral-300 group-hover:border-[#2563EB]/50 group-hover:text-white group-hover:scale-105"
                                   }`}
                               >
                                 {item.icon}
                               </div>
-                              <div className="min-w-0 flex-1 flex items-center justify-between gap-2 flex-nowrap">
-                                <h4 className="text-[16px] font-bold text-black leading-tight truncate whitespace-nowrap">
-                                  {item.title}
-                                </h4>
-                                <span className="text-[11px] font-medium uppercase tracking-wider bg-black/10 text-[#374151] px-1.5 py-0.5 rounded shrink-0">
-                                  {item.badge}
-                                </span>
-                              </div>
+                              <h4 className="text-[15px] font-semibold text-neutral-800 leading-tight truncate whitespace-nowrap">
+                                {item.title}
+                              </h4>
                             </a>
                           );
                         })}
-                      </div>
-
-                      {/* 3. Right Column (Solid Black Featured Card + View All Link) */}
-                      <div className="w-[220px] shrink-0 flex flex-col justify-between">
-                        <a
-                          href="#partner"
-                          onClick={() => setOpenMenu(null)}
-                          className="bg-[#2563EB] hover:bg-neutral-900 transition-all duration-200 rounded-2xl p-5 text-white flex flex-col justify-between h-[235px] relative overflow-hidden group shadow-md border border-black/10"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#2563EB] text-white text-[11px] font-extrabold">
-                              Featured
-                            </span>
-                            <div className="text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-                              <svg
-                                className="w-4 h-4"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2.5}
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M7 17L17 7M17 7H7M17 7V17"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-
-                          <div className="mt-auto pt-4">
-                            <h3 className="font-serif text-[18.5px] font-bold !text-white leading-snug">
-                              Bring the offer. We fund the scale.
-                            </h3>
-                            <a
-                              href="#contact"
-                              onClick={() => setOpenMenu(null)}
-                              className="mt-4 inline-flex items-center gap-1.5 bg-white text-black text-[13px] font-semibold px-4 py-2 rounded-lg hover:bg-neutral-100 transition-colors"
-                            >
-                              Apply for partnership <span>→</span>
-                            </a>
-                          </div>
-                        </a>
-
-                        {/* View All Industries link */}
+                        </div>
+                        {/* View all industries — sits directly beneath the grid */}
                         <a
                           href="#all-industries"
                           onClick={() => setOpenMenu(null)}
-                          className="flex items-center gap-2 p-2 rounded-xl hover:bg-black/5 transition-colors group cursor-pointer mt-2 justify-start"
+                          className="mt-3 flex items-center gap-2 text-[14px] font-semibold text-[#2563EB] transition-colors group cursor-pointer hover:text-[#1D4ED8]"
                         >
-                          <div className="text-[#2563EB] group-hover:translate-x-0.5 transition-transform mt-0.5 shrink-0">
-                            <svg
-                              className="w-4 h-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={2.2}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 5l7 7-7 7"
-                              />
-                            </svg>
-                          </div>
-                          <div className="min-w-0">
-                            <h5 className="text-[15px] font-semibold text-[#2563EB] leading-tight">
-                              View all industries
-                            </h5>
-                          </div>
+                          <span>View all industries</span>
+                          <span
+                            aria-hidden="true"
+                            className="transition-transform duration-200 group-hover:translate-x-1"
+                          >
+                            →
+                          </span>
+                        </a>
+                      </div>
+
+                      {/* 3. Right Column — clean Featured Card */}
+                      <div className="w-[220px] shrink-0 flex flex-col">
+                        <a
+                          href="#partner"
+                          onClick={() => setOpenMenu(null)}
+                          className="bg-[#2563EB] hover:bg-neutral-900 transition-all duration-300 rounded-2xl text-white flex flex-col justify-end h-full min-h-[340px] relative overflow-hidden group shadow-md border border-black/10 p-6"
+                        >
+                          <h3 className="font-serif text-[26px] font-bold text-white leading-[1.1] mb-6">
+                            Bring the offer.<br />We fund the scale.
+                          </h3>
+                          <a
+                            href="#contact"
+                            onClick={(e) => { e.stopPropagation(); setOpenMenu(null); }}
+                            className="inline-flex w-full items-center justify-between gap-4 whitespace-nowrap rounded-lg bg-white px-4 py-3 text-[13px] font-semibold leading-[1.2] text-black transition-colors hover:bg-neutral-100"
+                          >
+                            <span>Apply for partnership</span>
+                            <span aria-hidden="true">→</span>
+                          </a>
                         </a>
                       </div>
                     </div>
                   </div>
                 </div>
-                </>
               )}
             </div>
 
@@ -598,7 +415,7 @@ export function Header() {
             <div className="md:hidden">
               <a
                 href="#contact"
-                className="bg-[#2563EB] text-white text-[13px] font-semibold uppercase tracking-[0.03em] px-4 py-2 rounded-lg hover:bg-[#1D4ED8] transition-colors duration-150 shadow-sm hover:shadow-md"
+                className="bg-[#2563EB] text-white text-[12px] font-semibold uppercase tracking-[0.03em] h-9 px-4 rounded-lg hover:bg-[#1D4ED8] transition-colors duration-150 shadow-sm hover:shadow-md flex items-center"
               >
                 APPLY →
               </a>
@@ -644,107 +461,108 @@ export function Header() {
           </div>
         </div>
 
-        {/* ── Mobile Navigation Drawer ───────────────────────────────── */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              key="mobile-nav-drawer"
-              initial={{ opacity: 0, height: 0, y: -8 }}
-              animate={{ opacity: 1, height: "auto", y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -8 }}
-              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              className={`xl:hidden border-t overflow-hidden transition-colors duration-200 ${scrolled
-                ? "border-white/10 bg-[#0c0c0c] text-white"
-                : "border-gray-200 bg-white text-gray-900"
-                } shadow-2xl`}
+              key="mobile-nav-overlay"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+              className="fixed inset-0 z-[100] overflow-y-auto bg-[#09090b] text-white xl:hidden"
             >
-              <div className="px-5 pt-3.5 pb-6 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto">
-                {/* Mobile Nav Links */}
-                <div className="space-y-0.5">
-                  {/* ── HOW IT WORKS ───────────────────────────────────── */}
+              <div className="relative flex min-h-full flex-col">
+                {/* Top bar — logo + close */}
+                <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/[0.08] px-5 sm:px-8">
                   <Link
-                    href="#how-it-works"
+                    href="/"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block py-2.5 text-[15px] font-semibold uppercase tracking-[0.03em] transition-colors ${scrolled ? "text-white" : "text-gray-900"}`}
+                    aria-label="Hot Premium Customers home"
+                    className="flex items-center"
                   >
-                    HOW IT WORKS
+                    <img
+                      src="https://hotpremiumcustomers.com/logo-mark.png"
+                      alt=""
+                      className="h-7 w-auto object-contain"
+                    />
                   </Link>
 
-                  {/* ── INDUSTRIES (Dropdown) ───────────────────────────────────── */}
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => toggleDropdown("mobile-verticals")}
-                      className={`w-full flex items-center justify-between py-2.5 text-[15px] font-semibold uppercase tracking-[0.03em] transition-colors ${scrolled ? "text-white" : "text-gray-900"
-                        }`}
+                  <button
+                    type="button"
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-label="Close navigation"
+                    className="flex h-8 w-8 items-center justify-center text-white/50 hover:text-white transition-colors duration-150"
+                  >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+                      <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Nav links */}
+                <motion.nav
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    hidden: {},
+                    visible: { transition: { staggerChildren: 0.055, delayChildren: 0.04 } },
+                  }}
+                  className="flex flex-col px-5 pt-2 pb-6 sm:px-8"
+                >
+                  {[
+                    { label: "How it works", href: "#how-it-works" },
+                    { label: "Industries", href: "#verticals" },
+                    { label: "FAQ", href: "#faq" },
+                  ].map((item) => (
+                    <motion.a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      variants={{
+                        hidden: { opacity: 0, y: 10 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.28, ease: [0.32, 0.72, 0, 1] } },
+                      }}
+                      className="group flex items-center justify-between border-b border-white/[0.07] py-4 font-sans text-[26px] font-medium tracking-[-0.02em] text-white/90 transition-colors duration-150 last:border-b-0 hover:text-white"
                     >
-                      <span>INDUSTRIES</span>
-                      <svg
-                        className={`w-4 h-4 transition-transform duration-200 ${openMenu === "mobile-verticals" ? "rotate-180" : ""
-                          } ${scrolled ? "text-white/60" : "text-gray-500"}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
+                      <span>{item.label}</span>
+                      <span
+                        aria-hidden="true"
+                        className="text-[18px] text-white/25 transition-all duration-200 group-hover:text-[#2563EB] group-hover:translate-x-0.5"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </button>
-                    <AnimatePresence>
-                      {openMenu === "mobile-verticals" && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                          className={`overflow-hidden pl-2 pb-2 space-y-1.5 text-sm ${scrolled ? "text-neutral-300" : "text-gray-600"}`}
-                        >
-                          {verticalsFeatured.map((item) => (
-                            <a
-                              key={item.title}
-                              href={item.href}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className={`flex items-center gap-2.5 p-2 rounded-lg transition-colors ${scrolled
-                                ? "hover:bg-white/10 text-white/90"
-                                : "hover:bg-neutral-100 text-neutral-800"
-                                }`}
-                            >
-                              <div className="w-8 h-8 rounded-lg bg-[#101A2B] text-white border border-[#101A2B]/40 flex items-center justify-center shrink-0">
-                                {item.icon}
-                              </div>
-                              <div className="min-w-0 flex-1 flex items-center justify-between gap-1.5">
-                                <span className="font-semibold text-xs leading-tight truncate">
-                                  {item.title}
-                                </span>
-                                <span className="text-[9px] px-1 py-0.5 rounded bg-black/10 text-black font-bold shrink-0">
-                                  {item.badge}
-                                </span>
-                              </div>
-                            </a>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                        →
+                      </span>
+                    </motion.a>
+                  ))}
+                </motion.nav>
 
-                  {/* ── FAQ ───────────────────────────────────── */}
-                  <Link
-                    href="#faq"
+                {/* Spacer */}
+                <div className="flex-1" />
+
+                {/* CTA */}
+                <div className="px-5 pb-8 sm:px-8">
+                  <motion.a
+                    href="#contact"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block py-2.5 text-[15px] font-semibold uppercase tracking-[0.03em] transition-colors ${scrolled ? "text-white" : "text-gray-900"}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2, delay: 0.18 }}
+                    className="flex h-11 w-full items-center justify-between rounded-lg bg-[#2563EB] px-5 font-sans text-[13px] font-semibold uppercase tracking-[0.06em] text-white transition-colors duration-150 hover:bg-[#1D4ED8]"
                   >
-                    FAQ
-                  </Link>
+                    <span>Apply for partnership</span>
+                    <span aria-hidden="true" className="text-white/70">→</span>
+                  </motion.a>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </header>
+      </header>
+    </>
   );
 }

@@ -164,18 +164,19 @@ export function IndustriesWeServe() {
   return (
     <section
       id="verticals"
-      className="bg-[#f4f5f7] py-[80px] lg:py-[140px] border-y border-neutral-300/70 overflow-hidden font-sans"
+      className="bg-[#f4f5f7] pt-[90px] pb-[20px] lg:pt-[140px] lg:pb-[0px] border-y border-neutral-300/70 overflow-hidden font-sans"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
         <Reveal>
-          {/* Eyebrow with blue square matching brand style */}
+          {/* ────── Eyebrow: “INDUSTRIES WE SERVE” with blue square ────── */}
+          {/* 
           <div className="inline-flex items-center gap-2.5 mb-4">
             <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
             <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
               Industries
             </span>
           </div>
-
+          */}
           {/* Heading */}
           <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-medium text-black tracking-[-0.025em] leading-[1.05] max-w-3xl mb-8 sm:mb-12 md:mb-16">
             Built for industries where
@@ -286,7 +287,7 @@ export function IndustriesWeServe() {
                               {/* View all link */}
                               <a
                                 href={item.href}
-                                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F5A623] hover:underline transition-colors duration-200"
+                                className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-black hover:underline transition-colors duration-200"
                               >
                                 <span>View all {item.verticalCount}</span>
                                 <span>→</span>

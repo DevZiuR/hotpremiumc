@@ -53,12 +53,15 @@ export function ComplianceStandards() {
           <div className="lg:col-span-4 lg:sticky lg:top-28">
             <Reveal>
               {/* Eyebrow with Brand Square */}
+              {/*
               <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
+                 
                 <span className="block flex-shrink-0" style={{ width: 10, height: 10, background: "#2563EB" }} aria-hidden="true" />
                 <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-neutral-400">
                   Operational Standards
                 </span>
               </div>
+              */}
 
               {/* Headline */}
               <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6">

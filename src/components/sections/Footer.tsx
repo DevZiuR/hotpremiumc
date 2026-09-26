@@ -70,10 +70,10 @@ export function Footer() {
         </div>
 
         {/* ── Bottom Section: Logo, Copyright & Arrowed Social Links ── */}
-        <div className="mt-12 sm:mt-16 pt-8 sm:pt-8 border-t border-neutral-800/40 flex flex-col md:flex-row md:items-end justify-between gap-8 sm:gap-8">
+        <div className="mt-12 sm:mt-20 pt-8 sm:pt-8 border-t border-neutral-800/40 flex flex-col md:flex-row md:items-end justify-between gap-8 sm:gap-8">
           {/* Left: Brand Mark, Name & Legal — centered on mobile */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <Link href="/" className="inline-flex items-center gap-2.5 sm:gap-2.5 mb-3.5 sm:mb-2.5 group">
+            <Link href="/" className="inline-flex items-center gap-2.5 sm:gap-2.5 mb-5.5 sm:mb-2.5 group">
               <img
                 src="/logo-mark.png"
                 alt="Hot Premium Customers"
@@ -107,6 +107,7 @@ export function Footer() {
                 ↗
               </span>
             </a>
+            {/* 
             <a
               href="#"
               target="_blank"
@@ -118,6 +119,7 @@ export function Footer() {
                 ↗
               </span>
             </a>
+            
             <a
               href="https://x.com/max_av_"
               target="_blank"
@@ -129,6 +131,7 @@ export function Footer() {
                 ↗
               </span>
             </a>
+            */}
           </div>
         </div>
       </div>

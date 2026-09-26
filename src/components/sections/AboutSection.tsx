@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
-import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { useScroll, useTransform, useMotionValueEvent, motion, MotionValue } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
+import DotField from "@/components/DotField";
 
 interface AboutSectionProps {
-  /** Customizable eyebrow, defaults to "ABOUT US" */
+  /** Customizable eyebrow, defaults to "THE MODEL" */
   eyebrow?: string;
   /** Customizable company / brand name */
   brandName?: string;
@@ -18,19 +19,24 @@ function Word({
   progress,
   range,
   isBrand = false,
+  forceFullOpacity = false,
 }: {
   children: React.ReactNode;
   progress: MotionValue<number>;
   range: [number, number];
   isBrand?: boolean;
+  forceFullOpacity?: boolean;
 }) {
   const opacity = useTransform(progress, range, [0.2, 1]);
-  const y = useTransform(progress, range, [4, 0]);
+  const y = useTransform(progress, range, [3, 0]);
 
   return (
     <motion.span
-      style={{ opacity, y }}
-      className={`inline-block mr-[0.26em] sm:mr-[0.3em] last:mr-0 tracking-normal ${isBrand ? "font-normal text-white" : "font-normal text-neutral-200"
+      style={{
+        opacity: forceFullOpacity ? 1 : opacity,
+        y: forceFullOpacity ? 0 : y,
+      }}
+      className={`inline-block mr-[0.26em] sm:mr-[0.3em] last:mr-0 tracking-normal ${isBrand ? "font-normal text-white" : "font-normal text-[#E8EAEE]"
         }`}
     >
       {children}
@@ -39,17 +45,44 @@ function Word({
 }
 
 export function AboutSection({
-  eyebrow = "ABOUT US",
+  eyebrow = "THE MODEL",
   brandName = "",
   statement = "Lead vendors get paid whether you win or not. We don't. Hot Premium Customers is an equity growth partner. We fund the ad spend, sales team, and technology, and we only earn when your revenue grows.",
 }: AboutSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isImmediatelyInView, setIsImmediatelyInView] = useState(false);
+  const [hasRevealed, setHasRevealed] = useState(false);
 
-  // Extended scroll runway tracking the full section for a slower, deliberate reveal
+  // Scroll runway configured so all lines reach full opacity by the time the section is centered
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 0.72", "end 0.28"],
+    offset: ["start 0.88", "center 0.50"],
   });
+
+  // Once the scroll runway completes, latch to full opacity permanently.
+  // Without this, a section that was never in view on mount (or a page loaded
+  // mid-scroll) can be left stranded at the low end of the word opacity range.
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    if (value >= 0.94) {
+      setHasRevealed(true);
+    }
+  });
+
+  useEffect(() => {
+    // Immediately on load: if the section is already in view or centered, ensure full opacity
+    const el = sectionRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // Section is already centered or in active view
+    if (rect.top <= vh * 0.55 && rect.bottom >= vh * 0.15) {
+      setIsImmediatelyInView(true);
+    }
+    // Page loaded with this section already scrolled past: the runway has completed
+    if (rect.bottom <= vh * 0.5) {
+      setHasRevealed(true);
+    }
+  }, []);
 
   const brandWords = brandName.trim().split(/\s+/).filter(Boolean);
   const statementWords = statement.trim().split(/\s+/).filter(Boolean);
@@ -60,13 +93,19 @@ export function AboutSection({
   ];
 
   const total = allWords.length;
-  // Progressively illuminate words across the middle 82% of the scroll runway
-  const startBound = 0.08;
-  const endBound = 0.90;
+  // Progressively illuminate all words so the last word finishes by scrollYProgress = 0.94 (fully centered in viewport)
+  const startBound = 0.04;
+  const endBound = 0.82;
   const step = (endBound - startBound) / total;
 
   return (
-    <section ref={sectionRef} id="about" className="relative bg-black text-white py-[80px] lg:py-[140px] overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative overflow-hidden bg-[#0B0E12] text-[#E8EAEE] py-[72px] md:py-[96px]">
+      {/* *
+      <DotField
+        baseOpacity={0.09}
+        maskImage="radial-gradient(ellipse 65% 55% at 50% 50%, transparent 20%, rgba(0, 0, 0, 0.04) 40%, rgba(0, 0, 0, 0.7) 75%, #000 95%)"
+      />
+      /}
       {/* Background subtle radial glow */}
       <div
         className="pointer-events-none absolute inset-0 opacity-20"
@@ -77,44 +116,26 @@ export function AboutSection({
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 md:px-12 flex flex-col items-center text-center">
-        {/* Eyebrow */}
-        <Reveal delay={0}>
-
-          <div className="font-sans text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-neutral-400 mb-3 sm:mb-3">
-            <div className="inline-flex items-center gap-2.5 border border-ink/20 px-2 py-2 mb-3">
-              <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-              <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-white">
-                About us
-              </span>
-            </div>
-          </div>
-        </Reveal>
-
+      <div className="relative z-[1] max-w-5xl mx-auto px-4 sm:px-8 md:px-12 flex flex-col items-center text-center">
         {/* Main Statement Headline with Clean Single-Layer Scroll Reveal */}
-        <div className="w-full flex flex-col items-center">
-          <h2 className="font-serif text-[clamp(30px,3.6vw,50px)] text-white tracking-[-0.01em] leading-[1.15] max-w-[980px] mx-auto mb-0 text-center">
-            {allWords.map((item, i) => {
-              const start = startBound + i * step;
-              const end = Math.min(0.98, start + 0.14);
+        <h2 className="font-serif text-[clamp(30px,3.6vw,50px)] text-[#E8EAEE] tracking-[-0.01em] leading-[1.35] max-w-[980px] mx-auto mb-0 text-center">
+          {allWords.map((item, i) => {
+            const start = startBound + i * step;
+            const end = Math.min(0.94, start + 0.12);
 
-              return (
-                <Word
-                  key={`${item.word}-${i}`}
-                  progress={scrollYProgress}
-                  range={[start, end]}
-                  isBrand={item.isBrand}
-                >
-                  {item.word}
-                </Word>
-              );
-            })}
-          </h2>
-          <a href="#how-it-works" className="inline-flex items-center gap-1.5 text-[#2563EB] font-sans text-[16px] font-medium hover:underline mt-[40px]">
-            <span>See how it works</span>
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
+            return (
+              <Word
+                key={`${item.word}-${i}`}
+                progress={scrollYProgress}
+                range={[start, end]}
+                isBrand={item.isBrand}
+                forceFullOpacity={isImmediatelyInView || hasRevealed}
+              >
+                {item.word}
+              </Word>
+            );
+          })}
+        </h2>
       </div>
     </section>
   );
