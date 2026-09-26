@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
-import { OrganicParticles } from "@/components/OrganicParticles";
+import { CurrencySkyBackground } from "@/components/pixel-perfect/currency-sky-background";
 
 export function Hero() {
   const [isMounted, setIsMounted] = useState(false);
@@ -43,21 +43,23 @@ export function Hero() {
 
   return (
     <section className="relative flex flex-col items-center justify-center min-h-[100dvh] md:min-h-0 py-6 sm:py-10 md:py-[110px] lg:py-[140px] overflow-hidden bg-black !text-white">
-      {/* Background diagonal line accents — hidden */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-60 hidden"
-        viewBox="0 0 1440 900"
-        preserveAspectRatio="none"
-        fill="none"
-      >
-        <path d="M0 0 L540 560" stroke="#DAD5C8" strokeWidth="1" strokeDasharray="4 4" />
-        <path d="M1440 0 L900 560" stroke="#DAD5C8" strokeWidth="1" strokeDasharray="4 4" />
-      </svg>
-
-      {/* Symmetrical organic particle figures — hidden */}
-      <div className="hidden pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <OrganicParticles />
+      {/* Currency Sky Background */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <CurrencySkyBackground
+          className="w-full h-full"
+          style={{ backgroundColor: "#000000" }}
+          opacity={0.75}
+        />
+        {/* Soft radial vignette so typography remains crisp and high-contrast */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.65) 65%, rgba(0, 0, 0, 0.95) 100%)",
+          }}
+        />
+        {/* Bottom smooth fade to black */}
+        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center text-center w-full">

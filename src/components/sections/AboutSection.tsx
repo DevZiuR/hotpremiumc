@@ -202,7 +202,7 @@ export function AboutSection({
                 <span className="text-white">
                   {renderPrimary()}
                 </span>{" "}
-                <span className="text-white/40">
+                <span className="text-white">
                   {renderContinuation()}
                 </span>
               </h2>
