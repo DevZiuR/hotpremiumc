@@ -47,27 +47,17 @@ const complianceItems = [
 
 export function ComplianceStandards() {
   return (
-    <section id="compliance" className="bg-black text-white py-[80px] lg:py-[140px] border-b border-neutral-800 overflow-hidden">
+    <section id="compliance" className="bg-black text-white py-[80px] lg:py-[140px] border-b border-neutral-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start">
           {/* ── Left Column: Header & Overview with 0ms / 90ms / 180ms sequencing ── */}
           <div className="lg:col-span-4 lg:sticky lg:top-28">
-            {/* Eyebrow: 0ms */}
-            <Reveal delay={0}>
-              <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
-                <span className="block flex-shrink-0" style={{ width: 10, height: 10, background: "#2563EB" }} aria-hidden="true" />
-                <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-neutral-400">
-                  Operational Standards
-                </span>
-              </div>
-            </Reveal>
-
-            {/* Headline: 90ms SplitHeading line reveal */}
+            {/* Headline: SplitHeading line reveal */}
             <SplitHeading
               as="h2"
-              delay={90}
+              delay={0}
               lines={["Every lead,", "fully documented."]}
-              className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
+              className="font-serif text-[clamp(38px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
             />
 
             {/* Subtitle / Overview: 180ms */}

@@ -373,14 +373,15 @@ export function Header() {
                           <h3 className="font-serif text-[26px] font-bold text-white leading-[1.1] mb-6">
                             Bring the offer.<br />We fund the scale.
                           </h3>
-                          <a
-                            href="#contact"
-                            onClick={(e) => { e.stopPropagation(); setOpenMenu(null); }}
+                          {/* Use button instead of <a> to avoid invalid <a> inside <a> nesting (hydration error) */}
+                          <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); e.preventDefault(); setOpenMenu(null); window.location.hash = "contact"; }}
                             className="inline-flex w-full items-center justify-between gap-4 whitespace-nowrap rounded-lg bg-white px-4 py-3 text-[13px] font-semibold leading-[1.2] text-black transition-colors hover:bg-neutral-100"
                           >
                             <span>Apply for partnership</span>
                             <span aria-hidden="true">→</span>
-                          </a>
+                          </button>
                         </a>
                       </div>
                     </div>

@@ -10,20 +10,10 @@ export function GlobalCoverage() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 xl:gap-16 items-center">
           <div className="flex flex-col justify-center lg:col-span-5">
-            {/* Eyebrow: 0ms */}
-            <Reveal delay={0}>
-              <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
-                <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-400">
-                  Global Reach
-                </span>
-              </div>
-            </Reveal>
-
-            {/* Heading: 90ms SplitHeading line reveal */}
+            {/* Heading: SplitHeading line reveal */}
             <SplitHeading
               as="h2"
-              delay={90}
+              delay={0}
               lines={["High-intent demand across", "the markets you serve."]}
               className="font-serif text-[clamp(38px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-5"
             />

@@ -65,26 +65,12 @@ export function PartnerPortfolioCTA() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           <div className="lg:col-span-5 lg:sticky lg:top-[120px] lg:self-start">
-            {/* Eyebrow: 0ms */}
-            <Reveal delay={0}>
-              <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
-                <span
-                  className="block flex-shrink-0"
-                  style={{ width: 12, height: 12, background: "#2457D6" }}
-                  aria-hidden="true"
-                />
-                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-400">
-                  Partnership Application
-                </span>
-              </div>
-            </Reveal>
-
-            {/* Heading: 90ms SplitHeading line reveal */}
+            {/* Heading: SplitHeading line reveal */}
             <SplitHeading
               as="h2"
-              delay={90}
+              delay={0}
               lines={["Bring the offer.", "We fund the scale."]}
-              className="font-serif text-[clamp(38px,5vw,68px)] font-normal leading-[1.05] tracking-[-0.025em] mb-4 text-white"
+              className="font-serif text-[clamp(38px,5vw,60px)] font-normal leading-[1.05] tracking-[-0.025em] mb-4 text-white"
             />
 
             {/* Supporting copy: 180ms */}

@@ -22,17 +22,28 @@ export default function DataVault({ className }: { className?: string }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    el.classList.add("vault-armed");
+    let played = false;
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("vault-play");
-          el.classList.add("vault-active");
+          if (!played) {
+            // Arm immediately so elements are hidden while card fades in
+            el.classList.add("vault-armed");
+            // Delay play until after the parent Reveal card has faded in (~650ms)
+            setTimeout(() => {
+              el.classList.add("vault-play");
+              el.classList.add("vault-active");
+              played = true;
+            }, 700);
+          } else {
+            el.classList.add("vault-active");
+          }
         } else {
           el.classList.remove("vault-active");
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -78,17 +89,17 @@ export default function DataVault({ className }: { className?: string }) {
             vault-draw 1.1s cubic-bezier(.22,1,.36,1) both,
             vault-twist 1.5s cubic-bezier(.22,1,.36,1) both,
             vault-breathe 4.8s ease-in-out infinite;
-          animation-delay: var(--d), var(--d), calc(2.5s + var(--dl));
+          animation-delay: var(--d), var(--d), calc(0.5s + var(--dl));
         }
         .vault-play.vault-active .vault-dot {
-          animation: vault-pop .5s cubic-bezier(.34,1.56,.64,1) 2s both, vault-core-pulse 2.8s ease-in-out infinite 2.5s;
+          animation: vault-pop .5s cubic-bezier(.34,1.56,.64,1) 2s both, vault-core-pulse 2.8s ease-in-out infinite 0.5s;
         }
         .vault-play.vault-active .vault-shield-ring {
           animation: vault-shield 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-          animation-delay: 2.6s;
+          animation-delay: 0.6s;
         }
         .vault-play.vault-active .vault-shield-ring.v-r2 {
-          animation-delay: 4.2s;
+          animation-delay: 2.2s;
         }
 
         /* Pause idle loop when scrolled out of viewport */

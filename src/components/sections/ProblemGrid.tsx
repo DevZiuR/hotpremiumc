@@ -160,22 +160,12 @@ export function ProblemGrid() {
     >
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
 
-        {/* Editorial left-aligned header with 0ms / 90ms choreography */}
+        {/* Editorial left-aligned header */}
         <div className="mb-14 sm:mb-18 lg:mb-20 max-w-3xl">
-          {/* Eyebrow: 0ms */}
-          <Reveal delay={0}>
-            <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
-              <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-              <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-neutral-400">
-                The Partnership Model
-              </span>
-            </div>
-          </Reveal>
-
-          {/* Major editorial heading: 90ms SplitHeading line reveal */}
+          {/* Major editorial heading: SplitHeading line reveal */}
           <SplitHeading
             as="h2"
-            delay={90}
+            delay={0}
             lines={["Why the best operators", "partner with us."]}
             className="font-sans text-[32px] sm:text-[42px] lg:text-[60px] font-medium tracking-[-0.025em] leading-[1.12] text-white"
           />

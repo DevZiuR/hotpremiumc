@@ -43,17 +43,28 @@ export default function ClearField({ className }: { className?: string }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    el.classList.add("cf-armed");
+    let played = false;
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("cf-play");
-          el.classList.add("cf-active");
+          if (!played) {
+            // Arm immediately so elements are hidden while card fades in
+            el.classList.add("cf-armed");
+            // Delay play until after the parent Reveal card has faded in (~650ms)
+            setTimeout(() => {
+              el.classList.add("cf-play");
+              el.classList.add("cf-active");
+              played = true;
+            }, 700);
+          } else {
+            el.classList.add("cf-active");
+          }
         } else {
           el.classList.remove("cf-active");
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -98,17 +109,17 @@ export default function ClearField({ className }: { className?: string }) {
         /* Continuous idle loop once active and in viewport */
         .cf-play.cf-active .cf-flow-pulse {
           animation: cf-stream-motion 2.6s linear infinite;
-          animation-delay: calc(2.4s + var(--dl));
+          animation-delay: calc(0.4s + var(--dl));
         }
         .cf-play.cf-active .cf-dot {
-          animation: cf-pop .5s cubic-bezier(.34,1.56,.64,1) 1.9s both, cf-dot-glow 2.8s ease-in-out infinite 2.4s;
+          animation: cf-pop .5s cubic-bezier(.34,1.56,.64,1) 1.9s both, cf-dot-glow 2.8s ease-in-out infinite 0.4s;
         }
         .cf-play.cf-active .cf-aura-ring {
           animation: cf-aura-expand 3s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-          animation-delay: 2.4s;
+          animation-delay: 0.4s;
         }
         .cf-play.cf-active .cf-aura-ring.cf-r2 {
-          animation-delay: 3.9s;
+          animation-delay: 1.9s;
         }
 
         /* Pause idle loop when scrolled out of viewport */

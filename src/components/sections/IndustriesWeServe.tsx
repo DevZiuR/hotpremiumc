@@ -166,7 +166,7 @@ export function IndustriesWeServe() {
   return (
     <section
       id="verticals"
-      className="bg-[#f4f5f7] pt-[90px] pb-[20px] lg:pt-[140px] lg:pb-[0px] border-y border-neutral-300/70 overflow-hidden font-sans"
+      className="bg-[#f4f5f7] pt-[90px] pb-[20px] lg:pt-[140px] lg:pb-[0px] border-y border-neutral-300/70 font-sans"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
         {/* Eyebrow: 0ms */}
@@ -184,7 +184,7 @@ export function IndustriesWeServe() {
           as="h2"
           delay={90}
           lines={["Built for industries where", "every customer matters."]}
-          className="font-serif text-[clamp(38px,5vw,68px)] font-medium text-black tracking-[-0.025em] leading-[1.05] max-w-3xl mb-8 sm:mb-12 md:mb-16"
+          className="font-serif text-[clamp(38px,5vw,60px)] font-medium text-black tracking-[-0.025em] leading-[1.05] max-w-3xl mb-8 sm:mb-12 md:mb-16"
         />
 
         {/* ── Two-Column Layout ── */}

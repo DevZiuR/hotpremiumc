@@ -20,17 +20,28 @@ export default function TcpaFlow({ className }: { className?: string }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    el.classList.add("tf-armed");
+    let played = false;
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("tf-play");
-          el.classList.add("tf-active");
+          if (!played) {
+            // Arm immediately so elements are hidden while card fades in
+            el.classList.add("tf-armed");
+            // Delay play until after the parent Reveal card has faded in (~650ms)
+            setTimeout(() => {
+              el.classList.add("tf-play");
+              el.classList.add("tf-active");
+              played = true;
+            }, 700);
+          } else {
+            el.classList.add("tf-active");
+          }
         } else {
           el.classList.remove("tf-active");
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -90,11 +101,11 @@ export default function TcpaFlow({ className }: { className?: string }) {
         /* Continuous idle-loop animations once active and visible */
         .tf-play.tf-active .tf-pulse-line {
           animation: tf-stream-flow 2.8s cubic-bezier(.4,0,.2,1) infinite;
-          animation-delay: calc(2.4s + var(--dl));
+          animation-delay: calc(0.4s + var(--dl));
         }
         .tf-play.tf-active .tf-exit-pulse {
           animation: tf-exit-flow 2.8s cubic-bezier(.4,0,.2,1) infinite;
-          animation-delay: 3.5s;
+          animation-delay: 0.8s;
         }
         .tf-play.tf-active .tf-dot {
           animation: tf-pop .5s cubic-bezier(.34,1.56,.64,1) 2.1s both, tf-beacon 2.8s ease-in-out infinite 2.6s;

@@ -50,7 +50,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="bg-[#f4f5f7] py-[80px] lg:py-[140px] border-b border-gray-200/80">
+    <section id="faq" className="bg-[#f4f5f7] py-[80px] lg:py-[140px] border-b border-gray-200/80">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         <div className="relative mx-auto w-full max-w-[720px]">
           <Reveal delay={0}>
@@ -75,10 +75,10 @@ export function FAQSection() {
             as="h2"
             delay={90}
             lines={["Questions worth answering", "before you apply"]}
-            className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0 text-center mx-auto max-w-[720px] [text-wrap:balance]"
+            className="font-serif text-[clamp(38px,5vw,65px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0 text-center mx-auto max-w-[720px] [text-wrap:balance]"
           />
 
-          <div className="mt-10 sm:mt-12 space-y-2 sm:space-y-2.5">
+          <div className="mt-10 sm:mt-12 rounded-xl border border-[rgba(255,255,255,0.10)] bg-[#09090b] overflow-hidden divide-y divide-[rgba(255,255,255,0.08)]">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               const answerId = `faq-answer-${index}`;
@@ -86,9 +86,9 @@ export function FAQSection() {
               return (
                 <Reveal key={faq.question} delay={270 + Math.min(index * 80, 640)}>
                   <div
-                    className={`overflow-hidden rounded-xl border bg-[#09090b] transition-[background-color,border-color,box-shadow] duration-[150ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${isOpen
-                      ? "border-[rgba(37,99,235,0.4)] shadow-md"
-                      : "border-[rgba(255,255,255,0.10)] hover:border-white/20 hover:bg-[#171b23]"
+                    className={`overflow-hidden transition-colors duration-[150ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none hover:bg-[#171b23] ${isOpen
+                      ? "bg-white/[0.03]"
+                      : "bg-transparent"
                       }`}
                   >
                     <button

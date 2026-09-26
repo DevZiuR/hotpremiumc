@@ -29,17 +29,28 @@ export default function TimestampSeal({ className }: { className?: string }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    el.classList.add("seal-armed");
+    let played = false;
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("seal-play");
-          el.classList.add("seal-active");
+          if (!played) {
+            // Arm immediately so elements are hidden while card fades in
+            el.classList.add("seal-armed");
+            // Delay play until after the parent Reveal card has faded in (~650ms)
+            setTimeout(() => {
+              el.classList.add("seal-play");
+              el.classList.add("seal-active");
+              played = true;
+            }, 700);
+          } else {
+            el.classList.add("seal-active");
+          }
         } else {
           el.classList.remove("seal-active");
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -85,8 +96,8 @@ export default function TimestampSeal({ className }: { className?: string }) {
         .seal-play.seal-active .seal-center {
           animation: seal-pop .5s cubic-bezier(.34,1.56,.64,1) 1.1s both, seal-center-pulse 3.2s ease-in-out infinite 3.2s;
         }
-        .seal-play.seal-active .seal-ripple { animation: seal-ripple 3.2s ease-out infinite; animation-delay: 3.2s; }
-        .seal-play.seal-active .seal-ripple.r2 { animation-delay: 4.8s; }
+        .seal-play.seal-active .seal-ripple { animation: seal-ripple 3.2s ease-out infinite; animation-delay: 0.5s; }
+        .seal-play.seal-active .seal-ripple.r2 { animation-delay: 2.1s; }
 
         /* Pause idle loop when scrolled out of viewport */
         .seal-armed:not(.seal-active) * {

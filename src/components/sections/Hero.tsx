@@ -42,7 +42,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[100dvh] md:min-h-0 py-6 sm:py-10 md:py-[110px] lg:py-[180px] overflow-hidden bg-black !text-white">
+    <section className="relative flex flex-col items-center justify-center min-h-[100dvh] md:min-h-0 py-6 sm:py-10 md:py-[110px] lg:py-[140px] overflow-hidden bg-black !text-white">
       {/* Background diagonal line accents — hidden */}
       <svg
         aria-hidden
@@ -86,12 +86,12 @@ export function Hero() {
         >
           <span className="block overflow-hidden py-[0.04em] -my-[0.04em]">
             <span className="block" style={getEntranceStyle(100)}>
-              We Fund Your Growth.
+              We Fund Your <span style={{ color: "#2563eb" }}>Growth</span>.
             </span>
           </span>
           <span className="block overflow-hidden py-[0.04em] -my-[0.04em]">
             <span className="block" style={getEntranceStyle(200)}>
-              You Keep the Business.
+              You <span style={{ color: "#2563eb" }}>Keep</span> the Business.
             </span>
           </span>
         </h1>
@@ -119,35 +119,14 @@ export function Hero() {
             <Button
               variant="sharp-outline"
               href="#verticals"
-              className="w-full md:w-auto text-center justify-center h-[46px] !rounded-[12px] !py-0 px-8 !bg-transparent !border-[1px] !border-white/15 !text-white/45 hover:!bg-transparent hover:!text-white/65 hover:!border-white/25 transition-all duration-300"
+              className="w-full md:w-auto text-center justify-center h-[46px] !rounded-[12px] !py-0 px-8 !bg-transparent !border-[1px] !border-white/15 !text-white hover:!bg-transparent hover:!text-white/65 hover:!border-white/25 transition-all duration-300"
             >
               Industries we work with
             </Button>
           </div>
         </div>
 
-        {/* Founder track record row — extra separation */}
-        <div className="w-full" style={getEntranceStyle(500)}>
-          <div className="w-full max-w-3xl mx-auto mt-6 sm:mt-12 md:mt-24 pt-4 sm:pt-8 border-t border-gray-200/70">
-            <p className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-white text-center mb-4 sm:mb-6">
-              Founder track record
-            </p>
-            <div className="grid grid-cols-3 gap-3 sm:gap-6">
-              <div className="text-center">
-                <div className="font-serif text-[20px] sm:text-[24px] md:text-[30px] font-semibold text-white tracking-tight leading-none">$50M/yr</div>
-                <div className="font-sans text-[12px] sm:text-[13px] text-[#3A3F47] mt-1.5 leading-[1.3] sm:leading-[1.4]">Coaching business (current run-rate)</div>
-              </div>
-              <div className="text-center border-x border-gray-200/70 px-2">
-                <div className="font-serif text-[20px] sm:text-[24px] md:text-[30px] font-semibold text-white tracking-tight leading-none">$53M in 10 months</div>
-                <div className="font-sans text-[12px] sm:text-[13px] text-white/50 mt-1.5 leading-[1.3] sm:leading-[1.4]">Medical ecommerce brand (separate venture)</div>
-              </div>
-              <div className="text-center">
-                <div className="font-serif text-[20px] sm:text-[24px] md:text-[30px] font-semibold text-white tracking-tight leading-none">8-figure</div>
-                <div className="font-sans text-[12px] sm:text-[13px] text-white/50 mt-1.5 leading-[1.3] sm:leading-[1.4]">Ecommerce brand</div>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
     </section>
   );
