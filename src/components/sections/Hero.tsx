@@ -82,16 +82,20 @@ export function Hero() {
         {/* 2 & 3. H1 with Line 1 (delay: 100ms) and Line 2 (delay: 200ms) */}
         <h1
           aria-label="We Fund Your Growth. You Keep the Business."
-          className="font-serif text-[clamp(32px,9vw,64px)] md:text-[clamp(48px,8vw,108px)] font-normal !text-white max-w-4xl mb-3 sm:mb-5 md:mb-8 tracking-[-0.03em] leading-[1.02] md:leading-[0.98]"
+          className="font-serif text-[clamp(42px,11.5vw,68px)] md:text-[clamp(48px,8vw,108px)] font-normal !text-white max-w-4xl mb-3 sm:mb-5 md:mb-8 tracking-[-0.03em] leading-[1.02] md:leading-[0.98]"
         >
-          <span className="block overflow-hidden py-[0.04em] -my-[0.04em]">
+          <span className="block overflow-hidden py-[0.08em] -my-[0.08em]">
             <span className="block" style={getEntranceStyle(100)}>
-              We Fund Your <span style={{ color: "#2563eb" }}>Growth</span>.
+              We Fund Your{" "}
+              <span className="inline-block align-baseline mx-[0.06em] px-[0.22em] py-[0.02em] rounded-[0.22em] bg-white text-[#2563EB] transition-[background-color,color,transform] duration-[250ms] ease-out hover:bg-white/15 hover:text-[#3B73FF] hover:scale-[1.02] motion-reduce:transition-none motion-reduce:hover:scale-100 cursor-pointer select-none">
+                Growth
+              </span>
+              .
             </span>
           </span>
-          <span className="block overflow-hidden py-[0.04em] -my-[0.04em]">
+          <span className="block overflow-hidden py-[0.08em] -my-[0.08em]">
             <span className="block" style={getEntranceStyle(200)}>
-              You <span style={{ color: "#2563eb" }}>Keep</span> the Business.
+              You Keep the Business.
             </span>
           </span>
         </h1>

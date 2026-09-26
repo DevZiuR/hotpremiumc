@@ -213,22 +213,9 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     };
 
     const drawRoundedPill = (layout: LabelLayout) => {
-      const entranceScale = 0.9 + layout.entrance * 0.1;
-      const activeScale = layout.active ? 1.08 : 1;
-      const scale = entranceScale * activeScale;
-
       context.save();
       context.translate(layout.center[0], layout.center[1]);
-      context.scale(scale, scale);
       context.globalAlpha = layout.opacity;
-      context.filter = layout.active ? "brightness(1.14)" : "none";
-      context.shadowColor = layout.active
-        ? "rgba(59,130,246,0.28)"
-        : hovered
-          ? "rgba(59,130,246,0.22)"
-          : "rgba(0,0,0,0.5)";
-      context.shadowBlur = layout.active ? 26 : hovered ? 28 : 20;
-      context.shadowOffsetY = 6;
       roundedRect(
         context,
         -layout.width / 2,
@@ -239,9 +226,6 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       );
       context.fillStyle = layout.market.background;
       context.fill();
-      context.shadowColor = "transparent";
-      context.shadowBlur = 0;
-      context.shadowOffsetY = 0;
       context.fillStyle = layout.market.foreground;
       context.textAlign = "center";
       context.textBaseline = "middle";
@@ -317,13 +301,9 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           center: [point[0] + offset[0], point[1] + offset[1]],
           width: size.width,
           height: size.height,
-          opacity:
-            clamp((90 - distance) / 15) *
-            (reducedMotion ? 1 : clamp((introElapsed - index * 0.07) / 0.4)),
-          entrance: reducedMotion
-            ? 1
-            : clamp((introElapsed - index * 0.07) / 0.4),
-          active: !reducedMotion && tourPhase === "hold" && tourIndex === index,
+          opacity: clamp((90 - distance) / 15),
+          entrance: 1,
+          active: false,
         });
       }
 

@@ -166,10 +166,11 @@ export function IndustriesWeServe() {
   return (
     <section
       id="verticals"
-      className="bg-[#f4f5f7] pt-[90px] pb-[20px] lg:pt-[140px] lg:pb-[0px] border-y border-neutral-300/70 font-sans"
+      className="bg-[#f4f5f7] pt-[90px] pb-[20px] lg:pt-[140px] lg:pb-[50px] border-y border-neutral-300/70 font-sans"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
         {/* Eyebrow: 0ms */}
+        {/*
         <Reveal delay={0}>
           <div className="inline-flex items-center gap-2.5 mb-4">
             <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
@@ -178,6 +179,7 @@ export function IndustriesWeServe() {
             </span>
           </div>
         </Reveal>
+        */}
 
         {/* Heading: 90ms SplitHeading line reveal */}
         <SplitHeading
@@ -190,7 +192,7 @@ export function IndustriesWeServe() {
         {/* ── Two-Column Layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-start">
           {/* ── Left Column: Interactive Photo Card with VisualReveal at 270ms ── */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
+          <div className="lg:col-span-5">
             <VisualReveal delay={270} className="rounded-2xl shadow-md border border-neutral-300/80">
               <div className="relative w-full aspect-[16/10] sm:aspect-[16/10] lg:aspect-square rounded-2xl overflow-hidden bg-[#f4f5f7] group">
                 <AnimatePresence mode="wait">
@@ -317,15 +319,6 @@ export function IndustriesWeServe() {
             </Reveal>
           </div>
         </div>
-      </div>
-
-      {/* Full-Width Bottom Stipple Wave Topography Accent */}
-      <div className="w-full overflow-hidden mt-14 sm:mt-20 -mb-1 pointer-events-none select-none">
-        <img
-          src="/media/stipple-wave.png"
-          alt=""
-          className="w-full h-auto min-h-[60px] max-h-[160px] object-cover object-bottom opacity-85"
-        />
       </div>
     </section>
   );

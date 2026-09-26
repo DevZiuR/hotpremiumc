@@ -51,7 +51,7 @@ export function ComplianceStandards() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start">
           {/* ── Left Column: Header & Overview with 0ms / 90ms / 180ms sequencing ── */}
-          <div className="lg:col-span-4 lg:sticky lg:top-28">
+          <div className="lg:col-span-4">
             {/* Headline: SplitHeading line reveal */}
             <SplitHeading
               as="h2"

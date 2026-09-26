@@ -64,7 +64,7 @@ export function PartnerPortfolioCTA() {
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          <div className="lg:col-span-5 lg:sticky lg:top-[120px] lg:self-start">
+          <div className="lg:col-span-5">
             {/* Heading: SplitHeading line reveal */}
             <SplitHeading
               as="h2"
@@ -355,14 +355,6 @@ export function PartnerPortfolioCTA() {
           </div>
         </div>
       </div>
-
-      <div className="w-full overflow-hidden mt-14 sm:mt-20 -mb-1 pointer-events-none select-none">
-        <img
-          src="/media/stipple-wave.png"
-          alt=""
-          className="w-full h-auto min-h-[60px] max-h-[160px] object-cover object-bottom opacity-50 invert"
-        />
-      </div>
-    </section >
+    </section>
   );
 }

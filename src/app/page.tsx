@@ -9,6 +9,7 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { ComplianceStandards } from "@/components/sections/ComplianceStandards";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { PartnerPortfolioCTA } from "@/components/sections/PartnerPortfolioCTA";
+import { StillDecidingCTA } from "@/components/sections/StillDecidingCTA";
 import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
@@ -28,6 +29,7 @@ export default function Home() {
         <ComplianceStandards />
         <FAQSection />
         <PartnerPortfolioCTA />
+        <StillDecidingCTA />
       </main>
       <Footer />
     </>
