@@ -48,14 +48,14 @@ export function Hero() {
         <CurrencySkyBackground
           className="w-full h-full"
           style={{ backgroundColor: "#000000" }}
-          opacity={0.75}
+          opacity={1}
         />
         {/* Soft radial vignette so typography remains crisp and high-contrast */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.65) 65%, rgba(0, 0, 0, 0.95) 100%)",
+              "radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.45) 65%, rgba(0, 0, 0, 0.85) 100%)",
           }}
         />
         {/* Bottom smooth fade to black */}
