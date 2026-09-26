@@ -150,6 +150,16 @@ export default function TcpaFlow({ className }: { className?: string }) {
           .tf-play * { animation: none !important; }
           .tf-pulse-line, .tf-exit-pulse, .tf-beacon-ring { display: none !important; }
         }
+
+        /* Mobile: keep entrance animations, disable continuous idle loops */
+        @media (max-width: 767px) {
+          .tf-play.tf-active .tf-pulse-line { animation: none !important; }
+          .tf-play.tf-active .tf-exit-pulse { animation: none !important; }
+          .tf-play.tf-active .tf-beacon-ring { animation: none !important; }
+          .tf-play.tf-active .tf-dot {
+            animation: tf-pop .5s cubic-bezier(.34,1.56,.64,1) 2.1s both !important;
+          }
+        }
       `}</style>
 
       {lines.map((l, i) => (

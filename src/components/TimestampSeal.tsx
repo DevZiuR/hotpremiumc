@@ -123,6 +123,18 @@ export default function TimestampSeal({ className }: { className?: string }) {
           .seal-play * { animation: none !important; }
           .seal-ripple { display: none !important; }
         }
+
+        /* Mobile: keep entrance animations, disable continuous idle loops */
+        @media (max-width: 767px) {
+          .seal-play.seal-active .seal-sweep {
+            animation: seal-fade .3s ease-out 1.25s both, seal-sweep 1.9s cubic-bezier(.22,1,.36,1) 1.3s both !important;
+          }
+          .seal-play.seal-active .seal-center {
+            animation: seal-pop .5s cubic-bezier(.34,1.56,.64,1) 1.1s both !important;
+          }
+          .seal-play.seal-active .seal-ripple { animation: none !important; }
+          .seal-play.seal-active .seal-ripple.r2 { animation: none !important; }
+        }
       `}</style>
 
       {rings.map(([r, o]) => (

@@ -11,9 +11,14 @@ function useCountUp(target: number, duration: number = 1400, delay: number = 0, 
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setValue(target);
-      return;
+    if (typeof window !== "undefined") {
+      // Skip animation on mobile or if user prefers reduced motion — jump to final value
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+      if (prefersReduced || isMobile) {
+        setValue(target);
+        return;
+      }
     }
 
     if (!start) {
@@ -71,8 +76,8 @@ export function AboutMax() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setHasTriggered(true);
-        } else {
-          setHasTriggered(false);
+          // Once triggered, disconnect — no need to reset on scroll-out
+          observer.disconnect();
         }
       },
     { threshold: 0.25 }

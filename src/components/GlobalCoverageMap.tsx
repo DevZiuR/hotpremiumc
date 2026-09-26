@@ -124,7 +124,10 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     if (cueDismissed) cue?.classList.add("gc-cue-dismissed");
 
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
     let reducedMotion = reducedMotionQuery.matches;
+    // On mobile: cap DPR to 1, disable drag interaction, slow orbit
+    let isMobile = mobileQuery.matches;
     let width = 1;
     let height = 1;
     let pixelRatio = 1;
@@ -157,7 +160,8 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
 
     const projection = geoOrthographic()
       .clipAngle(90)
-      .precision(0.4)
+      // Lower precision on mobile to reduce path complexity
+      .precision(isMobile ? 1.0 : 0.4)
       .rotate([30, -20, 15]);
     const path = geoPath(projection, context);
 
@@ -382,17 +386,20 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       const delta = Math.min((time - previousTime) / 1000, 0.05);
       previousTime = time;
 
+      // On mobile, halve the effective delta so all animations run at half speed
+      const effectiveDelta = isMobile ? delta * 0.5 : delta;
+
       if (resumeDelay > 0) {
-        resumeDelay = Math.max(0, resumeDelay - delta);
+        resumeDelay = Math.max(0, resumeDelay - effectiveDelta);
         // Keep ambient drift during resume delay so it remains continuous
-        centerLongitude = normalizeLongitude(centerLongitude - delta * 2.5);
+        centerLongitude = normalizeLongitude(centerLongitude - effectiveDelta * 2.5);
         draw();
         animationFrame = window.requestAnimationFrame(frame);
         return;
       }
 
       if (nudgeActive) {
-        nudgeElapsed += delta;
+        nudgeElapsed += effectiveDelta;
         const cycleProgress = (nudgeElapsed % 1.6) / 1.6;
         const travel = cycleProgress < 0.5
           ? easeInOutCubic(cycleProgress * 2)
@@ -403,15 +410,18 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           nudgeOffset = 0;
         }
       } else {
-        advanceTour(delta);
+        advanceTour(effectiveDelta);
       }
 
-      rimGlowOpacity =
-        (hasDragged ? 0.35 : 0.475) +
-        (hasDragged ? 0.12 : 0.225) * Math.sin((orbitElapsed / 2.6) * Math.PI * 2);
+      // Skip the continuously-oscillating rim glow on mobile (saves per-frame math)
+      if (!isMobile) {
+        rimGlowOpacity =
+          (hasDragged ? 0.35 : 0.475) +
+          (hasDragged ? 0.12 : 0.225) * Math.sin((orbitElapsed / 2.6) * Math.PI * 2);
+      }
 
-      orbitElapsed = (orbitElapsed + delta) % 60;
-      introElapsed = Math.min(1.2, introElapsed + delta);
+      orbitElapsed = (orbitElapsed + effectiveDelta) % 60;
+      introElapsed = Math.min(1.2, introElapsed + effectiveDelta);
       draw();
       animationFrame = window.requestAnimationFrame(frame);
     };
@@ -441,7 +451,11 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       const bounds = host.getBoundingClientRect();
       width = Math.max(1, bounds.width);
       height = Math.max(1, bounds.height);
-      pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      isMobile = mobileQuery.matches;
+      // Cap DPR to 1 on mobile for lower GPU/memory load
+      pixelRatio = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 2);
+      // Update projection precision on resize (in case of orientation change)
+      projection.precision(isMobile ? 1.0 : 0.4);
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
       draw();
@@ -498,6 +512,8 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     };
 
     const pointerDown = (event: PointerEvent) => {
+      // Disable drag on mobile to prevent scroll jank
+      if (isMobile) return;
       dismissCue();
       startGlowFade();
       dragging = true;
@@ -643,10 +659,17 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     intersectionObserver.observe(host);
 
     const touchMove = (event: TouchEvent) => {
-      if (event.cancelable) {
+      // Only block native scroll if actively dragging the globe (desktop/tablet)
+      // On mobile we never set dragging=true so this never blocks scroll
+      if (dragging && event.cancelable) {
         event.preventDefault();
       }
     };
+
+    // On mobile, set canvas touch-action to pan-y so vertical scroll is never blocked
+    if (isMobile) {
+      canvas.style.touchAction = "pan-y";
+    }
 
     canvas.addEventListener("pointerenter", enter);
     canvas.addEventListener("pointerleave", leave);
@@ -692,6 +715,13 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           background: #0a0a0a;
           border: 1px solid rgba(255,255,255,0.06);
           touch-action: none;
+        }
+        /* Mobile: allow vertical scroll — drag interaction is disabled */
+        @media (max-width: 767px) {
+          .gc-card { touch-action: pan-y; }
+          .gc-stage { touch-action: pan-y; }
+          .gc-stage canvas { touch-action: pan-y; cursor: default; }
+          .gc-drag-cue { display: none !important; }
         }
         .gc-stage {
           position: absolute;

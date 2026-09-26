@@ -26,6 +26,9 @@ export default function DotField({
     if (!canvas || !host || !ctx) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    // On mobile: use wider spacing (fewer dots) to keep fill-rate low
+    const effectiveSpacing = mobile ? spacing * 2 : spacing;
     let w = 0, h = 0, maxR = 1;
     let raf = 0;
     let visible = false;
@@ -34,16 +37,16 @@ export default function DotField({
     const draw = (now: number) => {
       ctx.clearRect(0, 0, w, h);
       const t = (now - t0) / 1000;
-      const cols = Math.floor(w / spacing);
-      const rows = Math.floor(h / spacing);
-      const ox = (w - (cols - 1) * spacing) / 2;
-      const oy = (h - (rows - 1) * spacing) / 2;
+      const cols = Math.floor(w / effectiveSpacing);
+      const rows = Math.floor(h / effectiveSpacing);
+      const ox = (w - (cols - 1) * effectiveSpacing) / 2;
+      const oy = (h - (rows - 1) * effectiveSpacing) / 2;
       const r1 = (((t / period) % 1) * (maxR + 200)) - 100;
       const r2 = ((((t / period) + 0.5) % 1) * (maxR + 200)) - 100;
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const x = ox + c * spacing;
-          const y = oy + r * spacing;
+          const x = ox + c * effectiveSpacing;
+          const y = oy + r * effectiveSpacing;
           const d = Math.hypot(x - w / 2, y - h / 2);
           const a = Math.exp(-Math.pow((d - r1) / 110, 2));
           const b = Math.exp(-Math.pow((d - r2) / 110, 2));
@@ -65,7 +68,8 @@ export default function DotField({
 
     const resize = () => {
       const b = host.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Cap DPR at 1 on mobile, 2 on desktop
+      const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 2);
       w = b.width;
       h = b.height;
       maxR = Math.hypot(w / 2, h / 2);

@@ -34,6 +34,7 @@ export default function GridMorph({
     if (!canvas || !host || !ctx) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
     let w = 0, h = 0;
     let fx = 0, fy = 0, tx = 0, ty = 0;
     let intro = reduce ? 1 : 0;
@@ -74,7 +75,9 @@ export default function GridMorph({
       fx += (tx - fx) * 0.14;
       fy += (ty - fy) * 0.14;
       draw();
-      if (intro < 1 || Math.abs(tx - fx) > 0.4 || Math.abs(ty - fy) > 0.4) {
+      // On mobile, stop rAF loop once intro completes (no hover interaction)
+      const needsHover = !mobile && (Math.abs(tx - fx) > 0.4 || Math.abs(ty - fy) > 0.4);
+      if (intro < 1 || needsHover) {
         raf = requestAnimationFrame(step);
       }
     };
@@ -84,7 +87,8 @@ export default function GridMorph({
 
     const resize = () => {
       const b = host.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Cap DPR at 1 on mobile
+      const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 2);
       w = b.width;
       h = b.height;
       canvas.width = Math.round(w * dpr);
@@ -121,7 +125,8 @@ export default function GridMorph({
       ty = rest[1] * h;
       run();
     };
-    if (!reduce) {
+    // Only attach hover listeners on desktop (mobile has no hover and no need for continuous rAF)
+    if (!reduce && !mobile) {
       host.addEventListener("pointermove", move);
       host.addEventListener("pointerleave", leave);
     }

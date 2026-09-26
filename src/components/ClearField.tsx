@@ -150,6 +150,16 @@ export default function ClearField({ className }: { className?: string }) {
           .cf-play * { animation: none !important; }
           .cf-flow-pulse, .cf-aura-ring { display: none !important; }
         }
+
+        /* Mobile: keep entrance animations, disable continuous idle loops */
+        @media (max-width: 767px) {
+          .cf-play.cf-active .cf-flow-pulse { animation: none !important; }
+          .cf-play.cf-active .cf-dot {
+            animation: cf-pop .5s cubic-bezier(.34,1.56,.64,1) 1.9s both !important;
+          }
+          .cf-play.cf-active .cf-aura-ring { animation: none !important; }
+          .cf-play.cf-active .cf-aura-ring.cf-r2 { animation: none !important; }
+        }
       `}</style>
 
       {lines.map((l, i) => (

@@ -129,6 +129,21 @@ export default function DataVault({ className }: { className?: string }) {
           .vault-play * { animation: none !important; }
           .vault-shield-ring { display: none !important; }
         }
+
+        /* Mobile: keep entrance animations, disable continuous idle loops */
+        @media (max-width: 767px) {
+          .vault-play.vault-active .vault-layer {
+            animation:
+              vault-draw 1.1s cubic-bezier(.22,1,.36,1) both,
+              vault-twist 1.5s cubic-bezier(.22,1,.36,1) both !important;
+            animation-delay: var(--d), var(--d) !important;
+          }
+          .vault-play.vault-active .vault-dot {
+            animation: vault-pop .5s cubic-bezier(.34,1.56,.64,1) 2s both !important;
+          }
+          .vault-play.vault-active .vault-shield-ring { animation: none !important; }
+          .vault-play.vault-active .vault-shield-ring.v-r2 { animation: none !important; }
+        }
       `}</style>
 
       {layers.map((l, i) => {

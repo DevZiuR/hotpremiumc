@@ -115,6 +115,11 @@ export function ComplianceStandards() {
                           .animate-compliance-spin {
                             animation: compliance-orbit-spin 30s linear infinite;
                           }
+                          /* Mobile: disable continuous orbital animations */
+                          @media (max-width: 767px) {
+                            .animate-compliance-pulse { animation: none !important; opacity: 0.5; }
+                            .animate-compliance-spin { animation: none !important; }
+                          }
                         `}</style>
 
                           {item.number !== "01" && item.number !== "02" && item.number !== "03" && item.number !== "04" && (
