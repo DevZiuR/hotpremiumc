@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
+import { SplitHeading } from "@/components/SplitHeading";
+import { VisualReveal } from "@/components/VisualReveal";
 
 const industriesData = [
   {
@@ -167,29 +169,30 @@ export function IndustriesWeServe() {
       className="bg-[#f4f5f7] pt-[90px] pb-[20px] lg:pt-[140px] lg:pb-[0px] border-y border-neutral-300/70 overflow-hidden font-sans"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
-        <Reveal>
-          {/* ────── Eyebrow: “INDUSTRIES WE SERVE” with blue square ────── */}
-          {/* 
+        {/* Eyebrow: 0ms */}
+        <Reveal delay={0}>
           <div className="inline-flex items-center gap-2.5 mb-4">
             <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
             <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
-              Industries
+              Industries We Serve
             </span>
           </div>
-          */}
-          {/* Heading */}
-          <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-medium text-black tracking-[-0.025em] leading-[1.05] max-w-3xl mb-8 sm:mb-12 md:mb-16">
-            Built for industries where
-            every customer matters
-          </h2>
         </Reveal>
+
+        {/* Heading: 90ms SplitHeading line reveal */}
+        <SplitHeading
+          as="h2"
+          delay={90}
+          lines={["Built for industries where", "every customer matters."]}
+          className="font-serif text-[clamp(38px,5vw,68px)] font-medium text-black tracking-[-0.025em] leading-[1.05] max-w-3xl mb-8 sm:mb-12 md:mb-16"
+        />
 
         {/* ── Two-Column Layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-start">
-          {/* ── Left Column: Interactive Photo Card ── */}
+          {/* ── Left Column: Interactive Photo Card with VisualReveal at 270ms ── */}
           <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <Reveal delay={100}>
-              <div className="relative w-full aspect-[16/10] sm:aspect-[16/10] lg:aspect-square rounded-2xl overflow-hidden bg-[#f4f5f7] shadow-md border border-neutral-300/80 group">
+            <VisualReveal delay={270} className="rounded-2xl shadow-md border border-neutral-300/80">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/10] lg:aspect-square rounded-2xl overflow-hidden bg-[#f4f5f7] group">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={activeImage}
@@ -203,12 +206,12 @@ export function IndustriesWeServe() {
                   />
                 </AnimatePresence>
               </div>
-            </Reveal>
+            </VisualReveal>
           </div>
 
-          {/* ── Right Column: Interactive Industry List ── */}
+          {/* ── Right Column: Interactive Industry List at 270ms ── */}
           <div className="lg:col-span-7">
-            <Reveal delay={150}>
+            <Reveal delay={270}>
               <div className="bg-black rounded-2xl border border-neutral-800 p-1.5 sm:p-3 divide-y divide-neutral-800/80 shadow-xl">
                 {industriesData.map((item, index) => {
                   const isSelected = activeIndex === index;

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Reveal } from "@/components/Reveal";
+import { SplitHeading } from "@/components/SplitHeading";
 
 const faqs = [
   {
@@ -52,7 +53,7 @@ export function FAQSection() {
     <section className="bg-[#f4f5f7] py-[80px] lg:py-[140px] border-b border-gray-200/80">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         <div className="relative mx-auto w-full max-w-[720px]">
-          <Reveal>
+          <Reveal delay={0}>
             <div className="flex justify-center">
               <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
                 <span className="flex items-center">
@@ -67,11 +68,15 @@ export function FAQSection() {
                 </span>
               </div>
             </div>
-
-            <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0 text-center mx-auto max-w-[720px] [text-wrap:balance]">
-              Questions worth answering before you apply
-            </h2>
           </Reveal>
+
+          {/* Heading: 90ms SplitHeading line reveal */}
+          <SplitHeading
+            as="h2"
+            delay={90}
+            lines={["Questions worth answering", "before you apply"]}
+            className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0 text-center mx-auto max-w-[720px] [text-wrap:balance]"
+          />
 
           <div className="mt-10 sm:mt-12 space-y-2 sm:space-y-2.5">
             {faqs.map((faq, index) => {
@@ -79,7 +84,7 @@ export function FAQSection() {
               const answerId = `faq-answer-${index}`;
 
               return (
-                <Reveal key={faq.question} delay={index * 80}>
+                <Reveal key={faq.question} delay={270 + Math.min(index * 80, 640)}>
                   <div
                     className={`overflow-hidden rounded-xl border bg-[#09090b] transition-[background-color,border-color,box-shadow] duration-[150ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${isOpen
                       ? "border-[rgba(37,99,235,0.4)] shadow-md"

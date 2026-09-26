@@ -50,18 +50,18 @@ export function Button({
   const isSharp = variant === "sharp-primary" || variant === "sharp-outline" || className.includes("rounded-none");
 
   const baseStyles = isSharp
-    ? "group inline-flex items-center justify-center font-sans font-semibold uppercase tracking-wider transition-all duration-200 active:scale-[0.99] cursor-pointer text-xs sm:text-[13px] rounded-none"
-    : "group inline-flex items-center justify-center font-sans font-medium transition-all duration-300 active:scale-[0.98] cursor-pointer text-small";
+    ? "group inline-flex items-center justify-center font-sans font-semibold uppercase tracking-wider transition-all duration-200 ease-[cubic-bezier(.22,1,.36,1)] active:scale-[0.99] cursor-pointer text-xs sm:text-[13px] rounded-none hover:-translate-y-[1.5px]"
+    : "group inline-flex items-center justify-center font-sans font-medium transition-all duration-200 ease-[cubic-bezier(.22,1,.36,1)] active:scale-[0.98] cursor-pointer text-small hover:-translate-y-[1.5px]";
 
   const variantStyles = {
     primary: isSharp
       ? "gap-2.5 px-7 py-3.5 bg-black text-white hover:bg-neutral-800 shadow-none border border-black"
       : showArrowBadge
-        ? "justify-between gap-4 pl-6 pr-2 py-2 rounded-[22px] bg-ink text-white hover:bg-navy shadow-md hover:shadow-xl hover:-translate-y-0.5"
-        : "px-6 py-3 rounded-[20px] bg-ink text-white hover:bg-navy shadow-sm hover:shadow-md hover:-translate-y-0.5",
+        ? "justify-between gap-4 pl-6 pr-2 py-2 rounded-[22px] bg-ink text-white hover:bg-navy shadow-md hover:shadow-lg"
+        : "px-6 py-3 rounded-[20px] bg-ink text-white hover:bg-navy shadow-sm hover:shadow-md",
     outline: isSharp
       ? "gap-2.5 px-8 py-3.5 border border-gray-200 bg-[#f4f5f7] text-black hover:bg-gray-50 hover:border-gray-300 shadow-none"
-      : "gap-2.5 px-6 py-3 rounded-[20px] border border-line bg-white/80 backdrop-blur-md text- hover:bg-white hover:border-slate/40 shadow-2xs hover:shadow-sm",
+      : "gap-2.5 px-6 py-3 rounded-[20px] border border-line bg-white/80 backdrop-blur-md hover:bg-white hover:border-slate/40 shadow-2xs hover:shadow-sm",
     "sharp-primary":
       "gap-2.5 px-7 py-3.5 bg-black text-white hover:bg-neutral-800 shadow-none border border-black",
     "sharp-outline":

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
+import { SplitHeading } from "@/components/SplitHeading";
 import DotField from "@/components/DotField";
 
 const formContainerVariants = {
@@ -62,38 +63,41 @@ export function PartnerPortfolioCTA() {
       className="relative bg-[#020509] text-white py-[80px] lg:py-[140px]"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 relative">
-        <Reveal duration={350}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            <div className="lg:col-span-5 lg:sticky lg:top-[120px] lg:self-start">
-              {/* 
-              <div className="inline-flex items-center gap-2.5 mb-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          <div className="lg:col-span-5 lg:sticky lg:top-[120px] lg:self-start">
+            {/* Eyebrow: 0ms */}
+            <Reveal delay={0}>
+              <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
                 <span
                   className="block flex-shrink-0"
                   style={{ width: 12, height: 12, background: "#2457D6" }}
                   aria-hidden="true"
                 />
-                <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
-                  Let&apos;s Build What&apos;s Next
+                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-400">
+                  Partnership Application
                 </span>
               </div>
-              */}
+            </Reveal>
 
-              <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-normal leading-[1.05] tracking-[-0.025em] mb-4 text-white">
-                Bring the offer. We fund the scale.
-              </h2>
-              <p className="text-[20px] text-neutral-400 leading-[1.6] max-w-[62ch]">
+            {/* Heading: 90ms SplitHeading line reveal */}
+            <SplitHeading
+              as="h2"
+              delay={90}
+              lines={["Bring the offer.", "We fund the scale."]}
+              className="font-serif text-[clamp(38px,5vw,68px)] font-normal leading-[1.05] tracking-[-0.025em] mb-4 text-white"
+            />
+
+            {/* Supporting copy: 180ms */}
+            <Reveal delay={180}>
+              <p className="font-sans text-[18px] sm:text-[20px] text-neutral-400 leading-[1.6] max-w-[62ch]">
                 Tell us about your business and growth goals. Our team will
                 review your application and get back to you within 24 hours.
               </p>
+            </Reveal>
+          </div>
 
-              {/* 
-              <div className="relative mt-8 h-[220px] w-full overflow-hidden xl:h-[260px]">
-                <DotField />
-            </div>
-             */}
-            </div>
-
-            <div className="lg:col-span-7">
+          <div className="lg:col-span-7">
+            <Reveal delay={270}>
               <AnimatePresence mode="wait" initial={false}>
                 {submitted ? (
                   <motion.div
@@ -361,10 +365,10 @@ export function PartnerPortfolioCTA() {
                   </motion.form>
                 )}
               </AnimatePresence>
-            </div>
+            </Reveal>
           </div>
-        </Reveal>
-      </div >
+        </div>
+      </div>
 
       <div className="w-full overflow-hidden mt-14 sm:mt-20 -mb-1 pointer-events-none select-none">
         <img

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import { Reveal } from "@/components/Reveal";
+import { SplitHeading } from "@/components/SplitHeading";
 
 // TODO: replace with real partner testimonials before launch
 // All content, names, platforms, ratings, and avatar graphics in this file are strictly PLACEHOLDERS for development and layout testing.
@@ -147,26 +149,27 @@ function TestimonialCard({
 }: TestimonialCardProps) {
   const [imgError, setImgError] = useState(false);
 
+  // Canonical stagger: base 270ms + 80ms per card, capped at 640ms max.
+  const staggerDelay = 270 + Math.min(index * 80, 640);
+  const DURATION = 650;
+  const EASING = "cubic-bezier(.22, 1, .36, 1)";
+
   return (
     <div
-      className={`group relative flex flex-col justify-between bg-[#f2f4ec] border border-[#DCE3F1] rounded-[16px] p-5 sm:p-6 select-none shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-200 ease-out motion-reduce:transition-none motion-reduce:transform-none motion-reduce:opacity-100 ${!isMobileCarousel
+      className={`group relative flex flex-col justify-between bg-[#f2f4ec] border border-[#DCE3F1] rounded-[16px] p-5 sm:p-6 select-none shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-[box-shadow,transform] motion-reduce:transition-none motion-reduce:transform-none motion-reduce:opacity-100 ${!isMobileCarousel
         ? item.isFeatured
           ? "md:col-span-2 lg:col-span-2"
           : "col-span-1"
         : "h-full min-h-[220px]"
-        } ${!isMobileCarousel
-          ? isInView
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-4"
-          : "opacity-100 translate-y-0"
-        } ${!isMobileCarousel ? "hover:-translate-y-1" : ""
         } ${className}`}
       style={
         !isMobileCarousel
           ? {
-            transitionDuration: "450ms",
-            transitionDelay: isInView ? `${index * 50}ms` : "0ms",
-            transitionProperty: "opacity, transform, box-shadow",
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateY(0px)" : "translateY(24px)",
+            transition: `opacity ${DURATION}ms ${EASING}, transform ${DURATION}ms ${EASING}, box-shadow 200ms ease-out`,
+            transitionDelay: isInView ? `${staggerDelay}ms` : "0ms",
+            willChange: "opacity, transform",
           }
           : undefined
       }
@@ -258,10 +261,7 @@ export function Testimonials() {
           observer.disconnect();
         }
       },
-      {
-        rootMargin: "0px 0px -40px 0px",
-        threshold: 0.05,
-      }
+      { threshold: 0.25 }
     );
 
     observer.observe(el);
@@ -294,22 +294,25 @@ export function Testimonials() {
       ref={sectionRef}
       className="relative bg-black text-white py-[80px] lg:py-[140px] overflow-hidden"
     >
-      {/* Header Container */}
+      {/* Header Container with 0ms / 90ms choreography */}
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 mb-10 sm:mb-14 text-center relative z-10">
-        <div
-          className={`transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:transform-none ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-        >
-          {/* Two badge pills restored above the heading (generic/placeholder labeled) */}
+        {/* Eyebrow: 0ms */}
+        <Reveal delay={0}>
+          <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
+            <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
+            <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-400">
+              Partner Track Record
+            </span>
+          </div>
+        </Reveal>
 
-
-
-
-          {/* Heading */}
-          <h2 className="font-serif text-[clamp(36px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.08] text-center mx-auto max-w-4xl">
-            They took the deal. Here&apos;s what happened.
-          </h2>
-        </div>
+        {/* Heading: 90ms SplitHeading line reveal */}
+        <SplitHeading
+          as="h2"
+          delay={90}
+          lines={["They took the deal.", "Here's what happened."]}
+          className="font-serif text-[clamp(36px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.08] text-center mx-auto max-w-4xl"
+        />
       </div>
 
       {/*

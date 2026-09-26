@@ -220,6 +220,17 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Disable all CSS keyframe animations globally */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Specifically stop the testimonials marquee tracks */
   .testimonials-track-left,
   .testimonials-track-right {
     animation: none !important;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Reveal } from "@/components/Reveal";
+import { SplitHeading } from "@/components/SplitHeading";
 
 interface OperatorBenefit {
   id: string;
@@ -159,23 +160,34 @@ export function ProblemGrid() {
     >
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
 
-        {/* Editorial left-aligned header (matching reference inspiration) */}
+        {/* Editorial left-aligned header with 0ms / 90ms choreography */}
         <div className="mb-14 sm:mb-18 lg:mb-20 max-w-3xl">
-          <Reveal>
-            <h2 className="font-sans text-[32px] sm:text-[42px] lg:text-[60px] font-medium tracking-[-0.025em] leading-[1.12] text-white">
-              Why the best operators partner with us
-            </h2>
-
+          {/* Eyebrow: 0ms */}
+          <Reveal delay={0}>
+            <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
+              <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
+              <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-neutral-400">
+                The Partnership Model
+              </span>
+            </div>
           </Reveal>
+
+          {/* Major editorial heading: 90ms SplitHeading line reveal */}
+          <SplitHeading
+            as="h2"
+            delay={90}
+            lines={["Why the best operators", "partner with us."]}
+            className="font-sans text-[32px] sm:text-[42px] lg:text-[60px] font-medium tracking-[-0.025em] leading-[1.12] text-white"
+          />
         </div>
 
-        {/* 3-Column spacious layout without SaaS card containers */}
+        {/* 3-Column spacious layout starting at 270ms with 80ms stagger */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 sm:gap-x-16 lg:gap-x-20 gap-y-12 sm:gap-y-16 lg:gap-y-20">
           {OPERATOR_BENEFITS.map((item, index) => (
-            <Reveal key={item.id} delay={index * 50}>
+            <Reveal key={item.id} delay={270 + Math.min(index * 80, 640)}>
               <div className="group relative flex flex-col items-start text-left">
                 {/* Minimalist Icon Badge Container */}
-                <div className="w-[68px] h-[68px] sm:w-[72px] sm:h-[72px] rounded-[14px] border border-white/[0.08] bg-[#131316] flex items-center justify-center transition-all duration-300 ease-out group-hover:border-[#2563EB]/50 group-hover:bg-[#161724] group-hover:shadow-[0_0_24px_-4px_rgba(37,99,235,0.22)]">
+                <div className="w-[68px] h-[68px] sm:w-[72px] sm:h-[72px] rounded-[14px] border border-white/[0.08] bg-[#131316] flex items-center justify-center transition-all duration-200 ease-out group-hover:border-[#2563EB]/40 group-hover:bg-[#161724]">
                   <item.icon className="w-6 h-6 sm:w-7 sm:h-7 text-neutral-200 transition-colors duration-200 group-hover:text-white" />
                 </div>
 
@@ -191,15 +203,17 @@ export function ProblemGrid() {
           ))}
         </div>
         <div className="mt-8 sm:mt-16">
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-1.5 text-[15px] sm:text-[16px] text-neutral-400 hover:text-white transition-colors duration-200 group font-sans"
-          >
-            <span>Talk to us</span>
-            <span className="transition-transform duration-200 group-hover:translate-x-1">
-              →
-            </span>
-          </a>
+          <Reveal delay={270 + 480}>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-1.5 text-[15px] sm:text-[16px] text-neutral-400 hover:text-white transition-colors duration-200 group font-sans"
+            >
+              <span>Talk to us</span>
+              <span className="transition-transform duration-200 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Reveal } from "@/components/Reveal";
+import { SplitHeading } from "@/components/SplitHeading";
 import TimestampSeal from "@/components/TimestampSeal";
 import TcpaFlow from "@/components/TcpaFlow";
 import DataVault from "@/components/DataVault";
@@ -49,33 +50,35 @@ export function ComplianceStandards() {
     <section id="compliance" className="bg-black text-white py-[80px] lg:py-[140px] border-b border-neutral-800 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start">
-          {/* ── Left Column: Header & Overview ── */}
+          {/* ── Left Column: Header & Overview with 0ms / 90ms / 180ms sequencing ── */}
           <div className="lg:col-span-4 lg:sticky lg:top-28">
-            <Reveal>
-              {/* Eyebrow with Brand Square */}
-              {/*
+            {/* Eyebrow: 0ms */}
+            <Reveal delay={0}>
               <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
-                 
                 <span className="block flex-shrink-0" style={{ width: 10, height: 10, background: "#2563EB" }} aria-hidden="true" />
                 <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-neutral-400">
                   Operational Standards
                 </span>
               </div>
-              */}
+            </Reveal>
 
-              {/* Headline */}
-              <h2 className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6">
-                Every lead, fully documented.
-              </h2>
+            {/* Headline: 90ms SplitHeading line reveal */}
+            <SplitHeading
+              as="h2"
+              delay={90}
+              lines={["Every lead,", "fully documented."]}
+              className="font-serif text-[clamp(38px,5vw,68px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
+            />
 
-              {/* Subtitle / Overview */}
+            {/* Subtitle / Overview: 180ms */}
+            <Reveal delay={180}>
               <p className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed font-normal">
                 In high-ticket industries, compliance is non-negotiable. Every lead is acquired with documented consent and the records needed to support compliant operations across every touchpoint.
               </p>
             </Reveal>
           </div>
 
-          {/* ── Right Column: Cards (Wider Column Gap + Box 2 & 4 Pushed Right) ── */}
+          {/* ── Right Column: Cards starting at 270ms with 80ms stagger ── */}
           <div className="lg:col-span-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr items-stretch gap-y-6 sm:gap-y-8 lg:gap-y-9 gap-x-6 sm:gap-x-10 lg:gap-x-14 xl:gap-x-16">
               {complianceItems.map((item, index) => {
@@ -83,7 +86,7 @@ export function ComplianceStandards() {
                 return (
                   <Reveal
                     key={item.title}
-                    delay={index * 90}
+                    delay={270 + Math.min(index * 80, 640)}
                     className={`h-full ${isRightColumn ? "lg:h2-x-6 xl:h3-x-8" : ""}`}
                   >
                     <div
