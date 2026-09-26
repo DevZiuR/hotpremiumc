@@ -48,7 +48,7 @@ export function Hero() {
         <CurrencySkyBackground
           className="w-full h-full"
           style={{ backgroundColor: "#000000" }}
-          opacity={1}
+          opacity={0.3}
         />
         {/* Soft radial vignette so typography remains crisp and high-contrast */}
         <div
