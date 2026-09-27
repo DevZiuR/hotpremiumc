@@ -49,14 +49,13 @@ export default function ClearField({ className }: { className?: string }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           if (!played) {
-            // Arm immediately so elements are hidden while card fades in
             el.classList.add("cf-armed");
-            // Delay play until after the parent Reveal card has faded in (~650ms)
+            el.classList.add("cf-active");
+            // Start draw animation as card fades in
             setTimeout(() => {
               el.classList.add("cf-play");
-              el.classList.add("cf-active");
               played = true;
-            }, 700);
+            }, 250);
           } else {
             el.classList.add("cf-active");
           }
@@ -64,7 +63,7 @@ export default function ClearField({ className }: { className?: string }) {
           el.classList.remove("cf-active");
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.02 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -123,7 +122,8 @@ export default function ClearField({ className }: { className?: string }) {
         }
 
         /* Pause idle loop when scrolled out of viewport */
-        .cf-armed:not(.cf-active) * {
+        .cf-armed:not(.cf-active) .cf-pulse-path,
+        .cf-armed:not(.cf-active) .cf-aura-ring {
           animation-play-state: paused !important;
         }
 

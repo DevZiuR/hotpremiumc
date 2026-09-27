@@ -16,10 +16,12 @@ const footerSections = [
   {
     title: "Industries",
     links: [
-      { label: "Legal & Retainers", href: "/#verticals" },
-      { label: "Financial & Tax Relief", href: "/#verticals" },
-      { label: "Annuity & Insurance", href: "/#verticals" },
+      { label: "Legal", href: "/#verticals" },
+      { label: "Financial Services", href: "/#verticals" },
+      { label: "Insurance", href: "/#verticals" },
       { label: "Home Services", href: "/#verticals" },
+      { label: "Medical & Health", href: "/#verticals" },
+      { label: "Enterprise & B2B", href: "/#verticals" },
     ],
   },
   {

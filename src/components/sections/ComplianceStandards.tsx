@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { SplitHeading } from "@/components/SplitHeading";
+import { Reveal } from "@/components/Reveal";
 import TimestampSeal from "@/components/TimestampSeal";
 import TcpaFlow from "@/components/TcpaFlow";
 import DataVault from "@/components/DataVault";
@@ -71,8 +74,9 @@ export function ComplianceStandards() {
               {complianceItems.map((item, index) => {
                 const isRightColumn = index % 2 === 1;
                 return (
-                  <div
+                  <Reveal
                     key={item.title}
+                    delay={120 + index * 80}
                     className={`h-full ${isRightColumn ? "lg:h2-x-6 xl:h3-x-8" : ""}`}
                   >
                     <div
@@ -260,7 +264,7 @@ export function ComplianceStandards() {
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </Reveal>
                 );
               })}
             </div>

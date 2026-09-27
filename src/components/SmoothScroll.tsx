@@ -20,22 +20,18 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Premium smooth scrolling — lighter feel, consistent across the full page
+    // Responsive smooth scrolling — snappier feel, reduced lag and shorter animation tail
     const lenis = new Lenis({
-      lerp: 0.07,
-      wheelMultiplier: 0.85,
-      syncTouch: true,
-      syncTouchLerp: 0.08,
-      touchInertiaExponent: 1.6,
-      touchMultiplier: 1.1,
+      lerp: 0.15,
+      wheelMultiplier: 1.0,
+      syncTouch: false,
       gestureOrientation: "vertical",
-      smoothWheel: !prefersReducedMotion,
+      smoothWheel: true,
       autoRaf: true,
       anchors: {
         offset: -90,
-        duration: 1.6,
+        duration: 0.7,
       },
-      respectReducedMotion: true,
     });
 
     // Sync Lenis scroll events with GSAP ScrollTrigger

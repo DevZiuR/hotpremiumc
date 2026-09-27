@@ -20,7 +20,7 @@ import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from 
 const DURATION_MS = 650;
 const TRANSLATE_Y_PX = 24;
 const EASING = "cubic-bezier(.22, 1, .36, 1)";
-const IO_THRESHOLD = 0.25;
+const IO_THRESHOLD = 0.05;
 
 interface RevealProps {
   children: ReactNode;
@@ -88,14 +88,6 @@ export function Reveal({
     return () => observer.disconnect();
   }, [immediate]);
 
-  // prefers-reduced-motion: skip all entrance transforms, show final state immediately.
-  if (prefersReducedMotion) {
-    return (
-      <div className={className} style={style}>
-        {children}
-      </div>
-    );
-  }
 
   return (
     <div

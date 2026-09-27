@@ -12,10 +12,8 @@ function useCountUp(target: number, duration: number = 1400, delay: number = 0, 
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Skip animation on mobile or if user prefers reduced motion — jump to final value
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const isMobile = window.matchMedia("(max-width: 767px)").matches;
-      if (prefersReduced || isMobile) {
+      if (isMobile) {
         setValue(target);
         return;
       }
@@ -64,11 +62,6 @@ export function AboutMax() {
   const [hasTriggered, setHasTriggered] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setHasTriggered(true);
-      return;
-    }
-
     const el = statsRef.current;
     if (!el) return;
 
@@ -80,16 +73,16 @@ export function AboutMax() {
           observer.disconnect();
         }
       },
-    { threshold: 0.25 }
+      { threshold: 0.05 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const stat1 = useCountUp(52, 1300, 0, hasTriggered);
-  const stat2 = useCountUp(50, 1300, 100, hasTriggered);
-  const stat3 = useCountUp(7, 1300, 200, hasTriggered);
+  const stat1 = useCountUp(52, 1300, 250, hasTriggered);
+  const stat2 = useCountUp(50, 1300, 400, hasTriggered);
+  const stat3 = useCountUp(7, 1300, 550, hasTriggered);
 
   return (
     <section id="about-founder" className="relative !bg-[09090b] py-[80px] lg:py-[140px] border-b border-gray-200/80 overflow-hidden font-sans">

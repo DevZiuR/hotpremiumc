@@ -28,12 +28,12 @@ export default function TcpaFlow({ className }: { className?: string }) {
           if (!played) {
             // Arm immediately so elements are hidden while card fades in
             el.classList.add("tf-armed");
-            // Delay play until after the parent Reveal card has faded in (~650ms)
+            el.classList.add("tf-active");
+            // Start draw animation as card fades in
             setTimeout(() => {
               el.classList.add("tf-play");
-              el.classList.add("tf-active");
               played = true;
-            }, 700);
+            }, 250);
           } else {
             el.classList.add("tf-active");
           }
@@ -41,7 +41,7 @@ export default function TcpaFlow({ className }: { className?: string }) {
           el.classList.remove("tf-active");
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.02 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -115,7 +115,9 @@ export default function TcpaFlow({ className }: { className?: string }) {
         }
 
         /* Pause idle loop when card is scrolled out of viewport */
-        .tf-armed:not(.tf-active) * {
+        .tf-armed:not(.tf-active) .tf-pulse-line,
+        .tf-armed:not(.tf-active) .tf-exit-pulse,
+        .tf-armed:not(.tf-active) .tf-beacon-ring {
           animation-play-state: paused !important;
         }
 

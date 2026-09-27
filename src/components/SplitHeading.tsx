@@ -33,7 +33,7 @@ interface SplitHeadingProps {
 }
 
 const EASING = "cubic-bezier(.22, 1, .36, 1)";
-const IO_THRESHOLD = 0.25;
+const IO_THRESHOLD = 0.05;
 
 /**
  * SplitHeading — Reusable SplitText-style line reveal for major editorial headings.
@@ -122,19 +122,6 @@ export function SplitHeading({
 
   const fullText = parsedLines.join(" ");
 
-  // Reduced motion: render clean without split transforms
-  if (prefersReducedMotion) {
-    return (
-      <Component ref={containerRef} className={className} style={style}>
-        {parsedLines.map((line, idx) => (
-          <React.Fragment key={idx}>
-            {line}
-            {idx < parsedLines.length - 1 && <br />}
-          </React.Fragment>
-        ))}
-      </Component>
-    );
-  }
 
   return (
     <Component

@@ -35,14 +35,13 @@ export default function TimestampSeal({ className }: { className?: string }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           if (!played) {
-            // Arm immediately so elements are hidden while card fades in
             el.classList.add("seal-armed");
-            // Delay play until after the parent Reveal card has faded in (~650ms)
+            el.classList.add("seal-active");
+            // Start draw animation as card fades in
             setTimeout(() => {
               el.classList.add("seal-play");
-              el.classList.add("seal-active");
               played = true;
-            }, 700);
+            }, 250);
           } else {
             el.classList.add("seal-active");
           }
@@ -50,7 +49,7 @@ export default function TimestampSeal({ className }: { className?: string }) {
           el.classList.remove("seal-active");
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.02 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -100,7 +99,8 @@ export default function TimestampSeal({ className }: { className?: string }) {
         .seal-play.seal-active .seal-ripple.r2 { animation-delay: 2.1s; }
 
         /* Pause idle loop when scrolled out of viewport */
-        .seal-armed:not(.seal-active) * {
+        .seal-armed:not(.seal-active) .seal-ripple,
+        .seal-armed:not(.seal-active) .seal-sweep-continuous {
           animation-play-state: paused !important;
         }
 

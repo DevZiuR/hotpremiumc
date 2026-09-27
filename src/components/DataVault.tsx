@@ -28,14 +28,13 @@ export default function DataVault({ className }: { className?: string }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           if (!played) {
-            // Arm immediately so elements are hidden while card fades in
             el.classList.add("vault-armed");
-            // Delay play until after the parent Reveal card has faded in (~650ms)
+            el.classList.add("vault-active");
+            // Start draw animation as card fades in
             setTimeout(() => {
               el.classList.add("vault-play");
-              el.classList.add("vault-active");
               played = true;
-            }, 700);
+            }, 250);
           } else {
             el.classList.add("vault-active");
           }
@@ -43,7 +42,7 @@ export default function DataVault({ className }: { className?: string }) {
           el.classList.remove("vault-active");
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.02 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -103,7 +102,8 @@ export default function DataVault({ className }: { className?: string }) {
         }
 
         /* Pause idle loop when scrolled out of viewport */
-        .vault-armed:not(.vault-active) * {
+        .vault-armed:not(.vault-active) .vault-oct-breath,
+        .vault-armed:not(.vault-active) .vault-pulse-ring {
           animation-play-state: paused !important;
         }
 

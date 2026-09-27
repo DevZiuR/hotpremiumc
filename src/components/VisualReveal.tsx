@@ -23,7 +23,7 @@ interface VisualRevealProps {
 }
 
 const EASING = "cubic-bezier(.22, 1, .36, 1)";
-const IO_THRESHOLD = 0.2;
+const IO_THRESHOLD = 0.05;
 
 /**
  * VisualReveal — Editorial clip-path and gentle scale reveal for major images and maps.
@@ -83,14 +83,6 @@ export function VisualReveal({
     return () => observer.disconnect();
   }, [immediate]);
 
-  // Reduced motion: skip clip-path and scale entirely
-  if (prefersReducedMotion) {
-    return (
-      <div className={className} style={style}>
-        <div className={innerClassName}>{children}</div>
-      </div>
-    );
-  }
 
   return (
     <div

@@ -25,13 +25,6 @@ export function Hero() {
   }, []);
 
   const getEntranceStyle = (delayMs: number): React.CSSProperties => {
-    if (prefersReducedMotion) {
-      return {
-        opacity: 1,
-        transform: "none",
-        transition: "none",
-      };
-    }
     return {
       opacity: isMounted ? 1 : 0,
       transform: isMounted ? "translateY(0px)" : "translateY(16px)",
@@ -48,7 +41,7 @@ export function Hero() {
         <CurrencySkyBackground
           className="w-full h-full"
           style={{ backgroundColor: "#000000" }}
-          opacity={0.3}
+          opacity={0.4}
         />
         {/* Soft radial vignette so typography remains crisp and high-contrast */}
         <div
