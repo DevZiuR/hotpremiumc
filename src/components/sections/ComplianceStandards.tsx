@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "@/components/Reveal";
 import { SplitHeading } from "@/components/SplitHeading";
 import TimestampSeal from "@/components/TimestampSeal";
 import TcpaFlow from "@/components/TcpaFlow";
@@ -61,11 +60,9 @@ export function ComplianceStandards() {
             />
 
             {/* Subtitle / Overview: 180ms */}
-            <Reveal delay={180}>
               <p className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed font-normal">
                 In high-ticket industries, compliance is non-negotiable. Every lead is acquired with documented consent and the records needed to support compliant operations across every touchpoint.
               </p>
-            </Reveal>
           </div>
 
           {/* ── Right Column: Cards starting at 270ms with 80ms stagger ── */}
@@ -74,9 +71,8 @@ export function ComplianceStandards() {
               {complianceItems.map((item, index) => {
                 const isRightColumn = index % 2 === 1;
                 return (
-                  <Reveal
+                  <div
                     key={item.title}
-                    delay={270 + Math.min(index * 80, 640)}
                     className={`h-full ${isRightColumn ? "lg:h2-x-6 xl:h3-x-8" : ""}`}
                   >
                     <div
@@ -264,7 +260,6 @@ export function ComplianceStandards() {
                         </span>
                       </div>
                     </div>
-                  </Reveal>
                 );
               })}
             </div>

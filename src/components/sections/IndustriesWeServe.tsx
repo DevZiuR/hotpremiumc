@@ -2,9 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Reveal } from "@/components/Reveal";
 import { SplitHeading } from "@/components/SplitHeading";
-import { VisualReveal } from "@/components/VisualReveal";
 
 const industriesData = [
   {
@@ -191,9 +189,8 @@ export function IndustriesWeServe() {
 
         {/* ── Two-Column Layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-start">
-          {/* ── Left Column: Interactive Photo Card with VisualReveal at 270ms ── */}
           <div className="lg:col-span-5">
-            <VisualReveal delay={270} className="rounded-2xl shadow-md border border-neutral-300/80">
+            <div className="rounded-2xl shadow-md border border-neutral-300/80">
               <div className="relative w-full aspect-[16/10] sm:aspect-[16/10] lg:aspect-square rounded-2xl overflow-hidden bg-[#f4f5f7] group">
                 <AnimatePresence mode="wait">
                   <motion.img
@@ -208,12 +205,11 @@ export function IndustriesWeServe() {
                   />
                 </AnimatePresence>
               </div>
-            </VisualReveal>
+            </div>
           </div>
 
-          {/* ── Right Column: Interactive Industry List at 270ms ── */}
+          {/* ── Right Column: Interactive Industry List ── */}
           <div className="lg:col-span-7">
-            <Reveal delay={270}>
               <div className="bg-black rounded-2xl border border-neutral-800 p-1.5 sm:p-3 divide-y divide-neutral-800/80 shadow-xl">
                 {industriesData.map((item, index) => {
                   const isSelected = activeIndex === index;
@@ -316,7 +312,6 @@ export function IndustriesWeServe() {
                   <span className="text-sm">→</span>
                 </a>
               </div>
-            </Reveal>
           </div>
         </div>
       </div>

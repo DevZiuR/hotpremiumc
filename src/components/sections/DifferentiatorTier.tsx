@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 
@@ -17,8 +16,7 @@ export function DifferentiatorTier() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-12">
           {/* Block 1: 100% Ad Spend & Acquisition Funding */}
-          <Reveal delay={100}>
-            <div className="h-full border border-white/15 bg-white/[0.04] backdrop-blur-sm p-8 sm:p-10 flex flex-col justify-between">
+          <div className="h-full border border-white/15 bg-white/[0.04] backdrop-blur-sm p-8 sm:p-10 flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 border border-white/20 bg-white/10 flex items-center justify-center text-white mb-6">
                   <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -39,11 +37,9 @@ export function DifferentiatorTier() {
                 </span>
               </div>
             </div>
-          </Reveal>
 
           {/* Block 2: Full Sales Force & Operational Infrastructure */}
-          <Reveal delay={200}>
-            <div className="h-full border border-white/15 bg-white/[0.04] backdrop-blur-sm p-8 sm:p-10 flex flex-col justify-between">
+          <div className="h-full border border-white/15 bg-white/[0.04] backdrop-blur-sm p-8 sm:p-10 flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 border border-white/20 bg-white/10 flex items-center justify-center text-white mb-6">
                   <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -64,16 +60,13 @@ export function DifferentiatorTier() {
                 </span>
               </div>
             </div>
-          </Reveal>
         </div>
 
-        <Reveal delay={300}>
           <div className="mt-12 text-center">
             <Button variant="outline" href="#contact" className="!border-white/30 !bg-white/10 !text-white hover:!bg-white hover:!text-navy">
               Explore Portfolio Requirements
             </Button>
           </div>
-        </Reveal>
       </div>
     </section>
   );

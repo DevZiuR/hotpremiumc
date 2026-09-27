@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Reveal } from "@/components/Reveal";
 import DotField from "@/components/DotField";
 
 interface AboutSectionProps {
@@ -130,8 +129,7 @@ export function AboutSection({
       className="bg-black py-6 sm:py-10 md:py-14 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-16 sm:py-20 md:py-24 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
+        <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-16 sm:py-20 md:py-24 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
             {/* Top-left window decorative dots */}
             <div
               className="absolute top-5 left-6 sm:top-6 sm:left-8 flex items-center gap-1.5 opacity-30 select-none pointer-events-none"
@@ -207,8 +205,7 @@ export function AboutSection({
                 </span>
               </h2>
             </div>
-          </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

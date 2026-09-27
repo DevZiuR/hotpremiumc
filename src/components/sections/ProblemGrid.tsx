@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "@/components/Reveal";
 import { SplitHeading } from "@/components/SplitHeading";
 
 interface OperatorBenefit {
@@ -174,8 +173,7 @@ export function ProblemGrid() {
         {/* 3-Column spacious layout starting at 270ms with 80ms stagger */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 sm:gap-x-16 lg:gap-x-20 gap-y-12 sm:gap-y-16 lg:gap-y-20">
           {OPERATOR_BENEFITS.map((item, index) => (
-            <Reveal key={item.id} delay={270 + Math.min(index * 80, 640)}>
-              <div className="group relative flex flex-col items-start text-left">
+            <div key={item.id} className="group relative flex flex-col items-start text-left">
                 {/* Minimalist Icon Badge Container */}
                 <div className="w-[68px] h-[68px] sm:w-[72px] sm:h-[72px] rounded-[14px] border border-white/[0.08] bg-[#131316] flex items-center justify-center transition-all duration-200 ease-out group-hover:border-[#2563EB]/40 group-hover:bg-[#161724]">
                   <item.icon className="w-6 h-6 sm:w-7 sm:h-7 text-neutral-200 transition-colors duration-200 group-hover:text-white" />
@@ -188,12 +186,10 @@ export function ProblemGrid() {
                   </strong>
                   <span>{item.description}</span>
                 </p>
-              </div>
-            </Reveal>
+            </div>
           ))}
         </div>
         <div className="mt-8 sm:mt-16">
-          <Reveal delay={270 + 480}>
             <a
               href="#contact"
               className="inline-flex items-center gap-1.5 text-[15px] sm:text-[16px] text-neutral-400 hover:text-white transition-colors duration-200 group font-sans"
@@ -203,8 +199,7 @@ export function ProblemGrid() {
                 →
               </span>
             </a>
-          </Reveal>
-        </div>
+          </div>
       </div>
     </section>
   );

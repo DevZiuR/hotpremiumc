@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 
@@ -35,8 +34,7 @@ export function SupportingChecklist() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           {criteria.map((item, index) => (
-            <Reveal key={item.title} delay={index * 100}>
-              <div className="h-full border border-line bg-[#fcfbf9] p-8 flex items-start gap-4 transition-all duration-200 hover:border-slate/40">
+            <div key={item.title} className="h-full border border-line bg-[#fcfbf9] p-8 flex items-start gap-4 transition-all duration-200 hover:border-slate/40">
                 <div className="w-8 h-8 rounded-full bg-ink text-white flex items-center justify-center shrink-0 mt-0.5">
                   <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -51,17 +49,14 @@ export function SupportingChecklist() {
                   </p>
                 </div>
               </div>
-            </Reveal>
-          ))}
+            ))}
         </div>
 
-        <Reveal delay={400}>
           <div className="mt-14 text-center">
             <Button variant="primary" href="#contact" showArrowBadge>
               Apply for Partnership
             </Button>
           </div>
-        </Reveal>
       </div>
     </section>
   );

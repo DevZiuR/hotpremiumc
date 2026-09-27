@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Reveal } from "@/components/Reveal";
 import { SplitHeading } from "@/components/SplitHeading";
 import DotField from "@/components/DotField";
 
@@ -50,8 +49,7 @@ export function Testimonials() {
 
       {/* Spotlight Card Container */}
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Reveal delay={180}>
-          {/* Clean borderless card with smooth rounded corners */}
+        {/* Clean borderless card with smooth rounded corners */}
           <div className="relative rounded-[20px] sm:rounded-[24px] overflow-hidden grid grid-cols-1 lg:grid-cols-[40%_60%] min-h-[440px] sm:min-h-[480px] lg:min-h-[500px] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.85)]">
             {/* ── LEFT COLUMN: Portrait Photo (~40% width, full height) ── */}
             <div className="relative w-full h-[300px] sm:h-[380px] lg:h-full lg:min-h-[500px] overflow-hidden bg-neutral-950">
@@ -167,7 +165,6 @@ export function Testimonials() {
               </div>
             </div>
           </div>
-        </Reveal>
       </div>
     </section>
   );
