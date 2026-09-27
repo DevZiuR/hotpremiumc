@@ -7,7 +7,7 @@ import { SplitHeading } from "@/components/SplitHeading";
 import { VisualReveal } from "@/components/VisualReveal";
 import { Button } from "@/components/ui/Button";
 
-function useCountUp(target: number, duration: number = 1400, delay: number = 0, start: boolean = false) {
+function useCountUp(target: number, duration: number = 1800, delay: number = 0, start: boolean = false) {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -32,8 +32,9 @@ function useCountUp(target: number, duration: number = 1400, delay: number = 0, 
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      // Ease out quart: launches quickly, then settles into the final value
+      // slowly enough to read as a deliberate count rather than a snap.
+      const easedProgress = 1 - Math.pow(1 - progress, 4);
       const current = Math.round(easedProgress * target);
       setValue(current);
 
@@ -80,12 +81,12 @@ export function AboutMax() {
     return () => observer.disconnect();
   }, []);
 
-  const stat1 = useCountUp(52, 1300, 250, hasTriggered);
-  const stat2 = useCountUp(50, 1300, 400, hasTriggered);
-  const stat3 = useCountUp(7, 1300, 550, hasTriggered);
+  const stat1 = useCountUp(52, 1800, 250, hasTriggered);
+  const stat2 = useCountUp(50, 1800, 400, hasTriggered);
+  const stat3 = useCountUp(7, 1800, 550, hasTriggered);
 
   return (
-    <section id="about-founder" className="relative !bg-[09090b] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] border-b border-gray-200/80 overflow-hidden font-sans">
+    <section id="about-founder" className="relative !bg-[#09090b] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] border-b border-white/10 overflow-hidden font-sans">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 xl:gap-20 items-center">
 
@@ -94,7 +95,7 @@ export function AboutMax() {
             <Reveal delay={0}>
               <div className="inline-flex items-center gap-2.5 mb-4">
                 <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-black">
+                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-[#E8EAEE]">
                   FOUNDER
                 </span>
               </div>
@@ -103,14 +104,14 @@ export function AboutMax() {
               as="h2"
               delay={90}
               lines={["A track record,", "not a promise."]}
-              className="font-serif !text-[clamp(38px,5vw,59px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0"
+              className="font-serif !text-[clamp(38px,5vw,59px)] font-normal text-[#E8EAEE] tracking-[-0.025em] leading-[1.05] mb-0"
             />
           </div>
 
           {/* ── Founder Photo Card with VisualReveal at 270ms (below heading on mobile, left col on desktop) ── */}
           <div className="lg:col-span-5 flex justify-center lg:justify-start lg:order-1">
-            <VisualReveal delay={270} className="w-full max-w-[320px] sm:max-w-[520px] rounded-2xl lg:rounded-3xl shadow-xl">
-              <div className="relative w-full aspect-square rounded-2xl lg:rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200/80 group">
+            <VisualReveal delay={270} className="w-full max-w-[320px] sm:max-w-[520px] rounded-2xl lg:rounded-3xl p-[7px] bg-[#0a0a0a] shadow-[0_0_0_1px_rgba(255,255,255,0.10),0_18px_44px_-12px_rgba(0,0,0,0.85)]">
+              <div className="relative w-full aspect-square rounded-xl lg:rounded-2xl overflow-hidden bg-[#111418] group">
                 <Image
                   src="/media/max-pfp.jpg"
                   alt="Max — Founder of Hot Premium Customers"
@@ -131,7 +132,7 @@ export function AboutMax() {
               <Reveal delay={0}>
                 <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
                   <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-                  <span className="font-sans text-xs font-semibold uppercase tracking-widest text-black">
+                  <span className="font-sans text-xs font-semibold uppercase tracking-widest text-[#E8EAEE]">
                     FOUNDER
                   </span>
                 </div>
@@ -142,13 +143,13 @@ export function AboutMax() {
                 as="h2"
                 delay={90}
                 lines={["A track record,", "not a promise."]}
-                className="font-serif text-[clamp(38px,5vw,60px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
+                className="font-serif text-[clamp(38px,5vw,60px)] font-normal text-[#E8EAEE] tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
               />
             </div>
 
             {/* Body Copy: delay=180 */}
             <Reveal delay={180}>
-              <div className="space-y-3.5 sm:space-y-4 font-sans text-[17px] text-gray-600 leading-[1.6] max-w-[62ch] font-normal mt-4 lg:mt-0">
+              <div className="space-y-3.5 sm:space-y-4 font-sans text-[17px] text-neutral-400 leading-[1.6] max-w-[62ch] font-normal mt-4 lg:mt-0">
                 <p>
                   I&apos;m Max, and I built Hot Premium Customers from years of scaling businesses through paid media, customer acquisition, and sales infrastructure.
                 </p>
@@ -163,29 +164,29 @@ export function AboutMax() {
 
             {/* Track Record Stat Highlights */}
             <Reveal delay={270}>
-              <div ref={statsRef} className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4 pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-gray-100">
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
+              <div ref={statsRef} className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4 pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-white/10">
+                <div className="p-3 sm:p-0 rounded-lg bg-white/[0.04] sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-[#E8EAEE] font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
                     <span>$</span>
                     <span className="tabular-nums">{hasTriggered ? stat1 : 0}</span>
                     <span>M/yr</span>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">Coaching Company</div>
+                  <div className="font-sans text-xs sm:text-[12.5px] text-neutral-500">Coaching Company</div>
                 </div>
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
+                <div className="p-3 sm:p-0 rounded-lg bg-white/[0.04] sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-[#E8EAEE] font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
                     <span>$</span>
                     <span className="tabular-nums">{hasTriggered ? stat2 : 0}</span>
                     <span>M</span>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">In 10 Months (Medical)</div>
+                  <div className="font-sans text-xs sm:text-[12.5px] text-neutral-500">In 10 Months (Medical)</div>
                 </div>
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
+                <div className="p-3 sm:p-0 rounded-lg bg-white/[0.04] sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-[#E8EAEE] font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
                     <span className="tabular-nums">{hasTriggered ? stat3 : 0}</span>
                     <span>-Figure</span>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">Apparel First Year</div>
+                  <div className="font-sans text-xs sm:text-[12.5px] text-neutral-500">Apparel First Year</div>
                 </div>
               </div>
             </Reveal>

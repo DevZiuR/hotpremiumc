@@ -35,7 +35,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[100dvh] md:min-h-0 py-6 sm:py-10 md:py-[110px] lg:py-[140px] overflow-hidden bg-black !text-white">
+    <section className="relative flex flex-col items-center justify-center min-h-[100dvh] md:min-h-0 py-6 sm:py-10 md:py-[110px] lg:py-[140px] overflow-hidden bg-[#09090b] !text-white">
       {/* Currency Sky Background */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <CurrencySkyBackground

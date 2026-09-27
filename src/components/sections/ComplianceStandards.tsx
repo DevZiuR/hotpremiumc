@@ -49,7 +49,7 @@ const complianceItems = [
 
 export function ComplianceStandards() {
   return (
-    <section id="compliance" className="bg-black text-white py-[80px] lg:py-[140px] border-b border-neutral-800">
+    <section id="compliance" className="bg-[#09090b] text-white py-[80px] lg:py-[140px] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start">
           {/* ── Left Column: Header & Overview with 0ms / 90ms / 180ms sequencing ── */}

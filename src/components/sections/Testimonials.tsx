@@ -34,7 +34,7 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative bg-black text-white py-[60px] lg:py-[100px] overflow-hidden"
+      className="relative bg-[#09090b] text-white py-[60px] lg:py-[100px] overflow-hidden"
       aria-label="Client Testimonial"
     >
       {/* Header Container (Eyebrow removed, clean editorial heading) */}
@@ -48,11 +48,11 @@ export function Testimonials() {
       </div>
 
       {/* Spotlight Card Container */}
-      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[860px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Clean borderless card with smooth rounded corners */}
-          <div className="relative rounded-[20px] sm:rounded-[24px] overflow-hidden grid grid-cols-1 lg:grid-cols-[40%_60%] min-h-[440px] sm:min-h-[480px] lg:min-h-[500px] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.85)]">
+          <div className="relative rounded-[20px] sm:rounded-[24px] overflow-hidden grid grid-cols-1 lg:grid-cols-[40%_60%] min-h-[330px] sm:min-h-[360px] lg:min-h-[375px] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.85)]">
             {/* ── LEFT COLUMN: Portrait Photo (~40% width, full height) ── */}
-            <div className="relative w-full h-[300px] sm:h-[380px] lg:h-full lg:min-h-[500px] overflow-hidden bg-neutral-950">
+            <div className="relative w-full h-[230px] sm:h-[285px] lg:h-full lg:min-h-[375px] overflow-hidden bg-neutral-950">
               <img
                 src={FEATURED_TESTIMONIAL.image}
                 alt={`${FEATURED_TESTIMONIAL.author} - ${FEATURED_TESTIMONIAL.title}`}
@@ -66,7 +66,7 @@ export function Testimonials() {
 
             {/* ── RIGHT COLUMN: Solid #2563EB Blue Background with Geist Typography & Decorative Elements ── */}
             <div
-              className="relative p-7 sm:p-10 lg:p-12 xl:p-14 flex flex-col justify-between overflow-hidden select-none"
+              className="relative p-6 sm:p-8 lg:p-9 xl:p-10 flex flex-col justify-between overflow-hidden select-none"
               style={{ backgroundColor: FEATURED_TESTIMONIAL.bgColor }}
             >
               {/* Faint DotField canvas background */}
@@ -82,7 +82,7 @@ export function Testimonials() {
               {/* Faint Orbit-Ring / Wireframe motif */}
               <svg
                 aria-hidden="true"
-                className="absolute -left-14 -bottom-14 w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] pointer-events-none opacity-15 text-white"
+                className="absolute -left-11 -bottom-11 w-[230px] h-[230px] sm:w-[290px] sm:h-[290px] pointer-events-none opacity-15 text-white"
                 viewBox="0 0 400 400"
                 fill="none"
                 stroke="currentColor"
@@ -97,7 +97,7 @@ export function Testimonials() {
               {/* Faint Frequency Waveform motif */}
               <svg
                 aria-hidden="true"
-                className="absolute -right-4 bottom-0 w-[160px] sm:w-[220px] h-[75%] pointer-events-none opacity-15 text-white"
+                className="absolute -right-3 bottom-0 w-[124px] sm:w-[170px] h-[75%] pointer-events-none opacity-15 text-white"
                 viewBox="0 0 200 360"
                 fill="none"
                 stroke="currentColor"
@@ -126,9 +126,9 @@ export function Testimonials() {
               {/* Top: Decorative Quote Mark & Large Quote in Geist */}
               <div className="relative z-10">
                 {/* Decorative Quote Mark Icon */}
-                <div className="mb-4 sm:mb-5 text-white" aria-hidden="true">
+                <div className="mb-3 sm:mb-4 text-white" aria-hidden="true">
                   <svg
-                    className="w-8 h-6 sm:w-9 sm:h-7 text-white fill-current opacity-95"
+                    className="w-6 h-5 sm:w-7 sm:h-[22px] text-white fill-current opacity-95"
                     viewBox="0 0 40 32"
                   >
                     <path d="M0 19.2C0 8.6 7.2 0 17.6 0v6.4c-5.8 0-9.6 4.2-9.6 10.4h9.6V32H0V19.2zm22.4 0C22.4 8.6 29.6 0 40 0v6.4c-5.8 0-9.6 4.2-9.6 10.4H40V32H22.4V19.2z" />
@@ -139,7 +139,7 @@ export function Testimonials() {
                 <blockquote className="m-0 p-0 border-none">
                   <p
                     style={{ fontFamily: "var(--font-geist)" }}
-                    className="text-[26px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-white font-medium leading-[1.2] tracking-[-0.025em] max-w-[600px]"
+                    className="text-[20px] sm:text-[25px] md:text-[28px] lg:text-[31px] text-white font-medium leading-[1.2] tracking-[-0.025em] max-w-[460px]"
                   >
                     {FEATURED_TESTIMONIAL.quote}
                   </p>
@@ -147,19 +147,19 @@ export function Testimonials() {
               </div>
 
               {/* Bottom: Name, Company Name, and Logo Mark */}
-              <div className="mt-8 sm:mt-12 lg:mt-14 relative z-10">
+              <div className="mt-6 sm:mt-8 lg:mt-9 relative z-10">
                 {/* Author & Role Block */}
-                <div className="mb-4 sm:mb-5">
-                  <div className="font-sans font-semibold text-white text-[17px] sm:text-[18px] tracking-tight">
+                <div className="mb-3 sm:mb-3.5">
+                  <div className="font-sans font-semibold text-white text-[15px] sm:text-[16px] tracking-tight">
                     {FEATURED_TESTIMONIAL.author}
                   </div>
-                  <div className="font-sans text-[14px] sm:text-[15px] font-normal mt-0.5 text-white/80">
+                  <div className="font-sans text-[13px] sm:text-[14px] font-normal mt-0.5 text-white/80">
                     {FEATURED_TESTIMONIAL.title}, {FEATURED_TESTIMONIAL.company}
                   </div>
                 </div>
 
                 {/* Logo Mark Row */}
-                <div className="pt-3.5 border-t border-white/20 flex items-center">
+                <div className="pt-3 border-t border-white/20 flex items-center">
                   <LogoApex />
                 </div>
               </div>

@@ -166,13 +166,11 @@ export function Header() {
               <img
                 src="https://hotpremiumcustomers.com/logo-mark.png"
                 alt="Hot Premium Customers Logo"
-                className="w-auto object-contain h-8 sm:h-9 md:h-10 shrink-0"
+                className="w-auto object-contain h-8 sm:h-9 md:h-10 shrink-0 animate-logo-glow"
               />
-              <div className="hidden sm:flex flex-col justify-center min-w-0">
-                <span className="text-[14px] sm:text-[17px] md:text-[19px] font-bold tracking-normal leading-tight uppercase text-white truncate">
-                  Hot Premium Customers
-                </span>
-              </div>
+              <span className="hidden sm:block font-serif text-[19px] lg:text-[25px] 2xl:text-[28px] font-normal tracking-[0.015em] leading-none uppercase text-white truncate">
+                Hot Premium Customers
+              </span>
             </Link>
           </div>
 

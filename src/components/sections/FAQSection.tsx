@@ -49,7 +49,7 @@ export function FAQSection() {
   };
 
   return (
-    <section id="faq" className="bg-[#f4f5f7] py-[80px] lg:py-[140px] border-b border-gray-200/80">
+    <section id="faq" className="bg-white py-[80px] lg:py-[140px] border-b border-gray-200/80">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         <div className="relative mx-auto w-full max-w-[720px]">
           <div className="flex justify-center">

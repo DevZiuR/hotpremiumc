@@ -205,7 +205,7 @@ export function PartnerPortfolioCTA() {
   return (
     <section
       id="contact"
-      className="relative bg-[#020509] text-white py-[80px] lg:py-[140px]"
+      className="relative bg-[#09090b] text-white py-[80px] lg:py-[140px]"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
@@ -300,7 +300,7 @@ export function PartnerPortfolioCTA() {
                   <div>
                     <label
                       htmlFor="name"
-                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-2.5"
+                      className="block font-mono text-[14px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
                     >
                       Full Name *
                     </label>
@@ -332,7 +332,7 @@ export function PartnerPortfolioCTA() {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-2.5"
+                      className="block font-mono text-[14px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
                     >
                       Work Email *
                     </label>
@@ -364,7 +364,7 @@ export function PartnerPortfolioCTA() {
                   <div>
                     <label
                       htmlFor="company"
-                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-2.5"
+                      className="block font-mono text-[14px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
                     >
                       Company *
                     </label>
@@ -396,7 +396,7 @@ export function PartnerPortfolioCTA() {
                   <div>
                     <label
                       htmlFor="phone"
-                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-2.5"
+                      className="block font-mono text-[14px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
                     >
                       Phone *
                     </label>
@@ -428,7 +428,7 @@ export function PartnerPortfolioCTA() {
                   <div>
                     <label
                       htmlFor="revenue"
-                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-2.5"
+                      className="block font-mono text-[14px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
                     >
                       How much money does your current business make? *
                     </label>
@@ -494,7 +494,7 @@ export function PartnerPortfolioCTA() {
                   <div>
                     <label
                       htmlFor="looking_for"
-                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-2.5"
+                      className="block font-mono text-[14px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
                     >
                       What are you looking for? *
                     </label>
@@ -526,7 +526,7 @@ export function PartnerPortfolioCTA() {
                   <div>
                     <label
                       htmlFor="luxury_answer"
-                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-2.5"
+                      className="block font-mono text-[14px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
                     >
                       Why do you believe you&apos;d be a strong partner for us? *
                     </label>
@@ -566,7 +566,7 @@ export function PartnerPortfolioCTA() {
                   <div>
                     <label
                       htmlFor="offer"
-                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-0"
+                      className="block font-mono text-[14px] tracking-[0.14em] uppercase text-neutral-300 mb-0"
                     >
                       WHAT&apos;S THE OFFER YOU HAVE FOR US? *
                     </label>

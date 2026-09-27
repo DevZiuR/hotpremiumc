@@ -24,9 +24,9 @@ function IconTrendingUp() {
 
 export function StillDecidingCTA() {
   return (
-    <section className="bg-[#020509] pb-6 sm:pb-24 px-4 sm:px-6 lg:px-8">
+    <section className="bg-[#09090b] pb-6 sm:pb-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-16 sm:py-20 md:py-24 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
+        <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-12 sm:py-16 md:py-18 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
           {/* Top-left window decorative dots */}
           {/*
           <div
@@ -103,7 +103,7 @@ export function StillDecidingCTA() {
               </div>*/}
 
             {/* Two-line serif heading with highlighted 'own growth' pill */}
-            <h2 className="font-serif text-[clamp(34px,5.5vw,62px)] font-normal text-white tracking-[-0.025em] leading-[1.12] mb-3 sm:mb-4 [text-wrap:balance]">
+            <h2 className="font-serif text-[clamp(34px,5.5vw,62px)] font-normal text-white tracking-[-0.025em] leading-[1.12] mb-3 sm:mb-4 [text-wrap:balance] uppercase">
               Stop funding
               <br />
               your{" "}

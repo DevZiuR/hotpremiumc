@@ -8,7 +8,7 @@ import GlobalCoverageMap from "@/components/GlobalCoverageMap";
 
 export function GlobalCoverage() {
   return (
-    <section id="global-coverage" className="relative bg-black py-[80px] lg:py-[140px] border-b border-gray-200/80 overflow-hidden">
+    <section id="global-coverage" className="relative bg-[#09090b] py-[80px] lg:py-[140px] border-b border-white/10 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 xl:gap-16 items-center">
           <div className="flex flex-col justify-center lg:col-span-5">

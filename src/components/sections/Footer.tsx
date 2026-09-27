@@ -56,7 +56,7 @@ export function Footer() {
           cellSize={9}
           scale={0.05}
           speed={0.6}
-          opacity={0.2}
+          opacity={0.15}
         />
         <div className="pointer-events-none absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black to-transparent" />
       </div>
@@ -94,7 +94,7 @@ export function Footer() {
                 alt="Hot Premium Customers"
                 className="w-10 h-10 sm:w-10 sm:h-10 object-contain transition-transform duration-200 group-hover:scale-105"
               />
-              <span className="text-lg sm:text-xl md:text-[25px] font-bold tracking-tight text-white uppercase">
+              <span className="font-serif text-lg sm:text-xl md:text-[25px] font-normal tracking-[0.03em] leading-none text-white uppercase">
                 Hot Premium Customers
               </span>
             </Link>

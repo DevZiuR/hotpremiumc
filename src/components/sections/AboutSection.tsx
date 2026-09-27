@@ -129,7 +129,7 @@ export function AboutSection({
       className="bg-black py-6 sm:py-10 md:py-14 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-16 sm:py-20 md:py-24 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
+        <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-12 sm:py-16 md:py-18 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
           {/* Top-left window decorative dots */}
           {/*
             <div
@@ -198,7 +198,7 @@ export function AboutSection({
 
           {/* Centered Content */}
           <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
-            <h2 className="font-sans text-[clamp(32px,7.5vw,42px)] md:text-[clamp(40px,3.8vw,54px)] font-medium leading-[1.24] tracking-[-0.025em] max-w-[960px] mx-auto text-center [text-wrap:balance]">
+            <h2 className="font-sans text-[clamp(32px,7.5vw,42px)] md:text-[clamp(40px,3.8vw,54px)] font-medium leading-[1.24] tracking-[-0.025em] max-w-[960px] mx-auto text-center [text-wrap:balance] uppercase">
               <span className="text-white">
                 {renderPrimary()}
               </span>{" "}

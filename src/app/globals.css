@@ -148,6 +148,25 @@ p {
   }
 }
 
+/* Header brand-mark glow: filter-based so it hugs the logo silhouette
+   and cannot bleed into the adjacent wordmark. Reduced-motion safe
+   via the global guard at the end of this file. */
+@keyframes logo-mark-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.28))
+      drop-shadow(0 0 9px rgba(37, 99, 235, 0.16));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(37, 99, 235, 0.42))
+      drop-shadow(0 0 14px rgba(37, 99, 235, 0.24));
+  }
+}
+
+@utility animate-logo-glow {
+  animation: logo-mark-glow 5s ease-in-out infinite;
+}
+
 /* Vertical Industry Card Slider: Exactly 3 items visible on desktop, wide horizontal stance */
 .industry-card-item {
   flex: 0 0 85vw;

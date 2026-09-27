@@ -158,7 +158,7 @@ export function ProblemGrid() {
   return (
     <section
       id="why-operators-partner"
-      className="relative bg-black text-white border-t border-b border-white/[0.07] py-[90px] sm:py-[120px] lg:py-[140px] overflow-hidden"
+      className="relative bg-[#09090b] text-white border-t border-b border-white/[0.07] py-[90px] sm:py-[120px] lg:py-[140px] overflow-hidden"
     >
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
 
