@@ -28,6 +28,7 @@ export function StillDecidingCTA() {
       <div className="max-w-7xl mx-auto">
         <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-16 sm:py-20 md:py-24 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
           {/* Top-left window decorative dots */}
+          {/*
           <div
             className="absolute top-5 left-6 sm:top-6 sm:left-8 flex items-center gap-1.5 opacity-30 select-none pointer-events-none"
             aria-hidden="true"
@@ -36,6 +37,8 @@ export function StillDecidingCTA() {
             <span className="w-2.5 h-2.5 rounded-full bg-white" />
             <span className="w-2.5 h-2.5 rounded-full bg-white" />
           </div>
+          */}
+
 
           {/* Faint DotField canvas background */}
           <div className="absolute inset-0 pointer-events-none opacity-20">

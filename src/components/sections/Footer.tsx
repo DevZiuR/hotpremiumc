@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { BrailleTerrainBackground } from "@/components/pixel-perfect/braille-terrain-background";
 
 const footerSections = [
   {
@@ -46,8 +47,20 @@ const footerSections = [
 
 export function Footer() {
   return (
-    <footer className="bg-black text-white pt-16 sm:pt-16 pb-12 sm:pb-8 font-sans border-t border-neutral-800/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
+    <footer className="relative isolate overflow-hidden bg-black text-white pt-16 sm:pt-16 pb-12 sm:pb-8 font-sans border-t border-neutral-800/60">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <BrailleTerrainBackground
+          className="w-full h-full"
+          background="#000000"
+          color="#8b93a1"
+          cellSize={9}
+          scale={0.05}
+          speed={0.6}
+          opacity={0.2}
+        />
+        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black to-transparent" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         {/* ── Top Section: 4 Simple Link Columns ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-9 sm:gap-8 lg:gap-12">
           {footerSections.map((section) => (
