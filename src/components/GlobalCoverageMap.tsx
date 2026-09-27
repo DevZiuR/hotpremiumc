@@ -90,6 +90,25 @@ function roundedRect(
   context.roundRect(x, y, width, height, radius);
 }
 
+/**
+ * Markets that fall outside a given orthographic view. The globe only shows one
+ * 180° hemisphere, so on the static mobile frame these are surfaced as pills
+ * beneath the globe instead of being silently culled.
+ */
+function marketsOutsideHemisphere(longitude: number, latitude: number) {
+  return markets
+    .filter(
+      (market) =>
+        angularDistance(
+          longitude,
+          latitude,
+          market.coordinates[0],
+          market.coordinates[1]
+        ) >= 90
+    )
+    .map((market) => market.name);
+}
+
 function rectanglesOverlap(
   first: { left: number; right: number; top: number; bottom: number },
   second: { left: number; right: number; top: number; bottom: number },
@@ -107,6 +126,7 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nudgePlayedRef = useRef(false);
   const [activeMarketIndex, setActiveMarketIndex] = useState(-1);
+  const [offscreenMarkets, setOffscreenMarkets] = useState<string[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -126,13 +146,18 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobileQuery = window.matchMedia("(max-width: 767px)");
     let reducedMotion = reducedMotionQuery.matches;
-    // On mobile: cap DPR to 1, disable drag interaction, slow orbit
+    // On mobile: cap DPR to 1, disable drag interaction, and render a fully
+    // static frame (no rotation, no tour, no cue) so nothing animates.
     let isMobile = mobileQuery.matches;
     let width = 1;
     let height = 1;
     let pixelRatio = 1;
-    let centerLongitude = -30;
-    let centerLatitude = 20;
+    // Static mobile view centred to frame Europe + North America, which is the
+    // widest set of markets that fits inside a single orthographic hemisphere.
+    const MOBILE_CENTER_LONGITUDE = -42;
+    const MOBILE_CENTER_LATITUDE = 34;
+    let centerLongitude = isMobile ? MOBILE_CENTER_LONGITUDE : -30;
+    let centerLatitude = isMobile ? MOBILE_CENTER_LATITUDE : 20;
     let hovered = false;
     let dragging = false;
     let activePointerId: number | null = null;
@@ -305,7 +330,8 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           center: [point[0] + offset[0], point[1] + offset[1]],
           width: size.width,
           height: size.height,
-          opacity: clamp((90 - distance) / 15),
+          // Mobile static frame: every pin is fully opaque at once, no fade-in.
+          opacity: isMobile ? 1 : clamp((90 - distance) / 15),
           entrance: 1,
           active: false,
         });
@@ -427,6 +453,22 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     };
 
     const syncAnimation = () => {
+      // Mobile is a deliberate static frame: never start the rAF loop at all,
+      // so no rotation, tour, glow pulse or per-frame work runs in the background.
+      if (isMobile) {
+        if (animationFrame) window.cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+        previousTime = 0;
+        centerLongitude = MOBILE_CENTER_LONGITUDE;
+        centerLatitude = MOBILE_CENTER_LATITUDE;
+        rimGlowOpacity = 0.475;
+        nudgeActive = false;
+        nudgeOffset = 0;
+        tourPhase = "hold";
+        draw();
+        return;
+      }
+
       if (reducedMotion) {
         if (animationFrame) window.cancelAnimationFrame(animationFrame);
         animationFrame = 0;
@@ -451,13 +493,29 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       const bounds = host.getBoundingClientRect();
       width = Math.max(1, bounds.width);
       height = Math.max(1, bounds.height);
+      const wasMobile = isMobile;
       isMobile = mobileQuery.matches;
+      // Crossing the breakpoint: snap the globe to the matching fixed view.
+      if (isMobile !== wasMobile) {
+        centerLongitude = isMobile ? MOBILE_CENTER_LONGITUDE : -30;
+        centerLatitude = isMobile ? MOBILE_CENTER_LATITUDE : 20;
+        tourIndex = 0;
+        tourPhase = "move";
+        tourElapsed = 0;
+        setActiveMarketIndex(-1);
+      }
       // Cap DPR to 1 on mobile for lower GPU/memory load
       pixelRatio = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 2);
       // Update projection precision on resize (in case of orientation change)
       projection.precision(isMobile ? 1.0 : 0.4);
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
+      // Surface markets that the current view cannot show (mobile only).
+      setOffscreenMarkets(
+        isMobile
+          ? marketsOutsideHemisphere(MOBILE_CENTER_LONGITUDE, MOBILE_CENTER_LATITUDE)
+          : []
+      );
       draw();
       syncAnimation();
     };
@@ -638,7 +696,8 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
-        if (visible && !nudgePlayedRef.current) {
+        // Static mobile frame: skip the nudge and the drag cue entirely.
+        if (visible && !nudgePlayedRef.current && !isMobile) {
           nudgePlayedRef.current = true;
           if (!reducedMotion) {
             nudgeActive = true;
@@ -704,6 +763,7 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
   }, []);
 
   return (
+    <div className="gc-wrap">
     <div className={`gc-card ${className}`}>
       <style>{`
         .gc-card {
@@ -791,6 +851,35 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
         @media (prefers-reduced-motion: reduce) {
           .gc-cue-arrow-left, .gc-cue-arrow-right { animation: none; }
         }
+        /* Markets the static mobile hemisphere cannot show, listed as pills.
+           Only present in the DOM on mobile, so no media query is needed. */
+        .gc-wrap {
+          width: 100%;
+        }
+        .gc-offscreen {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 8px;
+          margin: 12px 0 0;
+          padding: 0;
+          list-style: none;
+        }
+        .gc-offscreen-pill {
+          display: inline-flex;
+          align-items: center;
+          height: 30px;
+          padding: 0 14px;
+          border-radius: 999px;
+          background: #2563EB;
+          color: #ffffff;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
       `}</style>
 
       <div className="gc-stage">
@@ -834,6 +923,17 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           />
         </svg>
       </div>
+
+      {offscreenMarkets.length > 0 && (
+        <ul className="gc-offscreen" aria-label="Additional markets we cover">
+          {offscreenMarkets.map((name) => (
+            <li key={name} className="gc-offscreen-pill">
+              {name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
     </div>
   );
 }
