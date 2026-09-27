@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Reveal } from "@/components/Reveal";
 import { SplitHeading } from "@/components/SplitHeading";
 
 const faqs = [
@@ -53,22 +52,20 @@ export function FAQSection() {
     <section id="faq" className="bg-[#f4f5f7] py-[80px] lg:py-[140px] border-b border-gray-200/80">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         <div className="relative mx-auto w-full max-w-[720px]">
-          <Reveal delay={0}>
-            <div className="flex justify-center">
-              <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
-                <span className="flex items-center">
-                  <span
-                    className="block flex-shrink-0"
-                    style={{ width: 12, height: 12, background: "#2563eb" }}
-                    aria-hidden="true"
-                  />
-                </span>
-                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-black">
-                  FAQS
-                </span>
-              </div>
+          <div className="flex justify-center">
+            <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
+              <span className="flex items-center">
+                <span
+                  className="block flex-shrink-0"
+                  style={{ width: 12, height: 12, background: "#2563eb" }}
+                  aria-hidden="true"
+                />
+              </span>
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-black">
+                FAQS
+              </span>
             </div>
-          </Reveal>
+          </div>
 
           {/* Heading: 90ms SplitHeading line reveal */}
           <SplitHeading
@@ -84,7 +81,7 @@ export function FAQSection() {
               const answerId = `faq-answer-${index}`;
 
               return (
-                <Reveal key={faq.question} delay={270 + Math.min(index * 80, 640)}>
+                <div key={faq.question}>
                   <div
                     className={`overflow-hidden transition-colors duration-[150ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none hover:bg-[#171b23] ${isOpen
                       ? "bg-white/[0.03]"
@@ -135,7 +132,7 @@ export function FAQSection() {
                       </div>
                     </div>
                   </div>
-                </Reveal>
+                </div>
               );
             })}
           </div>

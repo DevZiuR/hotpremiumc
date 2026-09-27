@@ -2,25 +2,9 @@
 
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Reveal } from "@/components/Reveal";
 import { SplitHeading } from "@/components/SplitHeading";
 import DotField from "@/components/DotField";
 
-const formContainerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.06 },
-  },
-};
-
-const formFieldVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
 
 const controlClassName =
   "w-full bg-white/[0.04] border border-white/10 focus:border-[#2563EB] focus:shadow-[0_0_0_4px_rgba(37,99,235,0.15)] rounded-sm py-3 px-4 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-0 transition-[border-color,box-shadow] duration-200 text-base font-sans";
@@ -73,285 +57,275 @@ export function PartnerPortfolioCTA() {
               className="font-serif text-[clamp(38px,5vw,60px)] font-normal leading-[1.05] tracking-[-0.025em] mb-4 text-white"
             />
 
-            {/* Supporting copy: 180ms */}
-            <Reveal delay={180}>
-              <p className="font-sans text-[18px] sm:text-[20px] text-neutral-400 leading-[1.6] max-w-[62ch]">
-                Tell us about your business and growth goals. Our team will
-                review your application and get back to you within 24 hours.
-              </p>
-            </Reveal>
+            {/* Supporting copy */}
+            <p className="font-sans text-[18px] sm:text-[20px] text-neutral-400 leading-[1.6] max-w-[62ch]">
+              Tell us about your business and growth goals. Our team will
+              review your application and get back to you within 24 hours.
+            </p>
           </div>
 
           <div className="lg:col-span-7">
-            <Reveal delay={270}>
-              <AnimatePresence mode="wait" initial={false}>
-                {submitted ? (
-                  <motion.div
-                    key="application-success"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex min-h-[620px] items-center justify-center rounded-2xl bg-white/[0.03] p-8 sm:p-12"
-                    aria-live="polite"
-                  >
-                    <div className="max-w-sm text-center">
-                      <div className="mx-auto h-16 w-16">
-                        <svg
-                          viewBox="0 0 64 64"
-                          fill="none"
-                          className="h-full w-full"
-                          aria-hidden="true"
-                        >
-                          <circle
-                            cx="32"
-                            cy="32"
-                            r="29"
-                            stroke="rgba(37,99,235,0.35)"
-                            strokeWidth="1.5"
-                          />
-                          <motion.path
-                            d="M20 33l8 8 17-19"
-                            stroke="#2563EB"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            pathLength={1}
-                            strokeDasharray="1"
-                            initial={{ strokeDashoffset: 1 }}
-                            animate={{ strokeDashoffset: 0 }}
-                            transition={{
-                              duration: 0.6,
-                              delay: 0.12,
-                              ease: [0.22, 1, 0.36, 1],
-                            }}
-                          />
-                        </svg>
-                      </div>
-                      <p className="mt-7 text-[20px] leading-[1.5] text-white">
-                        Application received. We&apos;ll get back to you within 24
-                        hours.
-                      </p>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.form
-                    key="application-form"
-                    onSubmit={handleSubmit}
-                    variants={formContainerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.12 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    className="space-y-7 sm:space-y-8 !bg-transparent
-                    rounded-2xl p-6 sm:p-8 md:p-12"
-                  >
-                    <motion.div variants={formFieldVariants}>
-                      <label
-                        htmlFor="name"
-                        className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
+            <AnimatePresence mode="wait" initial={false}>
+              {submitted ? (
+                <motion.div
+                  key="application-success"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex min-h-[620px] items-center justify-center rounded-2xl bg-white/[0.03] p-8 sm:p-12"
+                  aria-live="polite"
+                >
+                  <div className="max-w-sm text-center">
+                    <div className="mx-auto h-16 w-16">
+                      <svg
+                        viewBox="0 0 64 64"
+                        fill="none"
+                        className="h-full w-full"
+                        aria-hidden="true"
                       >
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="John Smith"
-                        maxLength={120}
-                        required
-                        className={controlClassName}
-                      />
-                    </motion.div>
-
-                    <motion.div variants={formFieldVariants}>
-                      <label
-                        htmlFor="email"
-                        className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
-                      >
-                        Work Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="john@company.com"
-                        maxLength={255}
-                        required
-                        className={controlClassName}
-                      />
-                    </motion.div>
-
-                    <motion.div variants={formFieldVariants}>
-                      <label
-                        htmlFor="company"
-                        className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
-                      >
-                        Company *
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        placeholder="Company, LLC"
-                        maxLength={150}
-                        required
-                        className={controlClassName}
-                      />
-                    </motion.div>
-
-                    <motion.div variants={formFieldVariants}>
-                      <label
-                        htmlFor="phone"
-                        className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
-                      >
-                        Phone *
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="(555) 123-4567"
-                        maxLength={30}
-                        required
-                        className={controlClassName}
-                      />
-                    </motion.div>
-
-                    <motion.div variants={formFieldVariants}>
-                      <label
-                        htmlFor="looking_for"
-                        className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
-                      >
-                        What are you looking for? *
-                      </label>
-                      <textarea
-                        id="looking_for"
-                        name="looking_for"
-                        rows={2}
-                        value={formData.looking_for}
-                        onChange={handleChange}
-                        placeholder="e.g. Exclusive MVA leads in Texas, ~50/month"
-                        maxLength={1000}
-                        required
-                        className={textareaClassName}
-                      />
-                    </motion.div>
-
-                    <motion.div variants={formFieldVariants}>
-                      <label
-                        htmlFor="luxury_answer"
-                        className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
-                      >
-                        Why do you believe you&apos;d be a strong partner for us? *
-                      </label>
-                      <textarea
-                        id="luxury_answer"
-                        name="luxury_answer"
-                        rows={2}
-                        value={formData.luxury_answer}
-                        onChange={handleChange}
-                        placeholder="Tell us about your track record and what sets you apart"
-                        maxLength={1000}
-                        required
-                        className={textareaClassName}
-                      />
-                    </motion.div>
-
-                    <motion.div variants={formFieldVariants}>
-                      <label
-                        htmlFor="offer"
-                        className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-0"
-                      >
-                        WHAT&apos;S THE OFFER YOU HAVE FOR US? *
-                      </label>
-                      <p className="text-[13px] leading-[1.4] text-[#6B7280] mt-[6px] mb-[10px]">
-                        Include revenue share terms, volume commitments, or other
-                        value propositions.
-                      </p>
-                      <textarea
-                        id="offer"
-                        name="offer"
-                        rows={2}
-                        value={formData.offer}
-                        onChange={handleChange}
-                        placeholder="Describe your offer"
-                        maxLength={1000}
-                        required
-                        className={textareaClassName}
-                      />
-                    </motion.div>
-
-                    <motion.div variants={formFieldVariants} className="pt-2">
-                      <div className="flex items-start gap-3">
-                        <input
-                          type="checkbox"
-                          id="sms-consent"
-                          checked={smsConsent}
-                          onChange={(event) => {
-                            setSmsConsent(event.target.checked);
-                            if (event.target.checked) setShowSmsError(false);
+                        <circle
+                          cx="32"
+                          cy="32"
+                          r="29"
+                          stroke="rgba(37,99,235,0.35)"
+                          strokeWidth="1.5"
+                        />
+                        <motion.path
+                          d="M20 33l8 8 17-19"
+                          stroke="#2563EB"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          pathLength={1}
+                          strokeDasharray="1"
+                          initial={{ strokeDashoffset: 1 }}
+                          animate={{ strokeDashoffset: 0 }}
+                          transition={{
+                            duration: 0.6,
+                            delay: 0.12,
+                            ease: [0.22, 1, 0.36, 1],
                           }}
-                          className="mt-1 w-4 h-4 rounded border-white/20 bg-white/10 text-white focus:ring-0 focus:ring-offset-0 cursor-pointer accent-white shrink-0"
                         />
-                        <label
-                          htmlFor="sms-consent"
-                          className="text-[12px] sm:text-[13px] leading-snug text-neutral-500 text-left cursor-pointer select-none"
-                        >
-                          By checking this box, I agree to receive SMS messages
-                          from Hot Premium Customers. Message &amp; data rates
-                          may apply. Reply STOP to opt out at any time. View our{" "}
-                          <a
-                            href="#privacy"
-                            className="underline text-neutral-300 hover:text-white transition-colors"
-                          >
-                            Privacy Policy
-                          </a>
-                          .
-                        </label>
-                      </div>
-                      {showSmsError && (
-                        <p className="text-[12px] sm:text-[13px] text-red-500 font-medium pl-7 mt-2">
-                          Please agree to receive SMS messages to continue.
-                        </p>
-                      )}
-                    </motion.div>
+                      </svg>
+                    </div>
+                    <p className="mt-7 text-[20px] leading-[1.5] text-white">
+                      Application received. We&apos;ll get back to you within 24
+                      hours.
+                    </p>
+                  </div>
+                </motion.div>
+              ) : (
+                <form
+                  key="application-form"
+                  onSubmit={handleSubmit}
+                  className="space-y-7 sm:space-y-8 !bg-transparent
+                    rounded-2xl p-6 sm:p-8 md:p-12"
+                >
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
+                    >
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="John Smith"
+                      maxLength={120}
+                      required
+                      className={controlClassName}
+                    />
+                  </div>
 
-                    <motion.div variants={formFieldVariants} className="pt-4">
-                      <button
-                        type="submit"
-                        className="group relative w-full overflow-hidden py-4 px-8 rounded-lg bg-[#2563EB] text-white font-semibold text-sm sm:text-sm hover:bg-[#1d4ed8] transition-all duration-200 active:scale-[0.99] cursor-pointer flex items-center justify-center gap-3 uppercase tracking-wide"
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
+                    >
+                      Work Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="john@company.com"
+                      maxLength={255}
+                      required
+                      className={controlClassName}
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="company"
+                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
+                    >
+                      Company *
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="Company, LLC"
+                      maxLength={150}
+                      required
+                      className={controlClassName}
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
+                    >
+                      Phone *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="(555) 123-4567"
+                      maxLength={30}
+                      required
+                      className={controlClassName}
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="looking_for"
+                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
+                    >
+                      What are you looking for? *
+                    </label>
+                    <textarea
+                      id="looking_for"
+                      name="looking_for"
+                      rows={2}
+                      value={formData.looking_for}
+                      onChange={handleChange}
+                      placeholder="e.g. Exclusive MVA leads in Texas, ~50/month"
+                      maxLength={1000}
+                      required
+                      className={textareaClassName}
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="luxury_answer"
+                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-3"
+                    >
+                      Why do you believe you&apos;d be a strong partner for us? *
+                    </label>
+                    <textarea
+                      id="luxury_answer"
+                      name="luxury_answer"
+                      rows={2}
+                      value={formData.luxury_answer}
+                      onChange={handleChange}
+                      placeholder="Tell us about your track record and what sets you apart"
+                      maxLength={1000}
+                      required
+                      className={textareaClassName}
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="offer"
+                      className="block font-mono text-[12px] tracking-[0.14em] uppercase text-neutral-300 mb-0"
+                    >
+                      WHAT&apos;S THE OFFER YOU HAVE FOR US? *
+                    </label>
+                    <p className="text-[13px] leading-[1.4] text-[#6B7280] mt-[6px] mb-[10px]">
+                      Include revenue share terms, volume commitments, or other
+                      value propositions.
+                    </p>
+                    <textarea
+                      id="offer"
+                      name="offer"
+                      rows={2}
+                      value={formData.offer}
+                      onChange={handleChange}
+                      placeholder="Describe your offer"
+                      maxLength={1000}
+                      required
+                      className={textareaClassName}
+                    />
+                  </div>
+
+                  <div className="pt-2">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        id="sms-consent"
+                        checked={smsConsent}
+                        onChange={(event) => {
+                          setSmsConsent(event.target.checked);
+                          if (event.target.checked) setShowSmsError(false);
+                        }}
+                        className="mt-1 w-4 h-4 rounded border-white/20 bg-white/10 text-white focus:ring-0 focus:ring-offset-0 cursor-pointer accent-white shrink-0"
+                      />
+                      <label
+                        htmlFor="sms-consent"
+                        className="text-[12px] sm:text-[13px] leading-snug text-neutral-500 text-left cursor-pointer select-none"
                       >
-                        <span
-                          aria-hidden="true"
-                          className="pointer-events-none absolute -inset-y-8 -left-1/3 w-1/4 skew-x-[-20deg] bg-white/20 opacity-0 blur-sm transition-all duration-700 ease-out group-hover:translate-x-[500%] group-hover:opacity-100"
-                        />
-                        <span className="relative z-10">Submit Application</span>
-                        <span
-                          aria-hidden="true"
-                          className="relative z-10 transition-transform duration-200 group-hover:translate-x-1"
+                        By checking this box, I agree to receive SMS messages
+                        from Hot Premium Customers. Message &amp; data rates
+                        may apply. Reply STOP to opt out at any time. View our{" "}
+                        <a
+                          href="#privacy"
+                          className="underline text-neutral-300 hover:text-white transition-colors"
                         >
-                          →
-                        </span>
-                      </button>
-
-                      <p className="text-[11px] text-neutral-600 text-center mt-5 leading-[1.6]">
-                        By submitting, you agree to be contacted about lead supply
-                        options. We never share your information.
+                          Privacy Policy
+                        </a>
+                        .
+                      </label>
+                    </div>
+                    {showSmsError && (
+                      <p className="text-[12px] sm:text-[13px] text-red-500 font-medium pl-7 mt-2">
+                        Please agree to receive SMS messages to continue.
                       </p>
-                    </motion.div>
-                  </motion.form>
-                )}
-              </AnimatePresence>
-            </Reveal>
+                    )}
+                  </div>
+
+                  <div className="pt-4">
+                    <button
+                      type="submit"
+                      className="group relative w-full overflow-hidden py-4 px-8 rounded-lg bg-[#2563EB] text-white font-semibold text-sm sm:text-sm hover:bg-[#1d4ed8] transition-all duration-200 active:scale-[0.99] cursor-pointer flex items-center justify-center gap-3 uppercase tracking-wide"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -inset-y-8 -left-1/3 w-1/4 skew-x-[-20deg] bg-white/20 opacity-0 blur-sm transition-all duration-700 ease-out group-hover:translate-x-[500%] group-hover:opacity-100"
+                      />
+                      <span className="relative z-10">Submit Application</span>
+                      <span
+                        aria-hidden="true"
+                        className="relative z-10 transition-transform duration-200 group-hover:translate-x-1"
+                      >
+                        →
+                      </span>
+                    </button>
+
+                    <p className="text-[11px] text-neutral-600 text-center mt-5 leading-[1.6]">
+                      By submitting, you agree to be contacted about lead supply
+                      options. We never share your information.
+                    </p>
+                  </div>
+                </form>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
