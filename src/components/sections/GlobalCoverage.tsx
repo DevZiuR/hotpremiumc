@@ -17,7 +17,7 @@ export function GlobalCoverage() {
               as="h2"
               delay={0}
               lines={["High-intent demand across", "the markets you serve."]}
-              className="font-serif text-[clamp(38px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-5"
+              className="font-serif text-[clamp(42px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-5"
             />
 
             {/* Supporting copy: 180ms */}

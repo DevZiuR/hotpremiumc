@@ -59,7 +59,7 @@ export function ComplianceStandards() {
               as="h2"
               delay={0}
               lines={["Every lead,", "fully documented."]}
-              className="font-serif text-[clamp(38px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
+              className="font-serif text-[clamp(42px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
             />
 
             {/* Subtitle / Overview: 180ms */}

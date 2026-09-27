@@ -104,7 +104,7 @@ export function AboutMax() {
               as="h2"
               delay={90}
               lines={["A track record,", "not a promise."]}
-              className="font-serif !text-[clamp(38px,5vw,59px)] font-normal text-[#E8EAEE] tracking-[-0.025em] leading-[1.05] mb-0"
+              className="font-serif !text-[clamp(42px,5vw,59px)] font-normal text-[#E8EAEE] tracking-[-0.025em] leading-[1.05] mb-0"
             />
           </div>
 
@@ -143,7 +143,7 @@ export function AboutMax() {
                 as="h2"
                 delay={90}
                 lines={["A track record,", "not a promise."]}
-                className="font-serif text-[clamp(38px,5vw,60px)] font-normal text-[#E8EAEE] tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
+                className="font-serif text-[clamp(42px,5vw,60px)] font-normal text-[#E8EAEE] tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
               />
             </div>
 

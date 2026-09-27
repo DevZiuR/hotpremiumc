@@ -43,7 +43,7 @@ export function Testimonials() {
           as="h2"
           delay={0}
           lines={["They took the deal.", "Here's what happened."]}
-          className="font-serif text-[clamp(34px,4.5vw,54px)] font-normal text-white tracking-[-0.025em] leading-[1.08] text-center mx-auto max-w-4xl"
+          className="font-serif text-[clamp(38px,4.5vw,54px)] font-normal text-white tracking-[-0.025em] leading-[1.08] text-center mx-auto max-w-4xl"
         />
       </div>
 

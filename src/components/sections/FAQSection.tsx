@@ -72,7 +72,7 @@ export function FAQSection() {
             as="h2"
             delay={90}
             lines={["Questions worth answering", "before you apply"]}
-            className="font-serif text-[clamp(38px,5vw,65px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0 text-center mx-auto max-w-[720px] [text-wrap:balance]"
+            className="font-serif text-[clamp(42px,5vw,65px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0 text-center mx-auto max-w-[720px] [text-wrap:balance]"
           />
 
           <div className="mt-10 sm:mt-12 rounded-xl border border-[rgba(255,255,255,0.10)] bg-[#09090b] overflow-hidden divide-y divide-[rgba(255,255,255,0.08)]">

@@ -169,7 +169,7 @@ export function ProblemGrid() {
             as="h2"
             delay={0}
             lines={["Why the best operators", "partner with us."]}
-            className="font-sans text-[32px] sm:text-[42px] lg:text-[60px] font-medium tracking-[-0.025em] leading-[1.12] text-white"
+            className="font-sans text-[36px] sm:text-[42px] lg:text-[60px] font-medium tracking-[-0.025em] leading-[1.12] text-white"
           />
         </div>
 

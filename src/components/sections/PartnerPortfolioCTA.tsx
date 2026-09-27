@@ -215,7 +215,7 @@ export function PartnerPortfolioCTA() {
               as="h2"
               delay={0}
               lines={["Bring the offer.", "We fund the scale."]}
-              className="font-serif text-[clamp(38px,5vw,60px)] font-normal leading-[1.05] tracking-[-0.025em] mb-4 text-white"
+              className="font-serif text-[clamp(42px,5vw,60px)] font-normal leading-[1.05] tracking-[-0.025em] mb-4 text-white"
             />
 
             {/* Supporting copy */}
