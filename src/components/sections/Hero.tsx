@@ -77,7 +77,7 @@ export function Hero() {
         {/* 2 & 3. H1 with Line 1 (delay: 100ms) and Line 2 (delay: 200ms) */}
         <h1
           aria-label="We Fund Your Growth. You Keep the Business."
-          className="font-serif text-[clamp(42px,11.5vw,68px)] md:text-[clamp(48px,8vw,108px)] font-normal !text-white max-w-4xl mb-3 sm:mb-5 md:mb-8 tracking-[-0.03em] leading-[1.02] md:leading-[0.98]"
+          className="font-serif text-[clamp(48px,13vw,68px)] md:text-[clamp(48px,8vw,108px)] font-normal !text-white max-w-4xl mb-3 sm:mb-5 md:mb-8 tracking-[-0.03em] leading-[1.02] md:leading-[0.98]"
         >
           <span className="block overflow-hidden py-[0.08em] -my-[0.08em]">
             <span className="block" style={getEntranceStyle(100)}>

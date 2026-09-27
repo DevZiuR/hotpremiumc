@@ -23,8 +23,8 @@ export interface CurrencySkyBackgroundProps {
 const GLYPHS = [
   { min: 15, char: "·", color: "#1a1918" },
   { min: 50, char: "/", color: "#2c2a28" },
-  { min: 100, char: "$", color: "#524e4a" },
-  { min: 160, char: "£", color: "#959089" },
+  { min: 100, char: "¢", color: "#524e4a" },
+  { min: 160, char: "$", color: "#959089" },
 ];
 
 function waves(x: number, y: number, time: number) {

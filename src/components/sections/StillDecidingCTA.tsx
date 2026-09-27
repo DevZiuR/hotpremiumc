@@ -24,7 +24,7 @@ function IconTrendingUp() {
 
 export function StillDecidingCTA() {
   return (
-    <section className="bg-[#020509] pb-10 sm:pb-24 px-4 sm:px-6 lg:px-8">
+    <section className="bg-[#020509] pb-6 sm:pb-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-16 sm:py-20 md:py-24 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
           {/* Top-left window decorative dots */}

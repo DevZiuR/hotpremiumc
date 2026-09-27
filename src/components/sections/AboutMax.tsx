@@ -85,7 +85,7 @@ export function AboutMax() {
   const stat3 = useCountUp(7, 1300, 550, hasTriggered);
 
   return (
-    <section id="about-founder" className="relative !bg-[09090b] pt-[80px] pb-[52px] lg:pt-[140px] lg:pb-[140px] border-b border-gray-200/80 overflow-hidden font-sans">
+    <section id="about-founder" className="relative !bg-[09090b] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] border-b border-gray-200/80 overflow-hidden font-sans">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 xl:gap-20 items-center">
 
