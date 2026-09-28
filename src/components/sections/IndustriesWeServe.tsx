@@ -184,7 +184,7 @@ export function IndustriesWeServe() {
           as="h2"
           delay={90}
           lines={["Built for industries where", "every customer matters."]}
-          className="font-serif text-[clamp(42px,5vw,60px)] font-medium text-black tracking-[-0.025em] leading-[1.05] max-w-3xl mb-8 sm:mb-12 md:mb-16"
+          className="font-serif section-h2 font-medium text-black tracking-[-0.025em] max-w-3xl mb-8 sm:mb-12 md:mb-16"
         />
 
         {/* ── Two-Column Layout ── */}

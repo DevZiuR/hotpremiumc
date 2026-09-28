@@ -9,31 +9,27 @@ import landTopologyData from "world-atlas/land-110m.json";
 type Market = {
   name: string;
   coordinates: [number, number];
-  background: string;
-  foreground: string;
-  offset?: [number, number];
 };
 
 type Point = [number, number];
 
 type LabelLayout = {
   market: Market;
-  center: Point;
+  point: Point;
+  label: Point;
   width: number;
   height: number;
   opacity: number;
-  entrance: number;
-  active: boolean;
 };
 
 const markets: Market[] = [
-  { name: "United States", coordinates: [-98, 39], background: "#2563EB", foreground: "#ffffff" },
-  { name: "Canada", coordinates: [-98, 56], background: "#2563EB", foreground: "#ffffff" },
-  { name: "UK", coordinates: [-2, 54], background: "#2563EB", foreground: "#ffffff", offset: [-20, -20] },
-  { name: "Western Europe", coordinates: [2, 46], background: "#2563EB", foreground: "#ffffff", offset: [20, 20] },
-  { name: "Nordics", coordinates: [15, 63], background: "#2563EB", foreground: "#ffffff" },
-  { name: "Australia", coordinates: [134, -26], background: "#2563EB", foreground: "#ffffff" },
-  { name: "New Zealand", coordinates: [172, -42], background: "#2563EB", foreground: "#ffffff" },
+  { name: "United States", coordinates: [-98, 39] },
+  { name: "Canada", coordinates: [-98, 56] },
+  { name: "UK", coordinates: [-2, 54] },
+  { name: "Western Europe", coordinates: [2, 46] },
+  { name: "Nordics", coordinates: [15, 63] },
+  { name: "Australia", coordinates: [134, -26] },
+  { name: "New Zealand", coordinates: [172, -42] },
 ];
 
 const topology = landTopologyData as unknown as Topology;
@@ -78,37 +74,6 @@ function angularDistance(
   return (Math.acos(clamp(1 - 2 * haversine, -1, 1)) * 180) / Math.PI;
 }
 
-function roundedRect(
-  context: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  radius: number
-) {
-  context.beginPath();
-  context.roundRect(x, y, width, height, radius);
-}
-
-/**
- * Markets that fall outside a given orthographic view. The globe only shows one
- * 180° hemisphere, so on the static mobile frame these are surfaced as pills
- * beneath the globe instead of being silently culled.
- */
-function marketsOutsideHemisphere(longitude: number, latitude: number) {
-  return markets
-    .filter(
-      (market) =>
-        angularDistance(
-          longitude,
-          latitude,
-          market.coordinates[0],
-          market.coordinates[1]
-        ) >= 90
-    )
-    .map((market) => market.name);
-}
-
 function rectanglesOverlap(
   first: { left: number; right: number; top: number; bottom: number },
   second: { left: number; right: number; top: number; bottom: number },
@@ -126,7 +91,6 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nudgePlayedRef = useRef(false);
   const [activeMarketIndex, setActiveMarketIndex] = useState(-1);
-  const [offscreenMarkets, setOffscreenMarkets] = useState<string[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -146,18 +110,13 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobileQuery = window.matchMedia("(max-width: 767px)");
     let reducedMotion = reducedMotionQuery.matches;
-    // On mobile: cap DPR to 1, disable drag interaction, and render a fully
-    // static frame (no rotation, no tour, no cue) so nothing animates.
+    // On mobile: cap DPR to 1, disable drag interaction, slow orbit
     let isMobile = mobileQuery.matches;
     let width = 1;
     let height = 1;
     let pixelRatio = 1;
-    // Static mobile view centred to frame Europe + North America, which is the
-    // widest set of markets that fits inside a single orthographic hemisphere.
-    const MOBILE_CENTER_LONGITUDE = -42;
-    const MOBILE_CENTER_LATITUDE = 34;
-    let centerLongitude = isMobile ? MOBILE_CENTER_LONGITUDE : -30;
-    let centerLatitude = isMobile ? MOBILE_CENTER_LATITUDE : 20;
+    let centerLongitude = -30;
+    let centerLatitude = 20;
     let hovered = false;
     let dragging = false;
     let activePointerId: number | null = null;
@@ -233,32 +192,42 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       }
     };
 
-    const measurePill = (market: Market) => {
-      context.font = "600 12px system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    const measureLabel = (market: Market) => {
+      const fontSize = isMobile ? 10 : 11;
+      context.font = `500 ${fontSize}px "Instrument Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
       return {
-        width: context.measureText(market.name).width + 28,
-        height: 30,
+        width: context.measureText(market.name).width + 18,
+        height: fontSize + 12,
       };
     };
 
-    const drawRoundedPill = (layout: LabelLayout) => {
+    const drawMarketMarker = (layout: LabelLayout) => {
+      const dotRadius = isMobile ? 2.75 : 3.25;
+      const fontSize = isMobile ? 10 : 11;
+
       context.save();
-      context.translate(layout.center[0], layout.center[1]);
       context.globalAlpha = layout.opacity;
-      roundedRect(
-        context,
-        -layout.width / 2,
-        -layout.height / 2,
-        layout.width,
-        layout.height,
-        layout.height / 2
-      );
-      context.fillStyle = layout.market.background;
+      context.lineWidth = 1;
+      context.strokeStyle = "rgba(255, 255, 255, 0.32)";
+      context.beginPath();
+      context.moveTo(layout.point[0], layout.point[1]);
+      context.lineTo(layout.label[0], layout.label[1]);
+      context.stroke();
+
+      context.beginPath();
+      context.arc(layout.point[0], layout.point[1], dotRadius, 0, Math.PI * 2);
+      context.fillStyle = "#2563EB";
       context.fill();
-      context.fillStyle = layout.market.foreground;
+      context.strokeStyle = "rgba(255, 255, 255, 0.85)";
+      context.stroke();
+
+      context.font = `500 ${fontSize}px "Instrument Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
       context.textAlign = "center";
       context.textBaseline = "middle";
-      context.fillText(layout.market.name, 0, 0.5);
+      context.shadowColor = "rgba(0, 0, 0, 0.7)";
+      context.shadowBlur = 4;
+      context.fillStyle = "rgba(255, 255, 255, 0.92)";
+      context.fillText(layout.market.name, layout.label[0], layout.label[1]);
       context.restore();
     };
 
@@ -318,47 +287,52 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           market.coordinates[0],
           market.coordinates[1]
         );
-        if (distance >= 90) continue;
+        if (distance > 88) continue;
 
-        const point = projection(market.coordinates);
-        if (!point) continue;
+        const projected = projection(market.coordinates);
+        if (!projected) continue;
+        const point: Point = [projected[0], projected[1]];
 
-        const size = measurePill(market);
-        const offset = market.offset ?? [0, 0];
+        const size = measureLabel(market);
+        const radialX = point[0] - centerX;
+        const radialY = point[1] - centerY;
+        const radialLength = Math.hypot(radialX, radialY) || 1;
+        const labelOffset = isMobile ? 11 : 13;
         pendingLayouts.push({
           market,
-          center: [point[0] + offset[0], point[1] + offset[1]],
+          point,
+          label: [
+            point[0] + (radialX / radialLength) * labelOffset,
+            point[1] + (radialY / radialLength) * labelOffset,
+          ],
           width: size.width,
           height: size.height,
-          // Mobile static frame: every pin is fully opaque at once, no fade-in.
-          opacity: isMobile ? 1 : clamp((90 - distance) / 15),
-          entrance: 1,
-          active: false,
+          opacity: clamp((88 - distance) / 10),
         });
       }
 
       const placedLayouts: LabelLayout[] = [];
       const collisionDirections: Point[] = [
-        [0, 36],
-        [0, -36],
-        [36, 0],
-        [-36, 0],
-        [36, 36],
-        [-36, -36],
-        [36, -36],
-        [-36, 36],
+        [0, 14],
+        [0, -14],
+        [14, 0],
+        [-14, 0],
+        [14, 14],
+        [-14, -14],
+        [14, -14],
+        [-14, 14],
       ];
 
       for (const layout of pendingLayouts) {
-        const collisionWidth = layout.width * 1.08;
-        const collisionHeight = layout.height * 1.08;
-        let resolvedCenter = layout.center;
+        const collisionWidth = layout.width + 12;
+        const collisionHeight = layout.height + 10;
+        let resolvedCenter = layout.label;
 
         const fitsCanvas = (candidate: Point) =>
-          candidate[0] - collisionWidth / 2 >= 8 &&
-          candidate[0] + collisionWidth / 2 <= width - 8 &&
-          candidate[1] - collisionHeight / 2 >= 8 &&
-          candidate[1] + collisionHeight / 2 <= height - 8;
+          candidate[0] - collisionWidth / 2 >= 6 &&
+          candidate[0] + collisionWidth / 2 <= width - 6 &&
+          candidate[1] - collisionHeight / 2 >= 6 &&
+          candidate[1] + collisionHeight / 2 <= height - 6;
 
         const overlapsPlaced = (candidate: Point) => {
           const rect = {
@@ -371,10 +345,10 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
             rectanglesOverlap(
               rect,
               {
-                left: placed.center[0] - (placed.width * 1.08) / 2,
-                right: placed.center[0] + (placed.width * 1.08) / 2,
-                top: placed.center[1] - (placed.height * 1.08) / 2,
-                bottom: placed.center[1] + (placed.height * 1.08) / 2,
+                left: placed.label[0] - (placed.width + 12) / 2,
+                right: placed.label[0] + (placed.width + 12) / 2,
+                top: placed.label[1] - (placed.height + 10) / 2,
+                bottom: placed.label[1] + (placed.height + 10) / 2,
               },
               8
             )
@@ -386,8 +360,8 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           for (let pass = 0; pass < 3 && !found; pass += 1) {
             for (const direction of collisionDirections) {
               const candidate: Point = [
-                layout.center[0] + direction[0] * (pass + 1),
-                layout.center[1] + direction[1] * (pass + 1),
+                layout.label[0] + direction[0] * (pass + 1),
+                layout.label[1] + direction[1] * (pass + 1),
               ];
               if (fitsCanvas(candidate) && !overlapsPlaced(candidate)) {
                 resolvedCenter = candidate;
@@ -398,22 +372,29 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           }
         }
 
-        placedLayouts.push({ ...layout, center: resolvedCenter });
+        placedLayouts.push({ ...layout, label: resolvedCenter });
       }
 
-      for (const layout of placedLayouts) drawRoundedPill(layout);
+      for (const layout of placedLayouts) drawMarketMarker(layout);
     };
 
     const frame = (time: number) => {
       animationFrame = 0;
       if (!visible || document.hidden || reducedMotion || dragging) return;
 
+      // Mobile stays clean with one static frame rather than a continuous tour.
+      if (isMobile) {
+        draw();
+        previousTime = 0;
+        return;
+      }
+
       if (!previousTime) previousTime = time;
       const delta = Math.min((time - previousTime) / 1000, 0.05);
       previousTime = time;
 
-      // On mobile, halve the effective delta so all animations run at half speed
-      const effectiveDelta = isMobile ? delta * 0.5 : delta;
+      // Mobile returns above with a static frame; this loop preserves the desktop tour.
+      const effectiveDelta = delta;
 
       if (resumeDelay > 0) {
         resumeDelay = Math.max(0, resumeDelay - effectiveDelta);
@@ -453,22 +434,6 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     };
 
     const syncAnimation = () => {
-      // Mobile is a deliberate static frame: never start the rAF loop at all,
-      // so no rotation, tour, glow pulse or per-frame work runs in the background.
-      if (isMobile) {
-        if (animationFrame) window.cancelAnimationFrame(animationFrame);
-        animationFrame = 0;
-        previousTime = 0;
-        centerLongitude = MOBILE_CENTER_LONGITUDE;
-        centerLatitude = MOBILE_CENTER_LATITUDE;
-        rimGlowOpacity = 0.475;
-        nudgeActive = false;
-        nudgeOffset = 0;
-        tourPhase = "hold";
-        draw();
-        return;
-      }
-
       if (reducedMotion) {
         if (animationFrame) window.cancelAnimationFrame(animationFrame);
         animationFrame = 0;
@@ -493,29 +458,13 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       const bounds = host.getBoundingClientRect();
       width = Math.max(1, bounds.width);
       height = Math.max(1, bounds.height);
-      const wasMobile = isMobile;
       isMobile = mobileQuery.matches;
-      // Crossing the breakpoint: snap the globe to the matching fixed view.
-      if (isMobile !== wasMobile) {
-        centerLongitude = isMobile ? MOBILE_CENTER_LONGITUDE : -30;
-        centerLatitude = isMobile ? MOBILE_CENTER_LATITUDE : 20;
-        tourIndex = 0;
-        tourPhase = "move";
-        tourElapsed = 0;
-        setActiveMarketIndex(-1);
-      }
       // Cap DPR to 1 on mobile for lower GPU/memory load
       pixelRatio = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 2);
       // Update projection precision on resize (in case of orientation change)
       projection.precision(isMobile ? 1.0 : 0.4);
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
-      // Surface markets that the current view cannot show (mobile only).
-      setOffscreenMarkets(
-        isMobile
-          ? marketsOutsideHemisphere(MOBILE_CENTER_LONGITUDE, MOBILE_CENTER_LATITUDE)
-          : []
-      );
       draw();
       syncAnimation();
     };
@@ -696,8 +645,7 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
-        // Static mobile frame: skip the nudge and the drag cue entirely.
-        if (visible && !nudgePlayedRef.current && !isMobile) {
+        if (visible && !nudgePlayedRef.current) {
           nudgePlayedRef.current = true;
           if (!reducedMotion) {
             nudgeActive = true;
@@ -763,7 +711,6 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
   }, []);
 
   return (
-    <div className="gc-wrap">
     <div className={`gc-card ${className}`}>
       <style>{`
         .gc-card {
@@ -771,9 +718,7 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           width: 100%;
           aspect-ratio: 1 / 1;
           overflow: hidden;
-          border-radius: 32px;
-          background: #0a0a0a;
-          border: 1px solid rgba(255,255,255,0.06);
+          background: transparent;
           touch-action: none;
         }
         /* Mobile: allow vertical scroll — drag interaction is disabled */
@@ -851,35 +796,6 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
         @media (prefers-reduced-motion: reduce) {
           .gc-cue-arrow-left, .gc-cue-arrow-right { animation: none; }
         }
-        /* Markets the static mobile hemisphere cannot show, listed as pills.
-           Only present in the DOM on mobile, so no media query is needed. */
-        .gc-wrap {
-          width: 100%;
-        }
-        .gc-offscreen {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 8px;
-          margin: 12px 0 0;
-          padding: 0;
-          list-style: none;
-        }
-        .gc-offscreen-pill {
-          display: inline-flex;
-          align-items: center;
-          height: 30px;
-          padding: 0 14px;
-          border-radius: 999px;
-          background: #2563EB;
-          color: #ffffff;
-          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-          font-size: 12px;
-          font-weight: 600;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          white-space: nowrap;
-        }
       `}</style>
 
       <div className="gc-stage">
@@ -923,17 +839,6 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
           />
         </svg>
       </div>
-
-      {offscreenMarkets.length > 0 && (
-        <ul className="gc-offscreen" aria-label="Additional markets we cover">
-          {offscreenMarkets.map((name) => (
-            <li key={name} className="gc-offscreen-pill">
-              {name}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
     </div>
   );
 }

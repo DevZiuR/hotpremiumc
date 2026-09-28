@@ -1,7 +1,6 @@
 ﻿import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
-import { Geist } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "1 — Case Study | ZIUR Studio",
@@ -89,7 +88,7 @@ const GrainOverlay = () => (
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 export default function LRMiamiCaseStudy() {
   return (
-    <div className={`bg-[#0a0a0a] text-white min-h-screen`} style={{ fontFamily: "var(--font-geist, var(--font-host-grotesk), sans-serif)" }}>
+      <div className={`bg-[#0a0a0a] text-white min-h-screen`} style={{ fontFamily: "var(--font-instrument-sans, var(--font-host-grotesk), sans-serif)" }}>
 
       {/* ── Back nav ──────────────────────────────────────────────────────── */}
       <div className="fixed top-0 inset-x-0 z-50 px-6 py-5 flex items-center justify-between">

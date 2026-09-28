@@ -17,12 +17,12 @@ export function GlobalCoverage() {
               as="h2"
               delay={0}
               lines={["High-intent demand across", "the markets you serve."]}
-              className="font-serif text-[clamp(42px,5vw,60px)] font-normal text-white tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-5"
+              className="font-serif section-h2 font-normal text-white tracking-[-0.025em] mb-4 sm:mb-5"
             />
 
             {/* Supporting copy: 180ms */}
             <Reveal delay={180}>
-              <p className="font-sans text-[17px] text-gray-500 leading-[1.6] max-w-[62ch] font-normal">
+              <p className="font-sans text-[17px] text-white/65 leading-[1.6] max-w-[62ch] font-normal">
                 North America, the UK, Western Europe, the Nordics, Australia and New Zealand. We build campaigns around the markets you&apos;re licensed to serve, with demand delivered in real time.
               </p>
             </Reveal>
@@ -30,7 +30,11 @@ export function GlobalCoverage() {
 
           {/* Map Visual: 270ms VisualReveal with clip-path + scale settling */}
           <div className="relative w-full lg:col-span-7 flex items-center justify-center">
-            <VisualReveal delay={270} className="w-full max-w-[520px] rounded-2xl">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(37,99,235,0.12)_0%,rgba(37,99,235,0.05)_38%,transparent_68%)]"
+            />
+            <VisualReveal delay={270} className="relative z-10 w-full max-w-[600px]">
               <GlobalCoverageMap />
             </VisualReveal>
           </div>

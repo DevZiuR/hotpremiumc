@@ -96,7 +96,7 @@ export default function HowItWorks() {
       <div className="hiw-wrap">
         <div className="hiw-head">
           <div className="hiw-eyebrow"><i /> How it works</div>
-          <h2 className="hiw-serif">Six steps from application to revenue.</h2>
+          <h2 className="hiw-serif section-h2">Six steps from application to revenue.</h2>
         </div>
 
         <ol className="hiw-list" ref={listRef}>

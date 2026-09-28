@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
   // Header is statically positioned with a black background and white text
   const scrolled = true;
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -26,6 +27,16 @@ export function Header() {
   }, []);
 
   useEffect(() => {
+    const handleScroll = () => {
+      setIsCompact(window.scrollY > 40);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
     if (!mobileMenuOpen) return;
 
     const previousOverflow = document.body.style.overflow;
@@ -33,7 +44,7 @@ export function Header() {
       if (event.key === "Escape") setMobileMenuOpen(false);
     };
     const handleResize = () => {
-      if (window.innerWidth >= 1280) setMobileMenuOpen(false);
+      if (window.innerWidth >= 768) setMobileMenuOpen(false);
     };
 
     document.body.style.overflow = "hidden";
@@ -150,13 +161,18 @@ export function Header() {
         />
       )}
 
-      {/* ── Main Navigation Bar ────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 w-full select-none bg-black text-white shadow-md">
-      <div className="relative bg-black border-b border-white/10">
-        <div
-          ref={dropdownRef}
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-6 h-14 sm:h-20"
-        >
+      {/* ── Floating Navigation Bar ──────────────────────────────────────── */}
+      <header className="fixed left-1/2 top-4 z-[80] w-[calc(100%-24px)] max-w-[1200px] -translate-x-1/2 select-none md:w-[calc(100%-48px)]">
+      <div
+        ref={dropdownRef}
+        className={`relative flex items-center justify-between gap-3 px-4 ${isCompact ? "h-14 md:h-14" : "h-14 md:h-16"} rounded-2xl md:rounded-[18px] border border-white/10 transition-[height,background-color,box-shadow] duration-[250ms] ease-out`}
+        style={{
+          backgroundColor: isCompact ? "rgba(7, 7, 9, 0.95)" : "rgba(7, 7, 9, 0.91)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          boxShadow: "0 8px 30px rgba(0, 0, 0, 0.18)",
+        }}
+      >
           {/* Brand Logo (Left Column) */}
           <div className="flex-1 flex items-center justify-start min-w-0">
             <Link
@@ -168,14 +184,14 @@ export function Header() {
                 alt="Hot Premium Customers Logo"
                 className="w-auto object-contain h-8 sm:h-9 md:h-10 shrink-0 animate-logo-glow"
               />
-              <span className="hidden sm:block font-serif text-[19px] lg:text-[25px] 2xl:text-[28px] font-normal tracking-[0.015em] leading-none uppercase text-white truncate">
+              <span className="hidden md:block font-serif text-[15px] lg:text-[19px] font-normal tracking-[0.015em] leading-none uppercase text-white truncate">
                 Hot Premium Customers
               </span>
             </Link>
           </div>
 
           {/* Center Navigation Links (Desktop) - Centered with Generous Spacing */}
-          <nav className="hidden xl:flex items-center justify-center gap-3.5 2xl:gap-6 shrink-0">
+          <nav className="hidden md:flex items-center justify-center gap-3.5 2xl:gap-6 shrink-0">
             {/* ── HOW IT WORKS ───────────────────────────────────── */}
             <Link
               href="#how-it-works"
@@ -321,7 +337,7 @@ export function Header() {
             <div className="hidden md:inline-flex">
               <a
                 href="#contact"
-                className="bg-[#2563EB] text-white text-[13px] font-semibold uppercase tracking-[0.03em] px-6 py-2.5 rounded-lg hover:bg-[#1D4ED8] transition-colors duration-150 shadow-sm hover:shadow-md"
+                className="bg-[#2563EB] text-white text-[13px] font-semibold uppercase tracking-[0.03em] px-6 py-2.5 rounded-xl hover:bg-[#1D4ED8] transition-colors duration-150 shadow-sm hover:shadow-md"
               >
                 APPLY →
               </a>
@@ -331,7 +347,7 @@ export function Header() {
             <div className="md:hidden">
               <a
                 href="#contact"
-                className="bg-[#2563EB] text-white text-[12px] font-semibold uppercase tracking-[0.03em] h-9 px-4 rounded-lg hover:bg-[#1D4ED8] transition-colors duration-150 shadow-sm hover:shadow-md flex items-center"
+                className="bg-[#2563EB] text-white text-[12px] font-semibold uppercase tracking-[0.03em] h-9 px-4 rounded-xl hover:bg-[#1D4ED8] transition-colors duration-150 shadow-sm hover:shadow-md flex items-center"
               >
                 APPLY →
               </a>
@@ -341,7 +357,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2.5 rounded-lg bg-black text-white hover:bg-neutral-800 transition-colors focus:outline-none"
+              className="md:hidden p-2.5 rounded-lg bg-black text-white hover:bg-neutral-800 transition-colors focus:outline-none"
               aria-label="Toggle Menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -375,7 +391,6 @@ export function Header() {
               </span>
             </button>
           </div>
-        </div>
 
         <AnimatePresence>
           {mobileMenuOpen && (
@@ -388,7 +403,7 @@ export function Header() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-              className="fixed inset-0 z-[100] overflow-y-auto bg-[#09090b] text-white xl:hidden"
+              className="fixed inset-0 z-[100] overflow-y-auto bg-[#09090b] text-white md:hidden"
             >
               <div className="relative flex min-h-full flex-col">
                 {/* Top bar — logo + close */}
@@ -467,7 +482,7 @@ export function Header() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2, delay: 0.18 }}
-                    className="flex h-11 w-full items-center justify-between rounded-lg bg-[#2563EB] px-5 font-sans text-[13px] font-semibold uppercase tracking-[0.06em] text-white transition-colors duration-150 hover:bg-[#1D4ED8]"
+                    className="flex h-11 w-full items-center justify-between rounded-lg bg-[#2563EB] px-5 font-sans text-[13px] font-semibold uppercase tracking-[0.03em] text-white transition-colors duration-150 hover:bg-[#1D4ED8]"
                   >
                     <span>Apply for partnership</span>
                     <span aria-hidden="true" className="text-white/70">→</span>

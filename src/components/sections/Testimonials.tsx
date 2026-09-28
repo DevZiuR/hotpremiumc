@@ -34,7 +34,7 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative bg-[#09090b] text-white py-[60px] lg:py-[100px] overflow-hidden"
+      className="relative bg-[#FFFFFF] text-white py-[60px] lg:py-[100px] border-t border-[#E5E5E5] overflow-hidden"
       aria-label="Client Testimonial"
     >
       {/* Header Container (Eyebrow removed, clean editorial heading) */}
@@ -43,14 +43,14 @@ export function Testimonials() {
           as="h2"
           delay={0}
           lines={["They took the deal.", "Here's what happened."]}
-          className="font-serif text-[clamp(38px,4.5vw,54px)] font-normal text-white tracking-[-0.025em] leading-[1.08] text-center mx-auto max-w-4xl"
+          className="font-serif section-h2 font-normal text-[#0A0A0A] tracking-[-0.025em] text-center mx-auto max-w-4xl"
         />
       </div>
 
       {/* Spotlight Card Container */}
       <div className="max-w-[860px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Clean borderless card with smooth rounded corners */}
-          <div className="relative rounded-[20px] sm:rounded-[24px] overflow-hidden grid grid-cols-1 lg:grid-cols-[40%_60%] min-h-[330px] sm:min-h-[360px] lg:min-h-[375px] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.85)]">
+          <div className="relative rounded-[20px] sm:rounded-[24px] overflow-hidden grid grid-cols-1 lg:grid-cols-[40%_60%] min-h-[330px] sm:min-h-[360px] lg:min-h-[375px] shadow-[0_20px_50px_rgba(37,99,235,0.12)]">
             {/* ── LEFT COLUMN: Portrait Photo (~40% width, full height) ── */}
             <div className="relative w-full h-[230px] sm:h-[285px] lg:h-full lg:min-h-[375px] overflow-hidden bg-neutral-950">
               <img
@@ -64,7 +64,7 @@ export function Testimonials() {
               <div className="hidden lg:block absolute inset-y-0 right-0 w-12 pointer-events-none bg-gradient-to-l from-black/40 to-transparent" />
             </div>
 
-            {/* ── RIGHT COLUMN: Solid #2563EB Blue Background with Geist Typography & Decorative Elements ── */}
+            {/* ── RIGHT COLUMN: Solid #2563EB Blue Background with Instrument Sans Typography & Decorative Elements ── */}
             <div
               className="relative p-6 sm:p-8 lg:p-9 xl:p-10 flex flex-col justify-between overflow-hidden select-none"
               style={{ backgroundColor: FEATURED_TESTIMONIAL.bgColor }}
@@ -123,7 +123,7 @@ export function Testimonials() {
                 })}
               </svg>
 
-              {/* Top: Decorative Quote Mark & Large Quote in Geist */}
+              {/* Top: Decorative Quote Mark & Large Quote in Instrument Sans */}
               <div className="relative z-10">
                 {/* Decorative Quote Mark Icon */}
                 <div className="mb-3 sm:mb-4 text-white" aria-hidden="true">
@@ -135,10 +135,10 @@ export function Testimonials() {
                   </svg>
                 </div>
 
-                {/* Prominent Large Quote in Geist Sans */}
+                {/* Prominent Large Quote in Instrument Sans */}
                 <blockquote className="m-0 p-0 border-none">
                   <p
-                    style={{ fontFamily: "var(--font-geist)" }}
+                    style={{ fontFamily: "var(--font-instrument-sans)" }}
                     className="text-[20px] sm:text-[25px] md:text-[28px] lg:text-[31px] text-white font-medium leading-[1.2] tracking-[-0.025em] max-w-[460px]"
                   >
                     {FEATURED_TESTIMONIAL.quote}

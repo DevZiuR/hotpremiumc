@@ -89,14 +89,20 @@ export function Reveal({
   }, [immediate]);
 
 
+  // Under reduced motion resolve straight to the final state (per spec above)
+  // instead of relying on a global CSS override.
+  const showFinalState = visible || prefersReducedMotion;
+
   return (
     <div
       ref={ref}
       className={className}
       style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0px)" : `translateY(${TRANSLATE_Y_PX}px)`,
-        transition: `opacity ${DURATION_MS}ms ${EASING}, transform ${DURATION_MS}ms ${EASING}`,
+        opacity: showFinalState ? 1 : 0,
+        transform: showFinalState ? "translateY(0px)" : `translateY(${TRANSLATE_Y_PX}px)`,
+        transition: prefersReducedMotion
+          ? "none"
+          : `opacity ${DURATION_MS}ms ${EASING}, transform ${DURATION_MS}ms ${EASING}`,
         transitionDelay: visible ? `${delay}ms` : "0ms",
         willChange: "opacity, transform",
         ...style,

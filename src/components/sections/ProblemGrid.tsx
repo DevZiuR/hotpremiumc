@@ -162,14 +162,14 @@ export function ProblemGrid() {
     >
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
 
-        {/* Editorial left-aligned header */}
-        <div className="mb-14 sm:mb-18 lg:mb-20 max-w-3xl">
+        {/* Centered editorial header */}
+        <div className="mb-14 sm:mb-18 lg:mb-20 flex flex-col items-center text-center">
           {/* Major editorial heading: SplitHeading line reveal */}
           <SplitHeading
             as="h2"
             delay={0}
             lines={["Why the best operators", "partner with us."]}
-            className="font-sans text-[36px] sm:text-[42px] lg:text-[60px] font-medium tracking-[-0.025em] leading-[1.12] text-white"
+            className="font-serif section-h2 font-medium tracking-[-0.025em] text-white text-center"
           />
         </div>
 

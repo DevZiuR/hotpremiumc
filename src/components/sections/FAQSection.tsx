@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { SplitHeading } from "@/components/SplitHeading";
+import { Reveal } from "@/components/Reveal";
 
 const faqs = [
   {
@@ -51,7 +51,7 @@ export function FAQSection() {
   return (
     <section id="faq" className="bg-white py-[80px] lg:py-[140px] border-b border-gray-200/80">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="relative mx-auto w-full max-w-[720px]">
+        <div className="relative mx-auto w-full max-w-[1100px]">
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
               <span className="flex items-center">
@@ -67,53 +67,44 @@ export function FAQSection() {
             </div>
           </div>
 
-          {/* Heading: 90ms SplitHeading line reveal */}
-          <SplitHeading
-            as="h2"
-            delay={90}
-            lines={["Questions worth answering", "before you apply"]}
-            className="font-serif text-[clamp(42px,5vw,65px)] font-normal text-black tracking-[-0.025em] leading-[1.05] mb-0 text-center mx-auto max-w-[720px] [text-wrap:balance]"
-          />
+          <Reveal delay={90}>
+            <h2 className="font-serif section-h2 font-normal text-[#12151B] tracking-[-0.02em] mb-0 text-center mx-auto max-w-[1000px] [text-wrap:balance]">
+              Questions worth answering <br className="hidden md:block" /> before you apply
+            </h2>
+          </Reveal>
 
-          <div className="mt-10 sm:mt-12 rounded-xl border border-[rgba(255,255,255,0.10)] bg-[#09090b] overflow-hidden divide-y divide-[rgba(255,255,255,0.08)]">
+          <div className="mt-12 md:mt-14 border-t border-neutral-200">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               const answerId = `faq-answer-${index}`;
 
               return (
-                <div key={faq.question}>
-                  <div
-                    className={`overflow-hidden transition-colors duration-[150ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none hover:bg-[#171b23] ${isOpen
-                      ? "bg-white/[0.03]"
-                      : "bg-transparent"
-                      }`}
-                  >
+                <div key={faq.question} className="border-b border-neutral-200">
+                  <div className="py-9 md:py-11">
                     <button
                       type="button"
                       onClick={() => toggleFAQ(index)}
-                      className="w-full flex items-center justify-between text-left gap-4 sm:gap-6 cursor-pointer group focus:outline-none hover:bg-transparent hover:text-white px-4 py-4 sm:px-8 sm:py-6"
+                      className="w-full flex items-center justify-between text-left gap-6 cursor-pointer group focus:outline-none"
                       aria-expanded={isOpen}
                       aria-controls={answerId}
                     >
-                      <span className="font-sans text-[17px] font-medium text-white group-hover:text-white transition-colors leading-[1.6] max-w-[62ch]">
+                      <span className="font-serif text-[28px] leading-[1.1] md:text-[46px] md:leading-[51px] font-normal text-[#12151B] tracking-[-0.01em] min-w-0 [text-wrap:balance]">
                         {faq.question}
                       </span>
-                      <span
-                        className={`text-[#3B82F6] shrink-0 p-0.5 transition-transform duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${isOpen ? "rotate-45" : "rotate-0"
-                          }`}
-                      >
+                      <span className="shrink-0 w-11 h-11 rounded-full border border-[#2563EB] flex items-center justify-center group-hover:bg-[#2563EB]/10 transition-colors duration-200 motion-reduce:transition-none">
                         <svg
-                          className="w-5 h-5"
+                          className={`w-4 h-4 transition-transform duration-300 ease-out motion-reduce:transition-none ${
+                            isOpen ? "rotate-180" : "rotate-0"
+                          }`}
                           fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
+                          viewBox="0 0 16 16"
+                          stroke="#2563EB"
                           strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 4.5v15m7.5-7.5h-15"
-                          />
+                          <path d="M3.5 6l4.5 4.5L12.5 6" />
                         </svg>
                       </span>
                     </button>
@@ -122,11 +113,12 @@ export function FAQSection() {
                       id={answerId}
                       role="region"
                       aria-hidden={!isOpen}
-                      className={`grid transition-[grid-template-rows,opacity] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                        }`}
+                      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
                     >
                       <div className="overflow-hidden">
-                        <p className="font-sans text-[17px] text-neutral-300 leading-[1.6] max-w-[62ch] font-normal mt-3 sm:mt-4 pr-2 sm:pr-10 pb-4 sm:pb-6 pl-4 sm:pl-8">
+                        <p className="font-sans text-[18px] md:text-[20px] text-neutral-500 leading-[1.6] font-normal max-w-[700px] mt-5 md:mt-6">
                           {faq.answer}
                         </p>
                       </div>

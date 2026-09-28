@@ -86,7 +86,7 @@ export function AboutMax() {
   const stat3 = useCountUp(7, 1800, 550, hasTriggered);
 
   return (
-    <section id="about-founder" className="relative !bg-[#09090b] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] border-b border-white/10 overflow-hidden font-sans">
+    <section id="about-founder" className="relative bg-[#FFFFFF] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] overflow-hidden font-sans">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 xl:gap-20 items-center">
 
@@ -95,7 +95,7 @@ export function AboutMax() {
             <Reveal delay={0}>
               <div className="inline-flex items-center gap-2.5 mb-4">
                 <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-[#E8EAEE]">
+                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-black">
                   FOUNDER
                 </span>
               </div>
@@ -104,7 +104,7 @@ export function AboutMax() {
               as="h2"
               delay={90}
               lines={["A track record,", "not a promise."]}
-              className="font-serif !text-[clamp(42px,5vw,59px)] font-normal text-[#E8EAEE] tracking-[-0.025em] leading-[1.05] mb-0"
+              className="font-serif section-h2 font-normal text-[#0A0A0A] tracking-[-0.025em] mb-0"
             />
           </div>
 
@@ -132,7 +132,7 @@ export function AboutMax() {
               <Reveal delay={0}>
                 <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
                   <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-                  <span className="font-sans text-xs font-semibold uppercase tracking-widest text-[#E8EAEE]">
+                  <span className="font-sans text-xs font-semibold uppercase tracking-widest text-black">
                     FOUNDER
                   </span>
                 </div>
@@ -143,13 +143,13 @@ export function AboutMax() {
                 as="h2"
                 delay={90}
                 lines={["A track record,", "not a promise."]}
-                className="font-serif text-[clamp(42px,5vw,60px)] font-normal text-[#E8EAEE] tracking-[-0.025em] leading-[1.05] mb-4 sm:mb-6"
+                className="font-serif section-h2 font-normal text-[#0A0A0A] tracking-[-0.025em] mb-4 sm:mb-6"
               />
             </div>
 
             {/* Body Copy: delay=180 */}
             <Reveal delay={180}>
-              <div className="space-y-3.5 sm:space-y-4 font-sans text-[17px] text-neutral-400 leading-[1.6] max-w-[62ch] font-normal mt-4 lg:mt-0">
+              <div className="space-y-3.5 sm:space-y-4 font-sans text-[17px] text-gray-600 leading-[1.6] max-w-[62ch] font-normal mt-4 lg:mt-0">
                 <p>
                   I&apos;m Max, and I built Hot Premium Customers from years of scaling businesses through paid media, customer acquisition, and sales infrastructure.
                 </p>
@@ -164,29 +164,29 @@ export function AboutMax() {
 
             {/* Track Record Stat Highlights */}
             <Reveal delay={270}>
-              <div ref={statsRef} className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4 pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-white/10">
-                <div className="p-3 sm:p-0 rounded-lg bg-white/[0.04] sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-[#E8EAEE] font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
+              <div ref={statsRef} className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4 pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-gray-100">
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
                     <span>$</span>
                     <span className="tabular-nums">{hasTriggered ? stat1 : 0}</span>
                     <span>M/yr</span>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-neutral-500">Coaching Company</div>
+                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">Coaching Company</div>
                 </div>
-                <div className="p-3 sm:p-0 rounded-lg bg-white/[0.04] sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-[#E8EAEE] font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
                     <span>$</span>
                     <span className="tabular-nums">{hasTriggered ? stat2 : 0}</span>
                     <span>M</span>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-neutral-500">In 10 Months (Medical)</div>
+                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">In 10 Months (Medical)</div>
                 </div>
-                <div className="p-3 sm:p-0 rounded-lg bg-white/[0.04] sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-[#E8EAEE] font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
+                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
                     <span className="tabular-nums">{hasTriggered ? stat3 : 0}</span>
                     <span>-Figure</span>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-neutral-500">Apparel First Year</div>
+                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">Apparel First Year</div>
                 </div>
               </div>
             </Reveal>

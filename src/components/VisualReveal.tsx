@@ -84,14 +84,20 @@ export function VisualReveal({
   }, [immediate]);
 
 
+  // Under reduced motion resolve straight to the final state so the visual is
+  // never left clipped or semi-transparent behind a suppressed transition.
+  const showFinalState = isVisible || prefersReducedMotion;
+
   return (
     <div
       ref={containerRef}
       className={`overflow-hidden will-change-[clip-path,opacity] ${className}`}
       style={{
-        clipPath: isVisible ? "inset(0% 0% 0% 0%)" : insetFrom,
-        opacity: isVisible ? 1 : 0.4,
-        transition: `clip-path ${duration}ms ${EASING}, opacity ${duration}ms ${EASING}`,
+        clipPath: showFinalState ? "inset(0% 0% 0% 0%)" : insetFrom,
+        opacity: showFinalState ? 1 : 0.4,
+        transition: prefersReducedMotion
+          ? "none"
+          : `clip-path ${duration}ms ${EASING}, opacity ${duration}ms ${EASING}`,
         transitionDelay: isVisible ? `${delay}ms` : "0ms",
         ...style,
       }}
@@ -99,8 +105,10 @@ export function VisualReveal({
       <div
         className={`will-change-transform ${innerClassName}`}
         style={{
-          transform: isVisible ? "scale(1)" : `scale(${scaleFrom})`,
-          transition: `transform ${duration}ms ${EASING}`,
+          transform: showFinalState ? "scale(1)" : `scale(${scaleFrom})`,
+          transition: prefersReducedMotion
+            ? "none"
+            : `transform ${duration}ms ${EASING}`,
           transitionDelay: isVisible ? `${delay}ms` : "0ms",
         }}
       >

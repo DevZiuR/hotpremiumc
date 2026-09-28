@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
-import { CurrencySkyBackground } from "@/components/pixel-perfect/currency-sky-background";
 
 export function Hero() {
   const [isMounted, setIsMounted] = useState(false);
@@ -35,25 +34,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[100dvh] md:min-h-0 py-6 sm:py-10 md:py-[110px] lg:py-[140px] overflow-hidden bg-[#09090b] !text-white">
-      {/* Currency Sky Background */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <CurrencySkyBackground
-          className="w-full h-full"
-          style={{ backgroundColor: "#000000" }}
-          opacity={0.4}
-        />
-        {/* Soft radial vignette so typography remains crisp and high-contrast */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.45) 65%, rgba(0, 0, 0, 0.85) 100%)",
-          }}
-        />
-        {/* Bottom smooth fade to black */}
-        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black to-transparent" />
-      </div>
+    <section className="relative flex flex-col items-center justify-center min-h-[100dvh] md:min-h-0 pt-[88px] pb-6 sm:pb-10 md:pt-[104px] md:pb-[110px] lg:pt-[120px] lg:pb-[140px] overflow-hidden bg-[#FFFFFF] !text-[#0A0A0A]">
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center text-center w-full">
 
@@ -68,7 +49,7 @@ export function Hero() {
               style={{ width: 12, height: 12, background: "#2457D6" }}
               aria-hidden="true"
             />
-            <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-gray">
+            <span className="font-sans text-[12px] font-semibold tracking-[0.12em] uppercase text-[#0A0A0A]">
               Equity partnerships
             </span>
           </div>
@@ -77,12 +58,12 @@ export function Hero() {
         {/* 2 & 3. H1 with Line 1 (delay: 100ms) and Line 2 (delay: 200ms) */}
         <h1
           aria-label="We Fund Your Growth. You Keep the Business."
-          className="font-serif text-[clamp(52px,15vw,68px)] md:text-[clamp(48px,8vw,108px)] font-normal !text-white max-w-4xl mb-3 sm:mb-5 md:mb-8 tracking-[-0.03em] leading-[1.02] md:leading-[0.98]"
+          className="font-serif text-[clamp(34px,9vw,52px)] sm:text-[11.5vw] lg:text-[clamp(64px,11.5vw,128px)] font-normal !text-[#000000] w-full mb-3 sm:mb-5 md:mb-8 tracking-[-0.03em] leading-[1.1] sm:whitespace-nowrap"
         >
           <span className="block overflow-hidden py-[0.08em] -my-[0.08em]">
             <span className="block" style={getEntranceStyle(100)}>
               We Fund Your{" "}
-              <span className="inline-block align-baseline mx-[0.06em] px-[0.22em] py-[0.02em] rounded-[0.22em] bg-white text-[#2563EB] transition-[background-color,color,transform] duration-[250ms] ease-out hover:bg-white/15 hover:text-[#3B73FF] hover:scale-[1.02] motion-reduce:transition-none motion-reduce:hover:scale-100 cursor-pointer select-none">
+              <span className="inline-block align-baseline mx-[0.06em] px-[0.22em] py-[0.02em] rounded-[0.22em] bg-[#2563EB] text-white transition-[background-color,color,transform] duration-[250ms] ease-out hover:bg-[#1D4ED8] hover:text-white hover:scale-[1.02] motion-reduce:transition-none motion-reduce:hover:scale-100 cursor-pointer select-none">
                 Growth
               </span>
               .
@@ -97,10 +78,10 @@ export function Hero() {
 
         {/* 4. Subtext (delay: 300ms) */}
         <p
-          className="font-sans text-[14px] sm:text-[16px] md:text-[18px] text-[#9CA3AF] mx-auto mb-5 sm:mb-8 md:mb-11 leading-[1.45] sm:leading-[1.5] font-normal tracking-[-0.01em] px-1 sm:px-0 max-w-[46ch] md:max-w-[52ch]"
+          className="font-sans font-normal ![font-size:clamp(1.125rem,1.7vw,1.5rem)] leading-[1.33] text-[#666666] text-center max-w-[720px] mx-auto mt-5 sm:mt-3 md:mt-0 mb-10 [text-wrap:balance]"
           style={getEntranceStyle(300)}
         >
-          We put our ad budget, sales team, and technology behind operators with a proven offer. No retainer. No management fee. We only earn when your revenue grows.
+          We put our ad budget, sales team, and technology behind operators with a proven offer. No retainer. No management fee.
         </p>
 
         {/* 5. Buttons (delay: 400ms) */}
@@ -114,15 +95,10 @@ export function Hero() {
             >
               Apply for Partnership
             </Button>
-            {/* Secondary — low-contrast ghost so it doesn't compete */}
-            <Button
-              variant="sharp-outline"
-              href="#verticals"
-              className="w-full md:w-auto text-center justify-center h-[46px] !rounded-[12px] !py-0 px-8 !bg-transparent !border-[1px] !border-white/15 !text-white hover:!bg-transparent hover:!text-white/65 hover:!border-white/25 transition-all duration-300"
-            >
-              Industries we work with
-            </Button>
           </div>
+          <p className="font-sans text-[14px] tracking-[0.01em] text-[#52525B] leading-relaxed font-normal text-center mt-5">
+            Built by the founder behind a $52M/yr coaching company and $50M in 10 months.
+          </p>
         </div>
 
 

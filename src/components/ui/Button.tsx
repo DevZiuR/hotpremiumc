@@ -75,7 +75,7 @@ export function Button({
       {showPixelArrow ? (
         <PixelArrowIcon className="w-4 h-3.5 shrink-0 text-white" />
       ) : null}
-      <span className={isSharp ? "tracking-wider" : "tracking-tight"}>{children}</span>
+      <span className={isSharp ? "tracking-[0.02em]" : "tracking-[0.015em]"}>{children}</span>
       {showArrowBadge ? (
         <span
           className={`w-10 h-10 rounded-[14px] ${arrowBadgeColor} flex items-center justify-center text-ink shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 shadow-2xs`}

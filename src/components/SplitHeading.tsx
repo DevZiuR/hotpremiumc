@@ -137,6 +137,9 @@ export function SplitHeading({
       <span aria-hidden="true" className="block">
         {parsedLines.map((line, idx) => {
           const lineDelay = delay + idx * lineStagger;
+          // Under reduced motion resolve straight to the final state so the
+          // heading is never left hidden behind a suppressed transition.
+          const showFinalState = isVisible || prefersReducedMotion;
 
           return (
             <span
@@ -146,9 +149,11 @@ export function SplitHeading({
               <span
                 className="block will-change-[transform,opacity]"
                 style={{
-                  transform: isVisible ? "translateY(0%)" : "translateY(100%)",
-                  opacity: isVisible ? 1 : 0,
-                  transition: `transform ${duration}ms ${EASING}, opacity ${duration}ms ${EASING}`,
+                  transform: showFinalState ? "translateY(0%)" : "translateY(100%)",
+                  opacity: showFinalState ? 1 : 0,
+                  transition: prefersReducedMotion
+                    ? "none"
+                    : `transform ${duration}ms ${EASING}, opacity ${duration}ms ${EASING}`,
                   transitionDelay: isVisible ? `${lineDelay}ms` : "0ms",
                 }}
               >

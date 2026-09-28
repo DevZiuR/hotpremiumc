@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Geist } from "next/font/google";
+import { Instrument_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -13,12 +13,13 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
 });
 
-// Geist — clean, modern sans-serif for body, nav, buttons, labels
-const geist = Geist({
+// Instrument Sans — clean geometric sans for body, nav, buttons, labels
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
-  variable: "--font-geist",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-sans",
 });
 
 export const metadata: Metadata = {
@@ -68,7 +69,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${geist.variable} h-full antialiased`}>
+    <html lang="en" className={`${instrumentSerif.variable} ${instrumentSans.variable} h-full antialiased`}>
       <body className="font-sans bg-white text-ink min-h-full flex flex-col">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
