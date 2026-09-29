@@ -116,7 +116,7 @@ export function Hero() {
           {/* 2. H1 Headline */}
           <h1
             aria-label="We Fund Your Growth. You Keep the Business."
-            className="font-serif text-[clamp(46px,11.5vw,54px)] sm:text-[8.5vw] md:text-[clamp(54px,7.8vw,92px)] lg:text-[clamp(62px,7.8vw,112px)] font-normal text-[#000000] w-full mb-4 sm:mb-6 md:mb-8 tracking-[-0.025em] leading-[1.08] sm:leading-[1.04] sm:whitespace-nowrap"
+            className="font-serif text-[clamp(46px,11.5vw,54px)] sm:text-[8.5vw] md:text-[clamp(54px,7.8vw,92px)] lg:text-[clamp(62px,7.8vw,112px)] font-normal text-[#000000] w-full mb-4 sm:mb-6 md:mb-8 tracking-[-0.025em] leading-[1.05] sm:leading-[1.03] sm:whitespace-nowrap"
           >
             <span className="block overflow-hidden py-[0.06em] -my-[0.06em]">
               <span className="block" style={getEntranceStyle(100)}>
@@ -136,7 +136,7 @@ export function Hero() {
 
           {/* 3. Subheading */}
           <p
-            className="font-sans font-normal text-[#666666] text-[16px] sm:text-[18px] md:text-[20px] leading-[1.4] max-w-[720px] mx-auto mb-8 sm:mb-10 md:mb-12 [text-wrap:balance]"
+            className="font-sans font-normal text-[#666666] text-[18px] sm:text-[18px] md:text-[20px] leading-[1.4] max-w-[720px] mx-auto mb-8 sm:mb-10 md:mb-12 [text-wrap:balance]"
             style={getEntranceStyle(300)}
           >
             We put our ad budget, sales team, and technology behind operators with a proven offer. No retainer. No management fee.

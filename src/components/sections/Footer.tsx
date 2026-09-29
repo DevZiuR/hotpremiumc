@@ -40,7 +40,7 @@ const linkGroups: LinkGroup[] = [
     links: [
       { label: "Compliance & Data Standards", href: "/#compliance" },
       { label: "TCPA Verification", href: "/#compliance" },
-      { label: "Case Studies", href: "/#case-studies" },
+      // { label: "Case Studies", href: "/#case-studies" },
       { label: "Operator Equity Model", href: "/#how-it-works" },
     ],
   },
