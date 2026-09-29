@@ -2,20 +2,30 @@
 
 import React from "react";
 import Link from "next/link";
-import { BrailleTerrainBackground } from "@/components/pixel-perfect/braille-terrain-background";
 
-const footerSections = [
+interface LinkItem {
+  label: string;
+  href: string;
+  isExternal?: boolean;
+}
+
+interface LinkGroup {
+  heading: string;
+  links: LinkItem[];
+}
+
+const linkGroups: LinkGroup[] = [
   {
-    title: "Services",
+    heading: "Services",
     links: [
-      { label: "Core Acquisition", href: "/#lead-programs" },
-      { label: "Pay-Per-Call Programs", href: "/#lead-programs" },
-      { label: "Centralized Tech & CRM", href: "/#proven-model" },
-      { label: "Dedicated Sales Teams", href: "/#proven-model" },
+      { label: "Core Acquisition", href: "/#how-it-works" },
+      { label: "Pay-Per-Call Programs", href: "/#how-it-works" },
+      { label: "Centralized Tech & CRM", href: "/#how-it-works" },
+      { label: "Dedicated Sales Teams", href: "/#how-it-works" },
     ],
   },
   {
-    title: "Industries",
+    heading: "Industries",
     links: [
       { label: "Legal", href: "/#verticals" },
       { label: "Financial Services", href: "/#verticals" },
@@ -26,19 +36,19 @@ const footerSections = [
     ],
   },
   {
-    title: "Insights",
+    heading: "Insights",
     links: [
       { label: "Compliance & Data Standards", href: "/#compliance" },
       { label: "TCPA Verification", href: "/#compliance" },
-      { label: "Case Studies", href: "/work/lr-miami" },
-      { label: "Operator Equity Model", href: "/#proven-model" },
+      { label: "Case Studies", href: "/#case-studies" },
+      { label: "Operator Equity Model", href: "/#how-it-works" },
     ],
   },
   {
-    title: "About Us",
+    heading: "About Us",
     links: [
       { label: "About HPC", href: "/#about" },
-      { label: "50-State Coverage", href: "/#global-coverage" },
+      { label: "50-State Coverage", href: "/#verticals" },
       { label: "FAQ & Resources", href: "/#faq" },
       { label: "Apply for Partnership", href: "/#contact" },
     ],
@@ -47,106 +57,85 @@ const footerSections = [
 
 export function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden bg-black text-white pt-16 sm:pt-16 pb-12 sm:pb-8 font-sans border-t border-neutral-800/60">
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <BrailleTerrainBackground
-          className="w-full h-full"
-          background="#000000"
-          color="#8b93a1"
-          cellSize={9}
-          scale={0.05}
-          speed={0.6}
-          opacity={0.15}
-        />
-        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black to-transparent" />
-      </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
-        {/* ── Top Section: 4 Simple Link Columns ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-9 sm:gap-8 lg:gap-12">
-          {footerSections.map((section) => (
-            <div key={section.title}>
-              <h4 className="text-[11.5px] sm:text-[13px] font-medium text-neutral-400 mb-3.5 sm:mb-4 tracking-wider uppercase">
-                {section.title}
-              </h4>
-              <ul className="space-y-3 sm:space-y-3">
-                {section.links.map((link) => (
+    <footer className="relative bg-[#0A0A0A] text-white overflow-x-hidden">
+
+      {/* ── Navigation Grid ──────────────────────────────────────────────────── */}
+      <div className="w-full px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14 pt-20 sm:pt-24 lg:pt-28 pb-20 sm:pb-24 lg:pb-28 border-t border-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12 lg:gap-16">
+          {linkGroups.map((group) => (
+            <div key={group.heading} className="flex flex-col items-start">
+              {/* Instrument Serif heading — no border radius, no pill */}
+              <span className="font-serif text-[13px] uppercase tracking-[0.12em] text-white/40 select-none mb-5 block">
+                {group.heading}
+              </span>
+
+              {/* Links */}
+              <ul className="flex flex-col gap-[12px] list-none p-0 m-0">
+                {group.links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-[13px] sm:text-[14px] text-white hover:text-neutral-300 transition-colors duration-150 inline-block"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.isExternal ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-sans text-[16px] leading-snug text-white/85 hover:text-white transition-colors duration-200 inline-block"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="font-sans text-[14px] leading-snug text-white/85 hover:text-white transition-colors duration-200 inline-block"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
+      </div>
 
-        {/* ── Bottom Section: Logo, Copyright & Arrowed Social Links ── */}
-        <div className="mt-12 sm:mt-20 pt-8 sm:pt-8 border-t border-neutral-800/40 flex flex-col md:flex-row md:items-end justify-between gap-8 sm:gap-8">
-          {/* Left: Brand Mark, Name & Legal — centered on mobile */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <Link href="/" className="inline-flex items-center gap-2.5 sm:gap-2.5 mb-5.5 sm:mb-2.5 group">
-              <img
-                src="/logo-mark.png"
-                alt="Hot Premium Customers"
-                className="w-10 h-10 sm:w-10 sm:h-10 object-contain transition-transform duration-200 group-hover:scale-105"
-              />
-              <span className="font-serif text-lg sm:text-xl md:text-[25px] font-normal tracking-[0.03em] leading-none text-white uppercase">
-                Hot Premium Customers
-              </span>
-            </Link>
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-xs text-neutral-500">
-              <span>&copy; {new Date().getFullYear()} Hot Premium Customers LLC. All Rights Reserved</span>
-              <a href="#privacy" className="hover:text-neutral-400 transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#cookies" className="hover:text-neutral-400 transition-colors">
-                Cookie Policy
-              </a>
-            </div>
+      {/* ── Giant Wordmark ───────────────────────────────────────────────────────
+           Full-bleed: no horizontal padding — truly edge-to-edge.
+           overflow-x-hidden on <footer> catches any character overshoot.
+           Height = 85% of the 0.85 line-height => 0.7225em on desktop;
+           on mobile two lines so 1.57em.
+      ───────────────────────────────────────────────────────────────────────── */}
+      <div
+        className="w-full select-none h-[1.57em] md:h-[0.7225em] text-[15vw] sm:text-[16vw] md:text-[10.5vw] flex items-start justify-center"
+      >
+        {/* Desktop: single line, centered */}
+        <span className="hidden md:block whitespace-nowrap font-serif font-normal uppercase leading-[0.85] tracking-[-0.03em] text-white">
+          HOT PREMIUM CUSTOMERS
+        </span>
+
+        {/* Mobile: two lines, centered */}
+        <div className="flex md:hidden flex-col items-center font-serif font-normal uppercase leading-[0.85] tracking-[-0.03em] text-white">
+          <span>HOT PREMIUM</span>
+          <span>CUSTOMERS</span>
+        </div>
+      </div>
+
+      {/* ── Bottom Bar ── */}
+      <div className="border-t border-white/10 w-full">
+        <div className="w-full px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14 py-5 sm:py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[13px] text-white/30">
+          {/* Left: Copyright */}
+          <div className="text-center md:text-left">
+            <span>&copy; 2026 Hot Premium Customers LLC. All rights reserved.</span>
           </div>
 
-          {/* Right: Social Links — centered on mobile */}
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-6 sm:gap-6 md:gap-8">
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm sm:text-base md:text-[18px] font-medium text-white hover:text-neutral-200 transition-colors group"
-            >
-              <span>LinkedIn</span>
-              <span className="text-[#2563EB] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                ↗
-              </span>
+          {/* Right: Legal Links */}
+          <div className="flex items-center justify-center gap-6">
+            <a href="#privacy" className="hover:text-white transition-colors duration-150">
+              Privacy Policy
             </a>
-            {/* 
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm sm:text-base md:text-[18px] font-medium text-white hover:text-neutral-200 transition-colors group"
-            >
-              <span>Instagram</span>
-              <span className="text-[#2563EB] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                ↗
-              </span>
+            <span className="w-1 h-1 rounded-full bg-white/20" aria-hidden="true" />
+            <a href="#cookies" className="hover:text-white transition-colors duration-150">
+              Cookie Policy
             </a>
-            
-            <a
-              href="https://x.com/max_av_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm sm:text-base md:text-[18px] font-medium text-white hover:text-neutral-200 transition-colors group"
-            >
-              <span>X</span>
-              <span className="text-[#2563EB] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                ↗
-              </span>
-            </a>
-            */}
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@
  */
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 
 // Canonical animation constants — single source of truth for the whole site.
 const DURATION_MS = 650;
@@ -55,8 +55,10 @@ export function Reveal({
   const [visible, setVisible] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  // useLayoutEffect fires before the browser paints — no visible flash of hidden
+  // content for reduced-motion users, and no SSR/hydration mismatch (useLayoutEffect
+  // is client-only and never runs during server rendering).
+  useLayoutEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);

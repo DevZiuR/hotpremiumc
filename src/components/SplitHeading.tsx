@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, type CSSProperties } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 
 interface SplitHeadingProps {
   /**
@@ -63,9 +63,9 @@ export function SplitHeading({
   const [isVisible, setIsVisible] = useState(immediate);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  // Check prefers-reduced-motion
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  // useLayoutEffect: fires before first paint so reduced-motion users never see a
+  // flash of hidden content, without causing an SSR/hydration mismatch.
+  useLayoutEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);

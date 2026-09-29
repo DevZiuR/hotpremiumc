@@ -5,7 +5,7 @@ import { ProblemGrid } from "@/components/sections/ProblemGrid";
 import { IndustriesWeServe } from "@/components/sections/IndustriesWeServe";
 import { GlobalCoverage } from "@/components/sections/GlobalCoverage";
 import { AboutMax } from "@/components/sections/AboutMax";
-import { Testimonials } from "@/components/sections/Testimonials";
+import { CaseStudiesSection } from "@/components/sections/CaseStudiesSection";
 import { ComplianceStandards } from "@/components/sections/ComplianceStandards";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { PartnerPortfolioCTA } from "@/components/sections/PartnerPortfolioCTA";
@@ -24,8 +24,8 @@ export default function Home() {
         <IndustriesWeServe />
         <GlobalCoverage />
         <AboutMax />
-        {/* PLACEHOLDER TESTIMONIALS, replace with real quotes before launch */}
-        <Testimonials />
+        {/* Case Studies section */}
+        <CaseStudiesSection />
         <ComplianceStandards />
         <FAQSection />
         <PartnerPortfolioCTA />

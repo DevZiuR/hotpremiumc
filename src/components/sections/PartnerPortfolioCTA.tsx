@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SplitHeading } from "@/components/SplitHeading";
 
 const baseControlClassName =
-  "w-full min-h-[48px] bg-white/[0.04] rounded-sm py-3 px-4 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-0 transition-[border-color,box-shadow] duration-200 text-base font-sans border";
+  "w-full min-h-[48px] bg-transparent border-b rounded-none px-0 py-2.5 text-[20px] leading-[1.5] font-sans text-white placeholder:text-white/45 focus:outline-none focus:ring-0 transition-colors duration-200";
 
 const baseTextareaClassName = `${baseControlClassName} resize-none`;
 
@@ -124,12 +124,12 @@ export function PartnerPortfolioCTA() {
 
   const getBorderClass = (status: FieldStatus) => {
     if (status === "valid") {
-      return "border-emerald-500/80 focus:border-emerald-400 focus:shadow-[0_0_0_4px_rgba(16,185,129,0.15)]";
+      return "border-emerald-500/70 focus:border-emerald-400";
     }
     if (status === "invalid") {
-      return "border-rose-500/80 focus:border-rose-500 focus:shadow-[0_0_0_4px_rgba(244,63,94,0.18)]";
+      return "border-rose-500/70 focus:border-rose-500";
     }
-    return "border-white/10 focus:border-[#2563EB] focus:shadow-[0_0_0_4px_rgba(37,99,235,0.15)]";
+    return "border-white/25 focus:border-[#2563EB]";
   };
 
   const handleChange = (
@@ -341,7 +341,7 @@ export function PartnerPortfolioCTA() {
               as="h2"
               delay={0}
               lines={["Bring the offer.", "We fund the scale."]}
-                className="font-serif section-h2 font-normal tracking-[-0.025em] mb-4 text-white"
+              className="font-serif section-h2 font-normal tracking-[-0.025em] mb-4 text-white"
             />
 
             {/* Supporting copy */}
@@ -349,10 +349,7 @@ export function PartnerPortfolioCTA() {
               Tell us about your business and growth goals. Our team will
               review your application and get back to you within 24 hours.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/[0.14] px-[14px] py-2 font-mono text-[12px] uppercase text-neutral-300">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
-              Reviewing applications, reply within 24h
-            </div>
+
           </div>
 
           <div className="lg:col-span-7">
@@ -381,7 +378,7 @@ export function PartnerPortfolioCTA() {
                         cx="32"
                         cy="32"
                         r="28"
-                        stroke="rgba(16,185,129,0.3)"
+                        stroke="rgba(0, 0, 0, 0.3)"
                         strokeWidth="2"
                       />
                       <motion.path
@@ -398,20 +395,20 @@ export function PartnerPortfolioCTA() {
                           shouldReduceMotion
                             ? { duration: 0 }
                             : {
-                                duration: 0.65,
-                                delay: 0.2,
-                                ease: [0.16, 1, 0.3, 1],
-                              }
+                              duration: 0.65,
+                              delay: 0.2,
+                              ease: [0.16, 1, 0.3, 1],
+                            }
                         }
                       />
                     </svg>
                   </div>
 
-                  <h3 className="font-serif text-[28px] sm:text-[34px] font-normal text-white leading-tight mb-3">
+                  <h3 className="font-serif text-[28px] sm:text-[52px] font-normal text-white leading-tight mb-3">
                     Application received.
                   </h3>
                   <p className="font-sans text-[17px] sm:text-[19px] text-neutral-300 leading-relaxed max-w-[42ch] mb-6">
-                    We&apos;ll get back to you within 24 hours.
+                    We&apos;ll get back to you as soon as possible.
                   </p>
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono text-neutral-400">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -432,9 +429,8 @@ export function PartnerPortfolioCTA() {
                         {Array.from({ length: 5 }).map((_, index) => (
                           <span
                             key={`application-step-${index + 1}`}
-                            className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
-                              index < step ? "bg-[#2563EB]" : "bg-white/10"
-                            }`}
+                            className={`h-1 flex-1 rounded-full transition-colors duration-300 ${index < step ? "bg-[#2563EB]" : "bg-white/10"
+                              }`}
                           />
                         ))}
                       </div>
@@ -465,478 +461,451 @@ export function PartnerPortfolioCTA() {
                             <p className="font-mono text-[12px] uppercase text-white/45">
                               About you
                             </p>
-                            <h3 className="mt-3 font-serif text-[28px] font-normal leading-[1.2] text-white">
-                              How can we reach you?
+                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-white">
+                              First, a little about you.
                             </h3>
                             <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
-                  {/* Full Name */}
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300 mb-3"
-                    >
-                      Full Name *
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="John Smith"
-                        maxLength={120}
-                        required
-                        className={`${baseControlClassName} ${getBorderClass(
-                          fieldStatus.name
-                        )} pr-10`}
-                      />
-                      {fieldStatus.name === "valid" && (
-                        <ValidCheckmark className="inset-y-0 right-0 pr-3.5" />
-                      )}
-                    </div>
-                    {fieldStatus.name === "invalid" && (
-                      <ErrorNotice message={errorMessages.name} />
-                    )}
-                  </div>
+                              {/* Full Name */}
+                              <div>
+                                <label htmlFor="name" className="sr-only">
+                                  Full Name *
+                                </label>
+                                <div className="relative">
+                                  <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    placeholder="Your name"
+                                    maxLength={120}
+                                    required
+                                    className={`${baseControlClassName} ${getBorderClass(
+                                      fieldStatus.name
+                                    )} pr-10`}
+                                  />
+                                  {fieldStatus.name === "valid" && (
+                                    <ValidCheckmark className="inset-y-0 right-0 pr-3.5" />
+                                  )}
+                                </div>
+                                {fieldStatus.name === "invalid" && (
+                                  <ErrorNotice message={errorMessages.name} />
+                                )}
+                              </div>
 
-                  {/* Work Email */}
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300 mb-3"
-                    >
-                      Work Email *
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="john@company.com"
-                        maxLength={255}
-                        required
-                        className={`${baseControlClassName} ${getBorderClass(
-                          fieldStatus.email
-                        )} pr-10`}
-                      />
-                      {fieldStatus.email === "valid" && (
-                        <ValidCheckmark className="inset-y-0 right-0 pr-3.5" />
-                      )}
-                    </div>
-                    {fieldStatus.email === "invalid" && (
-                      <ErrorNotice message={errorMessages.email} />
-                    )}
-                  </div>
-                  <div className="md:col-span-2">
-                    <label
-                      htmlFor="phone"
-                      className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300 mb-3"
-                    >
-                      Phone *
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="(555) 123-4567"
-                        maxLength={14}
-                        required
-                        className={`${baseControlClassName} ${getBorderClass(
-                          fieldStatus.phone
-                        )} pr-10`}
-                      />
-                      {fieldStatus.phone === "valid" && (
-                        <ValidCheckmark className="inset-y-0 right-0 pr-3.5" />
-                      )}
-                    </div>
-                    {fieldStatus.phone === "invalid" && (
-                      <ErrorNotice message={errorMessages.phone} />
-                    )}
-                  </div>
-                </div>
+                              {/* Work Email */}
+                              <div>
+                                <label htmlFor="email" className="sr-only">
+                                  Work Email *
+                                </label>
+                                <div className="relative">
+                                  <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    placeholder="you@company.com"
+                                    maxLength={255}
+                                    required
+                                    className={`${baseControlClassName} ${getBorderClass(
+                                      fieldStatus.email
+                                    )} pr-10`}
+                                  />
+                                  {fieldStatus.email === "valid" && (
+                                    <ValidCheckmark className="inset-y-0 right-0 pr-3.5" />
+                                  )}
+                                </div>
+                                {fieldStatus.email === "invalid" && (
+                                  <ErrorNotice message={errorMessages.email} />
+                                )}
+                              </div>
+                              <div className="md:col-span-2">
+                                <label htmlFor="phone" className="sr-only">
+                                  Phone *
+                                </label>
+                                <div className="relative">
+                                  <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    placeholder="Your phone number"
+                                    maxLength={14}
+                                    required
+                                    className={`${baseControlClassName} ${getBorderClass(
+                                      fieldStatus.phone
+                                    )} pr-10`}
+                                  />
+                                  {fieldStatus.phone === "valid" && (
+                                    <ValidCheckmark className="inset-y-0 right-0 pr-3.5" />
+                                  )}
+                                </div>
+                                {fieldStatus.phone === "invalid" && (
+                                  <ErrorNotice message={errorMessages.phone} />
+                                )}
+                              </div>
+                            </div>
                           </div>
                         )}
 
-                  {step === 1 && (
+                        {step === 1 && (
                           <div className={stepBodyClassName}>
                             <p className="font-mono text-[12px] uppercase text-white/45">
                               Your business
                             </p>
-                      <h3 className="mt-3 font-serif text-[28px] font-normal leading-[1.2] text-white">
-                        Tell us about your business.
-                      </h3>
-                      <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
-                  {/* Company */}
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300 mb-3"
-                    >
-                      Company *
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Company, LLC"
-                        maxLength={150}
-                        required
-                        className={`${baseControlClassName} ${getBorderClass(
-                          fieldStatus.company
-                        )} pr-10`}
-                      />
-                      {fieldStatus.company === "valid" && (
-                        <ValidCheckmark className="inset-y-0 right-0 pr-3.5" />
-                      )}
-                    </div>
-                    {fieldStatus.company === "invalid" && (
-                      <ErrorNotice message={errorMessages.company} />
-                    )}
-                  </div>
+                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-white">
+                              Tell us about your business.
+                            </h3>
+                            <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
+                              {/* Company */}
+                              <div>
+                                <label htmlFor="company" className="sr-only">
+                                  Company *
+                                </label>
+                                <div className="relative">
+                                  <input
+                                    type="text"
+                                    id="company"
+                                    name="company"
+                                    value={formData.company}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    placeholder="Your company name"
+                                    maxLength={150}
+                                    required
+                                    className={`${baseControlClassName} ${getBorderClass(
+                                      fieldStatus.company
+                                    )} pr-10`}
+                                  />
+                                  {fieldStatus.company === "valid" && (
+                                    <ValidCheckmark className="inset-y-0 right-0 pr-3.5" />
+                                  )}
+                                </div>
+                                {fieldStatus.company === "invalid" && (
+                                  <ErrorNotice message={errorMessages.company} />
+                                )}
+                              </div>
 
 
-                    </div>
+                            </div>
 
-                  {/* Revenue Pills */}
-                  <div className="mt-5">
-                    <div className="relative mb-3 flex items-center justify-between gap-3">
-                      <p
-                        id="revenue-label"
-                        className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300"
-                      >
-                        Current annual revenue *
-                      </p>
-                      {fieldStatus.revenue === "valid" && (
-                        <ValidCheckmark className="inset-y-0 right-0" />
-                      )}
-                    </div>
-                    <div
-                      id="revenue"
-                      role="radiogroup"
-                      aria-labelledby="revenue-label"
-                      aria-required="true"
-                      onKeyDown={handleRevenueKeyDown}
-                      className="grid gap-3"
-                    >
-                      {revenueOptions.map((option) => {
-                        const isSelected = formData.revenue === option.value;
-                        return (
-                          <button
-                            key={option.value}
-                            type="button"
-                            role="radio"
-                            aria-checked={isSelected}
-                            data-revenue-option={option.key}
-                            onClick={() => selectRevenue(option.value)}
-                            className={`flex min-h-[48px] w-full items-center gap-4 rounded-full border px-4 py-3 text-left transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB] ${
-                              isSelected
-                                ? "border-[#2563EB] bg-[#2563EB]/15 text-white"
-                                : "border-white/10 bg-white/[0.03] text-white/80 hover:border-white/25 hover:text-white"
-                            }`}
-                          >
-                            <span
-                              aria-hidden="true"
-                              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[12px] uppercase ${
-                                isSelected
-                                  ? "border-[#2563EB] bg-[#2563EB] text-white"
-                                  : "border-white/20 text-white/60"
-                              }`}
-                            >
-                              {option.key.toUpperCase()}
-                            </span>
-                            <span className="text-[15px] font-medium">
-                              {option.label}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                    {fieldStatus.revenue === "invalid" && (
-                      <ErrorNotice message={errorMessages.revenue} />
-                    )}
-                    </div>
+                            {/* Revenue Pills */}
+                            <div className="mt-5">
+                              <div className="relative mb-3 flex items-center justify-between gap-3">
+                                <p
+                                  id="revenue-label"
+                                  className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300"
+                                >
+                                  Current annual revenue *
+                                </p>
+                                {fieldStatus.revenue === "valid" && (
+                                  <ValidCheckmark className="inset-y-0 right-0" />
+                                )}
+                              </div>
+                              <div
+                                id="revenue"
+                                role="radiogroup"
+                                aria-labelledby="revenue-label"
+                                aria-required="true"
+                                onKeyDown={handleRevenueKeyDown}
+                                className="grid gap-3"
+                              >
+                                {revenueOptions.map((option) => {
+                                  const isSelected = formData.revenue === option.value;
+                                  return (
+                                    <button
+                                      key={option.value}
+                                      type="button"
+                                      role="radio"
+                                      aria-checked={isSelected}
+                                      data-revenue-option={option.key}
+                                      onClick={() => selectRevenue(option.value)}
+                                      className={`flex min-h-[48px] w-full items-center gap-4 rounded-full border px-4 py-3 text-left transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB] ${isSelected
+                                        ? "border-[#2563EB] bg-[#2563EB]/15 text-white"
+                                        : "border-white/10 bg-white/[0.03] text-white/80 hover:border-white/25 hover:text-white"
+                                        }`}
+                                    >
+                                      <span
+                                        aria-hidden="true"
+                                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[12px] uppercase ${isSelected
+                                          ? "border-[#2563EB] bg-[#2563EB] text-white"
+                                          : "border-white/20 text-white/60"
+                                          }`}
+                                      >
+                                        {option.key.toUpperCase()}
+                                      </span>
+                                      <span className="text-[15px] font-medium">
+                                        {option.label}
+                                      </span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                              {fieldStatus.revenue === "invalid" && (
+                                <ErrorNotice message={errorMessages.revenue} />
+                              )}
+                            </div>
                           </div>
                         )}
 
-                  {step === 2 && (
+                        {step === 2 && (
                           <div className={stepBodyClassName}>
                             <p className="font-mono text-[12px] uppercase text-white/45">
                               The partnership
                             </p>
-                      <h3 className="mt-3 font-serif text-[28px] font-normal leading-[1.2] text-white">
-                        What are you looking for?
-                      </h3>
-                      <div className="mt-8 space-y-5">
-                    <label
-                      htmlFor="looking_for"
-                      className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300 mb-3"
-                    >
-                      What are you looking for? *
-                    </label>
-                    <div className="relative">
-                      <textarea
-                        id="looking_for"
-                        name="looking_for"
-                        rows={2}
-                        value={formData.looking_for}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="e.g. Exclusive MVA leads in Texas, ~50/month"
-                        maxLength={1000}
-                        required
-                        className={`${baseTextareaClassName} ${getBorderClass(
-                          fieldStatus.looking_for
-                        )} pr-10`}
-                      />
-                      {fieldStatus.looking_for === "valid" && (
-                        <ValidCheckmark className="top-3.5 right-3.5" />
-                      )}
-                    </div>
-                    <div className="flex items-center justify-end mt-1.5">
-                      <span className="text-[11px] font-mono text-neutral-600">
-                        {formData.looking_for.length}/1000
-                      </span>
-                    </div>
-                    {fieldStatus.looking_for === "invalid" && (
-                      <ErrorNotice message={errorMessages.looking_for} />
-                    )}
-                  </div>
+                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-white">
+                              What are you looking for?
+                            </h3>
+                            <div className="mt-8 space-y-5">
+                              <label htmlFor="looking_for" className="sr-only">
+                                What are you looking for? *
+                              </label>
+                              <div className="relative">
+                                <textarea
+                                  id="looking_for"
+                                  name="looking_for"
+                                  rows={2}
+                                  value={formData.looking_for}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  placeholder="e.g. Exclusive MVA leads in Texas, ~50/month"
+                                  maxLength={1000}
+                                  required
+                                  className={`${baseTextareaClassName} ${getBorderClass(
+                                    fieldStatus.looking_for
+                                  )} pr-10`}
+                                />
+                                {fieldStatus.looking_for === "valid" && (
+                                  <ValidCheckmark className="top-3.5 right-3.5" />
+                                )}
+                              </div>
+                              <div className="flex items-center justify-end mt-1.5">
+                                <span className="text-[11px] font-mono text-neutral-600">
+                                  {formData.looking_for.length}/1000
+                                </span>
+                              </div>
+                              {fieldStatus.looking_for === "invalid" && (
+                                <ErrorNotice message={errorMessages.looking_for} />
+                              )}
+                            </div>
                           </div>
                         )}
 
-                  {step === 3 && (
+                        {step === 3 && (
                           <div className={stepBodyClassName}>
                             <p className="font-mono text-[12px] uppercase text-white/45">
                               The partnership
                             </p>
-                      <h3 className="mt-3 font-serif text-[28px] font-normal leading-[1.2] text-white">
-                        What’s the offer you have for us?
-                      </h3>
-                      <div className="mt-8 space-y-5">
+                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-white">
+                              What’s the offer you have for us?
+                            </h3>
+                            <div className="mt-8 space-y-5">
 
-                  {/* What is the offer that you have for us? */}
-                  <div>
-                    <label
-                      htmlFor="offer"
-                      className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300 mb-0"
-                    >
-                      WHAT&apos;S THE OFFER YOU HAVE FOR US? *
-                    </label>
-                    <p className="text-[13px] leading-[1.4] text-[rgba(255,255,255,0.55)] mt-[6px] mb-[10px]">
-                      Include revenue share terms, volume commitments, or other
-                      value propositions.
-                    </p>
-                    <div className="relative">
-                      <textarea
-                        id="offer"
-                        name="offer"
-                        rows={2}
-                        value={formData.offer}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Describe your offer"
-                        maxLength={1000}
-                        required
-                        className={`${baseTextareaClassName} ${getBorderClass(
-                          fieldStatus.offer
-                        )} pr-10`}
-                      />
-                      {fieldStatus.offer === "valid" && (
-                        <ValidCheckmark className="top-3.5 right-3.5" />
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between mt-1.5">
-                      <span className="text-[12px] text-neutral-500 font-sans">
-                        A few sentences is usually enough.
-                      </span>
-                      <span className="text-[11px] font-mono text-neutral-600">
-                        {formData.offer.length}/1000
-                      </span>
-                    </div>
-                    {fieldStatus.offer === "invalid" && (
-                      <ErrorNotice message={errorMessages.offer} />
-                    )}
-                    </div>
+                              {/* What is the offer that you have for us? */}
+                              <div>
+                                <label htmlFor="offer" className="sr-only">
+                                  WHAT&apos;S THE OFFER YOU HAVE FOR US? *
+                                </label>
+                                <p className="text-[13px] leading-[1.4] text-[rgba(255,255,255,0.55)] mt-[6px] mb-[10px]">
+                                  Include revenue share terms, volume commitments, or other
+                                  value propositions.
+                                </p>
+                                <div className="relative">
+                                  <textarea
+                                    id="offer"
+                                    name="offer"
+                                    rows={2}
+                                    value={formData.offer}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    placeholder="Describe your offer"
+                                    maxLength={1000}
+                                    required
+                                    className={`${baseTextareaClassName} ${getBorderClass(
+                                      fieldStatus.offer
+                                    )} pr-10`}
+                                  />
+                                  {fieldStatus.offer === "valid" && (
+                                    <ValidCheckmark className="top-3.5 right-3.5" />
+                                  )}
+                                </div>
+                                <div className="flex items-center justify-between mt-1.5">
+                                  <span className="text-[12px] text-neutral-500 font-sans">
+                                    A few sentences is usually enough.
+                                  </span>
+                                  <span className="text-[11px] font-mono text-neutral-600">
+                                    {formData.offer.length}/1000
+                                  </span>
+                                </div>
+                                {fieldStatus.offer === "invalid" && (
+                                  <ErrorNotice message={errorMessages.offer} />
+                                )}
+                              </div>
 
-                  {/* Why are you a strong partner? */}
-                  <div>
-                    <label
-                      htmlFor="luxury_answer"
-                      className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300 mb-3"
-                    >
-                      Why are you a strong partner?{" "}
-                      <span className="normal-case tracking-normal text-neutral-500">
-                        (Optional)
-                      </span>
-                    </label>
-                    <div className="relative">
-                      <textarea
-                        id="luxury_answer"
-                        name="luxury_answer"
-                        rows={2}
-                        value={formData.luxury_answer}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Tell us about your track record and what sets you apart"
-                        maxLength={1000}
-                        className={`${baseTextareaClassName} ${getBorderClass(
-                          fieldStatus.luxury_answer
-                        )} pr-10`}
-                      />
-                      {fieldStatus.luxury_answer === "valid" &&
-                        formData.luxury_answer.trim() !== "" && (
-                          <ValidCheckmark className="top-3.5 right-3.5" />
-                        )}
-                    </div>
-                    <div className="flex items-center justify-between mt-1.5">
-                      <span className="text-[12px] text-neutral-500 font-sans">
-                        A few sentences is usually enough.
-                      </span>
-                      <span className="text-[11px] font-mono text-neutral-600">
-                        {formData.luxury_answer.length}/1000
-                      </span>
-                    </div>
-                    {fieldStatus.luxury_answer === "invalid" && (
-                      <ErrorNotice message={errorMessages.luxury_answer} />
-                    )}
-                  </div>
-                    </div>
+                              {/* Why are you a strong partner? */}
+                              <div>
+                                <label htmlFor="luxury_answer" className="sr-only">
+                                  Why are you a strong partner? (Optional)
+                                </label>
+                                <div className="relative">
+                                  <textarea
+                                    id="luxury_answer"
+                                    name="luxury_answer"
+                                    rows={2}
+                                    value={formData.luxury_answer}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    placeholder="Tell us about your track record and what sets you apart"
+                                    maxLength={1000}
+                                    className={`${baseTextareaClassName} ${getBorderClass(
+                                      fieldStatus.luxury_answer
+                                    )} pr-10`}
+                                  />
+                                  {fieldStatus.luxury_answer === "valid" &&
+                                    formData.luxury_answer.trim() !== "" && (
+                                      <ValidCheckmark className="top-3.5 right-3.5" />
+                                    )}
+                                </div>
+                                <div className="flex items-center justify-between mt-1.5">
+                                  <span className="text-[12px] text-neutral-500 font-sans">
+                                    A few sentences is usually enough.
+                                  </span>
+                                  <span className="text-[11px] font-mono text-neutral-600">
+                                    {formData.luxury_answer.length}/1000
+                                  </span>
+                                </div>
+                                {fieldStatus.luxury_answer === "invalid" && (
+                                  <ErrorNotice message={errorMessages.luxury_answer} />
+                                )}
+                              </div>
+                            </div>
                           </div>
                         )}
 
-                  {step === 4 && (
+                        {step === 4 && (
                           <div className={stepBodyClassName}>
                             <p className="font-mono text-[12px] uppercase text-white/45">
                               Submit
                             </p>
-                      <h3 className="mt-3 font-serif text-[28px] font-normal leading-[1.2] text-white">
-                        Confirm and submit your application.
-                      </h3>
-                      <div className="mt-8 space-y-5">
+                            <h3 className="mt-3 font-serif text-[28px] font-normal leading-[1.2] text-white">
+                              Confirm and submit your application.
+                            </h3>
+                            <div className="mt-8 space-y-5">
 
-                  {/* SMS Consent Checkbox */}
-                  <div className="pt-2">
-                    <div className="flex items-start gap-3">
-                      <input
-                        type="checkbox"
-                        id="sms-consent"
-                        checked={smsConsent}
-                        onChange={(event) => {
-                          setSmsConsent(event.target.checked);
-                          if (event.target.checked) setShowSmsError(false);
-                        }}
-                        className="mt-1 w-4 h-4 rounded border-white/20 bg-white/10 text-white focus:ring-0 focus:ring-offset-0 cursor-pointer accent-white shrink-0"
-                      />
-                      <label
-                        htmlFor="sms-consent"
-                        className="text-[12px] sm:text-[13px] leading-snug text-neutral-500 text-left cursor-pointer select-none"
-                      >
-                        By checking this box, I agree to receive SMS messages
-                        from Hot Premium Customers. Message &amp; data rates
-                        may apply. Reply STOP to opt out at any time. View our{" "}
-                        <a
-                          href="#privacy"
-                          className="underline text-neutral-300 hover:text-white transition-colors"
-                        >
-                          Privacy Policy
-                        </a>
-                        .
-                      </label>
-                    </div>
-                    {showSmsError && (
-                      <p className="text-[12px] sm:text-[13px] text-rose-400 font-medium pl-7 mt-2 flex items-center gap-1.5">
-                        <svg
-                          className="w-3.5 h-3.5 shrink-0"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          aria-hidden="true"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>Please agree to receive SMS messages to continue.</span>
-                      </p>
-                    )}
-                  </div>
+                              {/* SMS Consent Checkbox */}
+                              <div className="pt-2">
+                                <div className="flex items-start gap-3">
+                                  <input
+                                    type="checkbox"
+                                    id="sms-consent"
+                                    checked={smsConsent}
+                                    onChange={(event) => {
+                                      setSmsConsent(event.target.checked);
+                                      if (event.target.checked) setShowSmsError(false);
+                                    }}
+                                    className="mt-1 w-4 h-4 rounded border-white/20 bg-white/10 text-white focus:ring-0 focus:ring-offset-0 cursor-pointer accent-white shrink-0"
+                                  />
+                                  <label
+                                    htmlFor="sms-consent"
+                                    className="text-[12px] sm:text-[13px] leading-snug text-neutral-500 text-left cursor-pointer select-none"
+                                  >
+                                    By checking this box, I agree to receive SMS messages
+                                    from Hot Premium Customers. Message &amp; data rates
+                                    may apply. Reply STOP to opt out at any time. View our{" "}
+                                    <a
+                                      href="#privacy"
+                                      className="underline text-neutral-300 hover:text-white transition-colors"
+                                    >
+                                      Privacy Policy
+                                    </a>
+                                    .
+                                  </label>
+                                </div>
+                                {showSmsError && (
+                                  <p className="text-[12px] sm:text-[13px] text-rose-400 font-medium pl-7 mt-2 flex items-center gap-1.5">
+                                    <svg
+                                      className="w-3.5 h-3.5 shrink-0"
+                                      fill="currentColor"
+                                      viewBox="0 0 20 20"
+                                      aria-hidden="true"
+                                    >
+                                      <path
+                                        fillRule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                        clipRule="evenodd"
+                                      />
+                                    </svg>
+                                    <span>Please agree to receive SMS messages to continue.</span>
+                                  </p>
+                                )}
+                              </div>
 
-                  {/* Submit Button */}
-                  <div className="pt-4">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`group relative w-full overflow-hidden py-4 px-8 rounded-lg bg-[#2563EB] text-white font-semibold text-sm hover:bg-[#1d4ed8] transition-all duration-200 active:scale-[0.99] flex items-center justify-center gap-3 uppercase tracking-wide ${
-                        isSubmitting ? "opacity-75 cursor-not-allowed" : "cursor-pointer"
-                      }`}
-                    >
-                      {!isSubmitting && (
-                        <span
-                          aria-hidden="true"
-                          className="pointer-events-none absolute -inset-y-8 -left-1/3 w-1/4 skew-x-[-20deg] bg-white/20 opacity-0 blur-sm transition-all duration-700 ease-out group-hover:translate-x-[500%] group-hover:opacity-100"
-                        />
-                      )}
-                      {isSubmitting ? (
-                        <>
-                          <svg
-                            className="animate-spin h-4 w-4 text-white shrink-0"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            />
-                          </svg>
-                          <span className="relative z-10">Submitting...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span className="relative z-10">Submit Application</span>
-                          <span
-                            aria-hidden="true"
-                            className="relative z-10 transition-transform duration-200 group-hover:translate-x-1"
-                          >
-                            →
-                          </span>
-                        </>
-                      )}
-                    </button>
+                              {/* Submit Button */}
+                              <div className="pt-4">
+                                <button
+                                  type="submit"
+                                  disabled={isSubmitting}
+                                  className={`group relative w-full overflow-hidden py-4 px-8 rounded-lg bg-[#2563EB] text-white font-semibold text-sm hover:bg-[#1d4ed8] transition-all duration-200 active:scale-[0.99] flex items-center justify-center gap-3 uppercase tracking-wide ${isSubmitting ? "opacity-75 cursor-not-allowed" : "cursor-pointer"
+                                    }`}
+                                >
+                                  {!isSubmitting && (
+                                    <span
+                                      aria-hidden="true"
+                                      className="pointer-events-none absolute -inset-y-8 -left-1/3 w-1/4 skew-x-[-20deg] bg-white/20 opacity-0 blur-sm transition-all duration-700 ease-out group-hover:translate-x-[500%] group-hover:opacity-100"
+                                    />
+                                  )}
+                                  {isSubmitting ? (
+                                    <>
+                                      <svg
+                                        className="animate-spin h-4 w-4 text-white shrink-0"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                      >
+                                        <circle
+                                          className="opacity-25"
+                                          cx="12"
+                                          cy="12"
+                                          r="10"
+                                          stroke="currentColor"
+                                          strokeWidth="4"
+                                        />
+                                        <path
+                                          className="opacity-75"
+                                          fill="currentColor"
+                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                        />
+                                      </svg>
+                                      <span className="relative z-10">Submitting...</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <span className="relative z-10">Submit Application</span>
+                                      <span
+                                        aria-hidden="true"
+                                        className="relative z-10 transition-transform duration-200 group-hover:translate-x-1"
+                                      >
+                                        →
+                                      </span>
+                                    </>
+                                  )}
+                                </button>
 
-                    <p className="text-[13px] text-[rgba(255,255,255,0.55)] text-center mt-5 leading-[1.6]">
-                      By submitting, you agree to be contacted about your
-                      application. We never share your information.
-                    </p>
-                    <p className="text-[13px] text-[rgba(255,255,255,0.55)] text-center mt-3 leading-[1.6]">
-                      No retainer. No management fee.
-                    </p>
-                  </div>
-                    </div>
+                                <p className="text-[13px] text-[rgba(255,255,255,0.55)] text-center mt-5 leading-[1.6]">
+                                  By submitting, you agree to be contacted about your
+                                  application. We never share your information.
+                                </p>
+                                <p className="text-[13px] text-[rgba(255,255,255,0.55)] text-center mt-3 leading-[1.6]">
+                                  No retainer. No management fee.
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         )}
                       </motion.div>
@@ -948,7 +917,7 @@ export function PartnerPortfolioCTA() {
                             type="button"
                             disabled={!isCurrentStepValid || isSubmitting}
                             onClick={() => void goNext()}
-                            className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#2563EB] px-8 text-sm font-semibold uppercase tracking-wide text-white transition-colors duration-200 hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+                            className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#2563EB] px-8 text-sm font-semibold  tracking-wide text-white transition-colors duration-200 hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
                           >
                             Continue
                             <span aria-hidden="true">→</span>

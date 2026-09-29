@@ -80,7 +80,7 @@ export function FAQSection() {
 
               return (
                 <div key={faq.question} className="border-b border-neutral-200">
-                  <div className="py-9 md:py-11">
+                  <div className="py-7 md:py-9">
                     <button
                       type="button"
                       onClick={() => toggleFAQ(index)}
@@ -88,14 +88,13 @@ export function FAQSection() {
                       aria-expanded={isOpen}
                       aria-controls={answerId}
                     >
-                      <span className="font-serif text-[28px] leading-[1.1] md:text-[46px] md:leading-[51px] font-normal text-[#12151B] tracking-[-0.01em] min-w-0 [text-wrap:balance]">
+                      <span className="font-serif text-[28px] leading-[1.1] md:text-[40px] md:leading-[51px] font-normal text-[#12151B] tracking-[-0.01em] min-w-0 [text-wrap:balance]">
                         {faq.question}
                       </span>
                       <span className="shrink-0 w-11 h-11 rounded-full border border-[#2563EB] flex items-center justify-center group-hover:bg-[#2563EB]/10 transition-colors duration-200 motion-reduce:transition-none">
                         <svg
-                          className={`w-4 h-4 transition-transform duration-300 ease-out motion-reduce:transition-none ${
-                            isOpen ? "rotate-180" : "rotate-0"
-                          }`}
+                          className={`w-4 h-4 transition-transform duration-300 ease-out motion-reduce:transition-none ${isOpen ? "rotate-180" : "rotate-0"
+                            }`}
                           fill="none"
                           viewBox="0 0 16 16"
                           stroke="#2563EB"
@@ -113,9 +112,8 @@ export function FAQSection() {
                       id={answerId}
                       role="region"
                       aria-hidden={!isOpen}
-                      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
-                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                      }`}
+                      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                        }`}
                     >
                       <div className="overflow-hidden">
                         <p className="font-sans text-[18px] md:text-[20px] text-neutral-500 leading-[1.6] font-normal max-w-[700px] mt-5 md:mt-6">

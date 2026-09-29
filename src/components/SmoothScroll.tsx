@@ -39,6 +39,9 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       ScrollTrigger.update();
     });
 
+    // Recompute layout positions once so ScrollTrigger starts with accurate data
+    ScrollTrigger.refresh();
+
     // Expose lenis instance globally for external triggers or debugging
     (window as unknown as { lenis?: Lenis }).lenis = lenis;
 

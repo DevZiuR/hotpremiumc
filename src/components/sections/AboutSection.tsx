@@ -141,11 +141,11 @@ export function AboutSection({
     );
   }
 
-  const sectionRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const el = sectionRef.current;
+    const el = cardRef.current;
     if (!el) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -156,30 +156,41 @@ export function AboutSection({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setRevealed(true);
-          // Fires once per page load; scrolling back up will not re-hide it.
-          observer.disconnect();
+          // Double-rAF: ensures the browser paints the initial opacity-0 state
+          // at least once before we flip to revealed. Without this, when the
+          // element is already in the viewport on load, React batches the
+          // initial render + state update into a single paint and the CSS
+          // transition never plays.
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setRevealed(true);
+              observer.disconnect();
+            });
+          });
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.08 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const revealState = revealed
-    ? "opacity-100 translate-y-0"
-    : "opacity-0 translate-y-6";
-
   return (
     <section
       id="about"
-      ref={sectionRef}
-      className="bg-white py-6 sm:py-10 md:py-14 px-4 sm:px-6 lg:px-8"
+      className="bg-black py-6 sm:py-8 md:py-10 px-4 sm:px-4 lg:px-6"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-12 sm:py-16 md:py-18 px-6 sm:px-12 lg:px-16 text-center shadow-2xl">
+        {/* Blue Callout Card with scroll-triggered entrance animation */}
+        <div
+          ref={cardRef}
+          className={`relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-10 sm:py-12 md:py-14 px-6 sm:px-12 lg:px-16 text-center shadow-2xl transition-[opacity,transform] duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+            revealed
+              ? "opacity-100 translate-y-0 scale-100"
+              : "opacity-0 translate-y-8 scale-[0.98]"
+          }`}
+        >
           {/* Top-left window decorative dots */}
           {/*
             <div
@@ -202,10 +213,15 @@ export function AboutSection({
             />
           </div>
 
-          {/* Left decorative element: Orbit-ring / wireframe globe motif */}
+          {/* Left decorative element: Orbit-ring / wireframe globe motif with entrance animation */}
           <svg
             aria-hidden="true"
-            className="absolute -left-12 -bottom-16 sm:-bottom-12 w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] pointer-events-none opacity-15 text-white"
+            className={`absolute -left-12 -bottom-16 sm:-bottom-12 w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] pointer-events-none text-white transition-[opacity,transform] duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+              revealed
+                ? "opacity-15 scale-100 rotate-0 translate-x-0"
+                : "opacity-0 scale-90 -rotate-6 -translate-x-6"
+            }`}
+            style={{ transitionDelay: revealed ? "200ms" : "0ms" }}
             viewBox="0 0 400 400"
             fill="none"
             stroke="currentColor"
@@ -217,10 +233,15 @@ export function AboutSection({
             <ellipse cx="200" cy="200" rx="60" ry="180" strokeWidth="1" />
           </svg>
 
-          {/* Right decorative element: Frequency waveform / soundwave motif */}
+          {/* Right decorative element: Frequency waveform / soundwave motif with entrance animation */}
           <svg
             aria-hidden="true"
-            className="absolute -right-4 sm:right-6 bottom-0 w-[180px] sm:w-[260px] h-[85%] pointer-events-none opacity-15 text-white"
+            className={`absolute -right-4 sm:right-6 bottom-0 w-[180px] sm:w-[260px] h-[85%] pointer-events-none text-white origin-bottom-right transition-[opacity,transform] duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+              revealed
+                ? "opacity-15 scale-100 translate-x-0"
+                : "opacity-0 scale-90 translate-x-8"
+            }`}
+            style={{ transitionDelay: revealed ? "300ms" : "0ms" }}
             viewBox="0 0 200 360"
             fill="none"
             stroke="currentColor"
@@ -230,8 +251,10 @@ export function AboutSection({
               const progress = i / 34;
               const spread = Math.sin(Math.pow(1 - progress, 0.72) * Math.PI);
               const width = 14 + spread * 165;
-              const x1 = 100 - width / 2;
-              const x2 = 100 + width / 2;
+              // Round to 4 dp: eliminates server/client floating-point epsilon
+              // differences that generate 21 React hydration mismatch warnings.
+              const x1 = parseFloat((100 - width / 2).toFixed(4));
+              const x2 = parseFloat((100 + width / 2).toFixed(4));
               return (
                 <line
                   key={i}
@@ -248,21 +271,35 @@ export function AboutSection({
 
           {/* Centered Content */}
           <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
-            <h2 className="font-sans text-[clamp(32px,7.5vw,42px)] md:text-[clamp(40px,3.8vw,54px)] font-medium leading-[1.24] tracking-[-0.025em] max-w-[960px] mx-auto text-center [text-wrap:balance] uppercase">
+            <h2
+              className="font-sans text-[clamp(32px,7.5vw,42px)] md:text-[clamp(40px,3.8vw,54px)] font-medium leading-[1.24] tracking-[-0.025em] max-w-[960px] mx-auto text-center [text-wrap:balance] uppercase"
+            >
               {segments.map((segment, index) =>
                 segment.kind === "text" ? (
                   <span
                     key={`text-${index}`}
-                    className={`${revealBase} ${revealState} text-white`}
-                    style={{ transitionDelay: "0ms" }}
+                    className={`transition-[opacity,transform] duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none text-white ${
+                      revealed
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-4"
+                    }`}
+                    style={{ transitionDelay: revealed ? "250ms" : "0ms" }}
                   >
                     {segment.value}
                   </span>
                 ) : (
                   <span
                     key={`pill-${index}`}
-                    className={`inline-block align-middle ${revealBase} ${revealState}`}
-                    style={{ transitionDelay: `${segment.delay}ms` }}
+                    className={`inline-block align-middle transition-[opacity,transform] duration-[550ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none ${
+                      revealed
+                        ? "opacity-100 translate-y-0 scale-100"
+                        : "opacity-0 translate-y-4 scale-[0.88]"
+                    }`}
+                    style={{
+                      transitionDelay: revealed
+                        ? `${380 + segment.delay}ms`
+                        : "0ms",
+                    }}
                   >
                     <span className={pillClassName}>
                       <span>{segment.value}</span>

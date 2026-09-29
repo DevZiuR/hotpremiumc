@@ -78,8 +78,10 @@ export function StillDecidingCTA() {
               const progress = i / 34;
               const spread = Math.sin(Math.pow(1 - progress, 0.72) * Math.PI);
               const width = 14 + spread * 165;
-              const x1 = 100 - width / 2;
-              const x2 = 100 + width / 2;
+              // Round to 4 dp: eliminates server/client floating-point epsilon
+              // differences that cause React hydration mismatch warnings.
+              const x1 = parseFloat((100 - width / 2).toFixed(4));
+              const x2 = parseFloat((100 + width / 2).toFixed(4));
               return (
                 <line
                   key={i}
