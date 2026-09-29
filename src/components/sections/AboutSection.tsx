@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import DotField from "@/components/DotField";
 
 interface AboutSectionProps {
@@ -89,11 +90,16 @@ function splitOnPhrase(
   if (tail) segments.push({ kind: "text", value: tail });
 }
 
+/** Spring config shared across all scroll-driven values */
+const SPRING = { stiffness: 55, damping: 18, mass: 0.8 };
+
 export function AboutSection({
   primaryText,
   continuationText,
   statement,
 }: AboutSectionProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   const defaultPrimary =
     "Lead vendors get paid whether you win or not. We don't. Hot Premium Customers is an equity growth partner.";
   const defaultContinuation =
@@ -141,65 +147,61 @@ export function AboutSection({
     );
   }
 
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [revealed, setRevealed] = useState(false);
+  // ── Scroll tracking ────────────────────────────────────────────────────────
+  const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const el = cardRef.current;
-    if (!el) return;
+  /**
+   * 0 = section top at viewport bottom (just entering)
+   * 1 = section bottom at viewport top (just leaving)
+   */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setRevealed(true);
-      return;
-    }
+  // ── Raw motion values ──────────────────────────────────────────────────────
+  // Card fades + lifts in on enter, gently fades on exit
+  const rawCardOpacity  = useTransform(scrollYProgress, [0, 0.18, 0.72, 1],   [0, 1, 1, 0.55]);
+  const rawCardY        = useTransform(scrollYProgress, [0, 0.22],             [56, 0]);
+  const rawCardScale    = useTransform(scrollYProgress, [0, 0.22],             [0.97, 1]);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Double-rAF: ensures the browser paints the initial opacity-0 state
-          // at least once before we flip to revealed.
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              setRevealed(true);
-              observer.disconnect();
-            });
-          });
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
-    );
+  // Globe slides in from the left on enter, drifts left on exit
+  const rawGlobeX       = useTransform(scrollYProgress, [0, 0.28, 0.85, 1],   [-44, 0, 0, -16]);
+  const rawGlobeOpacity = useTransform(scrollYProgress, [0, 0.2, 0.78, 1],    [0, 0.15, 0.15, 0]);
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  // Waveform slides in from the right
+  const rawWaveX        = useTransform(scrollYProgress, [0, 0.28, 0.85, 1],   [44, 0, 0, 16]);
+  const rawWaveOpacity  = useTransform(scrollYProgress, [0, 0.2, 0.78, 1],    [0, 0.15, 0.15, 0]);
+
+  // Content lifts in just after the card
+  const rawContentY     = useTransform(scrollYProgress, [0.05, 0.28],          [30, 0]);
+  const rawContentOp    = useTransform(scrollYProgress, [0.05, 0.26, 0.75, 1], [0, 1, 1, 0.65]);
+
+  // ── Springified values (smooth physics-based scroll following) ─────────────
+  /* eslint-disable react-hooks/rules-of-hooks */
+  const cardOpacity  = shouldReduceMotion ? rawCardOpacity  : useSpring(rawCardOpacity,  SPRING);
+  const cardY        = shouldReduceMotion ? rawCardY        : useSpring(rawCardY,        SPRING);
+  const cardScale    = shouldReduceMotion ? rawCardScale    : useSpring(rawCardScale,    SPRING);
+  const globeX       = shouldReduceMotion ? rawGlobeX       : useSpring(rawGlobeX,       SPRING);
+  const globeOpacity = shouldReduceMotion ? rawGlobeOpacity : useSpring(rawGlobeOpacity, SPRING);
+  const waveX        = shouldReduceMotion ? rawWaveX        : useSpring(rawWaveX,        SPRING);
+  const waveOpacity  = shouldReduceMotion ? rawWaveOpacity  : useSpring(rawWaveOpacity,  SPRING);
+  const contentY     = shouldReduceMotion ? rawContentY     : useSpring(rawContentY,     SPRING);
+  const contentOp    = shouldReduceMotion ? rawContentOp    : useSpring(rawContentOp,    SPRING);
+  /* eslint-enable react-hooks/rules-of-hooks */
 
   return (
     <section
+      ref={sectionRef}
       id="about"
       className="bg-black py-6 sm:py-8 md:py-10 px-4 sm:px-4 lg:px-6"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Blue Callout Card with scroll-triggered entrance animation */}
-        <div
-          ref={cardRef}
-          className={`relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-10 sm:py-12 md:py-14 px-6 sm:px-12 lg:px-16 text-center shadow-2xl transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
-            revealed
-              ? "opacity-100 translate-y-0 scale-100"
-              : "opacity-0 translate-y-8 scale-[0.98]"
-          }`}
+        {/* ── Blue Callout Card ─────────────────────────────────────────────── */}
+        <motion.div
+          style={{ opacity: cardOpacity, y: cardY, scale: cardScale }}
+          className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-10 sm:py-12 md:py-14 px-6 sm:px-12 lg:px-16 text-center shadow-2xl will-change-transform"
         >
-          {/* Top-left window decorative dots */}
-          {/*
-            <div
-              className="absolute top-5 left-6 sm:top-6 sm:left-8 flex items-center gap-1.5 opacity-30 select-none pointer-events-none"
-              aria-hidden="true"
-            >
-              <span className="w-2.5 h-2.5 rounded-full bg-white" />
-              <span className="w-2.5 h-2.5 rounded-full bg-white" />
-              <span className="w-2.5 h-2.5 rounded-full bg-white" />
-            </div>
-             */}
-
           {/* Faint DotField canvas background */}
           <div className="absolute inset-0 pointer-events-none opacity-20">
             <DotField
@@ -210,14 +212,11 @@ export function AboutSection({
             />
           </div>
 
-          {/* Left decorative element: Orbit-ring / wireframe globe motif with entrance animation */}
-          <svg
+          {/* Left decorative element: Orbit-ring / wireframe globe motif */}
+          <motion.svg
             aria-hidden="true"
-            className={`absolute -left-12 -bottom-16 sm:-bottom-12 w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] pointer-events-none text-white transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
-              revealed
-                ? "opacity-15 scale-100 rotate-0 translate-x-0 delay-200"
-                : "opacity-0 scale-90 -rotate-6 -translate-x-6 delay-0"
-            }`}
+            style={{ opacity: globeOpacity, x: globeX }}
+            className="absolute -left-12 -bottom-16 sm:-bottom-12 w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] pointer-events-none text-white will-change-transform"
             viewBox="0 0 400 400"
             fill="none"
             stroke="currentColor"
@@ -227,16 +226,13 @@ export function AboutSection({
             <ellipse cx="200" cy="200" rx="180" ry="60" strokeWidth="1" />
             <ellipse cx="200" cy="200" rx="120" ry="180" strokeWidth="1" strokeDasharray="4 4" />
             <ellipse cx="200" cy="200" rx="60" ry="180" strokeWidth="1" />
-          </svg>
+          </motion.svg>
 
-          {/* Right decorative element: Frequency waveform / soundwave motif with entrance animation */}
-          <svg
+          {/* Right decorative element: Frequency waveform / soundwave motif */}
+          <motion.svg
             aria-hidden="true"
-            className={`absolute -right-4 sm:right-6 bottom-0 w-[180px] sm:w-[260px] h-[85%] pointer-events-none text-white origin-bottom-right transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
-              revealed
-                ? "opacity-15 scale-100 translate-x-0 delay-300"
-                : "opacity-0 scale-90 translate-x-8 delay-0"
-            }`}
+            style={{ opacity: waveOpacity, x: waveX }}
+            className="absolute -right-4 sm:right-6 bottom-0 w-[180px] sm:w-[260px] h-[85%] pointer-events-none text-white origin-bottom-right will-change-transform"
             viewBox="0 0 200 360"
             fill="none"
             stroke="currentColor"
@@ -262,55 +258,42 @@ export function AboutSection({
                 />
               );
             })}
-          </svg>
+          </motion.svg>
 
           {/* Centered Content */}
-          <div
-            className={`relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center transition-all duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
-              revealed
-                ? "opacity-100 translate-y-0 delay-200"
-                : "opacity-0 translate-y-6 delay-0"
-            }`}
+          <motion.div
+            style={{ opacity: contentOp, y: contentY }}
+            className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center will-change-transform"
           >
-            <h2
-              className="font-sans text-[clamp(32px,7.5vw,42px)] md:text-[clamp(40px,3.8vw,54px)] font-medium leading-[1.24] tracking-[-0.025em] max-w-[960px] mx-auto text-center [text-wrap:balance] uppercase"
-            >
+            <h2 className="font-sans text-[clamp(32px,7.5vw,42px)] md:text-[clamp(40px,3.8vw,54px)] font-medium leading-[1.24] tracking-[-0.025em] max-w-[860px] mx-auto text-center [text-wrap:balance] uppercase">
               {segments.map((segment, index) =>
                 segment.kind === "text" ? (
                   <span key={`text-${index}`} className="text-white">
                     {segment.value}
                   </span>
                 ) : (
-                  <span
+                  <motion.span
                     key={`pill-${index}`}
-                    className={`inline-block align-middle transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none ${
-                      revealed
-                        ? "opacity-100 translate-y-0 scale-100"
-                        : "opacity-0 translate-y-4 scale-[0.88]"
-                    }`}
-                    style={{
-                      transitionProperty: "opacity, transform, translate, scale",
-                      transitionDuration: "600ms",
-                      transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
-                      transitionDelay: revealed
-                        ? `${350 + segment.delay}ms`
-                        : "0ms",
+                    className="inline-block align-middle"
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 16, scale: 0.88 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{
+                      duration: 0.55,
+                      delay: (350 + segment.delay) / 1000,
+                      ease: [0.34, 1.56, 0.64, 1],
                     }}
                   >
                     <span className={pillClassName}>
                       <span>{segment.value}</span>
-                      {segment.icon === "stop" ? (
-                        <IconStop />
-                      ) : (
-                        <IconTrendingUp />
-                      )}
+                      {segment.icon === "stop" ? <IconStop /> : <IconTrendingUp />}
                     </span>
-                  </span>
+                  </motion.span>
                 )
               )}
             </h2>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
