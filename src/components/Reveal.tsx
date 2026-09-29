@@ -102,9 +102,9 @@ export function Reveal({
       style={{
         opacity: showFinalState ? 1 : 0,
         transform: showFinalState ? "translateY(0px)" : `translateY(${TRANSLATE_Y_PX}px)`,
-        transition: prefersReducedMotion
-          ? "none"
-          : `opacity ${DURATION_MS}ms ${EASING}, transform ${DURATION_MS}ms ${EASING}`,
+        transitionProperty: prefersReducedMotion ? "none" : "opacity, transform",
+        transitionDuration: prefersReducedMotion ? "0ms" : `${DURATION_MS}ms`,
+        transitionTimingFunction: EASING,
         transitionDelay: visible ? `${delay}ms` : "0ms",
         willChange: "opacity, transform",
         ...style,

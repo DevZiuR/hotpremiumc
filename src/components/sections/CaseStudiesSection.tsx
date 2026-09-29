@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { SplitHeading } from "@/components/SplitHeading";
 
 export interface CaseStudyItem {
   id: string;
@@ -13,7 +14,7 @@ export interface CaseStudyItem {
   title: string;
   company: string;
   avatar: string;
-  visual: string;
+  visual?: string;
   accentGlow?: string;
 }
 
@@ -28,8 +29,6 @@ const CASE_STUDIES: CaseStudyItem[] = [
     title: "Executive Chairman, AIG",
     company: "AIG",
     avatar: "/media/case-studies/peter-zaffino.jpg",
-    visual: "/media/case-studies/blue-visual.jpg",
-    accentGlow: "rgba(37, 99, 235, 0.45)",
   },
   {
     id: "sofi",
@@ -41,8 +40,6 @@ const CASE_STUDIES: CaseStudyItem[] = [
     title: "Head of Growth & Operations, SoFi",
     company: "SOFI",
     avatar: "/media/headshots/headshot-1.jpg",
-    visual: "/media/case-studies/cyan-visual.jpg",
-    accentGlow: "rgba(16, 185, 129, 0.35)",
   },
   {
     id: "chime",
@@ -54,8 +51,6 @@ const CASE_STUDIES: CaseStudyItem[] = [
     title: "VP of Acquisition & Media, Chime",
     company: "CHIME",
     avatar: "/media/headshots/headshot-2.jpg",
-    visual: "/media/case-studies/purple-visual.jpg",
-    accentGlow: "rgba(168, 85, 247, 0.4)",
   },
 ];
 
@@ -101,19 +96,21 @@ export function CaseStudiesSection() {
   return (
     <section
       id="case-studies"
-      className="relative bg-black text-white py-16 sm:py-24 lg:py-32 overflow-hidden border-t border-b border-neutral-900 select-none"
+      className="relative bg-black text-white py-12 sm:py-16 lg:py-20 overflow-hidden border-t border-b border-neutral-900 select-none"
       aria-label="Case Studies and Client Testimonials"
     >
-      {/* Background ambient gradient glow mapped to active case study */}
-      <div
-        className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none opacity-20 blur-[130px] transition-all duration-700 ease-out"
-        style={{
-          background: `radial-gradient(circle, ${current.accentGlow || "rgba(37,99,235,0.4)"} 0%, transparent 70%)`,
-        }}
-      />
+      {/* Header Container */}
+      <div className="max-w-[1240px] mx-auto px-6 sm:px-8 lg:px-12 mb-8 sm:mb-10 lg:mb-12 text-center relative z-10">
+        <SplitHeading
+          as="h2"
+          delay={0}
+          lines={["They took the deal.", "Here's what happened."]}
+          className="font-serif section-h2 font-normal text-white tracking-[-0.025em] text-center mx-auto max-w-4xl"
+        />
+      </div>
 
       <div className="relative max-w-[1240px] mx-auto px-6 sm:px-8 lg:px-12">
-        {/* ── TOP BAR: Large Slide Number (Left) + Glowing Visual Card (Right) ── */}
+        {/* ── TOP BAR: Large Slide Number ── */}
         <div className="flex items-start justify-between">
           {/* Big minimalist number */}
           <div className="overflow-hidden">
@@ -130,34 +127,10 @@ export function CaseStudiesSection() {
               </motion.div>
             </AnimatePresence>
           </div>
-
-          {/* Top-Right Glowing Visual Asset Card */}
-          <div className="relative group">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.id}
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-36 sm:w-48 md:w-56 aspect-[16/10] rounded-sm sm:rounded-md overflow-hidden bg-neutral-950 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
-              >
-                <Image
-                  src={current.visual}
-                  alt={`${current.company} case study graphic`}
-                  fill
-                  sizes="(max-width: 768px) 144px, 224px"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-              </motion.div>
-            </AnimatePresence>
-          </div>
         </div>
 
         {/* ── CENTER: Large Statement Quote ── */}
-        <div className="my-12 sm:my-16 lg:my-20 min-h-[190px] sm:min-h-[220px] lg:min-h-[240px] flex items-center">
+        <div className="my-8 sm:my-10 lg:my-12 min-h-[150px] sm:min-h-[170px] lg:min-h-[190px] flex items-center">
           <AnimatePresence mode="wait">
             <motion.blockquote
               key={current.id}

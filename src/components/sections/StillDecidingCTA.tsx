@@ -105,7 +105,7 @@ export function StillDecidingCTA() {
               </div>*/}
 
             {/* Two-line serif heading with highlighted 'own growth' pill */}
-            <h2 className="font-serif text-[clamp(34px,5.5vw,62px)] font-normal text-white tracking-[-0.025em] leading-[1.12] mb-3 sm:mb-4 [text-wrap:balance] uppercase">
+            <h2 className="font-serif text-[clamp(34px,5.5vw,82px)] font-normal text-white tracking-[-0.025em] leading-[1.12] mb-3 sm:mb-4 [text-wrap:balance] uppercase">
               Stop funding
               <br />
               your{" "}

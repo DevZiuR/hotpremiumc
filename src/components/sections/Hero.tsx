@@ -14,7 +14,9 @@ export function Hero() {
     return {
       opacity: isMounted ? 1 : 0,
       transform: isMounted ? "translateY(0px)" : "translateY(16px)",
-      transition: "opacity 500ms cubic-bezier(0.22, 1, 0.36, 1), transform 500ms cubic-bezier(0.22, 1, 0.36, 1)",
+      transitionProperty: "opacity, transform",
+      transitionDuration: "500ms",
+      transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
       transitionDelay: `${delayMs}ms`,
       willChange: "opacity, transform",
     };
@@ -25,9 +27,7 @@ export function Hero() {
       {/* Centered architectural grid container with vertical guide borders */}
       <div className="relative max-w-7xl mx-auto border-x border-black/[0.08] min-h-[calc(100vh-72px)] flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 lg:px-12 py-14 sm:py-20 md:py-28 overflow-hidden">
 
-        {/* ── Professional Architectural Framing Elements ── */}
-
-        {/* Bottom-Left Framing: Sweeping precision spline with technical node */}
+        {/* Framing: Sweeping precision spline with technical node */}
         <div
           className="absolute -bottom-4 -left-6 sm:left-0 md:left-2 lg:left-4 w-[280px] sm:w-[380px] md:w-[460px] lg:w-[500px] pointer-events-none z-10 select-none hidden sm:block"
           style={getEntranceStyle(250)}
@@ -39,23 +39,23 @@ export function Hero() {
               xmlns="http://www.w3.org/2000/svg"
               className="w-full h-auto overflow-visible"
             >
-              {/* Secondary subtle dashed guideline */}
+              {/* Secondary subtle dashed guideline (increased 33% from 1.5 to 2) */}
               <path
                 d="M 10 330 C 35 235, 105 190, 150 265 C 190 325, 110 365, 75 305 C 45 230, 120 145, 230 230 C 290 280, 365 295, 425 240"
                 stroke="rgba(0,0,0,0.12)"
-                strokeWidth="1.5"
+                strokeWidth="2"
                 strokeDasharray="5 5"
               />
-              {/* Main architectural precision spline */}
+              {/* Main architectural precision spline (increased 40% from 2.5 to 3.5) */}
               <path
                 d="M 10 330 C 35 235, 105 190, 150 265 C 190 325, 110 365, 75 305 C 45 230, 120 145, 230 230 C 290 280, 365 295, 425 240"
                 stroke="#0A0A0A"
-                strokeWidth="2.5"
+                strokeWidth="3.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              {/* Terminal precision reticle node */}
-              <circle cx="425" cy="240" r="14" fill="#FFFFFF" stroke="#0A0A0A" strokeWidth="2" />
+              {/* Terminal precision reticle node (stroke increased 35% from 2 to 2.7) */}
+              <circle cx="425" cy="240" r="14" fill="#FFFFFF" stroke="#0A0A0A" strokeWidth="2.7" />
               <circle cx="425" cy="240" r="5" fill="#2563EB" />
             </svg>
           </div>
@@ -73,29 +73,29 @@ export function Hero() {
               xmlns="http://www.w3.org/2000/svg"
               className="w-full h-auto overflow-visible"
             >
-              {/* Secondary subtle dashed guideline */}
+              {/* Secondary subtle dashed guideline (increased 33% from 1.5 to 2) */}
               <path
                 d="M 330 20 C 280 15, 230 50, 220 100 C 210 150, 260 170, 285 135 C 300 110, 280 70, 220 80 C 180 90, 160 140, 170 180"
                 stroke="rgba(0,0,0,0.12)"
-                strokeWidth="1.5"
+                strokeWidth="2"
                 strokeDasharray="5 5"
               />
-              {/* Main architectural precision spline */}
+              {/* Main architectural precision spline (increased 40% from 2.5 to 3.5) */}
               <path
                 d="M 330 20 C 280 15, 230 50, 220 100 C 210 150, 260 170, 285 135 C 300 110, 280 70, 220 80 C 180 90, 160 140, 170 180"
                 stroke="#0A0A0A"
-                strokeWidth="2.5"
+                strokeWidth="3.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              {/* Terminal precision reticle node */}
-              <circle cx="170" cy="180" r="11" fill="#FFFFFF" stroke="#0A0A0A" strokeWidth="2" />
-              <circle cx="170" cy="180" r="4" fill="#FF2E79" />
+              {/* Terminal precision reticle node (stroke increased 35% from 2 to 2.7) */}
+              <circle cx="170" cy="180" r="11" fill="#FFFFFF" stroke="#0A0A0A" strokeWidth="2.7" />
+              <circle cx="170" cy="180" r="4" fill="#2563EB" />
             </svg>
           </div>
         </div>
 
-        {/* ── Main Hero Content ── */}
+        {/* Main Hero Content */}
         <div className="relative z-20 flex flex-col items-center text-center w-full max-w-6xl mx-auto">
 
           {/* 1. Pill badge */}
@@ -113,10 +113,10 @@ export function Hero() {
             </div>
           </div>
 
-          {/* 2. H1 Headline (Balanced scale with Dual Color Badges) */}
+          {/* 2. H1 Headline */}
           <h1
             aria-label="We Fund Your Growth. You Keep the Business."
-            className="font-serif text-[clamp(40px,9.8vw,54px)] sm:text-[8.5vw] md:text-[clamp(54px,7.8vw,92px)] lg:text-[clamp(62px,7.8vw,104px)] font-normal text-[#000000] w-full mb-4 sm:mb-6 md:mb-8 tracking-[-0.025em] leading-[1.08] sm:leading-[1.04] sm:whitespace-nowrap"
+            className="font-serif text-[clamp(46px,11.5vw,54px)] sm:text-[8.5vw] md:text-[clamp(54px,7.8vw,92px)] lg:text-[clamp(62px,7.8vw,112px)] font-normal text-[#000000] w-full mb-4 sm:mb-6 md:mb-8 tracking-[-0.025em] leading-[1.08] sm:leading-[1.04] sm:whitespace-nowrap"
           >
             <span className="block overflow-hidden py-[0.06em] -my-[0.06em]">
               <span className="block" style={getEntranceStyle(100)}>
@@ -129,11 +129,7 @@ export function Hero() {
             </span>
             <span className="block overflow-hidden py-[0.06em] -my-[0.06em]">
               <span className="block" style={getEntranceStyle(200)}>
-                You Keep the{" "}
-                <span className="inline-block align-baseline mx-[0.06em] px-[0.24em] py-[0.02em] rounded-[0.22em] bg-[#FF2E79] text-white transition-[background-color,color,transform] duration-200 ease-out hover:bg-[#E11D48] hover:scale-[1.02] cursor-pointer select-none font-normal shadow-xs">
-                  Business
-                </span>
-                .
+                You Keep the Business.
               </span>
             </span>
           </h1>

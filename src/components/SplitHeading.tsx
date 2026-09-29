@@ -151,9 +151,9 @@ export function SplitHeading({
                 style={{
                   transform: showFinalState ? "translateY(0%)" : "translateY(100%)",
                   opacity: showFinalState ? 1 : 0,
-                  transition: prefersReducedMotion
-                    ? "none"
-                    : `transform ${duration}ms ${EASING}, opacity ${duration}ms ${EASING}`,
+                  transitionProperty: prefersReducedMotion ? "none" : "transform, opacity",
+                  transitionDuration: prefersReducedMotion ? "0ms" : `${duration}ms`,
+                  transitionTimingFunction: EASING,
                   transitionDelay: isVisible ? `${lineDelay}ms` : "0ms",
                 }}
               >

@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SplitHeading } from "@/components/SplitHeading";
 
 const baseControlClassName =
-  "w-full min-h-[48px] bg-transparent border-b rounded-none px-0 py-2.5 text-[20px] leading-[1.5] font-sans text-white placeholder:text-white/45 focus:outline-none focus:ring-0 transition-colors duration-200";
+  "w-full min-h-[48px] bg-transparent border-b rounded-none px-0 py-2.5 text-[20px] leading-[1.5] font-sans text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-0 transition-colors duration-200";
 
 const baseTextareaClassName = `${baseControlClassName} resize-none`;
 
@@ -53,7 +53,7 @@ type FieldStatus = "idle" | "valid" | "invalid";
 function ValidCheckmark({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`pointer-events-none absolute flex items-center text-emerald-400 ${className}`}
+      className={`pointer-events-none absolute flex items-center text-emerald-500 ${className}`}
       aria-hidden="true"
     >
       <svg
@@ -71,7 +71,7 @@ function ValidCheckmark({ className = "" }: { className?: string }) {
 
 function ErrorNotice({ message }: { message: string }) {
   return (
-    <p className="mt-1.5 text-[12px] text-rose-400 flex items-center gap-1.5 font-sans">
+    <p className="mt-1.5 text-[12px] text-rose-600 flex items-center gap-1.5 font-sans">
       <svg
         className="w-3.5 h-3.5 shrink-0"
         fill="currentColor"
@@ -91,7 +91,6 @@ function ErrorNotice({ message }: { message: string }) {
 
 export function PartnerPortfolioCTA() {
   const shouldReduceMotion = useReducedMotion();
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -121,15 +120,14 @@ export function PartnerPortfolioCTA() {
   const [step, setStep] = useState(0);
   const partialLeadSentRef = useRef(false);
 
-
   const getBorderClass = (status: FieldStatus) => {
     if (status === "valid") {
-      return "border-emerald-500/70 focus:border-emerald-400";
+      return "border-emerald-600 focus:border-emerald-600";
     }
     if (status === "invalid") {
-      return "border-rose-500/70 focus:border-rose-500";
+      return "border-rose-600 focus:border-rose-600";
     }
-    return "border-white/25 focus:border-[#2563EB]";
+    return "border-neutral-300 focus:border-[#2563EB]";
   };
 
   const handleChange = (
@@ -178,7 +176,7 @@ export function PartnerPortfolioCTA() {
     [],
   ];
 
-  const stepBodyClassName = "mt-8 border-t border-white/10 pt-8";
+  const stepBodyClassName = "mt-8 border-t border-neutral-200 pt-8";
 
   const simulateLeadSubmission = async (
     status: "partial" | "complete",
@@ -363,7 +361,7 @@ export function PartnerPortfolioCTA() {
                     duration: shouldReduceMotion ? 0.1 : 0.55,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="flex min-h-[580px] flex-col items-center justify-center rounded-[24px] bg-[#0d1118] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] p-8 sm:p-14 text-center"
+                  className="flex min-h-[580px] flex-col items-center justify-center rounded-[24px] bg-white border border-black/5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] p-8 sm:p-14 text-center text-neutral-900"
                   aria-live="polite"
                 >
                   {/* Glowing Animated Circular Badge with Stroke Drawing */}
@@ -404,14 +402,14 @@ export function PartnerPortfolioCTA() {
                     </svg>
                   </div>
 
-                  <h3 className="font-serif text-[28px] sm:text-[52px] font-normal text-white leading-tight mb-3">
+                  <h3 className="font-serif text-[28px] sm:text-[52px] font-normal text-neutral-900 leading-tight mb-3">
                     Application received.
                   </h3>
-                  <p className="font-sans text-[17px] sm:text-[19px] text-neutral-300 leading-relaxed max-w-[42ch] mb-6">
+                  <p className="font-sans text-[17px] sm:text-[19px] text-neutral-600 leading-relaxed max-w-[42ch] mb-6">
                     We&apos;ll get back to you as soon as possible.
                   </p>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono text-neutral-400">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-mono text-neutral-700">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     Review team notified
                   </div>
                 </motion.div>
@@ -421,7 +419,7 @@ export function PartnerPortfolioCTA() {
                   noValidate
                   onSubmit={handleSubmit}
                   onKeyDown={handleStepKeyDown}
-                  className="space-y-8 bg-[#0d1118] rounded-[24px] p-6 sm:p-8 md:p-12 border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                  className="space-y-8 bg-white text-neutral-900 rounded-[24px] p-6 sm:p-8 md:p-12 border border-black/5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)]"
                 >
                   <div>
                     <div className="flex items-center justify-between gap-4">
@@ -458,10 +456,10 @@ export function PartnerPortfolioCTA() {
                       >
                         {step === 0 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-white/45">
+                            <p className="font-mono text-[12px] uppercase text-neutral-500">
                               About you
                             </p>
-                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-white">
+                            <h3 className="mt-3 font-serif text-[42px] sm:text-[52px] font-normal leading-[1.2] text-neutral-900">
                               First, a little about you.
                             </h3>
                             <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -555,10 +553,10 @@ export function PartnerPortfolioCTA() {
 
                         {step === 1 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-white/45">
+                            <p className="font-mono text-[12px] uppercase text-neutral-500">
                               Your business
                             </p>
-                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-white">
+                            <h3 className="mt-3 font-serif text-[42px] sm:text-[52px] font-normal leading-[1.2] text-neutral-900">
                               Tell us about your business.
                             </h3>
                             <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -599,7 +597,7 @@ export function PartnerPortfolioCTA() {
                               <div className="relative mb-3 flex items-center justify-between gap-3">
                                 <p
                                   id="revenue-label"
-                                  className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-300"
+                                  className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-600"
                                 >
                                   Current annual revenue *
                                 </p>
@@ -626,20 +624,20 @@ export function PartnerPortfolioCTA() {
                                       data-revenue-option={option.key}
                                       onClick={() => selectRevenue(option.value)}
                                       className={`flex min-h-[48px] w-full items-center gap-4 rounded-full border px-4 py-3 text-left transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB] ${isSelected
-                                        ? "border-[#2563EB] bg-[#2563EB]/15 text-white"
-                                        : "border-white/10 bg-white/[0.03] text-white/80 hover:border-white/25 hover:text-white"
+                                        ? "border-[#2563EB] bg-[#2563EB]/10 text-neutral-900"
+                                        : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-neutral-300 hover:bg-neutral-100"
                                         }`}
                                     >
                                       <span
                                         aria-hidden="true"
                                         className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[12px] uppercase ${isSelected
                                           ? "border-[#2563EB] bg-[#2563EB] text-white"
-                                          : "border-white/20 text-white/60"
+                                          : "border-neutral-300 text-neutral-500 bg-white"
                                           }`}
                                       >
                                         {option.key.toUpperCase()}
                                       </span>
-                                      <span className="text-[15px] font-medium">
+                                      <span className="text-[15px] font-medium text-neutral-900">
                                         {option.label}
                                       </span>
                                     </button>
@@ -655,10 +653,10 @@ export function PartnerPortfolioCTA() {
 
                         {step === 2 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-white/45">
+                            <p className="font-mono text-[12px] uppercase text-neutral-500">
                               The partnership
                             </p>
-                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-white">
+                            <h3 className="mt-3 font-serif text-[42px] sm:text-[52px] font-normal leading-[1.2] text-neutral-900">
                               What are you looking for?
                             </h3>
                             <div className="mt-8 space-y-5">
@@ -685,7 +683,7 @@ export function PartnerPortfolioCTA() {
                                 )}
                               </div>
                               <div className="flex items-center justify-end mt-1.5">
-                                <span className="text-[11px] font-mono text-neutral-600">
+                                <span className="text-[11px] font-mono text-neutral-400">
                                   {formData.looking_for.length}/1000
                                 </span>
                               </div>
@@ -698,10 +696,10 @@ export function PartnerPortfolioCTA() {
 
                         {step === 3 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-white/45">
+                            <p className="font-mono text-[12px] uppercase text-neutral-500">
                               The partnership
                             </p>
-                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-white">
+                            <h3 className="mt-3 font-serif text-[42px] sm:text-[52px] font-normal leading-[1.2] text-neutral-900">
                               What’s the offer you have for us?
                             </h3>
                             <div className="mt-8 space-y-5">
@@ -711,7 +709,7 @@ export function PartnerPortfolioCTA() {
                                 <label htmlFor="offer" className="sr-only">
                                   WHAT&apos;S THE OFFER YOU HAVE FOR US? *
                                 </label>
-                                <p className="text-[13px] leading-[1.4] text-[rgba(255,255,255,0.55)] mt-[6px] mb-[10px]">
+                                <p className="text-[13px] leading-[1.4] text-neutral-500 mt-[6px] mb-[10px]">
                                   Include revenue share terms, volume commitments, or other
                                   value propositions.
                                 </p>
@@ -738,7 +736,7 @@ export function PartnerPortfolioCTA() {
                                   <span className="text-[12px] text-neutral-500 font-sans">
                                     A few sentences is usually enough.
                                   </span>
-                                  <span className="text-[11px] font-mono text-neutral-600">
+                                  <span className="text-[11px] font-mono text-neutral-400">
                                     {formData.offer.length}/1000
                                   </span>
                                 </div>
@@ -775,7 +773,7 @@ export function PartnerPortfolioCTA() {
                                   <span className="text-[12px] text-neutral-500 font-sans">
                                     A few sentences is usually enough.
                                   </span>
-                                  <span className="text-[11px] font-mono text-neutral-600">
+                                  <span className="text-[11px] font-mono text-neutral-400">
                                     {formData.luxury_answer.length}/1000
                                   </span>
                                 </div>

@@ -157,10 +157,7 @@ export function AboutSection({
       ([entry]) => {
         if (entry.isIntersecting) {
           // Double-rAF: ensures the browser paints the initial opacity-0 state
-          // at least once before we flip to revealed. Without this, when the
-          // element is already in the viewport on load, React batches the
-          // initial render + state update into a single paint and the CSS
-          // transition never plays.
+          // at least once before we flip to revealed.
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
               setRevealed(true);
@@ -169,7 +166,7 @@ export function AboutSection({
           });
         }
       },
-      { threshold: 0.08 }
+      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
     );
 
     observer.observe(el);
@@ -185,7 +182,7 @@ export function AboutSection({
         {/* Blue Callout Card with scroll-triggered entrance animation */}
         <div
           ref={cardRef}
-          className={`relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-10 sm:py-12 md:py-14 px-6 sm:px-12 lg:px-16 text-center shadow-2xl transition-[opacity,transform] duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+          className={`relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-10 sm:py-12 md:py-14 px-6 sm:px-12 lg:px-16 text-center shadow-2xl transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
             revealed
               ? "opacity-100 translate-y-0 scale-100"
               : "opacity-0 translate-y-8 scale-[0.98]"
@@ -216,12 +213,11 @@ export function AboutSection({
           {/* Left decorative element: Orbit-ring / wireframe globe motif with entrance animation */}
           <svg
             aria-hidden="true"
-            className={`absolute -left-12 -bottom-16 sm:-bottom-12 w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] pointer-events-none text-white transition-[opacity,transform] duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+            className={`absolute -left-12 -bottom-16 sm:-bottom-12 w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] pointer-events-none text-white transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
               revealed
-                ? "opacity-15 scale-100 rotate-0 translate-x-0"
-                : "opacity-0 scale-90 -rotate-6 -translate-x-6"
+                ? "opacity-15 scale-100 rotate-0 translate-x-0 delay-200"
+                : "opacity-0 scale-90 -rotate-6 -translate-x-6 delay-0"
             }`}
-            style={{ transitionDelay: revealed ? "200ms" : "0ms" }}
             viewBox="0 0 400 400"
             fill="none"
             stroke="currentColor"
@@ -236,12 +232,11 @@ export function AboutSection({
           {/* Right decorative element: Frequency waveform / soundwave motif with entrance animation */}
           <svg
             aria-hidden="true"
-            className={`absolute -right-4 sm:right-6 bottom-0 w-[180px] sm:w-[260px] h-[85%] pointer-events-none text-white origin-bottom-right transition-[opacity,transform] duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+            className={`absolute -right-4 sm:right-6 bottom-0 w-[180px] sm:w-[260px] h-[85%] pointer-events-none text-white origin-bottom-right transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
               revealed
-                ? "opacity-15 scale-100 translate-x-0"
-                : "opacity-0 scale-90 translate-x-8"
+                ? "opacity-15 scale-100 translate-x-0 delay-300"
+                : "opacity-0 scale-90 translate-x-8 delay-0"
             }`}
-            style={{ transitionDelay: revealed ? "300ms" : "0ms" }}
             viewBox="0 0 200 360"
             fill="none"
             stroke="currentColor"
@@ -270,34 +265,35 @@ export function AboutSection({
           </svg>
 
           {/* Centered Content */}
-          <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
+          <div
+            className={`relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center transition-all duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+              revealed
+                ? "opacity-100 translate-y-0 delay-200"
+                : "opacity-0 translate-y-6 delay-0"
+            }`}
+          >
             <h2
               className="font-sans text-[clamp(32px,7.5vw,42px)] md:text-[clamp(40px,3.8vw,54px)] font-medium leading-[1.24] tracking-[-0.025em] max-w-[960px] mx-auto text-center [text-wrap:balance] uppercase"
             >
               {segments.map((segment, index) =>
                 segment.kind === "text" ? (
-                  <span
-                    key={`text-${index}`}
-                    className={`transition-[opacity,transform] duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none text-white ${
-                      revealed
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-4"
-                    }`}
-                    style={{ transitionDelay: revealed ? "250ms" : "0ms" }}
-                  >
+                  <span key={`text-${index}`} className="text-white">
                     {segment.value}
                   </span>
                 ) : (
                   <span
                     key={`pill-${index}`}
-                    className={`inline-block align-middle transition-[opacity,transform] duration-[550ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none ${
+                    className={`inline-block align-middle transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none ${
                       revealed
                         ? "opacity-100 translate-y-0 scale-100"
                         : "opacity-0 translate-y-4 scale-[0.88]"
                     }`}
                     style={{
+                      transitionProperty: "opacity, transform, translate, scale",
+                      transitionDuration: "600ms",
+                      transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
                       transitionDelay: revealed
-                        ? `${380 + segment.delay}ms`
+                        ? `${350 + segment.delay}ms`
                         : "0ms",
                     }}
                   >

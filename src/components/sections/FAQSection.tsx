@@ -80,7 +80,7 @@ export function FAQSection() {
 
               return (
                 <div key={faq.question} className="border-b border-neutral-200">
-                  <div className="py-7 md:py-9">
+                  <div className={`py-7 md:py-9 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 motion-reduce:transition-none ${isOpen ? "bg-black" : "bg-neutral-100/70"}`}>
                     <button
                       type="button"
                       onClick={() => toggleFAQ(index)}
@@ -88,16 +88,16 @@ export function FAQSection() {
                       aria-expanded={isOpen}
                       aria-controls={answerId}
                     >
-                      <span className="font-serif text-[28px] leading-[1.1] md:text-[40px] md:leading-[51px] font-normal text-[#12151B] tracking-[-0.01em] min-w-0 [text-wrap:balance]">
+                      <span className={`font-serif text-[28px] leading-[1.1] md:text-[40px] md:leading-[51px] font-normal tracking-[-0.01em] min-w-0 [text-wrap:balance] transition-colors duration-300 motion-reduce:transition-none ${isOpen ? "text-white" : "text-[#12151B]"}`}>
                         {faq.question}
                       </span>
-                      <span className="shrink-0 w-11 h-11 rounded-full border border-[#2563EB] flex items-center justify-center group-hover:bg-[#2563EB]/10 transition-colors duration-200 motion-reduce:transition-none">
+                      <span className={`shrink-0 w-11 h-11 rounded-full border flex items-center justify-center transition-colors duration-200 motion-reduce:transition-none ${isOpen ? "border-white group-hover:bg-white/10" : "border-[#2563EB] group-hover:bg-[#2563EB]/10"}`}>
                         <svg
                           className={`w-4 h-4 transition-transform duration-300 ease-out motion-reduce:transition-none ${isOpen ? "rotate-180" : "rotate-0"
                             }`}
                           fill="none"
                           viewBox="0 0 16 16"
-                          stroke="#2563EB"
+                          stroke={isOpen ? "#FFFFFF" : "#2563EB"}
                           strokeWidth={2}
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -116,7 +116,7 @@ export function FAQSection() {
                         }`}
                     >
                       <div className="overflow-hidden">
-                        <p className="font-sans text-[18px] md:text-[20px] text-neutral-500 leading-[1.6] font-normal max-w-[700px] mt-5 md:mt-6">
+                        <p className={`font-sans text-[18px] md:text-[20px] leading-[1.6] font-normal max-w-[700px] mt-5 md:mt-6 transition-colors duration-300 motion-reduce:transition-none ${isOpen ? "text-white/80" : "text-neutral-500"}`}>
                           {faq.answer}
                         </p>
                       </div>

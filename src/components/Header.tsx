@@ -76,19 +76,8 @@ const verticalsFeatured = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  /* Track scroll position to transition header between white and black */
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   /* Industries dropdown — hover opens, short grace period on leave so the
      panel can be crossed without snapping shut, outside click closes. */
@@ -160,16 +149,10 @@ export function Header() {
 
       {/* ── Full-Width Sticky Header ─────────────────────────────────────── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-[80] w-full h-16 md:h-[72px] flex items-center select-none transition-all duration-300 ease-in-out ${
-          isScrolled
-            ? "bg-[#09090b]/95 backdrop-blur-md border-b border-white/[0.08] shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
-            : "bg-white/90 backdrop-blur-md border-b border-black/[0.08]"
-        }`}
+        className="fixed top-0 left-0 right-0 z-[80] w-full h-16 md:h-[72px] flex items-center select-none transition-all duration-300 ease-in-out bg-black backdrop-blur-md border-b border-white/[0.08] shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
       >
         <div
-          className={`max-w-7xl mx-auto w-full h-full flex items-center justify-between px-5 sm:px-8 md:px-10 lg:px-14 border-x transition-colors duration-300 ${
-            isScrolled ? "border-white/[0.08]" : "border-black/[0.08]"
-          }`}
+          className="max-w-7xl mx-auto w-full h-full flex items-center justify-between px-5 sm:px-8 md:px-10 lg:px-14 border-x border-white/[0.08] transition-colors duration-300"
         >
 
           {/* Left — Logo + Wordmark */}
@@ -183,9 +166,7 @@ export function Header() {
               className="h-8 md:h-9 w-auto object-contain shrink-0"
             />
             <span
-              className={`hidden md:block font-serif text-[18px] lg:text-[23px] font-normal tracking-[0.03em] leading-none uppercase transition-colors duration-300 ${
-                isScrolled ? "text-white" : "text-[#0A0A0A]"
-              }`}
+              className="hidden md:block font-serif text-[18px] lg:text-[23px] font-normal tracking-[0.03em] leading-none uppercase transition-colors duration-300 text-white"
             >
               Hot Premium Customers
             </span>
@@ -195,11 +176,7 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-8 lg:gap-10 absolute left-1/2 -translate-x-1/2">
             <Link
               href="#how-it-works"
-              className={`group relative text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 ${
-                isScrolled
-                  ? "text-white/70 hover:text-white"
-                  : "text-neutral-600 hover:text-black"
-              }`}
+              className="group relative text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 text-white/70 hover:text-white"
             >
               HOW IT WORKS
               {/* Underline — animates in from center on hover */}
@@ -224,9 +201,7 @@ export function Header() {
                 className={`group relative flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 cursor-pointer ${
                   openMenu === "verticals"
                     ? "text-[#2563EB]"
-                    : isScrolled
-                    ? "text-white/70 hover:text-white"
-                    : "text-neutral-600 hover:text-black"
+                    : "text-white/70 hover:text-white"
                 }`}
               >
                 INDUSTRIES
@@ -334,11 +309,7 @@ export function Header() {
 
             <Link
               href="#faq"
-              className={`group relative text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 ${
-                isScrolled
-                  ? "text-white/70 hover:text-white"
-                  : "text-neutral-600 hover:text-black"
-              }`}
+              className="group relative text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 text-white/70 hover:text-white"
             >
               FAQ
               {/* Underline — animates in from center on hover */}
@@ -354,11 +325,7 @@ export function Header() {
             {/* Desktop CTA */}
             <a
               href="#contact"
-              className={`hidden md:inline-flex items-center gap-2.5 text-[13.5px] font-medium tracking-[0.01em] px-5 py-2.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer ${
-                isScrolled
-                  ? "bg-white text-black hover:bg-neutral-100 shadow-[0_4px_16px_rgba(255,255,255,0.12)]"
-                  : "bg-[#18181b] text-white hover:bg-black shadow-[0_4px_14px_rgba(0,0,0,0.18)] hover:shadow-[0_8px_22px_rgba(0,0,0,0.26)]"
-              }`}
+              className="hidden md:inline-flex items-center gap-2.5 text-[13.5px] font-medium tracking-[0.01em] px-5 py-2.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer bg-white text-black hover:bg-neutral-100 shadow-[0_4px_16px_rgba(255,255,255,0.12)]"
             >
               {/* Google Meet 4-color icon */}
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 48 48" fill="none" aria-hidden="true">
@@ -376,11 +343,7 @@ export function Header() {
             {/* Mobile CTA */}
             <a
               href="#contact"
-              className={`md:hidden inline-flex items-center text-[11px] font-semibold uppercase tracking-[0.06em] h-8 px-3.5 rounded-full transition-colors duration-150 ${
-                isScrolled
-                  ? "bg-white text-black hover:bg-neutral-100"
-                  : "bg-[#18181b] text-white hover:bg-black"
-              }`}
+              className="md:hidden inline-flex items-center text-[11px] font-semibold uppercase tracking-[0.06em] h-8 px-3.5 rounded-full transition-colors duration-150 bg-white text-black hover:bg-neutral-100"
             >
               APPLY →
             </a>
@@ -389,11 +352,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`md:hidden p-2 rounded transition-colors focus:outline-none ${
-                isScrolled
-                  ? "text-white/80 hover:text-white"
-                  : "text-neutral-800 hover:text-black"
-              }`}
+              className="md:hidden p-2 rounded transition-colors focus:outline-none text-white/80 hover:text-white"
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}
             >

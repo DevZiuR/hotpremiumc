@@ -96,9 +96,9 @@ export function VisualReveal({
       style={{
         clipPath: showFinalState ? "inset(0% 0% 0% 0%)" : insetFrom,
         opacity: showFinalState ? 1 : 0.4,
-        transition: prefersReducedMotion
-          ? "none"
-          : `clip-path ${duration}ms ${EASING}, opacity ${duration}ms ${EASING}`,
+        transitionProperty: prefersReducedMotion ? "none" : "clip-path, opacity",
+        transitionDuration: prefersReducedMotion ? "0ms" : `${duration}ms`,
+        transitionTimingFunction: EASING,
         transitionDelay: isVisible ? `${delay}ms` : "0ms",
         ...style,
       }}
@@ -107,9 +107,9 @@ export function VisualReveal({
         className={`will-change-transform ${innerClassName}`}
         style={{
           transform: showFinalState ? "scale(1)" : `scale(${scaleFrom})`,
-          transition: prefersReducedMotion
-            ? "none"
-            : `transform ${duration}ms ${EASING}`,
+          transitionProperty: prefersReducedMotion ? "none" : "transform",
+          transitionDuration: prefersReducedMotion ? "0ms" : `${duration}ms`,
+          transitionTimingFunction: EASING,
           transitionDelay: isVisible ? `${delay}ms` : "0ms",
         }}
       >

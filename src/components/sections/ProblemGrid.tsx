@@ -163,7 +163,7 @@ export function ProblemGrid() {
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
 
         {/* Centered editorial header */}
-        <div className="mb-14 sm:mb-18 lg:mb-20 flex flex-col items-center text-center">
+        <div className="mb-14 sm:mb-18 lg:mb-28 flex flex-col items-center text-center">
           {/* Major editorial heading: SplitHeading line reveal */}
           <SplitHeading
             as="h2"

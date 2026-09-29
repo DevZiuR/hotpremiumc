@@ -138,6 +138,18 @@ h6 {
   --section-h2-size: clamp(40px, 5vw, 72px);
 }
 
+/* Mobile: extra breathing room under headings (FAQ heading excluded). */
+@media (max-width: 639.98px) {
+  h1,
+  h2 {
+    margin-bottom: 2rem !important;
+  }
+
+  #faq h2 {
+    margin-bottom: 0 !important;
+  }
+}
+
 /* Shared section H2 style. The !important declarations ensure this one
    definition wins over section-specific size utilities. */
 .section-h2 {
