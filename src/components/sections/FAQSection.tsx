@@ -49,7 +49,7 @@ export function FAQSection() {
   };
 
   return (
-    <section id="faq" className="bg-white py-[80px] lg:py-[140px] border-b border-gray-200/80">
+    <section id="faq" className="bg-[#09090b] py-[80px] lg:py-[140px] border-b border-white/10">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         <div className="relative mx-auto w-full max-w-[1100px]">
           <div className="flex justify-center">
@@ -61,51 +61,49 @@ export function FAQSection() {
                   aria-hidden="true"
                 />
               </span>
-              <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-black">
+              <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-white/70">
                 FAQS
               </span>
             </div>
           </div>
 
           <Reveal delay={90}>
-            <h2 className="font-serif section-h2 font-normal text-[#12151B] tracking-[-0.02em] mb-0 text-center mx-auto max-w-[1000px] [text-wrap:balance]">
+            <h2 className="font-serif section-h2 font-normal text-white tracking-[-0.02em] mb-0 text-center mx-auto max-w-[1000px] [text-wrap:balance]">
               Questions worth answering <br className="hidden md:block" /> before you apply
             </h2>
           </Reveal>
 
-          <div className="mt-12 md:mt-14 border-t border-neutral-200">
+          <div className="mt-12 md:mt-14 border-t border-white/10">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               const answerId = `faq-answer-${index}`;
 
               return (
-                <div key={faq.question} className="border-b border-neutral-200">
-                  <div className={`py-7 md:py-9 px-4 md:px-6 -mx-4 md:-mx-6 transition-colors duration-300 motion-reduce:transition-none ${isOpen ? "bg-black" : "bg-neutral-100/70"}`}>
+                <div key={faq.question} className="border-b border-white/10">
+                  <div className="relative py-5 md:py-6 px-4 md:px-6 -mx-4 md:-mx-6 bg-[##1a1a1f ] hover:bg-[##1a1a1f] transition-colors duration-300 motion-reduce:transition-none">
                     <button
                       type="button"
                       onClick={() => toggleFAQ(index)}
-                      className="w-full flex items-center justify-between text-left gap-6 cursor-pointer group focus:outline-none"
+                      className="w-full flex items-center justify-between text-left gap-5 cursor-pointer group focus:outline-none"
                       aria-expanded={isOpen}
                       aria-controls={answerId}
                     >
-                      <span className={`font-serif text-[28px] leading-[1.1] md:text-[40px] md:leading-[51px] font-normal tracking-[-0.01em] min-w-0 [text-wrap:balance] transition-colors duration-300 motion-reduce:transition-none ${isOpen ? "text-white" : "text-[#12151B]"}`}>
+                      <span className="font-serif text-[22px] leading-[1.15] md:text-[30px] md:leading-[38px] font-normal tracking-[-0.01em] min-w-0 [text-wrap:balance] text-white transition-colors duration-300 motion-reduce:transition-none">
                         {faq.question}
                       </span>
-                      <span className={`shrink-0 w-11 h-11 rounded-full border flex items-center justify-center transition-colors duration-200 motion-reduce:transition-none ${isOpen ? "border-white group-hover:bg-white/10" : "border-[#2563EB] group-hover:bg-[#2563EB]/10"}`}>
-                        <svg
-                          className={`w-4 h-4 transition-transform duration-300 ease-out motion-reduce:transition-none ${isOpen ? "rotate-180" : "rotate-0"
-                            }`}
-                          fill="none"
-                          viewBox="0 0 16 16"
-                          stroke={isOpen ? "#FFFFFF" : "#2563EB"}
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
-                        >
-                          <path d="M3.5 6l4.5 4.5L12.5 6" />
-                        </svg>
-                      </span>
+                      <svg
+                        className={`w-4 h-4 shrink-0 transition-transform duration-300 ease-out motion-reduce:transition-none ${isOpen ? "rotate-180" : "rotate-0"
+                          }`}
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        stroke="#2563EB"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M3.5 6l4.5 4.5L12.5 6" />
+                      </svg>
                     </button>
 
                     <div
@@ -116,7 +114,7 @@ export function FAQSection() {
                         }`}
                     >
                       <div className="overflow-hidden">
-                        <p className={`font-sans text-[18px] md:text-[20px] leading-[1.6] font-normal max-w-[700px] mt-5 md:mt-6 transition-colors duration-300 motion-reduce:transition-none ${isOpen ? "text-white/80" : "text-neutral-500"}`}>
+                        <p className="font-sans text-[16px] md:text-[17px] leading-[1.6] font-normal max-w-[700px] mt-4 md:mt-5 text-white/70 transition-colors duration-300 motion-reduce:transition-none">
                           {faq.answer}
                         </p>
                       </div>

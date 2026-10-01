@@ -164,7 +164,7 @@ export function IndustriesWeServe() {
   return (
     <section
       id="verticals"
-      className="bg-white pt-[90px] pb-[20px] lg:pt-[140px] lg:pb-[50px] border-y border-neutral-300/70 font-sans"
+      className="bg-[#09090b] pt-[64px] pb-[72px] lg:pt-[96px] lg:pb-[120px] border-y border-white/10 font-sans"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
         {/* Eyebrow: 0ms */}
@@ -184,33 +184,34 @@ export function IndustriesWeServe() {
           as="h2"
           delay={90}
           lines={["Built for industries where", "every customer matters."]}
-          className="font-serif section-h2 font-medium text-black tracking-[-0.025em] max-w-3xl mb-8 sm:mb-12 md:mb-16"
+          className="font-serif section-h2 font-medium text-white tracking-[-0.025em] max-w-3xl mb-12 sm:mb-16 md:mb-20"
         />
 
-        {/* ── Two-Column Layout ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-start">
-          <div className="lg:col-span-5">
-            <div className="rounded-2xl shadow-md border border-neutral-300/80">
-              <div className="relative w-full aspect-[16/10] sm:aspect-[16/10] lg:aspect-square rounded-2xl overflow-hidden bg-[#f4f5f7] group">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeImage}
-                    src={activeImage}
-                    alt={activeTitle}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="w-full h-full object-cover"
-                  />
-                </AnimatePresence>
-              </div>
+        {/* ── Two-Column Layout (reference structure: flush visual panel + plain list) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch overflow-hidden rounded-2xl border border-white/10">
+          <div className="relative">
+            <div className="relative w-full aspect-[16/10] sm:aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[400px] overflow-hidden bg-[#f4f5f7]">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeImage}
+                  src={activeImage}
+                  alt={activeTitle}
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </AnimatePresence>
+              {/* Blend transition into the dark list */}
+              <div aria-hidden="true" className="absolute inset-y-0 right-0 w-20 sm:w-28 lg:w-32 bg-gradient-to-l from-[#1a1a1f] via-[#1a1a1f]/55 to-transparent pointer-events-none" />
+              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 lg:hidden bg-gradient-to-t from-[#1a1a1f]/70 to-transparent pointer-events-none" />
             </div>
           </div>
 
           {/* ── Right Column: Interactive Industry List ── */}
-          <div className="lg:col-span-7">
-              <div className="bg-black rounded-2xl border border-neutral-800 p-1.5 sm:p-3 divide-y divide-neutral-800/80 shadow-xl">
+          <div className="bg-[#1a1a1f] border-t lg:border-t-0 lg:border-l border-white/10 pb-4 sm:pb-5 lg:pb-6">
+              <div className="divide-y divide-white/10">
                 {industriesData.map((item, index) => {
                   const isSelected = activeIndex === index;
 
@@ -218,39 +219,24 @@ export function IndustriesWeServe() {
                     <div
                       key={item.title}
                       onClick={() => handleItemClick(index)}
-                      className={`py-3.5 sm:py-5 cursor-pointer group transition-colors duration-200 select-none px-3 sm:px-5 rounded-xl ${isSelected ? "bg-white/[0.05]" : "hover:bg-white/[0.03]"
+                      className={`group py-4 sm:py-[18px] lg:py-5 cursor-pointer transition-colors duration-200 select-none px-6 sm:px-10 ${isSelected ? "bg-white/[0.07]" : "bg-transparent hover:bg-white/[0.04]"
                         }`}
                     >
                       {/* Item Header Row */}
-                      <div className="flex items-center justify-between gap-1">
+                      <div className="flex items-center justify-between gap-4">
                         <h3
-                          className={`text-[30px] leading-[1.1] transition-colors duration-200 font-semibold ${isSelected
-                            ? "text-[#3B82F6] font-bold"
-                            : "text-neutral-300 font-normal group-hover:text-[#3B82F6]"
-                            }`}
+                          className="text-[26px] sm:text-[32px] lg:text-[34px] leading-[1.15] tracking-[-0.01em] text-white font-normal transition-all duration-200 group-hover:italic"
                         >
                           {item.title}
                         </h3>
 
-                        {/* Small Indicator Arrow */}
-                        <div
-                          className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-neutral-400 group-hover:text-[#3B82F6] group-hover:translate-x-1 ${isSelected ? "rotate-90 text-[#3B82F6] font-bold" : ""
-                            }`}
-                        >
-                          <svg
-                            className="w-3.5 h-3.5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </div>
+                        {/* Active-row meta link (matches “View service” in reference) */}
+                        {isSelected ? (
+                          <span className="hidden sm:inline-flex items-center gap-2 shrink-0 text-[13px] font-medium text-[#a99bff]">
+                            <span aria-hidden="true" className="text-white">↳</span>
+                            <span>View service</span>
+                          </span>
+                        ) : null}
                       </div>
 
                       {/* Paragraph & Sub-Verticals Revealed On Click */}
@@ -264,20 +250,20 @@ export function IndustriesWeServe() {
                             transition={{ duration: 0.3, ease: "easeOut" }}
                             className="overflow-hidden"
                           >
-                            <div className="pt-3 pb-1 pr-1 sm:pr-6 font-sans">
+                            <div className="pt-4 pb-1 pr-1 sm:pr-6 font-sans">
                               {/* Summary description */}
-                              <p className="text-[17px] text-neutral-400 leading-[1.6] max-w-[62ch] mb-3">
+                              <p className="text-[16px] sm:text-[17px] text-neutral-400 leading-[1.6] max-w-[62ch] mb-4">
                                 {item.description}
                               </p>
 
                               {/* Sub-verticals tags */}
-                              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3.5">
+                              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-4">
                                 {item.subVerticals.map((sub, i) => (
                                   <span
                                     key={i}
                                     className={`text-xs px-2.5 py-1 rounded-md transition-colors ${sub.startsWith("+")
-                                      ? "bg-neutral-800 text-neutral-400 font-semibold font-mono"
-                                      : "bg-neutral-900 text-neutral-200 border border-neutral-800 font-medium"
+                                      ? "bg-white/10 text-neutral-400 font-semibold font-mono"
+                                      : "bg-white/[0.06] text-neutral-200 border border-white/10 font-medium"
                                       }`}
                                   >
                                     {sub}
@@ -288,7 +274,8 @@ export function IndustriesWeServe() {
                               {/* View all link */}
                               <a
                                 href={item.href}
-                                className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-black hover:underline transition-colors duration-200"
+                                onClick={(e) => e.stopPropagation()}
+                                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white hover:underline transition-colors duration-200"
                               >
                                 <span>View all {item.verticalCount}</span>
                                 <span>→</span>
@@ -300,17 +287,6 @@ export function IndustriesWeServe() {
                     </div>
                   );
                 })}
-              </div>
-
-              {/* Bottom "See all industries" Pill Button */}
-              <div className="mt-8 pt-2">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-[#2563EB] hover:bg-neutral-800 text-white text-xs sm:text-sm font-medium transition-all duration-200 shadow-sm active:scale-95 w-full sm:w-auto text-center justify-center uppercase"
-                >
-                  <span>See all industries</span>
-                  <span className="text-sm">→</span>
-                </a>
               </div>
           </div>
         </div>

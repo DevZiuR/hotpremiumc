@@ -13,65 +13,64 @@ interface AboutSectionProps {
   statement?: string;
 }
 
-// Circular "no/stop" icon (thin stroke, no fill)
+/* Inline circular icon badges. Each one sits inside the serif sentence,
+   sized larger than the surrounding text and bled slightly above the line
+   (via negative margin) so it reads as a distinct object interrupting the
+   sentence, matching the America.gov reference — white disc, accent-blue
+   glyph, soft shadow for separation. The words themselves stay in the flow
+   as plain text; the badge leads into them rather than boxing them. */
 function IconStop() {
   return (
-    <svg
-      className="inline-block w-[0.8em] h-[0.8em] ml-1.5 -mt-0.5 align-middle shrink-0"
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="10" cy="10" r="7.5" />
-      <line x1="4.7" y1="4.7" x2="15.3" y2="15.3" />
-    </svg>
+    <span className="inline-flex items-center justify-center w-[1.35em] h-[1.35em] rounded-full bg-[#2563EB] text-white align-middle -mt-[0.28em] mx-[0.15em] shrink-0 select-none shadow-sm">
+      <svg
+        className="w-[0.62em] h-[0.62em]"
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        aria-hidden="true"
+      >
+        <line x1="6" y1="6" x2="14" y2="14" />
+        <line x1="14" y1="6" x2="6" y2="14" />
+      </svg>
+    </span>
   );
 }
 
 // Upward-trending arrow icon (thin stroke, no fill)
 function IconTrendingUp() {
   return (
-    <svg
-      className="inline-block w-[0.8em] h-[0.8em] ml-1.5 -mt-0.5 align-middle shrink-0"
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <polyline points="3 14 8.5 8.5 12 12 17 6" />
-      <polyline points="12 6 17 6 17 11" />
-    </svg>
+    <span className="inline-flex items-center justify-center w-[1.35em] h-[1.35em] rounded-full bg-[#2563EB] text-white align-middle -mt-[0.28em] mx-[0.15em] shrink-0 select-none shadow-sm">
+      <svg
+        className="w-[0.64em] h-[0.64em]"
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="3 14 8.5 8.5 12 12 17 6" />
+        <polyline points="12 6 17 6 17 11" />
+      </svg>
+    </span>
   );
 }
 
-const pillClassName =
-  "inline-flex items-center align-middle mx-1 sm:mx-1.5 my-0.5 px-[12px] py-[4px] rounded-[10px] bg-white text-[#2563EB] shadow-sm transition-[background-color,color,transform] duration-[250ms] ease-out hover:bg-white/15 hover:text-white hover:scale-[1.02] motion-reduce:transition-none motion-reduce:hover:scale-100 cursor-pointer select-none";
-
 type Segment =
   | { kind: "text"; value: string }
-  | { kind: "pill"; value: string; icon: "stop" | "trend"; delay: number };
+  | { kind: "badge"; icon: "stop" | "trend"; delay: number };
 
-const PILL_STAGGER = 120;
-
-/* Shared transition for the reveal. `translate` and `scale` are separate CSS
-   properties, so this composes with the pill's own hover scale instead of
-   clobbering it — the wrapper keeps the two transitions independent. */
-const revealBase =
-  "transition-[opacity,translate] duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0";
+const BADGE_STAGGER = 120;
 
 function splitOnPhrase(
   text: string,
   phrase: string,
   icon: "stop" | "trend",
   segments: Segment[],
-  state: { pills: number }
+  state: { badges: number }
 ) {
   if (!text.includes(phrase)) {
     if (text) segments.push({ kind: "text", value: text });
@@ -79,13 +78,17 @@ function splitOnPhrase(
   }
   const parts = text.split(phrase);
   if (parts[0]) segments.push({ kind: "text", value: parts[0] });
-  state.pills += 1;
+  state.badges += 1;
+  // Badge first, then the phrase as ordinary text — the icon leads the reader
+  // into the words instead of boxing them. The leading non-breaking space glues
+  // the badge to the first word so a line break can't strand the disc at the
+  // end of a line; the rest of the phrase still wraps on its own spaces.
   segments.push({
-    kind: "pill",
-    value: phrase,
+    kind: "badge",
     icon,
-    delay: state.pills * PILL_STAGGER,
+    delay: state.badges * BADGE_STAGGER,
   });
+  segments.push({ kind: "text", value: `\u00A0${phrase}` });
   const tail = parts.slice(1).join(phrase);
   if (tail) segments.push({ kind: "text", value: tail });
 }
@@ -101,9 +104,9 @@ export function AboutSection({
   const shouldReduceMotion = useReducedMotion();
 
   const defaultPrimary =
-    "Lead vendors get paid whether you win or not. We don't. Hot Premium Customers is an equity growth partner.";
+    "Lead vendors get paid whether you win or not. We don't.";
   const defaultContinuation =
-    "We fund the ad spend, sales team, and technology, and we only earn when your revenue grows.";
+    "We're an equity growth partner. We only earn when your revenue grows.";
 
   let resolvedPrimary = primaryText;
   let resolvedContinuation = continuationText;
@@ -129,7 +132,7 @@ export function AboutSection({
 
   const segments: Segment[] = [];
   {
-    const state = { pills: 0 };
+    const state = { badges: 0 };
     splitOnPhrase(
       resolvedPrimary || defaultPrimary,
       "We don't",
@@ -165,14 +168,7 @@ export function AboutSection({
   const rawCardY        = useTransform(scrollYProgress, [0, 0.22],             [56, 0]);
   const rawCardScale    = useTransform(scrollYProgress, [0, 0.22],             [0.97, 1]);
 
-  // Globe slides in from the left on enter, drifts left on exit
-  const rawGlobeX       = useTransform(scrollYProgress, [0, 0.28, 0.85, 1],   [-44, 0, 0, -16]);
-  const rawGlobeOpacity = useTransform(scrollYProgress, [0, 0.2, 0.78, 1],    [0, 0.15, 0.15, 0]);
-
-  // Waveform slides in from the right
-  const rawWaveX        = useTransform(scrollYProgress, [0, 0.28, 0.85, 1],   [44, 0, 0, 16]);
-  const rawWaveOpacity  = useTransform(scrollYProgress, [0, 0.2, 0.78, 1],    [0, 0.15, 0.15, 0]);
-
+  // Globe / waveform decor removed — only card + content motion remain
   // Content lifts in just after the card
   const rawContentY     = useTransform(scrollYProgress, [0.05, 0.28],          [30, 0]);
   const rawContentOp    = useTransform(scrollYProgress, [0.05, 0.26, 0.75, 1], [0, 1, 1, 0.65]);
@@ -182,10 +178,6 @@ export function AboutSection({
   const cardOpacity  = shouldReduceMotion ? rawCardOpacity  : useSpring(rawCardOpacity,  SPRING);
   const cardY        = shouldReduceMotion ? rawCardY        : useSpring(rawCardY,        SPRING);
   const cardScale    = shouldReduceMotion ? rawCardScale    : useSpring(rawCardScale,    SPRING);
-  const globeX       = shouldReduceMotion ? rawGlobeX       : useSpring(rawGlobeX,       SPRING);
-  const globeOpacity = shouldReduceMotion ? rawGlobeOpacity : useSpring(rawGlobeOpacity, SPRING);
-  const waveX        = shouldReduceMotion ? rawWaveX        : useSpring(rawWaveX,        SPRING);
-  const waveOpacity  = shouldReduceMotion ? rawWaveOpacity  : useSpring(rawWaveOpacity,  SPRING);
   const contentY     = shouldReduceMotion ? rawContentY     : useSpring(rawContentY,     SPRING);
   const contentOp    = shouldReduceMotion ? rawContentOp    : useSpring(rawContentOp,    SPRING);
   /* eslint-enable react-hooks/rules-of-hooks */
@@ -197,10 +189,10 @@ export function AboutSection({
       className="bg-black py-6 sm:py-8 md:py-10 px-4 sm:px-4 lg:px-6"
     >
       <div className="max-w-7xl mx-auto">
-        {/* ── Blue Callout Card ─────────────────────────────────────────────── */}
+        {/* ── Black Callout Card ─────────────────────────────────────────────── */}
         <motion.div
           style={{ opacity: cardOpacity, y: cardY, scale: cardScale }}
-          className="relative overflow-hidden rounded-[24px] bg-[#2563EB] text-white py-10 sm:py-12 md:py-14 px-6 sm:px-12 lg:px-16 text-center shadow-2xl will-change-transform"
+          className="relative overflow-hidden rounded-[24px] bg-black text-white py-10 sm:py-12 md:py-14 px-6 sm:px-12 lg:px-16 text-center shadow-2xl will-change-transform"
         >
           {/* Faint DotField canvas background */}
           <div className="absolute inset-0 pointer-events-none opacity-20">
@@ -212,60 +204,15 @@ export function AboutSection({
             />
           </div>
 
-          {/* Left decorative element: Orbit-ring / wireframe globe motif */}
-          <motion.svg
-            aria-hidden="true"
-            style={{ opacity: globeOpacity, x: globeX }}
-            className="absolute -left-12 -bottom-16 sm:-bottom-12 w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] pointer-events-none text-white will-change-transform"
-            viewBox="0 0 400 400"
-            fill="none"
-            stroke="currentColor"
-          >
-            <circle cx="200" cy="200" r="180" strokeWidth="1" strokeDasharray="3 3" />
-            <ellipse cx="200" cy="200" rx="180" ry="120" strokeWidth="1" />
-            <ellipse cx="200" cy="200" rx="180" ry="60" strokeWidth="1" />
-            <ellipse cx="200" cy="200" rx="120" ry="180" strokeWidth="1" strokeDasharray="4 4" />
-            <ellipse cx="200" cy="200" rx="60" ry="180" strokeWidth="1" />
-          </motion.svg>
-
-          {/* Right decorative element: Frequency waveform / soundwave motif */}
-          <motion.svg
-            aria-hidden="true"
-            style={{ opacity: waveOpacity, x: waveX }}
-            className="absolute -right-4 sm:right-6 bottom-0 w-[180px] sm:w-[260px] h-[85%] pointer-events-none text-white origin-bottom-right will-change-transform"
-            viewBox="0 0 200 360"
-            fill="none"
-            stroke="currentColor"
-          >
-            {Array.from({ length: 34 }).map((_, i) => {
-              const y = 330 - i * 9.2;
-              const progress = i / 34;
-              const spread = Math.sin(Math.pow(1 - progress, 0.72) * Math.PI);
-              const width = 14 + spread * 165;
-              // Round to 4 dp: eliminates server/client floating-point epsilon
-              // differences that generate 21 React hydration mismatch warnings.
-              const x1 = parseFloat((100 - width / 2).toFixed(4));
-              const x2 = parseFloat((100 + width / 2).toFixed(4));
-              return (
-                <line
-                  key={i}
-                  x1={x1}
-                  y1={y}
-                  x2={x2}
-                  y2={y}
-                  strokeWidth={i % 3 === 0 ? "1.5" : "0.8"}
-                  strokeDasharray={i % 4 === 0 ? "2 2" : undefined}
-                />
-              );
-            })}
-          </motion.svg>
-
           {/* Centered Content */}
           <motion.div
             style={{ opacity: contentOp, y: contentY }}
             className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center will-change-transform"
           >
-            <h2 className="font-sans text-[clamp(32px,7.5vw,42px)] md:text-[clamp(40px,3.8vw,54px)] font-medium leading-[1.24] tracking-[-0.025em] max-w-[860px] mx-auto text-center [text-wrap:balance] uppercase">
+            {/* leading bumped 1.24 → 1.32 so the enlarged (1.35em) badges have
+                room to bleed above/below the line without colliding with the
+                row above or below at any breakpoint */}
+            <h2 className="font-sans text-[clamp(32px,8vw,42px)] md:text-[clamp(44px,4.6vw,58px)] font-medium leading-[1.2] tracking-[0.025em] max-w-[1000px] mx-auto text-center [text-wrap:balance] uppercase">
               {segments.map((segment, index) =>
                 segment.kind === "text" ? (
                   <span key={`text-${index}`} className="text-white">
@@ -273,7 +220,7 @@ export function AboutSection({
                   </span>
                 ) : (
                   <motion.span
-                    key={`pill-${index}`}
+                    key={`badge-${index}`}
                     className="inline-block align-middle"
                     initial={shouldReduceMotion ? false : { opacity: 0, y: 16, scale: 0.88 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -284,10 +231,7 @@ export function AboutSection({
                       ease: [0.34, 1.56, 0.64, 1],
                     }}
                   >
-                    <span className={pillClassName}>
-                      <span>{segment.value}</span>
-                      {segment.icon === "stop" ? <IconStop /> : <IconTrendingUp />}
-                    </span>
+                    {segment.icon === "stop" ? <IconStop /> : <IconTrendingUp />}
                   </motion.span>
                 )
               )}

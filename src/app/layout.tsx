@@ -70,7 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${instrumentSerif.variable} ${instrumentSans.variable} h-full antialiased`}>
-      <body className="font-sans bg-white text-ink min-h-full flex flex-col">
+      <body className="font-sans bg-[#F4F5F2] text-ink min-h-full flex flex-col">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

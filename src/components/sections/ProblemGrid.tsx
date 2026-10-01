@@ -158,12 +158,12 @@ export function ProblemGrid() {
   return (
     <section
       id="why-operators-partner"
-      className="relative bg-[#09090b] text-white border-t border-b border-white/[0.07] py-[90px] sm:py-[120px] lg:py-[140px] overflow-hidden"
+      className="relative bg-[#09090b] text-white border-t border-b border-white/[0.07] py-[110px] sm:py-[150px] lg:py-[190px] overflow-hidden"
     >
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
 
         {/* Centered editorial header */}
-        <div className="mb-14 sm:mb-18 lg:mb-28 flex flex-col items-center text-center">
+        <div className="mb-16 sm:mb-24 lg:mb-32 flex flex-col items-center text-center">
           {/* Major editorial heading: SplitHeading line reveal */}
           <SplitHeading
             as="h2"
@@ -174,17 +174,17 @@ export function ProblemGrid() {
         </div>
 
         {/* 3-Column spacious layout starting at 120ms with 70ms stagger */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 sm:gap-x-16 lg:gap-x-20 gap-y-12 sm:gap-y-16 lg:gap-y-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 sm:gap-x-14 lg:gap-x-16 gap-y-14 sm:gap-y-20 lg:gap-y-24">
           {OPERATOR_BENEFITS.map((item, index) => (
             <Reveal key={item.id} delay={120 + index * 70}>
-              <div className="group relative flex flex-col items-start text-left">
+              <div className="group relative flex flex-col items-start text-left px-2 sm:px-4 lg:px-6 py-2">
                 {/* Minimalist Icon Badge Container */}
-                <div className="w-[68px] h-[68px] sm:w-[72px] sm:h-[72px] rounded-[14px] border border-white/[0.08] bg-[#131316] flex items-center justify-center transition-all duration-200 ease-out group-hover:border-[#2563EB]/40 group-hover:bg-[#161724]">
+                <div className="w-[72px] h-[72px] sm:w-[76px] sm:h-[76px] rounded-[16px] border border-white/[0.08] bg-[#131316] flex items-center justify-center transition-all duration-200 ease-out group-hover:border-[#2563EB]/40 group-hover:bg-[#161724]">
                   <item.icon className="w-6 h-6 sm:w-7 sm:h-7 text-neutral-200 transition-colors duration-200 group-hover:text-white" />
                 </div>
 
                 {/* Typography-driven bold title + inline muted description */}
-                <p className="mt-6 sm:mt-8 font-sans text-[15px] sm:text-[15.5px] leading-[1.65] text-neutral-400">
+                <p className="mt-8 sm:mt-10 font-sans text-[15px] sm:text-[16px] leading-[1.75] text-neutral-400 max-w-[32ch]">
                   <strong className="font-semibold text-white tracking-[-0.01em]">
                     {item.title}.{" "}
                   </strong>
@@ -195,10 +195,10 @@ export function ProblemGrid() {
           ))}
         </div>
         <Reveal delay={550}>
-          <div className="mt-8 sm:mt-16">
+          <div className="mt-20 sm:mt-28 lg:mt-36 pt-10 sm:pt-12 border-t border-white/[0.06] flex justify-start">
             <a
               href="#contact"
-              className="inline-flex items-center gap-1.5 text-[15px] sm:text-[16px] text-neutral-400 hover:text-white transition-colors duration-200 group font-sans"
+              className="inline-flex items-center gap-2 text-[15px] sm:text-[16px] text-neutral-400 hover:text-white transition-colors duration-200 group font-sans tracking-wide"
             >
               <span>Talk to us</span>
               <span className="transition-transform duration-200 group-hover:translate-x-1">

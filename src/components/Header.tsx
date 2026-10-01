@@ -22,8 +22,49 @@ const INDUSTRIES = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /* Retire the pill once the footer's top edge reaches the header's band.
+     The decision is recomputed from live geometry on every scroll/resize
+     frame rather than latched by an IntersectionObserver: the observer's
+     trigger point depends on footer height vs viewport height (it fires as
+     soon as *any* part of the footer enters the viewport, which measured
+     ~800px early), and any offset captured inside its async callback races
+     with the scroll position. Reading `footerTop` and the header's own
+     offsetHeight live is viewport-independent and cannot be left stale, so
+     the header can never be re-pinned over the footer. */
+  useEffect(() => {
+    const el = headerRef.current;
+    const footer = document.querySelector("footer");
+    if (!el || !footer) return;
+
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const topOffset = window.innerWidth >= 640 ? 20 : 12;
+      const threshold = topOffset + el.offsetHeight;
+      const shouldHide = footer.getBoundingClientRect().top <= threshold;
+      el.classList.toggle("opacity-0", shouldHide);
+      el.classList.toggle("-translate-y-[130%]", shouldHide);
+      el.classList.toggle("pointer-events-none", shouldHide);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   /* Industries dropdown — hover opens, short grace period on leave so the
      panel can be crossed without snapping shut, outside click closes. */
@@ -93,36 +134,37 @@ export function Header() {
         />
       )}
 
-      {/* ── Full-Width Sticky Header ─────────────────────────────────────── */}
+      {/* ── Floating Pill Header (reference structure) ─────────────────────── */}
       <header
-        className="fixed top-0 left-0 right-0 z-[80] w-full h-16 md:h-[72px] flex items-center select-none transition-all duration-300 ease-in-out bg-black backdrop-blur-md border-b border-white/[0.08] shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+        ref={headerRef}
+        className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-[80] w-[calc(100%-24px)] sm:w-max sm:max-w-[calc(100%-24px)] select-none transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none"
       >
         <div
-          className="max-w-7xl mx-auto w-full h-full flex items-center justify-between px-5 sm:px-8 md:px-10 lg:px-14 border-x border-white/[0.08] transition-colors duration-300"
+          className="mx-auto flex items-center justify-between gap-6 sm:gap-10 rounded-[20px] border border-white/[0.08] bg-[#131313]/95 backdrop-blur-md shadow-[0_18px_50px_rgba(0,0,0,0.55)] px-5 sm:px-6 py-2.5 transition-colors duration-300"
         >
 
           {/* Left — Logo + Wordmark */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 rounded"
+            className="flex items-center gap-2.5 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 rounded-xl"
           >
             <img
               src="https://hotpremiumcustomers.com/logo-mark.png"
               alt="Hot Premium Customers"
-              className="h-8 md:h-9 w-auto object-contain shrink-0"
+              className="h-7 w-auto object-contain shrink-0"
             />
             <span
-              className="hidden md:block font-serif text-[18px] lg:text-[23px] font-normal tracking-[0.03em] leading-none uppercase transition-colors duration-300 text-white"
+              className="hidden lg:block font-serif text-[20px] font-normal tracking-[0.01em] leading-none transition-colors duration-300 text-white"
             >
               Hot Premium Customers
             </span>
           </Link>
 
           {/* Center — Nav Links (desktop) */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10 absolute left-1/2 -translate-x-1/2">
+          <nav className="hidden md:flex items-center justify-center gap-7 lg:gap-8">
             <Link
               href="#how-it-works"
-              className="group relative text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 text-white/70 hover:text-white"
+              className="group relative whitespace-nowrap shrink-0 leading-none font-mono text-[13px] font-medium uppercase tracking-[0.14em] transition-colors duration-200 text-white/70 hover:text-white"
             >
               HOW IT WORKS
               {/* Underline — animates in from center on hover */}
@@ -144,7 +186,7 @@ export function Header() {
                 onClick={() => toggleDropdown("verticals")}
                 aria-expanded={openMenu === "verticals"}
                 aria-haspopup="menu"
-                className={`group relative flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 cursor-pointer ${
+                className={`group relative flex items-center gap-1.5 whitespace-nowrap shrink-0 leading-none font-mono text-[13px] font-medium uppercase tracking-[0.14em] transition-colors duration-200 cursor-pointer ${
                   openMenu === "verticals"
                     ? "text-[#2563EB]"
                     : "text-white/70 hover:text-white"
@@ -207,7 +249,7 @@ export function Header() {
 
             <Link
               href="#faq"
-              className="group relative text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 text-white/70 hover:text-white"
+              className="group relative font-mono text-[13px] font-medium uppercase tracking-[0.14em] transition-colors duration-200 text-white/70 hover:text-white"
             >
               FAQ
               {/* Underline — animates in from center on hover */}
@@ -219,23 +261,13 @@ export function Header() {
           </nav>
 
           {/* Right — Apply CTA + Mobile Hamburger */}
-          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Desktop CTA */}
             <a
               href="#contact"
-              className="hidden md:inline-flex items-center gap-2.5 text-[13.5px] font-medium tracking-[0.01em] px-5 py-2.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer bg-white text-black hover:bg-neutral-100 shadow-[0_4px_16px_rgba(255,255,255,0.12)]"
+              className="hidden md:inline-flex items-center text-[13px] font-semibold uppercase tracking-[0.08em] px-4 py-2.5 rounded-[12px] transition-all duration-200 hover:-translate-y-px active:translate-y-0 cursor-pointer bg-white text-black hover:bg-neutral-200"
             >
-              {/* Google Meet 4-color icon */}
-              <svg className="w-4 h-4 shrink-0" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                <path d="M29 24.5V16.5C29 14.8431 27.6569 13.5 26 13.5H8C6.34315 13.5 5 14.8431 5 16.5V31.5C5 33.1569 6.34315 34.5 8 34.5H26C27.6569 34.5 29 33.1569 29 31.5V24.5Z" fill="#00832d" />
-                <path d="M29 19.5L37.899 12.6393C39.2312 11.6119 41.1667 12.562 41.1667 14.2464V33.7536C41.1667 35.438 39.2312 36.3881 37.899 35.3607L29 28.5V19.5Z" fill="#ffba00" />
-                <path d="M29 24.5V16.5C29 14.8431 27.6569 13.5 26 13.5H16L29 24.5Z" fill="#2684fc" />
-                <path d="M5 24.5L16 34.5H8C6.34315 34.5 5 33.1569 5 31.5V24.5Z" fill="#00ac47" />
-                <path d="M5 16.5C5 14.8431 6.34315 13.5 8 13.5H16L5 22.5V16.5Z" fill="#ea4335" />
-                <path d="M29 28.5L37.899 35.3607C39.2312 36.3881 41.1667 35.438 41.1667 33.7536V28.5L29 28.5Z" fill="#00832d" />
-                <path d="M41.1667 19.5V14.2464C41.1667 12.562 39.2312 11.6119 37.899 12.6393L29 19.5H41.1667Z" fill="#ea4335" />
-              </svg>
-              <span>Apply now</span>
+              Apply now
             </a>
 
             {/* Mobile CTA */}

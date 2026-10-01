@@ -455,9 +455,12 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
     };
 
     const resize = () => {
-      const bounds = host.getBoundingClientRect();
-      width = Math.max(1, bounds.width);
-      height = Math.max(1, bounds.height);
+      // clientWidth/clientHeight (layout box) rather than getBoundingClientRect:
+      // the map sits inside a VisualReveal scale transition (1.04 -> 1), and a
+      // rect measured mid-transition would bake a ~4% oversize into the canvas
+      // that no later resize would correct (transforms don't re-fire RO).
+      width = Math.max(1, host.clientWidth);
+      height = Math.max(1, host.clientHeight);
       isMobile = mobileQuery.matches;
       // Cap DPR to 1 on mobile for lower GPU/memory load
       pixelRatio = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 2);

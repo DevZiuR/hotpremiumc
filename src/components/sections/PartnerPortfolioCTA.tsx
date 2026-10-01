@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SplitHeading } from "@/components/SplitHeading";
 
 const baseControlClassName =
-  "w-full min-h-[48px] bg-transparent border-b rounded-none px-0 py-2.5 text-[20px] leading-[1.5] font-sans text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-0 transition-colors duration-200";
+  "w-full min-h-[48px] bg-[#F5F5F5] border-b rounded-none px-3 py-2.5 text-[20px] leading-[1.5] font-sans text-neutral-900 placeholder:text-[#3d3d3d] focus:outline-none focus:ring-0 transition-colors duration-200";
 
 const baseTextareaClassName = `${baseControlClassName} resize-none`;
 
@@ -120,6 +120,7 @@ export function PartnerPortfolioCTA() {
   const [submitted, setSubmitted] = useState(false);
   const [step, setStep] = useState(0);
   const partialLeadSentRef = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
 
   const getBorderClass = (status: FieldStatus) => {
@@ -129,7 +130,7 @@ export function PartnerPortfolioCTA() {
     if (status === "invalid") {
       return "border-rose-600 focus:border-rose-600";
     }
-    return "border-neutral-200 focus:border-[#2563EB]";
+    return "border-[rgba(0,0,0,0.45)] focus:border-[#2563EB]";
   };
 
   const handleChange = (
@@ -227,6 +228,21 @@ export function PartnerPortfolioCTA() {
       ? smsConsent
       : stepRequiredFields[step].every((key) => validators[key](formData[key]));
 
+  /* Bring the top of the form back into view after a step change, so a new
+     step never renders above the current scroll position. Offset clears the
+     fixed header pill. */
+  const scrollFormTopIntoView = () => {
+    // Measure after the new step paints, so the offset reflects the new
+    // step's layout rather than the outgoing one's height.
+    requestAnimationFrame(() => {
+      const form = formRef.current;
+      if (!form) return;
+      const headerOffset = 96;
+      const top = form.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: Math.max(0, top), behavior: shouldReduceMotion ? "auto" : "smooth" });
+    });
+  };
+
   const goNext = async () => {
     if (step >= 4 || isSubmitting) return;
     if (!validateStepFields(step)) return;
@@ -241,10 +257,12 @@ export function PartnerPortfolioCTA() {
       });
     }
     setStep(step + 1);
+    scrollFormTopIntoView();
   };
 
   const goBack = () => {
     setStep((previous) => Math.max(0, previous - 1));
+    scrollFormTopIntoView();
   };
 
   const handleRevenueKeyDown = (event: React.KeyboardEvent) => {
@@ -334,13 +352,13 @@ export function PartnerPortfolioCTA() {
       className="relative bg-[#09090b] text-white py-[80px] lg:py-[140px]"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          <div className="lg:col-span-5 lg:sticky lg:top-[120px] lg:self-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start lg:items-center">
+          <div className="lg:col-span-5">
             {/* Heading: SplitHeading line reveal */}
             <SplitHeading
               as="h2"
               delay={0}
-              lines={["LET'S TALK ABOUT", "WHAT'S NEXT."]}
+              lines={["Let's talk", "what's next."]}
               className="font-serif section-h2 font-normal tracking-[-0.025em] mb-4 text-white"
             />
 
@@ -418,6 +436,7 @@ export function PartnerPortfolioCTA() {
               ) : (
                 <form
                   key="application-form"
+                  ref={formRef}
                   noValidate
                   onSubmit={handleSubmit}
                   onKeyDown={handleStepKeyDown}
@@ -466,7 +485,7 @@ export function PartnerPortfolioCTA() {
                         {step === 0 && (
                           <div className={stepBodyClassName}>
                             <p className="font-mono text-[12px] uppercase text-neutral-400">
-                              About you
+                              YOUR DETAILS
                             </p>
                             <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-neutral-900">
                               First, a little about you.
@@ -563,7 +582,7 @@ export function PartnerPortfolioCTA() {
                         {step === 1 && (
                           <div className={stepBodyClassName}>
                             <p className="font-mono text-[12px] uppercase text-neutral-400">
-                              Your business
+                              YOUR COMPANY
                             </p>
                             <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-neutral-900">
                               Tell us about your business.

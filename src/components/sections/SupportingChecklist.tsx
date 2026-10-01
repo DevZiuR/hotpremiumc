@@ -23,7 +23,7 @@ const criteria = [
 
 export function SupportingChecklist() {
   return (
-    <section className="bg-white py-[80px] lg:py-[140px] border-b border-line/70">
+    <section className="bg-[#F4F5F2] py-[80px] lg:py-[140px] border-b border-line/70">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <SectionHeading
           eyebrow="Selection Criteria"

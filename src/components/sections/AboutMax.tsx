@@ -86,25 +86,17 @@ export function AboutMax() {
   const stat3 = useCountUp(7, 1800, 550, hasTriggered);
 
   return (
-    <section id="about-founder" className="relative bg-[#FFFFFF] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] overflow-hidden font-sans">
+    <section id="about-founder" className="relative bg-[#09090b] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] overflow-hidden font-sans">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 xl:gap-20 items-center">
 
           {/* ── Eyebrow + Heading (always first on mobile, hidden on desktop — content col handles it) ── */}
           <div className="lg:hidden">
-            <Reveal delay={0}>
-              <div className="inline-flex items-center gap-2.5 mb-4">
-                <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-                <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.12em] text-black">
-                  FOUNDER
-                </span>
-              </div>
-            </Reveal>
             <SplitHeading
               as="h2"
               delay={90}
               lines={["A track record,", "not a promise."]}
-              className="font-serif section-h2 font-normal text-[#0A0A0A] tracking-[-0.025em] mb-0"
+              className="font-serif section-h2 font-normal text-white tracking-[-0.025em] mb-0"
             />
           </div>
 
@@ -129,27 +121,19 @@ export function AboutMax() {
             {/* Eyebrow + Heading — desktop only, staggered via separate Reveal wrappers */}
             <div className="hidden lg:block">
               {/* eyebrow: delay=0 */}
-              <Reveal delay={0}>
-                <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-5">
-                  <span className="block flex-shrink-0" style={{ width: 12, height: 12, background: "#2457D6" }} aria-hidden="true" />
-                  <span className="font-sans text-xs font-semibold uppercase tracking-widest text-black">
-                    FOUNDER
-                  </span>
-                </div>
-              </Reveal>
 
               {/* heading: delay=90 */}
               <SplitHeading
                 as="h2"
                 delay={90}
-                lines={["A track record,", "not a promise."]}
-                className="font-serif section-h2 font-normal text-[#0A0A0A] tracking-[-0.025em] mb-4 sm:mb-6"
+                lines={["The Founder"]}
+                className="font-serif section-h2 font-normal text-white tracking-[-0.025em] mb-4 sm:mb-6"
               />
             </div>
 
             {/* Body Copy: delay=180 */}
             <Reveal delay={180}>
-              <div className="space-y-3.5 sm:space-y-4 font-sans text-[17px] text-gray-600 leading-[1.6] max-w-[62ch] font-normal mt-4 lg:mt-0">
+              <div className="space-y-3.5 sm:space-y-4 font-sans text-[17px] text-white/70 leading-[1.6] max-w-[62ch] font-normal mt-4 lg:mt-0">
                 <p>
                   I&apos;m Max, and I built Hot Premium Customers from years of scaling businesses through paid media, customer acquisition, and sales infrastructure.
                 </p>
@@ -164,31 +148,53 @@ export function AboutMax() {
 
             {/* Track Record Stat Highlights */}
             <Reveal delay={270}>
-              <div ref={statsRef} className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4 pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-gray-100">
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
-                    <span>$</span>
-                    <span className="tabular-nums">{hasTriggered ? stat1 : 0}</span>
-                    <span>M/yr</span>
+              <div ref={statsRef} className="mt-6 sm:mt-8 rounded-[22px] lg:rounded-[26px] bg-white/[0.035] border border-white/10 p-2.5 sm:p-3">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                  <div className="rounded-[16px] lg:rounded-[20px] bg-white/[0.06] px-2.5 sm:px-5 py-4 sm:py-6 flex flex-col items-center sm:items-start text-center sm:text-left">
+                    <div className="font-serif text-[24px] sm:text-[34px] lg:text-[40px] text-white font-normal tracking-tight leading-tight mb-1 sm:mb-2">
+                      <span>$</span>
+                      <span className="tabular-nums">{hasTriggered ? stat1 : 0}</span>
+                      <span>M/yr</span>
+                    </div>
+                    <div className="font-sans text-[11px] sm:text-[12.5px] text-white/55">Coaching Company</div>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">Coaching Company</div>
-                </div>
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
-                    <span>$</span>
-                    <span className="tabular-nums">{hasTriggered ? stat2 : 0}</span>
-                    <span>M</span>
+                  <div className="rounded-[16px] lg:rounded-[20px] bg-white/[0.06] border-l border-white/[0.12] pl-2.5 sm:pl-5 pr-2.5 sm:pr-5 py-4 sm:py-6 flex flex-col items-center sm:items-start text-center sm:text-left">
+                    <div className="font-serif text-[24px] sm:text-[34px] lg:text-[40px] text-white font-normal tracking-tight leading-tight mb-1 sm:mb-2">
+                      <span>$</span>
+                      <span className="tabular-nums">{hasTriggered ? stat2 : 0}</span>
+                      <span>M</span>
+                    </div>
+                    <div className="font-sans text-[11px] sm:text-[12.5px] text-white/55">In 10 Months (Medical)</div>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">In 10 Months (Medical)</div>
-                </div>
-                <div className="p-3 sm:p-0 rounded-lg bg-gray-50/70 sm:bg-transparent flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <div className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-black font-normal tracking-tight leading-tight mb-0.5 sm:mb-1">
-                    <span className="tabular-nums">{hasTriggered ? stat3 : 0}</span>
-                    <span>-Figure</span>
+                  <div className="rounded-[16px] lg:rounded-[20px] bg-white/[0.06] border-l border-white/[0.12] pl-2.5 sm:pl-5 pr-2.5 sm:pr-5 py-4 sm:py-6 flex flex-col items-center sm:items-start text-center sm:text-left">
+                    <div className="font-serif text-[24px] sm:text-[34px] lg:text-[40px] text-white font-normal tracking-tight leading-tight mb-1 sm:mb-2">
+                      <span className="tabular-nums">{hasTriggered ? stat3 : 0}</span>
+                      <span>-Figure</span>
+                    </div>
+                    <div className="font-sans text-[11px] sm:text-[12.5px] text-white/55">Apparel First Year</div>
                   </div>
-                  <div className="font-sans text-xs sm:text-[12.5px] text-gray-500">Apparel First Year</div>
                 </div>
               </div>
+            </Reveal>
+
+            {/* Closing CTA — transparent text link with arrow */}
+            <Reveal delay={340}>
+              <a
+                href="https://maxavhq.com/"
+                className="group mt-7 sm:mt-9 inline-flex items-center gap-2 font-sans text-[14px] sm:text-[15px] font-semibold text-white underline decoration-white/30 underline-offset-[6px] hover:decoration-white/70 transition-colors duration-200 cursor-pointer"
+              >
+                <span>More about me</span>
+                <svg
+                  className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
             </Reveal>
 
           </div>
