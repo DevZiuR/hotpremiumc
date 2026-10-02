@@ -49,7 +49,7 @@ export function FAQSection() {
   };
 
   return (
-    <section id="faq" className="bg-[#09090b] py-[80px] lg:py-[140px] border-b border-white/10">
+    <section id="faq" className="bg-[#000000] py-[80px] lg:py-[140px] border-b border-white/10">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         <div className="relative mx-auto w-full max-w-[1100px]">
           <div className="flex justify-center">
@@ -57,7 +57,7 @@ export function FAQSection() {
               <span className="flex items-center">
                 <span
                   className="block flex-shrink-0"
-                  style={{ width: 12, height: 12, background: "#2563eb" }}
+                  style={{ width: 12, height: 12, background: "#C9A24B" }}
                   aria-hidden="true"
                 />
               </span>
@@ -84,7 +84,7 @@ export function FAQSection() {
                     <button
                       type="button"
                       onClick={() => toggleFAQ(index)}
-                      className="w-full flex items-center justify-between text-left gap-5 cursor-pointer group focus:outline-none"
+                      className="w-full flex items-center justify-between text-left gap-5 cursor-pointer group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C9A24B]"
                       aria-expanded={isOpen}
                       aria-controls={answerId}
                     >
@@ -92,11 +92,11 @@ export function FAQSection() {
                         {faq.question}
                       </span>
                       <svg
-                        className={`w-4 h-4 shrink-0 transition-transform duration-300 ease-out motion-reduce:transition-none ${isOpen ? "rotate-180" : "rotate-0"
-                          }`}
+                        className={`w-4 h-4 shrink-0 transition-all duration-200 ease-out motion-reduce:transition-none ${isOpen ? "rotate-180 text-[#C9A24B]" : "rotate-0 text-[rgba(201,162,75,0.6)]"
+                          } group-hover:text-[#C9A24B]`}
                         fill="none"
                         viewBox="0 0 16 16"
-                        stroke="#2563EB"
+                        stroke="currentColor"
                         strokeWidth={2}
                         strokeLinecap="round"
                         strokeLinejoin="round"

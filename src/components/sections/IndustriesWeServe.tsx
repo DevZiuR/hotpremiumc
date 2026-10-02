@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SplitHeading } from "@/components/SplitHeading";
+import { Reveal } from "@/components/Reveal";
 
 const industriesData = [
   {
@@ -161,10 +162,27 @@ export function IndustriesWeServe() {
     }
   };
 
+  useEffect(() => {
+    const handleSelectIndustry = (event: Event) => {
+      const customEvent = event as CustomEvent<{ index: number }>;
+      const targetIndex = customEvent.detail?.index;
+      if (typeof targetIndex === "number" && industriesData[targetIndex]) {
+        setActiveIndex(targetIndex);
+        setSelectedImageIndex(targetIndex);
+        const section = document.getElementById("verticals");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+    window.addEventListener("select-industry", handleSelectIndustry);
+    return () => window.removeEventListener("select-industry", handleSelectIndustry);
+  }, []);
+
   return (
     <section
       id="verticals"
-      className="bg-[#09090b] pt-[64px] pb-[72px] lg:pt-[96px] lg:pb-[120px] border-y border-white/10 font-sans"
+      className="bg-black pt-[96px] pb-[96px] lg:pt-[96px] lg:pb-[120px] border-y border-white/10 font-sans"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
         {/* Eyebrow: 0ms */}
@@ -184,13 +202,13 @@ export function IndustriesWeServe() {
           as="h2"
           delay={90}
           lines={["Built for industries where", "every customer matters."]}
-          className="font-serif section-h2 font-medium text-white tracking-[-0.025em] max-w-3xl mb-12 sm:mb-16 md:mb-20"
+          className="font-serif section-h2 font-medium text-white tracking-[-0.025em] max-w-3xl mb-14 sm:mb-16 md:mb-20"
         />
 
         {/* ── Two-Column Layout (reference structure: flush visual panel + plain list) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch overflow-hidden rounded-2xl border border-white/10">
-          <div className="relative">
-            <div className="relative w-full aspect-[16/10] sm:aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[400px] overflow-hidden bg-[#f4f5f7]">
+        <div className="mx-auto w-full max-w-[1000px] grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-5 lg:gap-0 items-stretch lg:overflow-hidden lg:rounded-2xl lg:border lg:border-[rgba(255,255,255,0.08)]">
+          <div className="relative overflow-hidden rounded-[20px] border border-[rgba(255,255,255,0.08)] lg:overflow-visible lg:rounded-none lg:border-0">
+            <div className="relative w-full aspect-[4/3] sm:aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[300px] overflow-hidden bg-[#f4f5f7]">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeImage}
@@ -204,91 +222,113 @@ export function IndustriesWeServe() {
                 />
               </AnimatePresence>
               {/* Blend transition into the dark list */}
-              <div aria-hidden="true" className="absolute inset-y-0 right-0 w-20 sm:w-28 lg:w-32 bg-gradient-to-l from-[#1a1a1f] via-[#1a1a1f]/55 to-transparent pointer-events-none" />
-              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 lg:hidden bg-gradient-to-t from-[#1a1a1f]/70 to-transparent pointer-events-none" />
+              <div aria-hidden="true" className="absolute inset-y-0 right-0 w-20 sm:w-28 lg:w-32 bg-gradient-to-l from-[#000000] via-[#000000]/55 to-transparent pointer-events-none" />
+              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 lg:hidden bg-gradient-to-t from-[#000000]/70 to-transparent pointer-events-none" />
             </div>
           </div>
 
           {/* ── Right Column: Interactive Industry List ── */}
-          <div className="bg-[#1a1a1f] border-t lg:border-t-0 lg:border-l border-white/10 pb-4 sm:pb-5 lg:pb-6">
-              <div className="divide-y divide-white/10">
-                {industriesData.map((item, index) => {
-                  const isSelected = activeIndex === index;
+          <div className="bg-[#000000] border border-[rgba(255,255,255,0.08)] rounded-[20px] lg:rounded-none lg:border-y-0 lg:border-r-0 overflow-hidden flex flex-col">
+            <div className="divide-y divide-[rgba(255,255,255,0.08)] flex flex-1 flex-col">
+              {industriesData.map((item, index) => {
+                const isSelected = activeIndex === index;
 
-                  return (
-                    <div
-                      key={item.title}
-                      onClick={() => handleItemClick(index)}
-                      className={`group py-4 sm:py-[18px] lg:py-5 cursor-pointer transition-colors duration-200 select-none px-6 sm:px-10 ${isSelected ? "bg-white/[0.07]" : "bg-transparent hover:bg-white/[0.04]"
-                        }`}
-                    >
-                      {/* Item Header Row */}
-                      <div className="flex items-center justify-between gap-4">
-                        <h3
-                          className="text-[26px] sm:text-[32px] lg:text-[34px] leading-[1.15] tracking-[-0.01em] text-white font-normal transition-all duration-200 group-hover:italic"
-                        >
-                          {item.title}
-                        </h3>
+                return (
+                  <div
+                    key={item.title}
+                    onClick={() => handleItemClick(index)}
+                    className={`group flex-1 flex flex-col justify-center py-[18px] lg:py-3.5 cursor-pointer transition-colors duration-200 select-none px-6 sm:px-10 ${isSelected ? "bg-white/[0.07]" : "bg-transparent hover:bg-white/[0.04]"
+                      }`}
+                  >
+                    {/* Item Header Row */}
+                    <div className="flex items-center justify-between gap-4">
+                      <h3
+                        className="text-[24px] sm:text-[26px] lg:text-[28px] leading-[1.15] tracking-[-0.01em] text-white font-normal transition-all duration-200 group-hover:italic"
+                      >
+                        {item.title}
+                      </h3>
 
-                        {/* Active-row meta link (matches “View service” in reference) */}
-                        {isSelected ? (
-                          <span className="hidden sm:inline-flex items-center gap-2 shrink-0 text-[13px] font-medium text-[#a99bff]">
-                            <span aria-hidden="true" className="text-white">↳</span>
-                            <span>View service</span>
-                          </span>
-                        ) : null}
-                      </div>
-
-                      {/* Paragraph & Sub-Verticals Revealed On Click */}
-                      <AnimatePresence initial={false}>
-                        {isSelected && (
-                          <motion.div
-                            key="content"
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: "easeOut" }}
-                            className="overflow-hidden"
-                          >
-                            <div className="pt-4 pb-1 pr-1 sm:pr-6 font-sans">
-                              {/* Summary description */}
-                              <p className="text-[16px] sm:text-[17px] text-neutral-400 leading-[1.6] max-w-[62ch] mb-4">
-                                {item.description}
-                              </p>
-
-                              {/* Sub-verticals tags */}
-                              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-4">
-                                {item.subVerticals.map((sub, i) => (
-                                  <span
-                                    key={i}
-                                    className={`text-xs px-2.5 py-1 rounded-md transition-colors ${sub.startsWith("+")
-                                      ? "bg-white/10 text-neutral-400 font-semibold font-mono"
-                                      : "bg-white/[0.06] text-neutral-200 border border-white/10 font-medium"
-                                      }`}
-                                  >
-                                    {sub}
-                                  </span>
-                                ))}
-                              </div>
-
-                              {/* View all link */}
-                              <a
-                                href={item.href}
-                                onClick={(e) => e.stopPropagation()}
-                                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white hover:underline transition-colors duration-200"
-                              >
-                                <span>View all {item.verticalCount}</span>
-                                <span>→</span>
-                              </a>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      {/* Active-row meta link (matches “View service” in reference) */}
+                      {isSelected ? (
+                        <span className="hidden sm:inline-flex items-center gap-2 shrink-0 text-[13px] font-medium text-[#a99bff]">
+                          <span aria-hidden="true" className="text-white">↳</span>
+                          <span>View service</span>
+                        </span>
+                      ) : null}
                     </div>
-                  );
-                })}
-              </div>
+
+                    {/* Paragraph & Sub-Verticals Revealed On Click */}
+                    <AnimatePresence initial={false}>
+                      {isSelected && (
+                        <motion.div
+                          key="content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pt-4 pb-1 pr-1 sm:pr-6 font-sans">
+                            {/* Summary description */}
+                            <p className="text-[16px] sm:text-[17px] text-neutral-400 leading-[1.6] max-w-[62ch] mb-4">
+                              {item.description}
+                            </p>
+
+                            {/* Sub-verticals tags */}
+                            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-4">
+                              {item.subVerticals.map((sub, i) => (
+                                <span
+                                  key={i}
+                                  className={`text-xs px-2.5 py-1 rounded-md transition-colors ${sub.startsWith("+")
+                                    ? "bg-white/10 text-neutral-400 font-semibold font-mono"
+                                    : "bg-white/[0.06] text-neutral-200 border border-white/10 font-medium"
+                                    }`}
+                                >
+                                  {sub}
+                                </span>
+                              ))}
+                            </div>
+
+                            {/* View all link */}
+                            <a
+                              href={item.href}
+                              onClick={(e) => e.stopPropagation()}
+                              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white hover:underline transition-colors duration-200"
+                            >
+                              <span>View all {item.verticalCount}</span>
+                              <span>→</span>
+                            </a>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
           </div>
+        </div>
+
+        {/* Transparent text-link CTA below the grid */}
+        <div className="mx-auto w-full max-w-[1000px]">
+          <Reveal delay={200} className="flex justify-end">
+            <a
+              href="#contact"
+              className="group mt-7 sm:mt-9 inline-flex items-center gap-2 font-sans text-[14px] sm:text-[15px] font-semibold text-white underline decoration-white/30 underline-offset-[6px] hover:decoration-white/70 transition-colors duration-200 cursor-pointer"
+            >
+              <span>More industries</span>
+              <svg
+                className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </Reveal>
         </div>
       </div>
     </section>

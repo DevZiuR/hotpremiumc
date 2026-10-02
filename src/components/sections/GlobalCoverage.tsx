@@ -8,7 +8,7 @@ import GlobalCoverageMap from "@/components/GlobalCoverageMap";
 
 export function GlobalCoverage() {
   return (
-    <section id="global-coverage" className="relative bg-[#09090b] py-[80px] lg:py-[140px] border-b border-white/10 overflow-hidden">
+    <section id="global-coverage" className="relative bg-[#000000] py-[80px] lg:py-[140px] overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-10 xl:gap-12 items-center">
           <div className="flex flex-col justify-center lg:col-span-5">
@@ -33,10 +33,6 @@ export function GlobalCoverage() {
               all-around padding, so the globe keeps a clean margin from the
               column, the viewport edge, and the section top/bottom. */}
           <div className="relative w-full lg:col-span-7 flex items-center justify-center p-6 sm:p-10 lg:p-12">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(37,99,235,0.12)_0%,rgba(37,99,235,0.05)_38%,transparent_68%)]"
-            />
             <VisualReveal delay={270} className="relative z-10 w-full max-w-[430px]">
               <GlobalCoverageMap />
             </VisualReveal>

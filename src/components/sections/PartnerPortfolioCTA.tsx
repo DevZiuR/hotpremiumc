@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SplitHeading } from "@/components/SplitHeading";
 
 const baseControlClassName =
-  "w-full min-h-[48px] bg-[#F5F5F5] border-b rounded-none px-3 py-2.5 text-[20px] leading-[1.5] font-sans text-neutral-900 placeholder:text-[#3d3d3d] focus:outline-none focus:ring-0 transition-colors duration-200";
+  "w-full min-h-[52px] bg-transparent border border-[rgba(255,255,255,0.14)] rounded-[8px] px-3 py-2.5 text-[16px] leading-[1.5] font-sans text-[#F5F5F5] placeholder:text-[16px] placeholder:tracking-normal placeholder:text-[rgba(255,255,255,0.45)] focus:outline-none focus:ring-0 transition-colors duration-200";
 
 const baseTextareaClassName = `${baseControlClassName} resize-none`;
 
@@ -125,12 +125,12 @@ export function PartnerPortfolioCTA() {
 
   const getBorderClass = (status: FieldStatus) => {
     if (status === "valid") {
-      return "border-emerald-600 focus:border-emerald-600";
+      return "border-emerald-500/70 focus:border-emerald-500";
     }
     if (status === "invalid") {
-      return "border-rose-600 focus:border-rose-600";
+      return "border-rose-500/70 focus:border-rose-500";
     }
-    return "border-[rgba(0,0,0,0.45)] focus:border-[#2563EB]";
+    return "border-[rgba(255,255,255,0.14)] focus:border-[#C9A24B]";
   };
 
   const handleChange = (
@@ -179,7 +179,7 @@ export function PartnerPortfolioCTA() {
     [],
   ];
 
-  const stepBodyClassName = "mt-5 sm:mt-6 border-t border-neutral-100 pt-5 sm:pt-6";
+  const stepBodyClassName = "mt-5 sm:mt-6 border-t border-white/[0.08] pt-5 sm:pt-6";
 
   const simulateLeadSubmission = async (
     status: "partial" | "complete",
@@ -349,7 +349,7 @@ export function PartnerPortfolioCTA() {
   return (
     <section
       id="contact"
-      className="relative bg-[#09090b] text-white py-[80px] lg:py-[140px]"
+      className="relative bg-[#000000] text-white py-[80px] lg:py-[140px]"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start lg:items-center">
@@ -381,7 +381,7 @@ export function PartnerPortfolioCTA() {
                     duration: shouldReduceMotion ? 0.1 : 0.55,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="flex min-h-[420px] sm:min-h-[460px] flex-col items-center justify-center rounded-[24px] bg-white border border-neutral-200/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.08)] py-10 px-6 sm:py-12 sm:px-10 text-center"
+                  className="flex min-h-[420px] sm:min-h-[460px] flex-col items-center justify-center rounded-[16px] bg-[#0A0A0C] border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099] py-10 px-6 sm:py-12 sm:px-10 text-center"
                   aria-live="polite"
                 >
                   {/* Glowing Animated Circular Badge with Stroke Drawing */}
@@ -422,13 +422,13 @@ export function PartnerPortfolioCTA() {
                     </svg>
                   </div>
 
-                  <h3 className="font-serif text-[28px] sm:text-[52px] font-normal text-neutral-900 leading-tight mb-3">
+                  <h3 className="font-serif text-[28px] sm:text-[52px] font-normal text-[#F5F5F5] leading-tight mb-3">
                     Application received.
                   </h3>
-                  <p className="font-sans text-[17px] sm:text-[19px] text-neutral-600 leading-relaxed max-w-[42ch] mb-6">
+                  <p className="font-sans text-[17px] sm:text-[19px] text-white/60 leading-relaxed max-w-[42ch] mb-6">
                     We&apos;ll get back to you as soon as possible.
                   </p>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-mono text-neutral-600">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-xs font-mono text-white/60">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     Review team notified
                   </div>
@@ -440,20 +440,20 @@ export function PartnerPortfolioCTA() {
                   noValidate
                   onSubmit={handleSubmit}
                   onKeyDown={handleStepKeyDown}
-                  className="space-y-5 sm:space-y-6 bg-white rounded-[24px] px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 border border-neutral-200/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.08)]"
+                  className="space-y-5 sm:space-y-6 bg-[#0A0A0C] rounded-[16px] p-6 sm:p-10 border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099]"
                 >
                   <div>
                     <div className="flex items-center justify-between gap-4">
-                      <div className="flex flex-1 gap-1.5" aria-hidden="true">
+                      <div className="flex flex-1 gap-[6px]" aria-hidden="true">
                         {Array.from({ length: 5 }).map((_, index) => (
                           <span
                             key={`application-step-${index + 1}`}
-                            className={`h-1 flex-1 rounded-full transition-colors duration-300 ${index < step ? "bg-[#2563EB]" : "bg-neutral-200"
+                            className={`h-[3px] flex-1 rounded-full transition-colors duration-300 ${index <= step ? "bg-[#C9A24B]" : "bg-[rgba(255,255,255,0.15)]"
                               }`}
                           />
                         ))}
                       </div>
-                      <p className="ml-4 font-mono text-[12px] uppercase text-neutral-500">
+                      <p className="ml-4 font-mono text-[12px] uppercase text-white">
                         Step {step + 1} of 5
                       </p>
                     </div>
@@ -468,7 +468,7 @@ export function PartnerPortfolioCTA() {
                           opacity: 1,
                           y: 0,
                           transition: {
-                            duration: shouldReduceMotion ? 0 : 0.3,
+                            duration: shouldReduceMotion ? 0 : 0.2,
                             ease: [0.16, 1, 0.3, 1],
                           },
                         }}
@@ -476,31 +476,32 @@ export function PartnerPortfolioCTA() {
                           opacity: 0,
                           y: shouldReduceMotion ? 0 : -6,
                           transition: {
-                            duration: shouldReduceMotion ? 0 : 0.15,
+                            duration: shouldReduceMotion ? 0 : 0.2,
                             ease: "easeOut",
                           },
                         }}
-                        className="mt-5 sm:mt-6 flex min-h-[420px] sm:min-h-[460px] flex-col"
+                        className="mt-5 sm:mt-6 flex flex-col"
                       >
                         {step === 0 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-neutral-400">
+                            <p className="font-mono text-[12px] uppercase text-white/55 text-center">
                               YOUR DETAILS
                             </p>
-                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-neutral-900">
+                            <h3 className="mt-3 font-serif text-[36px] sm:text-[52px] font-normal leading-[1.1] sm:leading-[1.2] text-[#F5F5F5] text-center [text-wrap:balance]">
                               First, a little about you.
                             </h3>
-                            <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+                            <div className="mt-7 sm:mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
                               {/* Full Name */}
                               <div>
                                 <label htmlFor="name" className="sr-only">
-                                  Full Name *
+                                  Name
                                 </label>
                                 <div className="relative">
                                   <input
                                     type="text"
                                     id="name"
                                     name="name"
+                                    aria-label="Name"
                                     value={formData.name}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -523,13 +524,14 @@ export function PartnerPortfolioCTA() {
                               {/* Work Email */}
                               <div>
                                 <label htmlFor="email" className="sr-only">
-                                  Work Email *
+                                  Work email
                                 </label>
                                 <div className="relative">
                                   <input
                                     type="email"
                                     id="email"
                                     name="email"
+                                    aria-label="Work email"
                                     value={formData.email}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -550,13 +552,14 @@ export function PartnerPortfolioCTA() {
                               </div>
                               <div className="md:col-span-2">
                                 <label htmlFor="phone" className="sr-only">
-                                  Phone *
+                                  Phone
                                 </label>
                                 <div className="relative">
                                   <input
                                     type="tel"
                                     id="phone"
                                     name="phone"
+                                    aria-label="Phone"
                                     value={formData.phone}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -581,13 +584,13 @@ export function PartnerPortfolioCTA() {
 
                         {step === 1 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-neutral-400">
+                            <p className="font-mono text-[12px] uppercase text-white/55">
                               YOUR COMPANY
                             </p>
-                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-neutral-900">
+                            <h3 className="mt-3 font-serif text-[36px] sm:text-[52px] font-normal leading-[1.1] sm:leading-[1.2] text-[#F5F5F5] text-center [text-wrap:balance]">
                               Tell us about your business.
                             </h3>
-                            <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+                            <div className="mt-7 sm:mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
                               {/* Company */}
                               <div>
                                 <label htmlFor="company" className="sr-only">
@@ -625,7 +628,7 @@ export function PartnerPortfolioCTA() {
                               <div className="relative mb-3 flex items-center justify-between gap-3">
                                 <p
                                   id="revenue-label"
-                                  className="block font-mono text-[14px] tracking-[0.06em] uppercase text-neutral-500"
+                                  className="block font-mono text-[14px] tracking-[0.06em] uppercase text-white/55"
                                 >
                                   Current annual revenue *
                                 </p>
@@ -651,21 +654,21 @@ export function PartnerPortfolioCTA() {
                                       aria-checked={isSelected}
                                       data-revenue-option={option.key}
                                       onClick={() => selectRevenue(option.value)}
-                                      className={`flex min-h-[48px] w-full items-center gap-4 rounded-full border px-4 py-3 text-left transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB] ${isSelected
-                                        ? "border-[#2563EB] bg-[#2563EB]/10 text-neutral-900 font-medium"
-                                        : "border-neutral-200 bg-neutral-50/70 text-neutral-700 hover:border-neutral-300 hover:bg-neutral-100"
+                                      className={`flex min-h-[48px] w-full items-center gap-4 rounded-[10px] border px-4 py-3 text-left transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A24B] ${isSelected
+                                        ? "border-[#C9A24B] bg-[#C9A24B]/10 text-[#F5F5F5] font-medium"
+                                        : "border-white/[0.1] bg-white/[0.03] text-white/75 hover:border-white/25 hover:bg-white/[0.06]"
                                         }`}
                                     >
                                       <span
                                         aria-hidden="true"
                                         className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-[12px] uppercase ${isSelected
-                                          ? "border-[#2563EB] bg-[#2563EB] text-white"
-                                          : "border-neutral-300 bg-white text-neutral-500"
+                                          ? "border-[#C9A24B] bg-[#C9A24B] text-black"
+                                          : "border-white/20 bg-white/[0.05] text-white/55"
                                           }`}
                                       >
                                         {option.key.toUpperCase()}
                                       </span>
-                                      <span className="text-[15px] font-medium text-neutral-900">
+                                      <span className="text-[15px] font-medium text-[#F5F5F5]">
                                         {option.label}
                                       </span>
                                     </button>
@@ -681,13 +684,13 @@ export function PartnerPortfolioCTA() {
 
                         {step === 2 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-neutral-400">
+                            <p className="font-mono text-[12px] uppercase text-white/55">
                               The partnership
                             </p>
-                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-neutral-900">
+                            <h3 className="mt-3 font-serif text-[36px] sm:text-[52px] font-normal leading-[1.1] sm:leading-[1.2] text-[#F5F5F5] text-center [text-wrap:balance]">
                               What are you looking for?
                             </h3>
-                            <div className="mt-6 space-y-4">
+                            <div className="mt-7 sm:mt-6 space-y-4">
                               <label htmlFor="looking_for" className="sr-only">
                                 What are you looking for? *
                               </label>
@@ -711,7 +714,7 @@ export function PartnerPortfolioCTA() {
                                 )}
                               </div>
                               <div className="flex items-center justify-end mt-1.5">
-                                <span className="text-[11px] font-mono text-neutral-400">
+                                <span className="text-[11px] font-mono text-white/40">
                                   {formData.looking_for.length}/1000
                                 </span>
                               </div>
@@ -724,20 +727,20 @@ export function PartnerPortfolioCTA() {
 
                         {step === 3 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-neutral-400">
+                            <p className="font-mono text-[12px] uppercase text-white/55">
                               The partnership
                             </p>
-                            <h3 className="mt-3 font-serif text-[52px] font-normal leading-[1.2] text-neutral-900">
+                            <h3 className="mt-3 font-serif text-[36px] sm:text-[52px] font-normal leading-[1.1] sm:leading-[1.2] text-[#F5F5F5] text-center [text-wrap:balance]">
                               What’s the offer you have for us?
                             </h3>
-                            <div className="mt-6 space-y-4">
+                            <div className="mt-7 sm:mt-6 space-y-4">
 
                               {/* What is the offer that you have for us? */}
                               <div>
                                 <label htmlFor="offer" className="sr-only">
                                   WHAT&apos;S THE OFFER YOU HAVE FOR US? *
                                 </label>
-                                <p className="text-[13px] leading-[1.4] text-neutral-500 mt-[6px] mb-[10px]">
+                                <p className="text-[13px] leading-[1.4] text-white/45 mt-[6px] mb-[10px]">
                                   Include revenue share terms, volume commitments, or other
                                   value propositions.
                                 </p>
@@ -761,10 +764,10 @@ export function PartnerPortfolioCTA() {
                                   )}
                                 </div>
                                 <div className="flex items-center justify-between mt-1.5">
-                                  <span className="text-[12px] text-neutral-500 font-sans">
+                                  <span className="text-[12px] text-white/45 font-sans">
                                     A few sentences is usually enough.
                                   </span>
-                                  <span className="text-[11px] font-mono text-neutral-400">
+                                  <span className="text-[11px] font-mono text-white/40">
                                     {formData.offer.length}/1000
                                   </span>
                                 </div>
@@ -798,10 +801,10 @@ export function PartnerPortfolioCTA() {
                                     )}
                                 </div>
                                 <div className="flex items-center justify-between mt-1.5">
-                                  <span className="text-[12px] text-neutral-500 font-sans">
+                                  <span className="text-[12px] text-white/45 font-sans">
                                     A few sentences is usually enough.
                                   </span>
-                                  <span className="text-[11px] font-mono text-neutral-400">
+                                  <span className="text-[11px] font-mono text-white/40">
                                     {formData.luxury_answer.length}/1000
                                   </span>
                                 </div>
@@ -815,13 +818,13 @@ export function PartnerPortfolioCTA() {
 
                         {step === 4 && (
                           <div className={stepBodyClassName}>
-                            <p className="font-mono text-[12px] uppercase text-neutral-400">
+                            <p className="font-mono text-[12px] uppercase text-white/55">
                               Submit
                             </p>
-                            <h3 className="mt-3 font-serif text-[50px] font-normal leading-[1.2] text-neutral-900">
+                            <h3 className="mt-3 font-serif text-[36px] sm:text-[50px] font-normal leading-[1.1] sm:leading-[1.2] text-[#F5F5F5] text-center [text-wrap:balance]">
                               Confirm and submit your application.
                             </h3>
-                            <div className="mt-6 space-y-4">
+                            <div className="mt-7 sm:mt-6 space-y-4">
 
                               {/* SMS Consent Checkbox */}
                               <div className="pt-2">
@@ -834,18 +837,18 @@ export function PartnerPortfolioCTA() {
                                       setSmsConsent(event.target.checked);
                                       if (event.target.checked) setShowSmsError(false);
                                     }}
-                                    className="mt-1 w-4 h-4 rounded border-neutral-300 bg-white text-[#2563EB] focus:ring-0 focus:ring-offset-0 cursor-pointer accent-[#2563EB] shrink-0"
+                                    className="mt-1 w-4 h-4 rounded border-white/20 bg-[#15151A] text-[#C9A24B] focus:ring-0 focus:ring-offset-0 cursor-pointer accent-[#C9A24B] shrink-0"
                                   />
                                   <label
                                     htmlFor="sms-consent"
-                                    className="text-[12px] sm:text-[13px] leading-snug text-neutral-600 text-left cursor-pointer select-none"
+                                    className="text-[12px] sm:text-[13px] leading-snug text-white/60 text-left cursor-pointer select-none"
                                   >
                                     By checking this box, I agree to receive SMS messages
                                     from Hot Premium Customers. Message &amp; data rates
                                     may apply. Reply STOP to opt out at any time. View our{" "}
                                     <a
                                       href="#privacy"
-                                      className="underline text-neutral-900 hover:text-black transition-colors"
+                                      className="underline text-white hover:text-white/70 transition-colors"
                                     >
                                       Privacy Policy
                                     </a>
@@ -876,19 +879,19 @@ export function PartnerPortfolioCTA() {
                                 <button
                                   type="submit"
                                   disabled={isSubmitting}
-                                  className={`group relative w-full overflow-hidden py-4 px-8 rounded-lg bg-[#2563EB] text-white font-semibold text-sm hover:bg-[#1d4ed8] transition-all duration-200 active:scale-[0.99] flex items-center justify-center gap-3 uppercase tracking-wide ${isSubmitting ? "opacity-75 cursor-not-allowed" : "cursor-pointer"
+                                  className={`group relative w-full overflow-hidden py-4 px-8 rounded-[10px] bg-[#C9A24B] text-black font-semibold text-sm hover:bg-[#DBB65F] transition-all duration-200 active:scale-[0.99] flex items-center justify-center gap-3 uppercase tracking-wide ${isSubmitting ? "opacity-75 cursor-not-allowed" : "cursor-pointer"
                                     }`}
                                 >
                                   {!isSubmitting && (
                                     <span
                                       aria-hidden="true"
-                                      className="pointer-events-none absolute -inset-y-8 -left-1/3 w-1/4 skew-x-[-20deg] bg-white/20 opacity-0 blur-sm transition-all duration-700 ease-out group-hover:translate-x-[500%] group-hover:opacity-100"
+                                      className="pointer-events-none absolute -inset-y-8 -left-1/3 w-1/4 skew-x-[-20deg] bg-white/25 opacity-0 blur-sm transition-all duration-700 ease-out group-hover:translate-x-[500%] group-hover:opacity-100"
                                     />
                                   )}
                                   {isSubmitting ? (
                                     <>
                                       <svg
-                                        className="animate-spin h-4 w-4 text-white shrink-0"
+                                        className="animate-spin h-4 w-4 text-black shrink-0"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -923,11 +926,11 @@ export function PartnerPortfolioCTA() {
                                   )}
                                 </button>
 
-                                <p className="text-[13px] text-neutral-500 text-center mt-5 leading-[1.6]">
+                                <p className="text-[13px] text-white/45 text-center mt-5 leading-[1.6]">
                                   By submitting, you agree to be contacted about your
                                   application. We never share your information.
                                 </p>
-                                <p className="text-[13px] text-neutral-500 text-center mt-3 leading-[1.6]">
+                                <p className="text-[13px] text-white/45 text-center mt-3 leading-[1.6]">
                                   No retainer. No management fee.
                                 </p>
                               </div>
@@ -936,33 +939,41 @@ export function PartnerPortfolioCTA() {
                         )}
                       </motion.div>
                     </AnimatePresence>
-                    <div className="mt-auto pt-5 sm:pt-6">
-                      <div className="flex flex-col gap-2 sm:flex-row-reverse sm:items-center sm:justify-between">
-                        {step < 4 ? (
-                          <button
-                            type="button"
-                            disabled={!isCurrentStepValid || isSubmitting}
-                            onClick={() => void goNext()}
-                            className="mt-4 sm:mt-0 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#2563EB] px-8 text-sm font-semibold tracking-wide text-white transition-colors duration-200 hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+                    <div className="mt-8 flex flex-col gap-2">
+                      {step < 4 ? (
+                        <button
+                          type="button"
+                          disabled={!isCurrentStepValid || isSubmitting}
+                          onClick={() => void goNext()}
+                          className="group mt-4 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full border border-[rgba(255,255,255,0.35)] hover:border-[rgba(255,255,255,0.5)] bg-[linear-gradient(to_bottom,#D9B25A,#BD9238)] px-8 text-sm font-semibold tracking-wide text-black shadow-[inset_0_1px_0_rgba(255,255,255,0.5),inset_0_-1px_0_rgba(0,0,0,0.15),inset_0_0_12px_rgba(255,255,255,0.12),0_6px_24px_rgba(201,162,75,0.25),0_0_0_1px_rgba(201,162,75,0.4)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),inset_0_-1px_0_rgba(0,0,0,0.15),inset_0_0_12px_rgba(255,255,255,0.12),0_6px_24px_rgba(201,162,75,0.35),0_0_0_1px_rgba(201,162,75,0.4)] transition-all duration-200 hover:bg-[linear-gradient(to_bottom,#E3BE68,#D9B25A)] hover:-translate-y-px active:translate-y-0 disabled:cursor-not-allowed"
+                        >
+                          Continue
+                          <svg
+                            className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-[3px]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            aria-hidden="true"
                           >
-                            Continue
-                            <span aria-hidden="true">→</span>
-                          </button>
-                        ) : (
-                          <span className="hidden sm:block" aria-hidden="true" />
-                        )}
-                        {step > 0 ? (
-                          <button
-                            type="button"
-                            onClick={goBack}
-                            className="inline-flex min-h-[48px] items-center justify-center px-2 text-sm font-medium text-neutral-500 transition-colors duration-200 hover:text-neutral-900 sm:justify-start"
-                          >
-                            Back
-                          </button>
-                        ) : (
-                          <span className="hidden sm:block" aria-hidden="true" />
-                        )}
-                      </div>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      ) : null}
+                      {step > 0 ? (
+                        <button
+                          type="button"
+                          onClick={goBack}
+                          className="inline-flex min-h-[48px] items-center justify-center self-center px-2 text-sm font-medium text-white/50 transition-colors duration-200 hover:text-white/85"
+                        >
+                          Back
+                        </button>
+                      ) : null}
+                      {step < 4 ? (
+                        <p className="text-[13px] text-white/45 text-center leading-[1.6]">
+                          No retainer. No management fee.
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                 </form>

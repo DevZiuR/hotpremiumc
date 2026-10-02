@@ -23,9 +23,9 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full bg-black overflow-hidden pt-16 md:pt-[72px] pb-16 sm:pb-20 md:pb-24 lg:pb-28 border-b border-white/10">
+    <section className="relative w-full bg-black pt-16 md:pt-[72px] pb-[100px] overflow-hidden">
       {/* Centered architectural grid container with vertical guide borders */}
-      <div className="relative max-w-7xl mx-auto border-x border-white/10 min-h-[calc(100vh-72px)] flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 lg:px-12 pt-14 sm:pt-20 md:pt-20 lg:pt-20 pb-[calc(clamp(110px,_20vh,_220px)_+_26px)] sm:pb-[calc(clamp(115px,_20vh,_230px)_+_24px)] md:pb-[calc(clamp(120px,_20vh,_260px)_+_22px)] lg:pb-[calc(clamp(120px,_20vh,_260px)_+_20px)] xl:pb-[calc(clamp(120px,_20vh,_260px)_+_20px)] overflow-hidden">
+      <div className="relative max-w-7xl mx-auto border-x border-white/10 min-h-[calc(100vh-72px)] flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 lg:px-12 pt-14 sm:pt-20 md:pt-20 lg:pt-20 pb-16 sm:pb-16 md:pb-20">
 
         {/* Main Hero Content */}
         <div className="relative z-20 flex flex-col items-center text-center w-full max-w-6xl mx-auto">
@@ -33,14 +33,14 @@ export function Hero() {
           {/* 1. Pill badge */}
           <div style={getEntranceStyle(0)}>
             <div
-              className="inline-flex items-center gap-2 mb-4 sm:mb-6 md:mb-8 rounded-full border px-3.5 py-1.5 bg-white/[0.06] border-white/15 shadow-xs"
+              className="inline-flex items-center gap-2 mb-2 sm:mb-4 md:mb-6 rounded-full px-[14px] py-[7px] bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.14)] shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_4px_20px_rgba(0,0,0,0.5)]"
             >
               <span
-                className="block flex-shrink-0 w-2.5 h-2.5 rounded-full bg-[#2563EB] shadow-xs"
+                className="block flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#C9A24B] shadow-[0_0_8px_rgba(201,162,75,0.5)]"
                 aria-hidden="true"
               />
-              <span className="font-sans text-[12px] sm:text-[12.5px] font-semibold tracking-[0.12em] uppercase text-neutral-200">
-                Equity partnerships
+              <span className="font-sans text-[10px] sm:text-[10.5px] font-semibold tracking-[0.08em] uppercase text-white">
+                Growth Capital
               </span>
             </div>
           </div>
@@ -74,7 +74,7 @@ export function Hero() {
           <div style={getEntranceStyle(400)}>
             <a
               href="#contact"
-              className="group relative inline-flex items-center justify-center gap-2 bg-[#18181b] hover:bg-black text-white font-sans font-medium text-[15.5px] sm:text-[17px] px-8 sm:px-10 py-3.5 sm:py-4 rounded-full shadow-[0_14px_32px_rgba(0,0,0,0.22)] hover:shadow-[0_20px_42px_rgba(0,0,0,0.32)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer"
+              className="group relative inline-flex items-center justify-center gap-2 font-sans font-medium text-[15.5px] sm:text-[17px] px-8 sm:px-10 py-3.5 sm:py-4 rounded-full cursor-pointer text-white bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.18)] hover:border-[rgba(255,255,255,0.3)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.12)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.2)] hover:-translate-y-px active:translate-y-0 transition-all duration-200"
             >
               <span>Apply for Partnership</span>
               <svg
@@ -94,23 +94,28 @@ export function Hero() {
 
       </div>
 
-      {/* Bottom hero visual: ribbon band floating a small gap below the CTA,
-          fully visible above the fold. Bottom padding above reserves exactly
-          band height + lift + text gap. */}
+      {/* Ribbon — in normal flow so it's never clipped, sits below the hero content */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 pointer-events-none select-none"
+        className="relative w-full pointer-events-none select-none"
         style={getEntranceStyle(500)}
       >
         <div className="relative w-full">
           <img
             src="/media/hero-ribbon.png"
             alt=""
-            className="w-full h-[clamp(110px,20vh,220px)] sm:h-[clamp(115px,20vh,230px)] md:h-[clamp(120px,20vh,260px)] lg:h-[clamp(120px,20vh,260px)] xl:h-[clamp(120px,20vh,260px)] object-cover object-[50%_50%]"
+            data-lenis-parallax="0.85"
+            className="w-full h-[clamp(110px,20vh,220px)] sm:h-[clamp(115px,20vh,230px)] md:h-[clamp(120px,20vh,260px)] lg:h-[clamp(120px,20vh,260px)] xl:h-[clamp(120px,20vh,260px)] object-cover object-[50%_50%] will-change-transform"
+            style={{
+              maskImage: "linear-gradient(to bottom, #000 70%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, #000 70%, transparent 100%)",
+            }}
             draggable={false}
           />
-          {/* Dark gradient fade over the top of the image blending into the black above */}
+          {/* Top fade: blends image into the black hero above */}
           <div className="absolute inset-x-0 top-0 h-[32%] bg-gradient-to-b from-black via-black/40 to-transparent" />
+          {/* Bottom fade: dissolves into #000 so no hard edge to the next section */}
+          <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black via-black/60 to-transparent" />
         </div>
       </div>
     </section>

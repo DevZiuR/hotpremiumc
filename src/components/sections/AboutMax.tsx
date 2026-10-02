@@ -1,92 +1,21 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { SplitHeading } from "@/components/SplitHeading";
 import { VisualReveal } from "@/components/VisualReveal";
-import { Button } from "@/components/ui/Button";
-
-function useCountUp(target: number, duration: number = 1800, delay: number = 0, start: boolean = false) {
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isMobile = window.matchMedia("(max-width: 767px)").matches;
-      if (isMobile) {
-        setValue(target);
-        return;
-      }
-    }
-
-    if (!start) {
-      setValue(0);
-      return;
-    }
-
-    let startTime: number | null = null;
-    let animationFrameId: number;
-    let delayTimeoutId: ReturnType<typeof setTimeout>;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out quart: launches quickly, then settles into the final value
-      // slowly enough to read as a deliberate count rather than a snap.
-      const easedProgress = 1 - Math.pow(1 - progress, 4);
-      const current = Math.round(easedProgress * target);
-      setValue(current);
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(animate);
-      } else {
-        setValue(target);
-      }
-    };
-
-    delayTimeoutId = setTimeout(() => {
-      animationFrameId = requestAnimationFrame(animate);
-    }, delay);
-
-    return () => {
-      clearTimeout(delayTimeoutId);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    };
-  }, [target, duration, delay, start]);
-
-  return value;
-}
 
 export function AboutMax() {
-  const statsRef = useRef<HTMLDivElement>(null);
-  const [hasTriggered, setHasTriggered] = useState(false);
-
-  useEffect(() => {
-    const el = statsRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasTriggered(true);
-          // Once triggered, disconnect — no need to reset on scroll-out
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.05 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const stat1 = useCountUp(52, 1800, 250, hasTriggered);
-  const stat2 = useCountUp(50, 1800, 400, hasTriggered);
-  const stat3 = useCountUp(7, 1800, 550, hasTriggered);
+  const goldText: React.CSSProperties = {
+    background: "linear-gradient(to right, #F3E3B5 0%, #C9A24B 55%, #9A7B3C 100%)",
+    WebkitBackgroundClip: "text",
+    backgroundClip: "text",
+    color: "transparent",
+  };
 
   return (
-    <section id="about-founder" className="relative bg-[#09090b] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] overflow-hidden font-sans">
+    <section id="about-founder" className="relative bg-[#000000] pt-[80px] pb-[36px] lg:pt-[140px] lg:pb-[140px] overflow-hidden font-sans">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 xl:gap-20 items-center">
 
@@ -102,8 +31,8 @@ export function AboutMax() {
 
           {/* ── Founder Photo Card with VisualReveal at 270ms (below heading on mobile, left col on desktop) ── */}
           <div className="lg:col-span-5 flex justify-center lg:justify-start lg:order-1">
-            <VisualReveal delay={270} className="w-full max-w-[320px] sm:max-w-[520px] rounded-2xl lg:rounded-3xl p-[7px] bg-[#0a0a0a] shadow-[0_0_0_1px_rgba(255,255,255,0.10),0_18px_44px_-12px_rgba(0,0,0,0.85)]">
-              <div className="relative w-full aspect-square rounded-xl lg:rounded-2xl overflow-hidden bg-[#111418] group">
+            <VisualReveal delay={270} className="w-full max-w-[320px] sm:max-w-[520px] rounded-2xl lg:rounded-3xl border border-[rgba(255,255,255,0.08)]">
+              <div className="relative w-full aspect-square rounded-2xl lg:rounded-3xl overflow-hidden bg-[#111418] group">
                 <Image
                   src="/media/max-pfp.jpg"
                   alt="Max — Founder of Hot Premium Customers"
@@ -146,36 +75,53 @@ export function AboutMax() {
               </div>
             </Reveal>
 
-            {/* Track Record Stat Highlights */}
-            <Reveal delay={270}>
-              <div ref={statsRef} className="mt-6 sm:mt-8 rounded-[22px] lg:rounded-[26px] bg-white/[0.035] border border-white/10 p-2.5 sm:p-3">
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                  <div className="rounded-[16px] lg:rounded-[20px] bg-white/[0.06] px-2.5 sm:px-5 py-4 sm:py-6 flex flex-col items-center sm:items-start text-center sm:text-left">
-                    <div className="font-serif text-[24px] sm:text-[34px] lg:text-[40px] text-white font-normal tracking-tight leading-tight mb-1 sm:mb-2">
-                      <span>$</span>
-                      <span className="tabular-nums">{hasTriggered ? stat1 : 0}</span>
-                      <span>M/yr</span>
-                    </div>
-                    <div className="font-sans text-[11px] sm:text-[12.5px] text-white/55">Coaching Company</div>
+            {/* Track Record Stat Highlights — minimal gold-gradient row, no cards */}
+            <div className="relative mt-8 sm:mt-10">
+              {/* faint warm radial glow, fully fading to black */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-[-80px_-100px] select-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 85% 90% at 50% 50%, rgba(201,162,75,0.045) 0%, rgba(201,162,75,0.02) 50%, rgba(0,0,0,0) 80%)",
+                }}
+              />
+              <div className="relative grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-12">
+                <div className="text-center sm:text-left">
+                  <div
+                    className="font-serif font-normal tracking-tight leading-[1] text-[44px] lg:text-[52px] tabular-nums"
+                    style={goldText}
+                  >
+                    $52M/yr
                   </div>
-                  <div className="rounded-[16px] lg:rounded-[20px] bg-white/[0.06] border-l border-white/[0.12] pl-2.5 sm:pl-5 pr-2.5 sm:pr-5 py-4 sm:py-6 flex flex-col items-center sm:items-start text-center sm:text-left">
-                    <div className="font-serif text-[24px] sm:text-[34px] lg:text-[40px] text-white font-normal tracking-tight leading-tight mb-1 sm:mb-2">
-                      <span>$</span>
-                      <span className="tabular-nums">{hasTriggered ? stat2 : 0}</span>
-                      <span>M</span>
-                    </div>
-                    <div className="font-sans text-[11px] sm:text-[12.5px] text-white/55">In 10 Months (Medical)</div>
+                  <div className="mt-2 font-sans text-[14px] sm:text-[15px] font-normal leading-normal text-[rgba(255,255,255,0.6)]">
+                    Coaching Company
                   </div>
-                  <div className="rounded-[16px] lg:rounded-[20px] bg-white/[0.06] border-l border-white/[0.12] pl-2.5 sm:pl-5 pr-2.5 sm:pr-5 py-4 sm:py-6 flex flex-col items-center sm:items-start text-center sm:text-left">
-                    <div className="font-serif text-[24px] sm:text-[34px] lg:text-[40px] text-white font-normal tracking-tight leading-tight mb-1 sm:mb-2">
-                      <span className="tabular-nums">{hasTriggered ? stat3 : 0}</span>
-                      <span>-Figure</span>
-                    </div>
-                    <div className="font-sans text-[11px] sm:text-[12.5px] text-white/55">Apparel First Year</div>
+                </div>
+                <div className="text-center sm:text-left">
+                  <div
+                    className="font-serif font-normal tracking-tight leading-[1] text-[44px] lg:text-[52px] tabular-nums"
+                    style={goldText}
+                  >
+                    $50M
+                  </div>
+                  <div className="mt-2 font-sans text-[14px] sm:text-[15px] font-normal leading-normal text-[rgba(255,255,255,0.6)]">
+                    In 10 Months (Medical)
+                  </div>
+                </div>
+                <div className="text-center sm:text-left">
+                  <div
+                    className="font-serif font-normal tracking-tight leading-[1] text-[44px] lg:text-[52px] tabular-nums"
+                    style={goldText}
+                  >
+                    7-Figure
+                  </div>
+                  <div className="mt-2 font-sans text-[14px] sm:text-[15px] font-normal leading-normal text-[rgba(255,255,255,0.6)]">
+                    Apparel First Year
                   </div>
                 </div>
               </div>
-            </Reveal>
+            </div>
 
             {/* Closing CTA — transparent text link with arrow */}
             <Reveal delay={340}>

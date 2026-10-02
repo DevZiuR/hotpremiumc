@@ -208,7 +208,7 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       context.save();
       context.globalAlpha = layout.opacity;
       context.lineWidth = 1;
-      context.strokeStyle = "rgba(255, 255, 255, 0.32)";
+      context.strokeStyle = "rgba(201, 162, 75, 0.5)";
       context.beginPath();
       context.moveTo(layout.point[0], layout.point[1]);
       context.lineTo(layout.label[0], layout.label[1]);
@@ -216,8 +216,11 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
 
       context.beginPath();
       context.arc(layout.point[0], layout.point[1], dotRadius, 0, Math.PI * 2);
-      context.fillStyle = "#2563EB";
+      context.shadowColor = "rgba(201, 162, 75, 0.6)";
+      context.shadowBlur = 10;
+      context.fillStyle = "#C9A24B";
       context.fill();
+      context.shadowBlur = 0;
       context.strokeStyle = "rgba(255, 255, 255, 0.85)";
       context.stroke();
 

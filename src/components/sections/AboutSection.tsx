@@ -16,12 +16,12 @@ interface AboutSectionProps {
 /* Inline circular icon badges. Each one sits inside the serif sentence,
    sized larger than the surrounding text and bled slightly above the line
    (via negative margin) so it reads as a distinct object interrupting the
-   sentence, matching the America.gov reference — white disc, accent-blue
-   glyph, soft shadow for separation. The words themselves stay in the flow
-   as plain text; the badge leads into them rather than boxing them. */
+   sentence, matching the America.gov reference — dark glass disc, soft
+   separation. The words themselves stay in the flow as plain text; the
+   badge leads into them rather than boxing them. */
 function IconStop() {
   return (
-    <span className="inline-flex items-center justify-center w-[1.35em] h-[1.35em] rounded-full bg-[#2563EB] text-white align-middle -mt-[0.28em] mx-[0.15em] shrink-0 select-none shadow-sm">
+    <span className="inline-flex items-center justify-center w-[1.35em] h-[1.35em] rounded-full bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.18)] text-white/70 align-middle -mt-[0.28em] mx-[0.15em] shrink-0 select-none">
       <svg
         className="w-[0.62em] h-[0.62em]"
         viewBox="0 0 20 20"
@@ -41,7 +41,7 @@ function IconStop() {
 // Upward-trending arrow icon (thin stroke, no fill)
 function IconTrendingUp() {
   return (
-    <span className="inline-flex items-center justify-center w-[1.35em] h-[1.35em] rounded-full bg-[#2563EB] text-white align-middle -mt-[0.28em] mx-[0.15em] shrink-0 select-none shadow-sm">
+    <span className="inline-flex items-center justify-center w-[1.35em] h-[1.35em] rounded-full bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(201,162,75,0.6)] text-[#C9A24B] align-middle -mt-[0.28em] mx-[0.15em] shrink-0 select-none shadow-[0_0_20px_rgba(201,162,75,0.25)]">
       <svg
         className="w-[0.64em] h-[0.64em]"
         viewBox="0 0 20 20"

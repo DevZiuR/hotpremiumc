@@ -31,10 +31,17 @@ const complianceItems = [
 ];
 
 export function ComplianceStandards() {
+  const goldText: React.CSSProperties = {
+    background: "linear-gradient(to right, #F3E3B5 0%, #C9A24B 55%, #9A7B3C 100%)",
+    WebkitBackgroundClip: "text",
+    backgroundClip: "text",
+    color: "transparent",
+  };
+
   return (
     <section
       id="compliance"
-      className="bg-[#09090b] text-white py-[80px] lg:py-[140px] border-b border-white/10"
+      className="bg-[#000000] text-white py-[80px] lg:py-[140px] border-b border-white/10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         {/* ── Header: heading left, overview bottom-aligned right on desktop ── */}
@@ -60,7 +67,7 @@ export function ComplianceStandards() {
             <Reveal key={item.number} delay={120 + index * 80} className="h-full">
               <div
                 className={[
-                  "group relative h-full px-0 py-6 sm:px-5 sm:py-7 lg:px-6 lg:py-8 transition-colors duration-300 ease-out hover:bg-white/[0.03] before:absolute before:left-0 before:top-0 before:h-[2px] before:w-full before:origin-left before:scale-x-0 before:bg-[#2563EB] before:transition-transform before:duration-300 before:ease-out before:content-[''] group-hover:before:scale-x-100",
+                  "group relative h-full px-0 py-6 sm:px-5 sm:py-7 lg:px-6 lg:py-8 transition-colors duration-300 ease-out hover:bg-white/[0.03] before:absolute before:left-0 before:top-0 before:h-[2px] before:w-full before:origin-left before:scale-x-0 before:bg-[#C9A24B] before:transition-transform before:duration-300 before:ease-out before:content-[''] group-hover:before:scale-x-100",
                   "border-white/10",
                   // Stacked (1-col): hairline above every item but the first
                   index > 0 ? "border-t" : "",
@@ -79,7 +86,7 @@ export function ComplianceStandards() {
                   .filter(Boolean)
                   .join(" ")}
               >
-                <div className="font-mono text-[11px] tracking-[0.14em] text-[#2563EB] mb-3">
+                <div className="font-mono text-[11px] tracking-[0.14em] mb-3" style={goldText}>
                   {item.number}
                 </div>
                 <h3 className="font-serif text-[24px] sm:text-[25px] lg:text-[27px] font-normal text-white leading-[1.12] tracking-[-0.02em] mb-2.5">
