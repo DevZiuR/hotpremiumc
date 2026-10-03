@@ -42,7 +42,7 @@ export function Hero() {
           {/* 2. H1 Headline */}
           <h1
             aria-label="We Fund Your Growth. You Keep the Business."
-            className="font-serif text-[clamp(38px,11vw,64px)] md:text-[clamp(40px,min(8vw,13vh),120px)] font-medium text-white w-full mb-5 tracking-[-0.025em] leading-[1.02]"
+            className="font-serif text-[clamp(40px,11vw,56px)] md:text-[clamp(40px,min(8vw,13vh),120px)] font-medium text-white w-full mb-5 tracking-[-0.025em] leading-[1.05] md:leading-[1.02]"
           >
             <span className="block overflow-hidden py-[0.06em] -my-[0.06em]">
               <span className="block" style={getEntranceStyle(100)}>

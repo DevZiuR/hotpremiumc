@@ -156,7 +156,7 @@ export function AboutSection({
     <section
       ref={sectionRef}
       id="about"
-      className="relative bg-black px-4 py-[150px] sm:px-6 sm:py-[170px] lg:px-8"
+      className="relative bg-black px-4 py-[100px] sm:px-6 sm:py-[170px] lg:px-8"
     >
       <div className="relative mx-auto flex max-w-[1300px] flex-col items-center justify-center">
         {/* Faint DotField canvas background */}
@@ -169,7 +169,7 @@ export function AboutSection({
           />
         </div>
 
-        <h2 className="relative z-10 mx-auto max-w-[1000px] text-center font-serif text-[clamp(26px,6.4vw,32px)] font-normal leading-[1.12] tracking-[-0.02em] [text-wrap:balance] md:text-[clamp(38px,5vw,58px)]">
+        <h2 className="relative z-10 mx-auto max-w-[1000px] text-center font-serif text-[clamp(30px,8.5vw,42px)] font-normal leading-[1.12] tracking-[-0.02em] [text-wrap:balance] md:text-[clamp(38px,5vw,58px)]">
           {words.map((word, index) => (
             <React.Fragment key={`${word}-${index}`}>
               <RevealWord

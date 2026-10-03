@@ -86,10 +86,10 @@ export function AboutMax() {
                     "radial-gradient(ellipse 85% 90% at 50% 50%, rgba(201,162,75,0.045) 0%, rgba(201,162,75,0.02) 50%, rgba(0,0,0,0) 80%)",
                 }}
               />
-              <div className="relative grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-12">
+              <div className="relative grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 sm:gap-8 lg:gap-12">
                 <div className="text-center sm:text-left">
                   <div
-                    className="font-serif font-normal tracking-tight leading-[1] text-[44px] lg:text-[52px] tabular-nums"
+                    className="font-serif font-normal tracking-tight leading-[1] text-[32px] sm:text-[44px] lg:text-[52px] tabular-nums"
                     style={goldText}
                   >
                     $52M/yr
@@ -100,7 +100,7 @@ export function AboutMax() {
                 </div>
                 <div className="text-center sm:text-left">
                   <div
-                    className="font-serif font-normal tracking-tight leading-[1] text-[44px] lg:text-[52px] tabular-nums"
+                    className="font-serif font-normal tracking-tight leading-[1] text-[32px] sm:text-[44px] lg:text-[52px] tabular-nums"
                     style={goldText}
                   >
                     $50M
@@ -109,9 +109,9 @@ export function AboutMax() {
                     In 10 Months (Medical)
                   </div>
                 </div>
-                <div className="text-center sm:text-left">
+                <div className="col-span-2 text-center sm:col-span-1 sm:text-left">
                   <div
-                    className="font-serif font-normal tracking-tight leading-[1] text-[44px] lg:text-[52px] tabular-nums"
+                    className="font-serif font-normal tracking-tight leading-[1] text-[32px] sm:text-[44px] lg:text-[52px] tabular-nums"
                     style={goldText}
                   >
                     7-Figure
