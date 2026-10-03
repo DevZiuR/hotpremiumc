@@ -246,7 +246,11 @@ export function IndustriesWeServe() {
                     {/* Item Header Row */}
                     <div className="flex items-center justify-between gap-4">
                       <h3
-                        className="text-[24px] sm:text-[26px] lg:text-[28px] leading-[1.15] tracking-[-0.01em] text-white font-normal transition-all duration-200 group-hover:italic"
+                        className={`text-[24px] sm:text-[26px] lg:text-[28px] leading-[1.15] tracking-[-0.01em] font-normal transition-colors duration-200 group-hover:italic ${
+                          isSelected
+                            ? "text-[#C9A24B]"
+                            : "text-white group-hover:text-[#C9A24B]"
+                        }`}
                       >
                         {item.title}
                       </h3>

@@ -160,7 +160,7 @@ export function ProblemGrid() {
       id="why-operators-partner"
       className="relative bg-[#000000] text-white border-t border-b border-white/[0.07] py-[110px] sm:py-[150px] lg:py-[190px] overflow-hidden"
     >
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 md:px-10 lg:px-12">
 
         {/* Centered editorial header */}
         <div className="mb-24 flex flex-col items-center text-center">
@@ -180,11 +180,13 @@ export function ProblemGrid() {
               key={item.id}
               delay={120 + index * 70}
               className={[
-                "px-8",
-                // Mobile: horizontal divider between stacked items
+                // Mobile: flush to the page margin; desktop keeps column padding
+                "px-0 sm:px-8",
+                // Mobile: horizontal divider + even vertical rhythm between items
                 index > 0
-                  ? "mt-10 border-t border-[rgba(255,255,255,0.08)] pt-10 lg:mt-0 lg:border-t-0 lg:pt-0"
+                  ? "border-t border-[rgba(255,255,255,0.08)] lg:border-t-0"
                   : "",
+                "py-9 lg:py-0",
                 // Desktop: vertical dividers between columns (middle column only)
                 index === 1 || index === 4
                   ? "lg:border-x lg:border-[rgba(255,255,255,0.08)]"
@@ -199,7 +201,7 @@ export function ProblemGrid() {
                   <item.icon className="w-5 h-5 text-[rgba(255,255,255,0.75)]" />
                 </div>
 
-                <h3 className="mt-14 font-sans text-[24px] font-normal leading-[1.2] text-white">
+                <h3 className="mt-6 lg:mt-14 font-sans text-[24px] font-normal leading-[1.2] text-white">
                   {item.title}
                 </h3>
                 <p className="mt-3 font-sans text-[15px] leading-[1.5] text-[rgba(255,255,255,0.6)] max-w-[240px]">
