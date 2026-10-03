@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SplitHeading } from "@/components/SplitHeading";
 
 const baseControlClassName =
-  "w-full min-h-[52px] bg-transparent border border-[rgba(255,255,255,0.14)] rounded-[8px] px-3 py-2.5 text-[16px] leading-[1.5] font-sans text-[#F5F5F5] placeholder:text-[16px] placeholder:tracking-normal placeholder:text-[rgba(255,255,255,0.45)] focus:outline-none focus:ring-0 transition-colors duration-200";
+  "w-full min-h-[52px] bg-transparent border border-[rgba(255,255,255,0.2)] rounded-[8px] px-3 py-2.5 text-[16px] leading-[1.5] font-sans text-[#F5F5F5] placeholder:text-[16px] placeholder:tracking-normal placeholder:text-[rgba(255,255,255,0.45)] focus:outline-none focus:ring-0 transition-colors duration-200";
 
 const baseTextareaClassName = `${baseControlClassName} resize-none`;
 
@@ -130,7 +130,9 @@ export function PartnerPortfolioCTA() {
     if (status === "invalid") {
       return "border-rose-500/70 focus:border-rose-500";
     }
-    return "border-[rgba(255,255,255,0.14)] focus:border-[#C9A24B]";
+    /* Slightly lifted from the 0.14 base so field edges stay clearly visible
+       against the lighter card tone. */
+    return "border-[rgba(255,255,255,0.2)] focus:border-[#C9A24B]";
   };
 
   const handleChange = (
@@ -179,7 +181,7 @@ export function PartnerPortfolioCTA() {
     [],
   ];
 
-  const stepBodyClassName = "mt-5 sm:mt-6 border-t border-white/[0.08] pt-5 sm:pt-6";
+  const stepBodyClassName = "mt-6 sm:mt-7 border-t border-white/[0.08] pt-6 sm:pt-7";
 
   const simulateLeadSubmission = async (
     status: "partial" | "complete",
@@ -381,7 +383,7 @@ export function PartnerPortfolioCTA() {
                     duration: shouldReduceMotion ? 0.1 : 0.55,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="flex min-h-[420px] sm:min-h-[460px] flex-col items-center justify-center rounded-[16px] bg-[#0A0A0C] border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099] py-10 px-6 sm:py-12 sm:px-10 text-center"
+                  className="flex min-h-[420px] sm:min-h-[460px] flex-col items-center justify-center rounded-[16px] bg-[#121215] border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099] py-10 px-6 sm:py-12 sm:px-10 text-center"
                   aria-live="polite"
                 >
                   {/* Glowing Animated Circular Badge with Stroke Drawing */}
@@ -440,7 +442,7 @@ export function PartnerPortfolioCTA() {
                   noValidate
                   onSubmit={handleSubmit}
                   onKeyDown={handleStepKeyDown}
-                  className="space-y-5 sm:space-y-6 bg-[#0A0A0C] rounded-[16px] p-6 sm:p-10 border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099]"
+                  className="space-y-6 sm:space-y-7 bg-[#121215] rounded-[16px] px-6 pt-10 pb-12 sm:p-10 border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099]"
                 >
                   <div>
                     <div className="flex items-center justify-between gap-4">

@@ -36,13 +36,14 @@ export function Hero() {
 
   return (
     <section ref={sectionRef} className="relative h-[100svh] min-h-[700px] w-full overflow-hidden bg-black">
-      {/* Main Hero Content — flows from below the nav, never centered */}
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-4 sm:px-6 md:px-10 pt-[130px] md:pt-[190px] text-center">
+      {/* Main Hero Content — centered in the band between nav and ribbon on mobile,
+          then reverting to the desktop flow below the nav at md and up. */}
+      <div className="relative z-10 mx-auto flex h-[56%] w-full max-w-6xl flex-col items-center justify-center px-4 pt-[96px] text-center sm:px-6 md:h-auto md:px-10 md:pt-[190px] md:justify-start">
 
           {/* 2. H1 Headline */}
           <h1
             aria-label="We Fund Your Growth. You Keep the Business."
-            className="font-serif text-[clamp(40px,11vw,56px)] md:text-[clamp(40px,min(8vw,13vh),120px)] font-medium text-white w-full mb-5 tracking-[-0.025em] leading-[1.05] md:leading-[1.02]"
+            className="font-serif text-[clamp(40px,11.5vw,56px)] md:text-[clamp(40px,min(8vw,13vh),120px)] font-medium text-white w-full mb-5 tracking-[-0.025em] leading-[1.05] md:leading-[1.02]"
           >
             <span className="block overflow-hidden py-[0.06em] -my-[0.06em]">
               <span className="block" style={getEntranceStyle(100)}>
@@ -92,7 +93,7 @@ export function Hero() {
           drift, img = slow brightness pulse. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-0 z-0 h-[30%] w-full select-none overflow-hidden md:h-[34%]"
+        className="pointer-events-none absolute bottom-0 left-0 z-0 h-[40%] w-full select-none overflow-hidden md:h-[34%]"
         style={{
           maskImage: "linear-gradient(to bottom, transparent 0%, #000 50%)",
           WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 50%)",
