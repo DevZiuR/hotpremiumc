@@ -144,9 +144,34 @@ export function Header() {
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [isPinned, setIsPinned] = useState(false);
+  /* Below 768px the pill is logo + hamburger only, so the CTA reappears here
+     once the hero has scrolled away and there is room for it. */
+  const [pastHero, setPastHero] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /* Track whether the hero has left the viewport, gating the mobile CTA. */
+  useEffect(() => {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      setPastHero(window.scrollY > window.innerHeight * 0.9);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   /* Retire the pill once the footer's top edge reaches the header's band. */
   useEffect(() => {
@@ -157,7 +182,13 @@ export function Header() {
     let ticking = false;
     const update = () => {
       ticking = false;
-      const topOffset = window.innerWidth >= 640 ? 20 : 12;
+      const base = window.innerWidth >= 640 ? 20 : 12;
+      /* Announcement bar height is published as --announce-h; read it so the
+         retire threshold still matches the nav's real position. */
+      const announced = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--announce-h")
+      );
+      const topOffset = base + (Number.isFinite(announced) ? announced : 0);
       const threshold = topOffset + el.offsetHeight;
       const shouldHide = footer.getBoundingClientRect().top <= threshold;
       el.classList.toggle("opacity-0", shouldHide);
@@ -273,10 +304,10 @@ export function Header() {
       {/* ── Floating Pill Header (reference structure) ─────────────────────── */}
       <header
         ref={headerRef}
-        className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-[80] w-[calc(100%-24px)] sm:w-max sm:max-w-[calc(100%-24px)] select-none transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none"
+        className="fixed left-1/2 -translate-x-1/2 z-[80] w-[calc(100%-2rem)] max-w-7xl select-none transition-[opacity,transform,top] duration-300 ease-out motion-reduce:transition-none top-[calc(var(--announce-h,0px)+0.75rem)] sm:top-[calc(var(--announce-h,0px)+0.875rem)]"
       >
         <div
-          className="mx-auto flex items-center justify-between gap-6 sm:gap-10 rounded-[20px] border border-white/[0.08] bg-black backdrop-blur-md shadow-[0_18px_50px_rgba(0,0,0,0.55)] px-5 sm:px-6 py-2.5 transition-colors duration-300"
+          className="mx-auto flex items-center justify-between gap-4 rounded-[18px] border border-white/[0.1] bg-black/60 backdrop-blur-xl shadow-[0_18px_50px_rgba(0,0,0,0.55)] px-4 py-2 sm:gap-6 sm:px-5 transition-colors duration-300"
         >
 
           {/* Left — Logo + Wordmark */}
@@ -432,29 +463,22 @@ export function Header() {
             </Link>
           </nav>
 
-          {/* Right — Apply CTA + Mobile Hamburger */}
+          {/* Right — Availability CTA + Mobile Hamburger */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Desktop CTA */}
-            <a
+            {/* Desktop/tablet CTA. Below 768px it is hidden while the hero is on screen
+                  (logo + hamburger only) and returns after the scroll. */}
+              <a
               href="#contact"
-              className="hidden md:inline-flex items-center text-[13px] font-semibold  tracking-[0.08em] px-4 py-2.5 rounded-full cursor-pointer text-white bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.5)] hover:border-[rgba(255,255,255,0.7)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.12)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.2)] transition-all duration-200 hover:-translate-y-px active:translate-y-0"
+              className={`inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 font-sans text-[13px] font-medium leading-none tracking-normal text-white cursor-pointer bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.5)] hover:border-[rgba(255,255,255,0.7)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.12)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.2)] transition-all duration-200 hover:-translate-y-px active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A24B] sm:px-5 sm:text-[14px] ${pastHero ? "md:inline-flex" : "max-md:hidden"}`}
             >
-              Apply now
-            </a>
-
-            {/* Mobile CTA */}
-            <a
-              href="#contact"
-              className="md:hidden inline-flex items-center text-[11px] font-semibold uppercase tracking-[0.06em] h-8 px-3.5 rounded-full cursor-pointer text-white bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.5)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.12)] transition-all duration-200"
-            >
-              APPLY →
+              Check Availability
             </a>
 
             {/* Hamburger */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded transition-colors focus:outline-none text-white/80 hover:text-white"
+              className="md:hidden inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors focus:outline-none text-white/80 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A24B]"
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -640,9 +664,9 @@ export function Header() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2, delay: 0.15 }}
-                  className="flex h-12 w-full items-center justify-between rounded-full bg-white px-6 font-sans text-[14px] font-semibold uppercase tracking-[0.04em] text-black hover:bg-white/90 transition-colors duration-150"
+                  className="flex h-12 w-full items-center justify-between rounded-full bg-white px-6 font-sans text-[14px] font-semibold tracking-normal text-black hover:bg-white/90 transition-colors duration-150"
                 >
-                  <span>Apply for partnership</span>
+                  <span>Check Availability</span>
                   <span aria-hidden="true" className="text-black">→</span>
                 </motion.a>
               </div>

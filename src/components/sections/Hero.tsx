@@ -35,7 +35,12 @@ export function Hero() {
   };
 
   return (
-    <section ref={sectionRef} className="relative h-[100svh] min-h-[700px] w-full overflow-hidden bg-black">
+    <section
+      ref={sectionRef}
+      /* Subtracting the announcement bar keeps the whole hero — ribbon included —
+         inside the first screen. */
+      className="relative h-[calc(100svh-var(--announce-h,0px))] min-h-[660px] w-full overflow-hidden bg-black"
+    >
       {/* Main Hero Content — centered in the band between nav and ribbon on mobile,
           then reverting to the desktop flow below the nav at md and up. */}
       <div className="relative z-10 mx-auto flex h-[56%] w-full max-w-6xl flex-col items-center justify-center px-4 pt-[96px] text-center sm:px-6 md:h-auto md:px-10 md:pt-[190px] md:justify-start">
@@ -71,7 +76,7 @@ export function Hero() {
               href="#contact"
               className="group relative inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] sm:text-[15px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full cursor-pointer text-black bg-white hover:bg-neutral-200 shadow-[0_10px_30px_rgba(0,0,0,0.45)] hover:-translate-y-px active:translate-y-0 transition-all duration-200"
             >
-              <span>Apply for Partnership</span>
+              <span>See If You Qualify</span>
               <svg
                 className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
                 fill="none"

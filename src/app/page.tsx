@@ -1,3 +1,4 @@
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/sections/Hero";
 import { AboutSection } from "@/components/sections/AboutSection";
@@ -15,8 +16,15 @@ import { Footer } from "@/components/sections/Footer";
 export default function Home() {
   return (
     <>
+      <AnnouncementBar />
       <Header />
       <main className="flex-1">
+        {/* Spacer matching the fixed bar's height so the hero starts below it.
+            Transitions with the bar's dismissal. */}
+        <div
+          aria-hidden="true"
+          className="h-[var(--announce-h)] transition-[height] duration-300 ease-out motion-reduce:transition-none"
+        />
         <Hero />
         <AboutSection />
         {/* <HowItWorks /> */}

@@ -383,7 +383,7 @@ export function PartnerPortfolioCTA() {
                     duration: shouldReduceMotion ? 0.1 : 0.55,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="flex min-h-[420px] sm:min-h-[460px] flex-col items-center justify-center rounded-[16px] bg-[#121215] border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099] py-10 px-6 sm:py-12 sm:px-10 text-center"
+                  className="flex min-h-[420px] sm:min-h-[460px] flex-col items-center justify-center rounded-[16px] bg-[#0D0D10] border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099] py-10 px-6 sm:py-12 sm:px-10 text-center"
                   aria-live="polite"
                 >
                   {/* Glowing Animated Circular Badge with Stroke Drawing */}
@@ -442,7 +442,7 @@ export function PartnerPortfolioCTA() {
                   noValidate
                   onSubmit={handleSubmit}
                   onKeyDown={handleStepKeyDown}
-                  className="space-y-6 sm:space-y-7 bg-[#121215] rounded-[16px] px-6 pt-10 pb-12 sm:p-10 border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099]"
+                  className="space-y-6 sm:space-y-7 bg-[#0D0D10] rounded-[16px] px-6 pt-10 pb-12 sm:p-10 border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099]"
                 >
                   <div>
                     <div className="flex items-center justify-between gap-4">

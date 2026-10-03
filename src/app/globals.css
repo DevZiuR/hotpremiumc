@@ -85,6 +85,11 @@ body {
 }
 
 :root {
+  /* Height of the fixed announcement bar, published by <AnnouncementBar />.
+     Consumed by the nav offset, the page spacer, and the hero height so all
+     three stay in sync and animate together when it is dismissed. */
+  --announce-h: 0px;
+
   --color-navy: #101A2B;
   --color-paper: #F6F4EF;
   --color-brass: #A9814B;
@@ -173,6 +178,26 @@ p {
 @keyframes marquee {
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* ── Announcement bar ────────────────────────────────────────────────────
+   One slow diagonal sweep across the bar. The animation is only attached
+   inside a `prefers-reduced-motion: no-preference` block so reduced-motion
+   users never see it start, rather than relying on the global duration guard.
+   ───────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes announce-shimmer {
+    0% {
+      transform: translateX(-120%);
+    }
+    100% {
+      transform: translateX(420%);
+    }
+  }
+
+  .animate-announce-shimmer {
+    animation: announce-shimmer 9s ease-in-out infinite;
   }
 }
 

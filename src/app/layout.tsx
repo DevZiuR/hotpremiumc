@@ -23,9 +23,8 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Hot Premium Customers | We Fund Your Growth. You Keep Running the Business.",
-  description:
-    "Hot Premium Customers is a performance-based growth partner — we put our ad budget, sales team, and technology behind proven operators at no retainer or management fee. We only win when your revenue grows.",
+  title: "Free Exclusive Annuity Leads on Revenue Share | Hot Premium Customers",
+  description: "Exclusive, Highly Responsive & Easy To Close Leads",
   keywords: [
     "growth capital",
     "customer acquisition",

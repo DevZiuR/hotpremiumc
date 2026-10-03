@@ -7,7 +7,7 @@ const faqs = [
   {
     question: "Are you a lead vendor?",
     answer:
-      "No. We are not a lead vendor or agency. We are an equity growth partner. We fund 100% of the media spend and customer acquisition out of our own pocket, install dedicated sales infrastructure, and only make money when your revenue actually grows.",
+      "We do both. We sell exclusive leads to enterprise buyers, and we partner with operators on equity, where we fund 100% of the media spend and customer acquisition and only earn when your revenue grows.",
   },
   {
     question: "How does the equity partnership work?",
