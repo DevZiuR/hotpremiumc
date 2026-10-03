@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { SplitHeading } from "@/components/SplitHeading";
 import { Reveal } from "@/components/Reveal";
 
@@ -139,26 +139,15 @@ const industriesData = [
 export function IndustriesWeServe() {
   // No industry expanded by default on initial load (matching reference)
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
-  // Default photo is /media/industries.png; switches to industry-specific photo when selected
-  const activeImage =
-    selectedImageIndex !== null
-      ? industriesData[selectedImageIndex].image
-      : "/media/industries.png";
-
-  const activeTitle =
-    selectedImageIndex !== null
-      ? industriesData[selectedImageIndex].title
-      : "Industries We Serve";
-
+  /* The panel now shows a single sculpture rather than per-industry photos, so
+     row selection only drives the list's expanded detail. */
   const handleItemClick = (index: number) => {
     if (activeIndex === index) {
       setActiveIndex(null);
-      setSelectedImageIndex(null);
     } else {
       setActiveIndex(index);
-      setSelectedImageIndex(index);
     }
   };
 
@@ -168,7 +157,6 @@ export function IndustriesWeServe() {
       const targetIndex = customEvent.detail?.index;
       if (typeof targetIndex === "number" && industriesData[targetIndex]) {
         setActiveIndex(targetIndex);
-        setSelectedImageIndex(targetIndex);
         const section = document.getElementById("verticals");
         if (section) {
           section.scrollIntoView({ behavior: "smooth" });
@@ -207,23 +195,38 @@ export function IndustriesWeServe() {
 
         {/* ── Two-Column Layout (reference structure: flush visual panel + plain list) ── */}
         <div className="mx-auto w-full max-w-[1000px] grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-5 lg:gap-0 items-stretch lg:overflow-hidden lg:rounded-2xl lg:border lg:border-[rgba(255,255,255,0.08)]">
-          <div className="relative overflow-hidden rounded-[20px] border border-[rgba(255,255,255,0.08)] lg:overflow-visible lg:rounded-none lg:border-0">
-            <div className="relative w-full aspect-[4/3] sm:aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[300px] overflow-hidden bg-[#f4f5f7]">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={activeImage}
-                  src={activeImage}
-                  alt={activeTitle}
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </AnimatePresence>
-              {/* Blend transition into the dark list */}
-              <div aria-hidden="true" className="absolute inset-y-0 right-0 w-20 sm:w-28 lg:w-32 bg-gradient-to-l from-[#000000] via-[#000000]/55 to-transparent pointer-events-none" />
-              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 lg:hidden bg-gradient-to-t from-[#000000]/70 to-transparent pointer-events-none" />
+          <div className="relative overflow-hidden rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#000000] lg:overflow-visible lg:rounded-none lg:border-0">
+            {/* Square stage. The sculpture is shown whole — object-contain with a
+                slight scale keeps its base reflection inside the frame while the
+                radial mask dissolves the PNG's edges into the black panel, so no
+                rectangle or seam is ever visible. */}
+            <div className="relative flex w-full items-center justify-center overflow-hidden bg-[#000000] aspect-square sm:aspect-square lg:aspect-auto lg:h-full lg:min-h-[300px]">
+              {/* Faint gold glow breathing behind the object */}
+              <div
+                aria-hidden="true"
+                className={`pointer-events-none absolute left-1/2 top-1/2 h-[58%] w-[58%] -translate-x-1/2 -translate-y-1/2 rounded-full ${
+                  shouldReduceMotion ? "" : "animate-monolith-glow"
+                }`}
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(201,162,75,0.20) 0%, rgba(201,162,75,0.07) 45%, rgba(0,0,0,0) 72%)",
+                }}
+              />
+
+              <img
+                src="/media/Golden-Edged%20Obsidian%20Monolith.png"
+                alt="Golden-edged obsidian monolith"
+                draggable={false}
+                className={`relative z-10 h-full w-full scale-[1.04] object-contain object-center will-change-transform ${
+                  shouldReduceMotion ? "" : "animate-monolith-float"
+                }`}
+                style={{
+                  maskImage:
+                    "radial-gradient(ellipse 68% 68% at 50% 50%, #000 55%, rgba(0,0,0,0.35) 82%, transparent 100%)",
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse 68% 68% at 50% 50%, #000 55%, rgba(0,0,0,0.35) 82%, transparent 100%)",
+                }}
+              />
             </div>
           </div>
 
@@ -237,7 +240,7 @@ export function IndustriesWeServe() {
                   <div
                     key={item.title}
                     onClick={() => handleItemClick(index)}
-                    className={`group flex-1 flex flex-col justify-center py-[18px] lg:py-3.5 cursor-pointer transition-colors duration-200 select-none px-6 sm:px-10 ${isSelected ? "bg-white/[0.07]" : "bg-transparent hover:bg-white/[0.04]"
+                    className={`group flex-1 flex flex-col justify-center py-[18px] lg:py-3.5 cursor-pointer transition-colors duration-200 select-none px-6 sm:px-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#C9A24B] ${isSelected ? "bg-white/[0.03]" : "bg-transparent hover:bg-white/[0.03]"
                       }`}
                   >
                     {/* Item Header Row */}
@@ -250,8 +253,8 @@ export function IndustriesWeServe() {
 
                       {/* Active-row meta link (matches “View service” in reference) */}
                       {isSelected ? (
-                        <span className="hidden sm:inline-flex items-center gap-2 shrink-0 text-[13px] font-medium text-[#a99bff]">
-                          <span aria-hidden="true" className="text-white">↳</span>
+                        <span className="hidden sm:inline-flex items-center gap-2 shrink-0 text-[13px] font-medium text-white/80 transition-colors duration-200 group-hover:text-[#C9A24B]">
+                          <span aria-hidden="true">↳</span>
                           <span>View service</span>
                         </span>
                       ) : null}
@@ -279,9 +282,9 @@ export function IndustriesWeServe() {
                               {item.subVerticals.map((sub, i) => (
                                 <span
                                   key={i}
-                                  className={`text-xs px-2.5 py-1 rounded-md transition-colors ${sub.startsWith("+")
-                                    ? "bg-white/10 text-neutral-400 font-semibold font-mono"
-                                    : "bg-white/[0.06] text-neutral-200 border border-white/10 font-medium"
+                                  className={`text-xs px-2.5 py-1 rounded-md transition-colors border border-[rgba(255,255,255,0.14)] ${sub.startsWith("+")
+                                    ? "bg-transparent text-white/60 font-semibold font-mono"
+                                    : "bg-transparent text-white/85 font-medium"
                                     }`}
                                 >
                                   {sub}
@@ -293,7 +296,7 @@ export function IndustriesWeServe() {
                             <a
                               href={item.href}
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white hover:underline transition-colors duration-200"
+                              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white hover:text-[#C9A24B] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A24B] transition-colors duration-200"
                             >
                               <span>View all {item.verticalCount}</span>
                               <span>→</span>

@@ -176,6 +176,78 @@ p {
   }
 }
 
+/* ── Industries monolith panel ────────────────────────────────────────────
+   Two slow loops on separate elements: the sculpture drifts, the glow behind
+   it breathes. Amplitude is deliberately tiny (single-digit px / a few percent
+   of alpha) so the panel reads as still. Both are flattened by the
+   prefers-reduced-motion guard at the end of this file.
+   ───────────────────────────────────────────────────────────────────────── */
+@keyframes monolith-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -9px, 0);
+  }
+}
+
+@utility animate-monolith-float {
+  animation: monolith-float 14s ease-in-out infinite;
+}
+
+@keyframes monolith-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@utility animate-monolith-glow {
+  animation: monolith-glow 11s ease-in-out infinite;
+}
+
+/* ── Hero ribbon idle motion ───────────────────────────────────────────────
+   Two very slow, small-amplitude loops on separate elements (wrapper drifts,
+   image pulses) so the transforms never fight each other. Both are decorative
+   and are flattened by the prefers-reduced-motion guard at the end of this
+   file; the framer-motion scroll parallax is gated separately in the component.
+   ───────────────────────────────────────────────────────────────────────── */
+@keyframes ribbon-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-10px, -7px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@utility animate-ribbon-drift {
+  animation: ribbon-drift 17s ease-in-out infinite;
+}
+
+@keyframes ribbon-pulse {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.78;
+  }
+}
+
+@utility animate-ribbon-pulse {
+  animation: ribbon-pulse 14s ease-in-out infinite;
+}
+
 /* Header brand-mark glow: filter-based so it hugs the logo silhouette
    and cannot bleed into the adjacent wordmark. Reduced-motion safe
    via the global guard at the end of this file. */

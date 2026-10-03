@@ -261,9 +261,9 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       context.beginPath();
       path({ type: "Sphere" });
       context.globalAlpha = rimBrightness;
-      context.shadowColor = "rgba(37,99,235,0.35)";
+      context.shadowColor = "rgba(255,255,255,0.16)";
       context.shadowBlur = 24;
-      context.strokeStyle = "rgba(37,99,235,0.35)";
+      context.strokeStyle = "rgba(255,255,255,0.18)";
       context.lineWidth = 1.5;
       context.stroke();
       context.restore();

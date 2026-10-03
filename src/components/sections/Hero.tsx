@@ -1,14 +1,26 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 export function Hero() {
   const [isMounted, setIsMounted] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => setIsMounted(true));
     return () => cancelAnimationFrame(raf);
   }, []);
+
+  /* Ribbon scroll behaviour: trails the page slightly (positive Y) and fades
+     out as the hero leaves. Under reduced motion both resolve to rest. */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const ribbonParallaxY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const ribbonScrollOpacity = useTransform(scrollYProgress, [0, 0.55, 1], [1, 1, 0]);
 
   const getEntranceStyle = (delayMs: number): React.CSSProperties => {
     return {
@@ -23,32 +35,14 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full bg-black pt-16 md:pt-[72px] pb-[100px] overflow-hidden">
-      {/* Centered architectural grid container with vertical guide borders */}
-      <div className="relative max-w-7xl mx-auto border-x border-white/10 min-h-[calc(100vh-72px)] flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 lg:px-12 pt-14 sm:pt-20 md:pt-20 lg:pt-20 pb-16 sm:pb-16 md:pb-20">
-
-        {/* Main Hero Content */}
-        <div className="relative z-20 flex flex-col items-center text-center w-full max-w-6xl mx-auto">
-
-          {/* 1. Pill badge */}
-          <div style={getEntranceStyle(0)}>
-            <div
-              className="inline-flex items-center gap-2 mb-2 sm:mb-4 md:mb-6 rounded-full px-[14px] py-[7px] bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.14)] shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_4px_20px_rgba(0,0,0,0.5)]"
-            >
-              <span
-                className="block flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#C9A24B] shadow-[0_0_8px_rgba(201,162,75,0.5)]"
-                aria-hidden="true"
-              />
-              <span className="font-sans text-[10px] sm:text-[10.5px] font-semibold tracking-[0.08em] uppercase text-white">
-                Growth Capital
-              </span>
-            </div>
-          </div>
+    <section ref={sectionRef} className="relative h-[100svh] min-h-[700px] w-full overflow-hidden bg-black">
+      {/* Main Hero Content — flows from below the nav, never centered */}
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-4 sm:px-6 md:px-10 pt-[130px] md:pt-[190px] text-center">
 
           {/* 2. H1 Headline */}
           <h1
             aria-label="We Fund Your Growth. You Keep the Business."
-            className="font-serif text-[clamp(50px,12.9vw,58px)] sm:text-[9.05vw] md:text-[clamp(54px,7.8vw,92px)] lg:text-[clamp(62px,7.8vw,112px)] font-medium text-white w-full mb-4 sm:mb-6 md:mb-8 tracking-[-0.025em] leading-[1.02] sm:leading-[1.025] sm:whitespace-nowrap"
+            className="font-serif text-[clamp(38px,11vw,64px)] md:text-[clamp(40px,min(8vw,13vh),120px)] font-medium text-white w-full mb-5 tracking-[-0.025em] leading-[1.02]"
           >
             <span className="block overflow-hidden py-[0.06em] -my-[0.06em]">
               <span className="block" style={getEntranceStyle(100)}>
@@ -64,7 +58,7 @@ export function Hero() {
 
           {/* 3. Subheading */}
           <p
-            className="font-sans font-normal text-neutral-400 text-[18px] sm:text-[18px] md:text-[20px] leading-[1.4] max-w-[720px] mx-auto mb-8 sm:mb-10 md:mb-12 [text-wrap:balance]"
+            className="font-sans font-normal text-neutral-400 text-[18px] leading-[1.4] max-w-[640px] mx-auto mb-7 [text-wrap:balance]"
             style={getEntranceStyle(300)}
           >
             We put our ad budget, sales team, and technology behind operators with a proven offer. No retainer. No management fee.
@@ -74,7 +68,7 @@ export function Hero() {
           <div style={getEntranceStyle(400)}>
             <a
               href="#contact"
-              className="group relative inline-flex items-center justify-center gap-2 font-sans font-medium text-[15.5px] sm:text-[17px] px-8 sm:px-10 py-3.5 sm:py-4 rounded-full cursor-pointer text-white bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.18)] hover:border-[rgba(255,255,255,0.3)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.12)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.2)] hover:-translate-y-px active:translate-y-0 transition-all duration-200"
+              className="group relative inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] sm:text-[15px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full cursor-pointer text-black bg-white hover:bg-neutral-200 shadow-[0_10px_30px_rgba(0,0,0,0.45)] hover:-translate-y-px active:translate-y-0 transition-all duration-200"
             >
               <span>Apply for Partnership</span>
               <svg
@@ -90,33 +84,46 @@ export function Hero() {
             </a>
           </div>
 
-        </div>
-
       </div>
 
-      {/* Ribbon — in normal flow so it's never clipped, sits below the hero content */}
+      {/* Ribbon — absolute layer anchored to the hero bottom, full viewport width.
+          Three nested elements so each animation owns its own property:
+          outer = clip + mask, motion = entrance + scroll parallax, inner = idle
+          drift, img = slow brightness pulse. */}
       <div
         aria-hidden="true"
-        className="relative w-full pointer-events-none select-none"
-        style={getEntranceStyle(500)}
+        className="pointer-events-none absolute bottom-0 left-0 z-0 h-[30%] w-full select-none overflow-hidden md:h-[34%]"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent 0%, #000 50%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 50%)",
+        }}
       >
-        <div className="relative w-full">
-          <img
-            src="/media/hero-ribbon.png"
-            alt=""
-            data-lenis-parallax="0.85"
-            className="w-full h-[clamp(110px,20vh,220px)] sm:h-[clamp(115px,20vh,230px)] md:h-[clamp(120px,20vh,260px)] lg:h-[clamp(120px,20vh,260px)] xl:h-[clamp(120px,20vh,260px)] object-cover object-[50%_50%] will-change-transform"
-            style={{
-              maskImage: "linear-gradient(to bottom, #000 70%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, #000 70%, transparent 100%)",
-            }}
-            draggable={false}
-          />
-          {/* Top fade: blends image into the black hero above */}
-          <div className="absolute inset-x-0 top-0 h-[32%] bg-gradient-to-b from-black via-black/40 to-transparent" />
-          {/* Bottom fade: dissolves into #000 so no hard edge to the next section */}
-          <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black via-black/60 to-transparent" />
-        </div>
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: shouldReduceMotion ? 0.6 : 1.2,
+            delay: shouldReduceMotion ? 0 : 0.7,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          style={
+            shouldReduceMotion
+              ? { opacity: 1 }
+              : { y: ribbonParallaxY, opacity: ribbonScrollOpacity }
+          }
+          className="h-full w-full will-change-transform"
+        >
+          <div className={shouldReduceMotion ? "h-full w-full" : "h-full w-full animate-ribbon-drift will-change-transform"}>
+            <img
+              src="/media/hero-ribbon.png"
+              alt=""
+              className={`h-full w-full scale-[1.06] object-cover object-[50%_82%] ${
+                shouldReduceMotion ? "opacity-90" : "animate-ribbon-pulse opacity-90"
+              } will-change-transform`}
+              draggable={false}
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
