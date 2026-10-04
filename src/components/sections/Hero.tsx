@@ -45,40 +45,46 @@ export function Hero() {
           then reverting to the desktop flow below the nav at md and up. */}
       <div className="relative z-10 mx-auto flex h-[56%] w-full max-w-6xl flex-col items-center justify-center px-4 pt-[96px] text-center sm:px-6 md:h-auto md:px-10 md:pt-[190px] md:justify-start">
 
-          {/* 2. H1 Headline */}
+          {/* 2. H1 Headline — second line carries the gold accent */}
           <h1
-            aria-label="We Fund Your Growth. You Keep the Business."
-            className="font-serif text-[clamp(40px,11.5vw,56px)] md:text-[clamp(40px,min(8vw,13vh),120px)] font-medium text-white w-full mb-5 tracking-[-0.025em] leading-[1.05] md:leading-[1.02]"
+            aria-label="We Run Ads For Other Companies With Our Own Money"
+            className="font-serif text-[clamp(36px,10.5vw,56px)] md:text-[clamp(38px,min(7.4vw,12vh),116px)] font-medium text-white w-full mb-5 tracking-[-0.025em] leading-[1.05] md:leading-[1.02]"
           >
             <span className="block overflow-hidden py-[0.06em] -my-[0.06em]">
               <span className="block" style={getEntranceStyle(100)}>
-                We Fund Your Growth.
+                We Run Ads For Other Companies
               </span>
             </span>
             <span className="block overflow-hidden py-[0.06em] -my-[0.06em]">
-              <span className="block" style={getEntranceStyle(200)}>
-                You Keep the Business.
+              <span
+                className="block text-[#C9A24B]"
+                style={getEntranceStyle(200)}
+              >
+                With Our Own Money
               </span>
             </span>
           </h1>
 
           {/* 3. Subheading */}
           <p
-            className="font-sans font-normal text-neutral-400 text-[18px] leading-[1.4] max-w-[640px] mx-auto mb-7 [text-wrap:balance]"
+            className="font-sans font-normal text-neutral-400 text-[17px] sm:text-[18px] md:text-[19px] leading-[1.45] max-w-[720px] mx-auto mb-7 [text-wrap:balance]"
             style={getEntranceStyle(300)}
           >
-            We put our ad budget, sales team, and technology behind operators with a proven offer. No retainer. No management fee.
+            We sell leads to enterprise businesses and/or equity partner and scale companies with our own team, assets, and capital.
           </p>
 
-          {/* 4. CTA Button (gold pill with glass edge) */}
-          <div style={getEntranceStyle(400)}>
+          {/* 4. CTA — gold primary */}
+          <div
+            className="flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+            style={getEntranceStyle(400)}
+          >
             <a
               href="#contact"
-              className="group relative inline-flex items-center justify-center gap-2 font-sans font-semibold text-[14px] sm:text-[15px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full cursor-pointer text-black bg-[linear-gradient(to_bottom,#D9B25A,#BD9238)] border border-[rgba(255,255,255,0.35)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_6px_28px_rgba(201,162,75,0.3)] hover:bg-[#E3BE68] hover:-translate-y-px active:translate-y-0 transition-all duration-200"
+              className="group inline-flex items-center justify-center gap-2 rounded-full cursor-pointer bg-[linear-gradient(to_bottom,#D9B25A,#BD9238)] border border-[rgba(255,255,255,0.35)] px-6 sm:px-7 py-3 sm:py-3.5 font-sans text-[14px] sm:text-[15px] font-semibold text-black shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_6px_28px_rgba(201,162,75,0.3)] transition-all duration-200 hover:bg-[#E3BE68] hover:-translate-y-px active:translate-y-0"
             >
-              <span>See If You Qualify</span>
+              <span>Get Leads</span>
               <svg
-                className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-[3px]"
+                className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-[3px]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
