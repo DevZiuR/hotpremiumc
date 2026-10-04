@@ -664,7 +664,7 @@ export function Header() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2, delay: 0.15 }}
-                  className="flex h-12 w-full items-center justify-between rounded-full bg-white px-6 font-sans text-[14px] font-semibold tracking-normal text-black hover:bg-white/90 transition-colors duration-150"
+                  className="flex h-12 w-full items-center justify-between rounded-full bg-[linear-gradient(to_bottom,#D9B25A,#BD9238)] border border-[rgba(255,255,255,0.35)] px-6 font-sans text-[14px] font-semibold tracking-normal text-black shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_6px_28px_rgba(201,162,75,0.3)] hover:bg-[#E3BE68] transition-all duration-200"
                 >
                   <span>Apply now</span>
                   <span aria-hidden="true" className="text-black">→</span>
