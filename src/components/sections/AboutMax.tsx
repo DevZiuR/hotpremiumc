@@ -1,12 +1,95 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { SplitHeading } from "@/components/SplitHeading";
 import { VisualReveal } from "@/components/VisualReveal";
 
+const COUNT_TARGETS = [52, 50, 7] as const;
+const COUNT_DURATION = 1400;
+
+/**
+ * Counts 0 → target once the element scrolls into view.
+ *
+ * Defaults to the final value so the number is always correct and readable
+ * even if the observer, rAF, or JS itself never runs — the animation only ever
+ * replaces a correct value with a temporary one.
+ */
+function useCountUp(target: number, start: boolean) {
+  const [value, setValue] = useState(target);
+
+  useEffect(() => {
+    if (!start) return;
+
+    let frame = 0;
+    let startTime: number | null = null;
+
+    const step = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / COUNT_DURATION, 1);
+      /* Ease-out quart: quick launch, slow settle — reads as a deliberate count. */
+      const eased = 1 - Math.pow(1 - progress, 4);
+      setValue(Math.round(eased * target));
+      if (progress < 1) {
+        frame = requestAnimationFrame(step);
+      } else {
+        setValue(target);
+      }
+    };
+
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [start, target]);
+
+  return value;
+}
+
 export function AboutMax() {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [hasTriggered, setHasTriggered] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  /* Honour reduced motion up front so the numbers never animate. */
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  /* Attached after mount. Fires immediately when the section is already in
+     view on load, which IntersectionObserver does on its first callback. */
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setHasTriggered(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasTriggered(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  /* Reduced motion or an untriggered observer → show the real numbers. */
+  const animate = hasTriggered && !prefersReducedMotion;
+  const stat1 = useCountUp(COUNT_TARGETS[0], animate);
+  const stat2 = useCountUp(COUNT_TARGETS[1], animate);
+  const stat3 = useCountUp(COUNT_TARGETS[2], animate);
+
   const goldText: React.CSSProperties = {
     background: "linear-gradient(to right, #F3E3B5 0%, #C9A24B 55%, #9A7B3C 100%)",
     WebkitBackgroundClip: "text",
@@ -75,8 +158,9 @@ export function AboutMax() {
               </div>
             </Reveal>
 
-            {/* Track Record Stat Highlights — minimal gold-gradient row, no cards */}
-            <div className="relative mt-8 sm:mt-10">
+            {/* Track Record Stat Highlights — minimal gold-gradient row, no cards.
+                Count-up triggers once via IntersectionObserver on this wrapper. */}
+            <div ref={statsRef} className="relative mt-8 sm:mt-10">
               {/* faint warm radial glow, fully fading to black */}
               <div
                 aria-hidden="true"
@@ -92,7 +176,9 @@ export function AboutMax() {
                     className="font-serif font-normal tracking-tight leading-[1] text-[32px] sm:text-[44px] lg:text-[52px] tabular-nums"
                     style={goldText}
                   >
-                    $52M/yr
+                    <span>$</span>
+                    <span style={{ display: "inline-block", minWidth: "1.5ch" }}>{stat1}</span>
+                    <span>M/yr</span>
                   </div>
                   <div className="mt-2 font-sans text-[14px] sm:text-[15px] font-normal leading-normal text-[rgba(255,255,255,0.6)]">
                     Coaching Company
@@ -103,7 +189,9 @@ export function AboutMax() {
                     className="font-serif font-normal tracking-tight leading-[1] text-[32px] sm:text-[44px] lg:text-[52px] tabular-nums"
                     style={goldText}
                   >
-                    $50M
+                    <span>$</span>
+                    <span style={{ display: "inline-block", minWidth: "1.5ch" }}>{stat2}</span>
+                    <span>M</span>
                   </div>
                   <div className="mt-2 font-sans text-[14px] sm:text-[15px] font-normal leading-normal text-[rgba(255,255,255,0.6)]">
                     In 10 Months (Medical)
@@ -114,7 +202,8 @@ export function AboutMax() {
                     className="font-serif font-normal tracking-tight leading-[1] text-[32px] sm:text-[44px] lg:text-[52px] tabular-nums"
                     style={goldText}
                   >
-                    7-Figure
+                    <span style={{ display: "inline-block", minWidth: "1ch" }}>{stat3}</span>
+                    <span>-Figure</span>
                   </div>
                   <div className="mt-2 font-sans text-[14px] sm:text-[15px] font-normal leading-normal text-[rgba(255,255,255,0.6)]">
                     Apparel First Year

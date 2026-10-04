@@ -70,15 +70,15 @@ export function Hero() {
             We put our ad budget, sales team, and technology behind operators with a proven offer. No retainer. No management fee.
           </p>
 
-          {/* 4. CTA Button (sleek dark pill with ambient shadow) */}
+          {/* 4. CTA Button (gold pill with glass edge) */}
           <div style={getEntranceStyle(400)}>
             <a
               href="#contact"
-              className="group relative inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] sm:text-[15px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full cursor-pointer text-black bg-white hover:bg-neutral-200 shadow-[0_10px_30px_rgba(0,0,0,0.45)] hover:-translate-y-px active:translate-y-0 transition-all duration-200"
+              className="group relative inline-flex items-center justify-center gap-2 font-sans font-semibold text-[14px] sm:text-[15px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full cursor-pointer text-black bg-[linear-gradient(to_bottom,#D9B25A,#BD9238)] border border-[rgba(255,255,255,0.35)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_6px_28px_rgba(201,162,75,0.3)] hover:bg-[#E3BE68] hover:-translate-y-px active:translate-y-0 transition-all duration-200"
             >
               <span>See If You Qualify</span>
               <svg
-                className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
+                className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-[3px]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

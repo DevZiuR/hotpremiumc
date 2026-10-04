@@ -356,18 +356,20 @@ export function PartnerPortfolioCTA() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start lg:items-center">
           <div className="lg:col-span-5">
-            {/* Heading: SplitHeading line reveal */}
+            {/* Heading: SplitHeading line reveal. Copy swaps to the
+                post-submit state so the panel reflects the result. */}
             <SplitHeading
               as="h2"
               delay={0}
-              lines={["Let's talk", "what's next."]}
+              lines={submitted ? ["You're in the", "queue."] : ["Let's talk", "what's next."]}
               className="font-serif section-h2 font-normal tracking-[-0.025em] mb-4 text-white"
             />
 
             {/* Supporting copy */}
             <p className="font-sans text-[18px] sm:text-[20px] text-neutral-400 leading-[1.6] max-w-[62ch]">
-              Tell us about your business and growth goals. Our team will
-              review your application and get back to you within 24 hours.
+              {submitted
+                ? "Keep an eye on your inbox."
+                : "Tell us about your business and growth goals. Our team will review your application and get back to you within 24 hours."}
             </p>
 
           </div>
@@ -386,39 +388,41 @@ export function PartnerPortfolioCTA() {
                   className="flex min-h-[420px] sm:min-h-[460px] flex-col items-center justify-center rounded-[16px] bg-[#0D0D10] border border-white/[0.08] shadow-[inset_0_1px_0_#C9A24B4D,0_25px_60px_-15px_#00000099] py-10 px-6 sm:py-12 sm:px-10 text-center"
                   aria-live="polite"
                 >
-                  {/* Glowing Animated Circular Badge with Stroke Drawing */}
-                  <div className="mx-auto w-20 h-20 mb-6 flex items-center justify-center rounded-full bg-emerald-500/10 border border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.22)]">
+{/* Thin gold check inside a hairline gold ring. The tick draws itself via
+                      stroke-dashoffset (normalized with pathLength="1" so the dash
+                      maths is exact regardless of the path's real length). */}
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center">
                     <svg
                       viewBox="0 0 64 64"
                       fill="none"
-                      className="h-11 w-11 text-emerald-400 overflow-visible"
+                      className="h-20 w-20"
                       aria-hidden="true"
                     >
                       <circle
                         cx="32"
                         cy="32"
-                        r="28"
-                        stroke="rgba(0, 0, 0, 0.3)"
-                        strokeWidth="2"
+                        r="30"
+                        stroke="rgba(201,162,75,0.55)"
+                        strokeWidth="1.5"
                       />
                       <motion.path
-                        d="M20 33l8 8 17-19"
-                        stroke="#10B981"
-                        strokeWidth="3.5"
+                        d="M21 33.5 28.5 41 43 25"
+                        pathLength={1}
+                        strokeDasharray={1}
+                        stroke="#C9A24B"
+                        strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        initial={
-                          shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }
-                        }
-                        animate={{ pathLength: 1 }}
+                        initial={{ strokeDashoffset: shouldReduceMotion ? 0 : 1 }}
+                        animate={{ strokeDashoffset: 0 }}
                         transition={
                           shouldReduceMotion
                             ? { duration: 0 }
                             : {
-                              duration: 0.65,
-                              delay: 0.2,
-                              ease: [0.16, 1, 0.3, 1],
-                            }
+                                duration: 0.6,
+                                delay: 0.15,
+                                ease: [0.16, 1, 0.3, 1],
+                              }
                         }
                       />
                     </svg>
@@ -427,13 +431,9 @@ export function PartnerPortfolioCTA() {
                   <h3 className="font-serif text-[28px] sm:text-[52px] font-normal text-[#F5F5F5] leading-tight mb-3">
                     Application received.
                   </h3>
-                  <p className="font-sans text-[17px] sm:text-[19px] text-white/60 leading-relaxed max-w-[42ch] mb-6">
-                    We&apos;ll get back to you as soon as possible.
+                  <p className="font-sans text-[17px] sm:text-[19px] text-white/60 leading-relaxed max-w-[42ch]">
+                    We&apos;ll review it and reply within 24 hours.
                   </p>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-xs font-mono text-white/60">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    Review team notified
-                  </div>
                 </motion.div>
               ) : (
                 <form

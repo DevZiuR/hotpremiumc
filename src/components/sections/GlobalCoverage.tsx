@@ -23,7 +23,7 @@ export function GlobalCoverage() {
             {/* Supporting copy: 180ms */}
             <Reveal delay={180}>
               <p className="font-sans text-[17px] text-white/65 leading-[1.6] max-w-[62ch] font-normal">
-                North America, the UK, Western Europe, the Nordics, Australia and New Zealand. We build campaigns around the markets you&apos;re licensed to serve, delivering exclusive leads in real time — on a revenue share basis or straight to enterprise buyers.
+                North America, the UK, Western Europe, the Nordics, Australia and New Zealand. We build campaigns around the markets you&apos;re licensed to serve, delivering exclusive leads in real time, on a revenue share basis or straight to enterprise buyers.
               </p>
             </Reveal>
           </div>

@@ -196,15 +196,15 @@ export function ProblemGrid() {
                 .join(" ")}
             >
               <div className="flex h-full flex-col items-start text-left">
-                {/* Icon tile */}
-                <div className="w-11 h-11 rounded-[10px] bg-[rgba(255,255,255,0.06)] flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-[rgba(255,255,255,0.75)]" />
+                {/* Icon tile — 64px with a flat gold glyph and a hairline gold edge */}
+                <div className="flex h-16 w-16 items-center justify-center rounded-[14px] border border-[rgba(212,168,75,0.15)] bg-[rgba(255,255,255,0.06)]">
+                  <item.icon className="h-8 w-8 text-[#D4A84B]" />
                 </div>
 
-                <h3 className="mt-6 lg:mt-14 font-sans text-[24px] font-normal leading-[1.2] text-white">
+                <h3 className="mt-6 font-sans text-[24px] font-normal leading-[1.2] text-white">
                   {item.title}
                 </h3>
-                <p className="mt-3 font-sans text-[15px] leading-[1.5] text-[rgba(255,255,255,0.6)] max-w-[240px]">
+                <p className="mt-3 font-sans text-[15px] leading-[1.5] text-[rgba(255,255,255,0.7)] max-w-[240px]">
                   {item.description}
                 </p>
               </div>

@@ -26,7 +26,9 @@ const markets: Market[] = [
   { name: "United States", coordinates: [-98, 39] },
   { name: "Canada", coordinates: [-98, 56] },
   { name: "UK", coordinates: [-2, 54] },
-  { name: "Western Europe", coordinates: [2, 46] },
+  /* [-1, 44.5] sits over southern France near the Pyrenees, so the marker
+     lands on France/Iberia rather than dropping into the Mediterranean. */
+  { name: "Western Europe", coordinates: [-1, 44.5] },
   { name: "Nordics", coordinates: [15, 63] },
   { name: "Australia", coordinates: [134, -26] },
   { name: "New Zealand", coordinates: [172, -42] },
@@ -201,8 +203,16 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
       };
     };
 
-    const drawMarketMarker = (layout: LabelLayout) => {
-      const dotRadius = isMobile ? 2.75 : 3.25;
+    /* Dot radius — 1.5x the previous 2.75 / 3.25. Exported so the label offset can
+   be measured from the dot's edge rather than its centre. */
+const DOT_RADIUS_MOBILE = 4.125;
+const DOT_RADIUS_DESKTOP = 4.875;
+
+/** Clear gap between the dot's rim and the nearest edge of its label. */
+const LABEL_GAP = 11;
+
+const drawMarketMarker = (layout: LabelLayout) => {
+      const dotRadius = isMobile ? DOT_RADIUS_MOBILE : DOT_RADIUS_DESKTOP;
       const fontSize = isMobile ? 10 : 11;
 
       context.save();
@@ -216,12 +226,17 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
 
       context.beginPath();
       context.arc(layout.point[0], layout.point[1], dotRadius, 0, Math.PI * 2);
-      context.shadowColor = "rgba(201, 162, 75, 0.6)";
-      context.shadowBlur = 10;
+      /* Soft gold halo: 30% gold blurred beneath the dot. */
+      context.shadowColor = "rgba(201, 162, 75, 0.3)";
+      context.shadowBlur = 12;
       context.fillStyle = "#C9A24B";
+      context.fill();
+      /* Second, tighter pass strengthens the core of the halo. */
+      context.shadowBlur = 5;
       context.fill();
       context.shadowBlur = 0;
       context.strokeStyle = "rgba(255, 255, 255, 0.85)";
+      context.lineWidth = 1;
       context.stroke();
 
       context.font = `500 ${fontSize}px "Instrument Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
@@ -300,7 +315,10 @@ export default function GlobalCoverageMap({ className = "" }: { className?: stri
         const radialX = point[0] - centerX;
         const radialY = point[1] - centerY;
         const radialLength = Math.hypot(radialX, radialY) || 1;
-        const labelOffset = isMobile ? 11 : 13;
+        /* Offset measured from the dot's rim, so the growing dot never pushes its own
+           label underneath the glyph. */
+        const dotRadius = isMobile ? DOT_RADIUS_MOBILE : DOT_RADIUS_DESKTOP;
+        const labelOffset = dotRadius + LABEL_GAP;
         pendingLayouts.push({
           market,
           point,

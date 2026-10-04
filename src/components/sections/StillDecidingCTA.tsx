@@ -4,7 +4,7 @@ import React from "react";
 
 export function StillDecidingCTA() {
   return (
-    <section className="relative bg-[#000000] px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 overflow-hidden">
+    <section className="relative bg-[#000000] px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 overflow-hidden">
       {/* Soft gold glow behind the text block. Ellipse stops well inside the
           box and ends on `transparent`, so no edge is ever visible. */}
       <div
@@ -24,44 +24,41 @@ export function StillDecidingCTA() {
           Stop funding your own growth.
         </h2>
 
-        {/* Subtext */}
-        <p className="font-sans text-[15px] sm:text-[17px] font-normal leading-[1.6] text-white/55 max-w-[520px] mt-5 sm:mt-6 [text-wrap:balance]">
-          Questions before you apply? Reach out directly.
-        </p>
-
-        {/* Buttons */}
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
-          {/* Primary — solid white, black text */}
+        {/* Primary — gold pill, matching the hero CTA */}
+        <div className="mt-8 sm:mt-10 flex w-full flex-col items-center justify-center">
           <a
-            href="mailto:contact@hotpremiumcustomers.com"
-            className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 sm:px-8 py-3.5 font-sans text-[14px] sm:text-[15px] font-semibold text-black transition-colors duration-200 hover:bg-white/90"
+            href="#contact"
+            className="group inline-flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(to_bottom,#D9B25A,#BD9238)] border border-[rgba(255,255,255,0.35)] px-6 sm:px-7 py-3 sm:py-3.5 font-sans text-[14px] sm:text-[15px] font-semibold text-black shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_6px_28px_rgba(201,162,75,0.3)] transition-all duration-200 hover:bg-[#E3BE68] hover:-translate-y-px active:translate-y-0"
           >
-            <span>Talk to us</span>
+            <span>Apply for partnership</span>
             <svg
-              className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
+              className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-[3px]"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
               aria-hidden="true"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </a>
 
-          {/* Secondary — transparent, hairline border */}
+          {/* Direct-contact fallback */}
           <a
-            href="#contact"
-            className="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-7 sm:px-8 py-3.5 font-sans text-[14px] sm:text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-white/5"
+            href="mailto:contact@hotpremiumcustomers.com"
+            className="mt-5 text-[13px] font-sans text-white/55 underline decoration-transparent underline-offset-[4px] transition-colors duration-200 hover:text-[#C9A24B] hover:decoration-[#C9A24B] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C9A24B]"
           >
-            Apply for partnership
+            Questions first? Reach out directly
           </a>
         </div>
       </div>
 
-      {/* Gold ribbon — centred below the buttons, both edges faded into #000 so
-          it dissolves into the black section and the footer below it. */}
-      <div className="relative z-10 mx-auto mt-14 sm:mt-20 w-full max-w-5xl">
+      {/* Gold ribbon — centred below the content, both edges faded into #000 so
+          it dissolves into the black section and the footer below it. The
+          mt-14 / sm:mt-16 gap keeps well over 48px of clear black above the
+          ribbon's visible crest; the section's bottom padding gives the full
+          ribbon room to land. */}
+      <div className="relative z-10 mx-auto mt-14 sm:mt-16 w-full max-w-5xl">
         <div className="relative">
           <img
             src="/media/hero-ribbon.png"

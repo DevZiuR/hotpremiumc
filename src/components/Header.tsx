@@ -471,7 +471,7 @@ export function Header() {
               href="#contact"
               className={`inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 font-sans text-[13px] font-medium leading-none tracking-normal text-white cursor-pointer bg-[linear-gradient(to_bottom,#1C1C1F,#0A0A0B)] border border-[rgba(255,255,255,0.5)] hover:border-[rgba(255,255,255,0.7)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.12)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_0_12px_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(201,162,75,0.2)] transition-all duration-200 hover:-translate-y-px active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A24B] sm:px-5 sm:text-[14px] ${pastHero ? "md:inline-flex" : "max-md:hidden"}`}
             >
-              Check Availability
+              Apply now
             </a>
 
             {/* Hamburger */}
@@ -666,7 +666,7 @@ export function Header() {
                   transition={{ duration: 0.2, delay: 0.15 }}
                   className="flex h-12 w-full items-center justify-between rounded-full bg-white px-6 font-sans text-[14px] font-semibold tracking-normal text-black hover:bg-white/90 transition-colors duration-150"
                 >
-                  <span>Check Availability</span>
+                  <span>Apply now</span>
                   <span aria-hidden="true" className="text-black">→</span>
                 </motion.a>
               </div>

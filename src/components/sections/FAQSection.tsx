@@ -88,7 +88,11 @@ export function FAQSection() {
                       aria-expanded={isOpen}
                       aria-controls={answerId}
                     >
-                      <span className="font-serif text-[22px] leading-[1.15] md:text-[30px] md:leading-[38px] font-normal tracking-[-0.01em] min-w-0 [text-wrap:balance] text-white transition-colors duration-200 group-hover:text-[#C9A24B] group-focus-visible:text-[#C9A24B] active:text-[#C9A24B] motion-reduce:transition-none">
+                      <span
+                        className={`font-serif text-[22px] leading-[1.15] md:text-[30px] md:leading-[38px] font-normal tracking-[-0.01em] min-w-0 [text-wrap:balance] transition-colors duration-200 group-hover:text-[#C9A24B] group-focus-visible:text-[#C9A24B] active:text-[#C9A24B] motion-reduce:transition-none ${
+                          isOpen ? "text-[#C9A24B]" : "text-white"
+                        }`}
+                      >
                         {faq.question}
                       </span>
                       <svg
